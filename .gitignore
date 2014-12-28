@@ -30,4 +30,7 @@
 !battlegear_update.xml
 !changelog.md
 
+#Don't ignore some battleclasses folders
+!battleclasses image sources
+
 
