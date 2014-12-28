@@ -14,10 +14,10 @@
 
 !src/
 
-#Also don't ignore the install scripts
-!gradle*
-!gradle/
-!build.gradle
+#Also don't ignore the install scripts. De en megis leszarom!
+#!gradle*
+#!gradle/
+#!build.gradle
 
 #Or this file ;) (or readme)
 !.gitignore
