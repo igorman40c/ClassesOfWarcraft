@@ -2,6 +2,8 @@ package mods.battlegear2.api.core;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import mods.battleclasses.BattleClassesUtils;
+import mods.battleclasses.core.BattleClassesPlayerHooks;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -19,20 +21,24 @@ import net.minecraftforge.common.MinecraftForge;
  */
 public class InventoryPlayerBattle extends InventoryPlayer {
 
+	public static int BC_WEAPON_SETS = 1;
+	
     public boolean hasChanged = true;
     public static int ARMOR_OFFSET = 100;
     public static int OFFSET = 150;
-    public static int WEAPON_SETS = 3;
-
+    public static int WEAPON_SETS = BC_WEAPON_SETS;
+    
     public static int EXTRA_ITEMS = WEAPON_SETS * 2;
     public static int EXTRA_INV_SIZE = EXTRA_ITEMS + 6 + 6;
 
     public ItemStack[] extraItems;
-
+    
+    public BattleClassesPlayerHooks battleClassesPlayerHooks;
 
     public InventoryPlayerBattle(EntityPlayer entityPlayer) {
         super(entityPlayer);
         extraItems = new ItemStack[EXTRA_INV_SIZE];
+        battleClassesPlayerHooks = new BattleClassesPlayerHooks(entityPlayer);
     }
 
     /**
@@ -142,17 +148,21 @@ public class InventoryPlayerBattle extends InventoryPlayer {
 
         	if (direction > 0){
         		direction = 1;
+        		BattleClassesUtils.getPlayerSpellBook(this.player).decrementChosenAbilityIndex();
             }else if (direction != 0){
             	direction = -1;
+            	BattleClassesUtils.getPlayerSpellBook(this.player).incrementChosenAbilityIndex();
             }
-
+        	
             //noinspection StatementWithEmptyBody
+        	/*
             for (currentItem -= direction; currentItem < OFFSET; currentItem += WEAPON_SETS) {
             }
 
             while (currentItem >= OFFSET + WEAPON_SETS) {
                 currentItem -= WEAPON_SETS;
             }
+            */
 
         } else {
             super.changeCurrentItem(direction);
