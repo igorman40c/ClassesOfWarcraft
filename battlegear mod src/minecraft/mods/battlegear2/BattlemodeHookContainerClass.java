@@ -106,6 +106,7 @@ public final class BattlemodeHookContainerClass {
             event.entityPlayer.isSwingInProgress = false;
         }else if(((IBattlePlayer) event.entityPlayer).isBattlemode()) {
             if(event.action == PlayerInteractEvent.Action.RIGHT_CLICK_AIR || event.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {//Right click
+            	/*
                 ItemStack mainHandItem = event.entityPlayer.getCurrentEquippedItem();
                 if(mainHandItem == null || !BattlegearUtils.usagePriorAttack(mainHandItem)) {
                     ItemStack offhandItem = ((InventoryPlayerBattle) event.entityPlayer.inventory).getCurrentOffhandWeapon();
@@ -113,6 +114,7 @@ public final class BattlemodeHookContainerClass {
                         event.setCanceled(true);
                     sendOffSwingEvent(event, mainHandItem, offhandItem);
                 }
+                */
             }else {//Left click
                 ItemStack mainHandItem = event.entityPlayer.getCurrentEquippedItem();
                 if(mainHandItem!=null && mainHandItem.getItem() instanceof IHandListener){
