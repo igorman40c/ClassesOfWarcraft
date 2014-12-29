@@ -36,6 +36,11 @@ public class BattleClassesGuiButton extends GuiButton {
 	public boolean displayTooltip = false;
 	public String tooltipDescription = "";
 	
+	public BattleClassesGuiButton(int id, int x, int y, String name) {
+		super(id, x, y, DEFAULT_WIDHT, DEFAULT_HEIGHT, name);
+		this.displayString = "";
+	}
+	
 	public BattleClassesGuiButton(int id, int x, int y, int width, int height, String name) {
 		super(id, x, y, width, height, name);
 		this.displayString = "";
@@ -66,7 +71,7 @@ public class BattleClassesGuiButton extends GuiButton {
 	}
 	
 	@Override
-	protected int getHoverState(boolean isMouseOver)
+	public int getHoverState(boolean isMouseOver)
     {
 		if(!shouldBeDisabled()){
 			return super.getHoverState(isMouseOver);

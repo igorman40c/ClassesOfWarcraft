@@ -7,7 +7,6 @@ import mods.battlegear2.BattlemodeHookContainerClass;
 import mods.battlegear2.BgPlayerTracker;
 import mods.battlegear2.BowHookContainerClass2;
 import mods.battlegear2.CommonProxy;
-import mods.battlegear2.MCPCFixHelper;
 import mods.battlegear2.MobHookContainerClass;
 import mods.battlegear2.WeaponHookContainerClass;
 

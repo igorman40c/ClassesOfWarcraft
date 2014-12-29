@@ -50,12 +50,13 @@ import mods.battlegear2.client.gui.BattlegearInGameGUI;
 public class BattleClassesInGameGUI extends BattlegearInGameGUI {
 	
     public static Class<?> previousGui;
-    //public static Minecraft mc;
+    public static Minecraft mc;
     public static final ResourceLocation resourceLocationHUD = new ResourceLocation("battleclasses", "textures/gui/InGameGUI.png");
-    
+        
     public BattleClassesInGameGUI() {
     	super();
     	this.initHighLightLabels();
+    	mc = Minecraft.getMinecraft();
     }
     
     public int AbilityActionBarPosX = 0;
@@ -64,7 +65,7 @@ public class BattleClassesInGameGUI extends BattlegearInGameGUI {
     public void renderGameOverlay(float frame, int mouseX, int mouseY) {
     	
         if(Battlegear.battlegearEnabled){
-            ScaledResolution scaledresolution = new ScaledResolution(this.mc.gameSettings, this.mc.displayWidth, this.mc.displayHeight);
+            ScaledResolution scaledresolution = new ScaledResolution(this.mc, this.mc.displayWidth, this.mc.displayHeight);
             int width = scaledresolution.getScaledWidth();
             int height = scaledresolution.getScaledHeight();
             RenderGameOverlayEvent renderEvent = new RenderGameOverlayEvent(frame, scaledresolution, mouseX, mouseY);
@@ -201,7 +202,7 @@ public class BattleClassesInGameGUI extends BattlegearInGameGUI {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.renderEngine.bindTexture(resourceLocationHUD);
 
-        ScaledResolution scaledresolution = new ScaledResolution(this.mc.gameSettings, this.mc.displayWidth, this.mc.displayHeight);
+        ScaledResolution scaledresolution = new ScaledResolution(this.mc, this.mc.displayWidth, this.mc.displayHeight);
         int width = scaledresolution.getScaledWidth();
         int height = scaledresolution.getScaledHeight();
         int actionbarWidth = ABILITY_ACTIONBAR_WIDTH;
@@ -227,40 +228,6 @@ public class BattleClassesInGameGUI extends BattlegearInGameGUI {
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
         GL11.glDisable(GL11.GL_BLEND);
     }
-
-    public void renderBlockBar(int x, int y) {
-        GL11.glEnable(GL11.GL_BLEND);
-        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.renderEngine.bindTexture(resourceLocationShield);
-
-        if(mc.thePlayer!=null){
-            if(mc.thePlayer.capabilities.isCreativeMode){
-                if(mc.thePlayer.isRidingHorse()){
-                    y-=5;
-                }
-            }else{
-                y-= 16;
-                if(ForgeHooks.getTotalArmorValue(mc.thePlayer) > 0 || mc.thePlayer.isRidingHorse() || mc.thePlayer.getAir() < 300){
-                    y-=10;
-                }
-            }
-        }
-
-        this.drawTexturedModalRect(x, y, 0, 0, 182, 9);
-
-        float[] colour = BattlegearClientTickHandeler.COLOUR_DEFAULT;
-        if(BattlegearClientTickHandeler.blockBar < 0.33F){
-            colour = BattlegearClientTickHandeler.COLOUR_RED;
-        }
-        if(BattlegearClientTickHandeler.getFlashTimer() > 0 && (System.currentTimeMillis() / 250) % 2 == 0){
-            colour = BattlegearClientTickHandeler.COLOUR_YELLOW;
-        }
-        GL11.glColor3f(colour[0], colour[1], colour[2]);
-        this.drawTexturedModalRect(x, y, 0, 9, (int) (182 * BattlegearClientTickHandeler.blockBar), 9);
-
-        GL11.glDisable(GL11.GL_BLEND);
-    }
     
     protected boolean shouldDrawBossHealthBar() {
     	return (BossStatus.bossName != null && BossStatus.statusBarTime > 0);
@@ -272,7 +239,7 @@ public class BattleClassesInGameGUI extends BattlegearInGameGUI {
         {
             --BossStatus.statusBarTime;
             FontRenderer fontrenderer = this.mc.fontRenderer;
-            ScaledResolution scaledresolution = new ScaledResolution(this.mc.gameSettings, this.mc.displayWidth, this.mc.displayHeight);
+            ScaledResolution scaledresolution = new ScaledResolution(this.mc, this.mc.displayWidth, this.mc.displayHeight);
             int i = scaledresolution.getScaledWidth();
             short short1 = 182;
             int j = i / 2 - short1 / 2;
@@ -304,7 +271,7 @@ public class BattleClassesInGameGUI extends BattlegearInGameGUI {
     	
     	if(BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).isCastingInProgress() ||
     			BattleClassesUtils.getPlayerHooks(mc.thePlayer).playerClass.getCooldownClock().isOnCooldown()) {
-            ScaledResolution scaledresolution = new ScaledResolution(this.mc.gameSettings, this.mc.displayWidth, this.mc.displayHeight);
+            ScaledResolution scaledresolution = new ScaledResolution(this.mc, this.mc.displayWidth, this.mc.displayHeight);
     		int x = scaledresolution.getScaledWidth()/2 - CAST_BAR_WIDTH/2;
     		int y = 12 + BattleClassesInGameGUI.ABILITY_ACTIONBAR_HEIGHT;
     		if(this.shouldDrawBossHealthBar()) {
@@ -473,7 +440,7 @@ public class BattleClassesInGameGUI extends BattlegearInGameGUI {
 	}
 	
 	public void drawHighLightedLabels() {
-		ScaledResolution scaledresolution = new ScaledResolution(this.mc.gameSettings, this.mc.displayWidth, this.mc.displayHeight);
+		ScaledResolution scaledresolution = new ScaledResolution(this.mc, this.mc.displayWidth, this.mc.displayHeight);
         int centerGap = 5;
 		targetDisplay_HLL.posX = scaledresolution.getScaledWidth() / 2; // + centerGap;
 		targetDisplay_HLL.posY = scaledresolution.getScaledHeight() / 2 - centerGap - mc.fontRenderer.FONT_HEIGHT;

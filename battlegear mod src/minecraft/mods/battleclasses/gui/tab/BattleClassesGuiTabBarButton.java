@@ -26,10 +26,11 @@ import net.minecraft.util.ResourceLocation;
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
 import mods.battleclasses.client.BattleClassesClientEvents;
+import mods.battleclasses.gui.controlls.BattleClassesGuiButton;
 import mods.battlegear2.client.gui.BattleEquipGUI;
 import mods.battlegear2.client.gui.controls.GuiPlaceableButton;
 
-public abstract class BattleClassesGuiTabBarButton extends GuiPlaceableButton {
+public abstract class BattleClassesGuiTabBarButton extends BattleClassesGuiButton {
 	
 	public IIcon tabButtonIcon;
 	
@@ -40,12 +41,14 @@ public abstract class BattleClassesGuiTabBarButton extends GuiPlaceableButton {
 	public BattleClassesGuiTabBarButton(int par1, int par2, int par3,
 			String name) {
 		super(par1, par2, par3, name);
+		this.tooltipDescription = name;
 		this.setContentPositionAndSize();
 	}
 
 	public BattleClassesGuiTabBarButton(int par1, int par2, int par3,
 			String name, boolean parHorizontal) {
 		super(par1, par2, par3, name);
+		this.tooltipDescription = name;
 		this.horizontal = parHorizontal;
 		this.setContentPositionAndSize();
 	}
@@ -77,7 +80,21 @@ public abstract class BattleClassesGuiTabBarButton extends GuiPlaceableButton {
 		}
 	}
 	
+	public boolean isAccessAble() {
+		return true;
+	}
 	
+	private boolean isInGui(GuiScreen currentScreen) {
+		return currentScreen.getClass()==getGUIClass();
+	}
+
+	public boolean mousePressed(Minecraft mc, int mouseX, int mouseY) {
+		boolean inWindow = super.mousePressed(mc, mouseX, mouseY);
+		if (inWindow && !isInGui(mc.currentScreen) && isAccessAble()) {
+			this.openGui(mc);
+		}
+		return inWindow;
+	}	
     /**
      * Draws this button to the screen.
      */
@@ -114,7 +131,7 @@ public abstract class BattleClassesGuiTabBarButton extends GuiPlaceableButton {
             //Rendering Tab Name
             if( field_146123_n /*k == 2*/) {
             	ArrayList stringList = new ArrayList();
-            	stringList.add(this.displayString);
+            	stringList.add(this.tooltipDescription);
             	//mc.currentScreen.drawHoveringText
             	this.drawHoveringText(stringList, p_146112_2_, p_146112_3_, fontrenderer);
             }
@@ -290,10 +307,8 @@ public abstract class BattleClassesGuiTabBarButton extends GuiPlaceableButton {
     	return (mc.currentScreen.getClass() == this.getGUIClass());
     }
 
-	@Override
 	protected abstract Class<? extends GuiScreen> getGUIClass();
 
-	@Override
 	protected abstract void openGui(Minecraft mc);
 	
 	public abstract String getIconName();

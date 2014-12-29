@@ -44,7 +44,7 @@ public class BattleClassesCommand extends CommandBase {
 			return;
 		}
 		if(var2[0].equals("version") ) {
-			String message = new String("Running " + Battlegear.MODID + " version: " + Battlegear.VERSION);
+			String message = new String("Running " + Battlegear.MODID + " version: " + BattleClassesMod.VERSION);
 			if(var1 instanceof EntityPlayer) {
 				EntityPlayer player = (EntityPlayer) var1;
 				player.addChatMessage(new ChatComponentText(message));
@@ -56,7 +56,7 @@ public class BattleClassesCommand extends CommandBase {
 		}
 		
 		if(var2[0].equals("getrandomclass") ) {
-			String message = new String("Running " + Battlegear.MODID + " version: " + Battlegear.VERSION);
+			String message = new String("Running " + Battlegear.MODID + " version: " + BattleClassesMod.VERSION);
 			if(var1 instanceof EntityPlayer) {
 				EntityPlayer player = (EntityPlayer) var1;
 				BattleClassesPlayerHooks playerHooks = BattleClassesUtils.getPlayerHooks(player);

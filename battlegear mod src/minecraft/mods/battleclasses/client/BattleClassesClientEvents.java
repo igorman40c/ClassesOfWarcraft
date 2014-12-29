@@ -39,7 +39,7 @@ import mods.battlegear2.client.gui.controls.GuiPlaceableButton;
 import mods.battlegear2.client.gui.controls.GuiSigilButton;
 import mods.battlegear2.utils.BattlegearConfig;
 
-public class BattleClassesClientEvents extends BattlegearClientEvents {
+public class BattleClassesClientEvents {
 	
 	private final BattleClassesInGameGUI inGameGUI = new BattleClassesInGameGUI();
 	
@@ -109,11 +109,11 @@ public class BattleClassesClientEvents extends BattlegearClientEvents {
 			for (BattleClassesGuiTabBarButton button : tabsList) {
 				if(i < TABS_ON_LEFT) {
 					//Placing to horizontal bar button positions
-					button.place(i, guiLeft + 0, guiTop + 11 + i * (BattleClassesGuiTabBarButton.BAR_BUTTON_GAP + BattleClassesGuiTabBarButton.BAR_BUTTON_SIZE_H_H) );
+					button.setPosition(guiLeft + 0, guiTop + 11 + i * (BattleClassesGuiTabBarButton.BAR_BUTTON_GAP + BattleClassesGuiTabBarButton.BAR_BUTTON_SIZE_H_H) );
 				}
 				else {
 					//Placing to vertical bar button positions
-					button.place(i, guiLeft + 28 + 11 + (i - 5) *(BattleClassesGuiTabBarButton.BAR_BUTTON_GAP + BattleClassesGuiTabBarButton.BAR_BUTTON_SIZE_W_V),
+					button.setPosition(guiLeft + 28 + 11 + (i - 5) *(BattleClassesGuiTabBarButton.BAR_BUTTON_GAP + BattleClassesGuiTabBarButton.BAR_BUTTON_SIZE_W_V),
 							guiTop + 163);
 				}
 				button.id = buttons.size()+2;//Due to GuiInventory and GuiContainerCreative button performed actions, without them having buttons...
@@ -182,7 +182,7 @@ public class BattleClassesClientEvents extends BattlegearClientEvents {
 	
 	@SubscribeEvent
 	public void preStitch(TextureStitchEvent.Pre event) {
-		super.preStitch(event);
+		//super.preStitch(event);
 		if (event.map.getTextureType() == 1) {
 			//Registering Tab Bar Button Icons
 			for (BattleClassesGuiTabBarButton button : tabsList) {

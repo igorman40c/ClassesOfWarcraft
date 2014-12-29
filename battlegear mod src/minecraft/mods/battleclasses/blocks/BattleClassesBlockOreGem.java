@@ -3,7 +3,6 @@ package mods.battleclasses.blocks;
 import java.util.ArrayList;
 import java.util.Random;
 
-import mods.battleclasses.BattleClassesMain;
 import mods.battleclasses.BattleClassesMod;
 import mods.battleclasses.items.BattleClassesItemGem;
 import mods.battleclasses.items.BattleClassesItems;
