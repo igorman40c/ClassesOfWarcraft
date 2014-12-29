@@ -14,9 +14,10 @@ import mods.battlegear2.client.BattlegearClientEvents;
 import mods.battlegear2.client.ClientProxy;
 import mods.battlegear2.client.gui.BattleEquipGUI;
 import mods.battlegear2.gui.BattlegearGUIHandeler;
+import mods.battlegear2.gui.ContainerBattle;
 import mods.battlegear2.packet.BattlegearGUIPacket;
 
-public class BattleClassesTabEquipment extends BattleEquipGUI {
+public class BattleClassesTabEquipment extends BattleClassesAbstractTab {
 	
     public static final ResourceLocation resource = new ResourceLocation("battleclasses", "textures/gui/InterfaceBattleEquipment.png");
     //public static Class equipTab;
@@ -30,42 +31,28 @@ public class BattleClassesTabEquipment extends BattleEquipGUI {
      * y size of the inventory window in pixels. Defined as float, passed as int.
      */
     private float ySize_lo;
-
+    
 	public BattleClassesTabEquipment(EntityPlayer entityPlayer, boolean isRemote) {
-		super(entityPlayer, isRemote);
-		// TODO Auto-generated constructor stub
+		super(entityPlayer, isRemote, new ContainerBattle(entityPlayer.inventory, !isRemote, entityPlayer));
+        this.allowUserInput = true;
 	}
 	
     public static void open(EntityPlayer player){
     	//send packet to open container on server
-        //Battlegear.packetHandler.sendPacketToServer(new BattlegearGUIPacket(BattleClassesGUIHandler.equipID).generatePacket());
     	BattleClassesMod.packetHandler.sendPacketToServer(new BattleClassesPacketGUITabSwitch(BattleClassesGUIHandler.equipID).generatePacket());
     }
 	
     @Override
-    public void initGui ()
-    {
+    public void initGui() {
         super.initGui();
         BattleClassesClientEvents.onOpenGui(this.buttonList, guiLeft-28, guiTop);
-        if(ClientProxy.tconstructEnabled){
-            this.buttonList.clear();
-            try{
-                if(equipTab==null){
-                    equipTab = Class.forName("mods.battlegear2.client.gui.controls.EquipGearTab");
-                }
-                ClientProxy.updateTab.invoke(null, guiLeft, guiTop, equipTab);
-                ClientProxy.addTabs.invoke(null, this.buttonList);
-            }catch(Exception e){
-                ClientProxy.tconstructEnabled = false;
-            }
-        }
     }
     
     /**
      * Draws the screen and all the components in it.
      */
     @Override
-    public void drawScreen(int par1, int par2, float par3){
+    public void drawScreen(int par1, int par2, float par3) {
         super.drawScreen(par1, par2, par3);
         this.xSize_lo = (float) par1;
         this.ySize_lo = (float) par2;

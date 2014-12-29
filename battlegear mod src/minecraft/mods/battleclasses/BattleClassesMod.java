@@ -57,7 +57,6 @@ public class BattleClassesMod
 		
 	@EventHandler
 	public static void serverStart(FMLServerStartingEvent event){
-		BattleClassesUtils.Log("FMLServerStartingEvent!", LogType.INIT);
         BattleClassesCommand.registerCommands();
     }
 }
