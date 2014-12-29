@@ -1,4 +1,4 @@
-package mods.battleclasses.client;
+package mods.battleclasses.gui;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -32,9 +32,9 @@ import cpw.mods.fml.client.FMLClientHandler;
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
 import mods.battleclasses.ability.BattleClassesAbstractAbilityActive;
+import mods.battleclasses.client.BattleClassesClientTargeting;
 import mods.battleclasses.core.BattleClassesSpellBook;
 import mods.battleclasses.enumhelper.EnumBattleClassesPlayerClass;
-import mods.battleclasses.gui.BattleClassesGuiHelper;
 import mods.battlegear2.Battlegear;
 import mods.battlegear2.api.RenderItemBarEvent;
 import mods.battlegear2.api.core.IBattlePlayer;

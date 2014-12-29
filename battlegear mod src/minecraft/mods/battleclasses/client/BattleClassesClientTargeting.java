@@ -2,6 +2,7 @@ package mods.battleclasses.client;
 
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.ability.BattleClassesAbstractAbilityActive;
+import mods.battleclasses.gui.BattleClassesInGameGUI;
 import mods.battlegear2.Battlegear;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;

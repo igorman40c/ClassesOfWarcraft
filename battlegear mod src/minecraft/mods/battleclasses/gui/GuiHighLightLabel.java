@@ -1,4 +1,4 @@
-package mods.battleclasses.client;
+package mods.battleclasses.gui;
 
 import org.lwjgl.opengl.GL11;
 
