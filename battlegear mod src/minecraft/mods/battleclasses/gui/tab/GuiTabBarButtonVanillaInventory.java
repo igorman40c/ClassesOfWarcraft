@@ -4,7 +4,7 @@ import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
 import mods.battleclasses.client.BattleClassesClientEvents;
 import mods.battleclasses.gui.BattleClassesGUIHandler;
-import mods.battleclasses.gui.BattleClassesInGameGUI;
+import mods.battleclasses.gui.BattleClassesGuiHUDOverlay;
 import mods.battlegear2.Battlegear;
 import mods.battlegear2.client.gui.BattleEquipGUI;
 import mods.battlegear2.gui.BattlegearGUIHandeler;
@@ -25,7 +25,7 @@ public class GuiTabBarButtonVanillaInventory extends BattleClassesGuiTabBarButto
 	@Override
 	protected void openGui(Minecraft mc) {
 		BattleClassesUtils.Log("GuiTabBarButtonVanillaInventory openGui", LogType.GUI);
-		BattleClassesInGameGUI.previousGui = mc.currentScreen.getClass();
+		BattleClassesGuiHUDOverlay.previousGui = mc.currentScreen.getClass();
         mc.thePlayer.sendQueue.addToSendQueue(new C0DPacketCloseWindow(mc.thePlayer.openContainer.windowId));
 		GuiInventory guiInventory = new GuiInventory(mc.thePlayer);
 		mc.displayGuiScreen(guiInventory);

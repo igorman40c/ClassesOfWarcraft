@@ -47,13 +47,13 @@ import mods.battlegear2.client.BattlegearClientTickHandeler;
 import mods.battlegear2.client.ClientProxy;
 import mods.battlegear2.client.gui.BattlegearInGameGUI;
 
-public class BattleClassesInGameGUI extends BattlegearInGameGUI {
+public class BattleClassesGuiHUDOverlay extends BattlegearInGameGUI {
 	
     public static Class<?> previousGui;
     public static Minecraft mc;
     public static final ResourceLocation resourceLocationHUD = new ResourceLocation("battleclasses", "textures/gui/InGameGUI.png");
         
-    public BattleClassesInGameGUI() {
+    public BattleClassesGuiHUDOverlay() {
     	super();
     	this.initHighLightLabels();
     	mc = Minecraft.getMinecraft();
@@ -73,51 +73,9 @@ public class BattleClassesInGameGUI extends BattlegearInGameGUI {
             if (!this.mc.playerController.enableEverythingIsScrewedUpMode()) {
                 GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
                 zLevel = -90.0F;
-                if(!ClientProxy.tconstructEnabled || mc.thePlayer.capabilities.isCreativeMode){
-	                if(mc.currentScreen==null) {
-                        if(previousGui!=null)
-	                	    previousGui=null;
-	                }else{
-                        Class<?> currentGui = mc.currentScreen.getClass();
-                        if(currentGui!=previousGui /*&& !(currentGui.equals(GuiContainerCreative.class)*/ && currentGui.equals(GuiInventory.class) ){
-                        	
-                        	GuiContainer guiContainer = ((GuiContainer) mc.currentScreen);
-                        	
-                        	if(guiContainer != null) {
-                        		/** The X size of the inventory window in pixels. */
-                            	int xSize = 176;
-                                /** The Y size of the inventory window in pixels. */
-                                int ySize = 166;
-                            	int guiLeft = (guiContainer.width - xSize) / 2 ;
-                            	int guiTop = (guiContainer.height - ySize) / 2;
-                                
-                            	System.out.println("Current gui class:" + currentGui);
-                            	
-                            	Field f;
-								try {
-									
-									f = GuiScreen.class.getDeclaredField("buttonList");
-									f.setAccessible(true);
-	                            	List buttonListRefl = (List) f.get( ((GuiScreen)guiContainer) );
-	                            	
-	                                if(this.mc.thePlayer.getActivePotionEffects().size() > 0) {
-	                                	guiLeft += 60;
-	                                }
-	                                
-	                                //BattleClassesClientEvents.onOpenGui(buttonListRefl, guiLeft - 28, guiTop);
-	                                previousGui = currentGui;
-	                                
-								} catch (Exception e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
-                            	
-                        	}
-                        }
-                    }
-                }
 
                 RenderItemBarEvent event = new RenderItemBarEvent.BattleSlots(renderEvent, true);
+                
                 AbilityActionBarPosX = event.xOffset+width/2;
                 AbilityActionBarPosY = event.yOffset;
                 renderAbilityActionBar(frame, event.xOffset+width/2, event.yOffset);
@@ -138,29 +96,7 @@ public class BattleClassesInGameGUI extends BattlegearInGameGUI {
                 }
 
                 ItemStack mainhand = mc.thePlayer.getCurrentEquippedItem();
-               
-                /*
-                EntityLivingBase target = BattleClassesClientTargeting.getClientTarget(40);
-                if(target != null) {
-                	String targetName = target.getClass().toString();
-                	//int lastDot = targetName.lastIndexOf(".");
-                	String[] strings = targetName.split(".");
-                	
-                	displayWarning("Targeting: " +  targetName );
-                }
-                */
-                
-                /*
-                if(mainhand != null){
-                    ItemStack quiver = QuiverArrowRegistry.getArrowContainer(mainhand, mc.thePlayer);
-                    if(quiver != null){
-                        event = new RenderItemBarEvent.QuiverSlots(renderEvent, mainhand, quiver);
-                        if(!MinecraftForge.EVENT_BUS.post(event))
-                            renderQuiverBar(quiver, frame, event.xOffset+width/2, event.yOffset);
-                    }
-                }
-				*/
-                
+                               
                 BattleClassesClientTargeting.generateTargetingInfo();
             }
         }
@@ -245,7 +181,7 @@ public class BattleClassesInGameGUI extends BattlegearInGameGUI {
             int j = i / 2 - short1 / 2;
             int k = (int)(BossStatus.healthScale * (float)(short1 + 1));
             
-            byte b0 = 12 + BattleClassesInGameGUI.ABILITY_ACTIONBAR_HEIGHT;	//MAIN Y coord
+            byte b0 = 12 + BattleClassesGuiHUDOverlay.ABILITY_ACTIONBAR_HEIGHT;	//MAIN Y coord
             
             this.drawTexturedModalRect(j, b0, 0, 74, short1, 5);
             this.drawTexturedModalRect(j, b0, 0, 74, short1, 5);
@@ -273,7 +209,7 @@ public class BattleClassesInGameGUI extends BattlegearInGameGUI {
     			BattleClassesUtils.getPlayerHooks(mc.thePlayer).playerClass.getCooldownClock().isOnCooldown()) {
             ScaledResolution scaledresolution = new ScaledResolution(this.mc, this.mc.displayWidth, this.mc.displayHeight);
     		int x = scaledresolution.getScaledWidth()/2 - CAST_BAR_WIDTH/2;
-    		int y = 12 + BattleClassesInGameGUI.ABILITY_ACTIONBAR_HEIGHT;
+    		int y = 12 + BattleClassesGuiHUDOverlay.ABILITY_ACTIONBAR_HEIGHT;
     		if(this.shouldDrawBossHealthBar()) {
     			y += CAST_BAR_ZONE_HEIGHT;
     		}
@@ -447,7 +383,7 @@ public class BattleClassesInGameGUI extends BattlegearInGameGUI {
 		warningDisplay_HLL.posX = scaledresolution.getScaledWidth() / 2; // - centerGap;
 		warningDisplay_HLL.posY = scaledresolution.getScaledHeight() / 2 + centerGap;
 		
-		int y = 12 + BattleClassesInGameGUI.ABILITY_ACTIONBAR_HEIGHT;
+		int y = 12 + BattleClassesGuiHUDOverlay.ABILITY_ACTIONBAR_HEIGHT;
 		if(this.shouldDrawBossHealthBar()) {
 			y += CAST_BAR_ZONE_HEIGHT;
 		}

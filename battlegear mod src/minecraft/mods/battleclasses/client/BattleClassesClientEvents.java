@@ -22,7 +22,7 @@ import mods.battleclasses.ability.BattleClassesAbstractAbilityActive;
 import mods.battleclasses.core.BattleClassesPlayerClass;
 import mods.battleclasses.enumhelper.EnumBattleClassesPlayerClass;
 import mods.battleclasses.gui.BattleClassesGuiHelper;
-import mods.battleclasses.gui.BattleClassesInGameGUI;
+import mods.battleclasses.gui.BattleClassesGuiHUDOverlay;
 import mods.battleclasses.gui.controlls.BattleClassesGuiButtonClassSelector;
 import mods.battleclasses.gui.tab.BattleClassesGuiInventory;
 import mods.battleclasses.gui.tab.BattleClassesGuiTabBarButton;
@@ -42,7 +42,7 @@ import mods.battlegear2.utils.BattlegearConfig;
 
 public class BattleClassesClientEvents {
 	
-	private final BattleClassesInGameGUI inGameGUI = new BattleClassesInGameGUI();
+	private final BattleClassesGuiHUDOverlay inGameGUI = new BattleClassesGuiHUDOverlay();
 	
 	public static List<BattleClassesGuiTabBarButton> tabsList = new ArrayList<BattleClassesGuiTabBarButton>();
 	static {

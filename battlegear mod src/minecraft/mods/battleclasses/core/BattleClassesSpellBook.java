@@ -19,8 +19,9 @@ import mods.battleclasses.ability.BattleClassesAbstractAbilityActive;
 import mods.battleclasses.ability.BattleClassesAbstractAbilityPassive;
 import mods.battleclasses.enumhelper.EnumBattleClassesCooldownType;
 import mods.battleclasses.enumhelper.EnumBattleClassesPlayerClass;
-import mods.battleclasses.gui.BattleClassesInGameGUI;
+import mods.battleclasses.gui.BattleClassesGuiHUDOverlay;
 import mods.battleclasses.items.BattleClassesItemWeapon;
+import mods.battleclasses.items.IBattleClassesAbilityAccessItem;
 import mods.battleclasses.packet.BattleClassesPacketChosenAbilityIDSync;
 import mods.battleclasses.packet.BattleClassesPacketPlayerClassSnyc;
 import mods.battlegear2.Battlegear;
@@ -76,17 +77,17 @@ public class BattleClassesSpellBook {
 	public boolean isAvailable(ItemStack itemStack, EntityPlayer entityPlayer) {
 		boolean battleMode = ((IBattlePlayer) entityPlayer).isBattlemode();
 		if(!battleMode) {
-			BattleClassesInGameGUI.displayWarning(BattleClassesInGameGUI.HUD_W_BATTLEMODE_REQUIRED);
+			BattleClassesGuiHUDOverlay.displayWarning(BattleClassesGuiHUDOverlay.HUD_W_BATTLEMODE_REQUIRED);
 			return false;
 		}
 		boolean hasClass = playerHooks.playerClass.getPlayerClass() != EnumBattleClassesPlayerClass.PlayerClass_NONE;
 		if(!hasClass) {
-			BattleClassesInGameGUI.displayWarning(BattleClassesInGameGUI.HUD_W_CLASS_REQUIRED);
+			BattleClassesGuiHUDOverlay.displayWarning(BattleClassesGuiHUDOverlay.HUD_W_CLASS_REQUIRED);
 			return false;
 		}
 		boolean cooldownFreeClass = !playerHooks.playerClass.getCooldownClock().isOnCooldown();
 		if(!cooldownFreeClass) {
-			BattleClassesInGameGUI.displayWarning(BattleClassesInGameGUI.HUD_W_ON_CLASS_COOLDOWN);
+			BattleClassesGuiHUDOverlay.displayWarning(BattleClassesGuiHUDOverlay.HUD_W_ON_CLASS_COOLDOWN);
 			return false;
 		}
 		
@@ -196,7 +197,7 @@ public class BattleClassesSpellBook {
 			//Should be sidesafe
 			BattleClassesMod.packetHandler.sendPacketToServerWithSideCheck(p);
 			
-			BattleClassesInGameGUI.displayChosenAbilityName(this.getChosenAbility().getName());
+			BattleClassesGuiHUDOverlay.displayChosenAbilityName(this.getChosenAbility().getName());
 		}
 	}
 	
@@ -235,6 +236,9 @@ public class BattleClassesSpellBook {
 	}
 	
 	public boolean isCastingInProgress() {
-		return ((IBattlePlayer)this.playerHooks.ownerPlayer).isBattlemode() && this.playerHooks.ownerPlayer.isUsingItem() && this.getChosenAbility() != null;
+		return ((IBattlePlayer)this.playerHooks.ownerPlayer).isBattlemode() && 
+				(this.playerHooks.ownerPlayer.isUsingItem()) && 
+				(this.playerHooks.ownerPlayer.getItemInUse().getItem() instanceof IBattleClassesAbilityAccessItem) && 
+				(this.getChosenAbility() != null);
 	}
 }

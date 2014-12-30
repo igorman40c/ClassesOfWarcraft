@@ -27,7 +27,7 @@ import mods.battleclasses.enumhelper.EnumBattleClassesAbilitySchool;
 import mods.battleclasses.enumhelper.EnumBattleClassesAbilityCastingType;
 import mods.battleclasses.enumhelper.EnumBattleClassesCooldownType;
 import mods.battleclasses.enumhelper.EnumBattleClassesAbilityDirectTargetRequirement;
-import mods.battleclasses.gui.BattleClassesInGameGUI;
+import mods.battleclasses.gui.BattleClassesGuiHUDOverlay;
 import mods.battleclasses.items.BattleClassesItemWeapon;
 import mods.battleclasses.packet.BattleClassesPacketCooldownSet;
 import mods.battlegear2.Battlegear;
@@ -165,25 +165,25 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 					hasRequiredItem = true;
 				}
 				else {
-					BattleClassesInGameGUI.displayWarning(BattleClassesInGameGUI.HUD_W_WEAPON_LOW_LEVEL);
+					BattleClassesGuiHUDOverlay.displayWarning(BattleClassesGuiHUDOverlay.HUD_W_WEAPON_LOW_LEVEL);
 					return false;
 				}
 			}
 			else {
-				BattleClassesInGameGUI.displayWarning(BattleClassesInGameGUI.HUD_W_WEAPON_WRONG_CLASS);
+				BattleClassesGuiHUDOverlay.displayWarning(BattleClassesGuiHUDOverlay.HUD_W_WEAPON_WRONG_CLASS);
 				return false;
 			}
 		}
 		
 		boolean cooldownFree = !this.getCooldownClock().isOnCooldown();
 		if(!cooldownFree) {
-			BattleClassesInGameGUI.displayWarning(BattleClassesInGameGUI.HUD_W_ON_COOLDOWN);
+			BattleClassesGuiHUDOverlay.displayWarning(BattleClassesGuiHUDOverlay.HUD_W_ON_COOLDOWN);
 			return false;
 		}
 		
 		boolean hasRequiredAmmo = true;
 		if(!hasRequiredAmmo) {
-			BattleClassesInGameGUI.displayWarning(BattleClassesInGameGUI.HUD_W_WEAPON_NO_AMMO);
+			BattleClassesGuiHUDOverlay.displayWarning(BattleClassesGuiHUDOverlay.HUD_W_WEAPON_NO_AMMO);
 		}
 		
 		return hasRequiredItem && cooldownFree && hasRequiredAmmo;

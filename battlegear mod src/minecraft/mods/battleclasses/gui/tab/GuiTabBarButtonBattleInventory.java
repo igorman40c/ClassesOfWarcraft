@@ -1,6 +1,6 @@
 package mods.battleclasses.gui.tab;
 
-import mods.battleclasses.gui.BattleClassesInGameGUI;
+import mods.battleclasses.gui.BattleClassesGuiHUDOverlay;
 import mods.battlegear2.client.gui.BattleEquipGUI;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;

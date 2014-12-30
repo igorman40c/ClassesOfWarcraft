@@ -2,7 +2,7 @@ package mods.battleclasses.client;
 
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.ability.BattleClassesAbstractAbilityActive;
-import mods.battleclasses.gui.BattleClassesInGameGUI;
+import mods.battleclasses.gui.BattleClassesGuiHUDOverlay;
 import mods.battlegear2.Battlegear;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
@@ -65,7 +65,7 @@ public class BattleClassesClientTargeting {
 			
 			
 			if(targetInfo != null) {
-				BattleClassesInGameGUI.displayTargetInfo(targetInfo);			
+				BattleClassesGuiHUDOverlay.displayTargetInfo(targetInfo);			
 			}
 		}
 	}

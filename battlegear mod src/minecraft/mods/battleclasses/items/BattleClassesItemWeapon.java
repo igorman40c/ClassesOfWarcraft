@@ -13,7 +13,7 @@ import net.minecraft.item.ItemSword;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.world.World;
 
-public class BattleClassesItemWeapon extends ItemSword {
+public class BattleClassesItemWeapon extends ItemSword implements IBattleClassesAbilityAccessItem {
 	
 	protected final ToolMaterial material;
 	protected int itemAbilityLevel = 0;
