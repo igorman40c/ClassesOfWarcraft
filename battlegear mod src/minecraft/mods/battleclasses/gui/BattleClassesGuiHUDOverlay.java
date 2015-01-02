@@ -129,28 +129,49 @@ public class BattleClassesGuiHUDOverlay extends BattlegearInGameGUI {
         GL11.glDisable(GL11.GL_BLEND);
     }
     
-    public static final int ABILITY_ACTIONBAR_WIDTH = 142;
+    public static final int ABILITY_ACTIONBAR_NODE_WIDTH = 20;
     public static final int ABILITY_ACTIONBAR_HEIGHT = 22;
 
     public void renderAbilityActionBar(float frame, int xOffset, int yOffset) {
+    	ScaledResolution scaledresolution = new ScaledResolution(this.mc, this.mc.displayWidth, this.mc.displayHeight);	
+    	int width = scaledresolution.getScaledWidth();
+        int height = scaledresolution.getScaledHeight();
+    	ArrayList<BattleClassesAbstractAbilityActive> actionbarAbilities = BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).getActionbarAbilities();
+    	int actionbarHeight = ABILITY_ACTIONBAR_HEIGHT;
+    	int actionbarWidth = 1 + actionbarAbilities.size()*ABILITY_ACTIONBAR_NODE_WIDTH + 1;
+        
+        
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.renderEngine.bindTexture(resourceLocationHUD);
-
-        ScaledResolution scaledresolution = new ScaledResolution(this.mc, this.mc.displayWidth, this.mc.displayHeight);
-        int width = scaledresolution.getScaledWidth();
-        int height = scaledresolution.getScaledHeight();
-        int actionbarWidth = ABILITY_ACTIONBAR_WIDTH;
-        int actionbarHeight = ABILITY_ACTIONBAR_HEIGHT;
+        
         int actionbarPosX = width/2 - actionbarWidth/2;
         int actionbarPosY = 0;
-        this.drawTexturedModalRect(actionbarPosX, actionbarPosY, 0, 0, actionbarWidth, actionbarHeight);
+        int currentX = actionbarPosX;
+        for(int i = 0; i < actionbarAbilities.size(); ++i) {
+        	int drawNodeWith = ABILITY_ACTIONBAR_NODE_WIDTH;
+        	int drawNodeHeight = ABILITY_ACTIONBAR_HEIGHT;
+        	int u = 21;
+        	int v = 0;
+        	if(i == 0) {
+        		++drawNodeWith;
+        		u = 0;
+            	v = 0;
+        	}
+        	if(i == (actionbarAbilities.size() - 1)) {
+        		++drawNodeWith;
+        		u += 20;
+            	v = 0;
+        	}
+            this.drawTexturedModalRect(currentX, actionbarPosY, u, v, drawNodeWith, drawNodeHeight);
+            currentX += drawNodeWith;
+        }
         
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-        ArrayList<BattleClassesAbstractAbilityActive> spellbookAbilities = new ArrayList<BattleClassesAbstractAbilityActive>(BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).activeAbilities.values()); 
-        for(int i = 0; i < spellbookAbilities.size(); ++i) {
-        	this.drawAbilityIcon(actionbarPosX+3 + i*20, actionbarPosY+3, spellbookAbilities.get(i));
+        
+        for(int i = 0; i < actionbarAbilities.size(); ++i) {
+        	this.drawAbilityIcon(actionbarPosX+3 + i*20, actionbarPosY+3, actionbarAbilities.get(i));
         }
         
         this.mc.renderEngine.bindTexture(resourceLocationHUD);

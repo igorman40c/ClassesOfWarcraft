@@ -31,7 +31,7 @@ public class BattleClassesSpellBook {
 	
 	protected BattleClassesPlayerHooks playerHooks;
 	
-	public static final int SPELLBOOK_CAPACITY = 7;
+	//public static final int SPELLBOOK_CAPACITY = 7;
 	public static final float GLOBAL_COOLDOWN_DURATION = 1.0F;
 	
 	public LinkedHashMap<Integer, BattleClassesAbstractAbilityActive> activeAbilities = new LinkedHashMap<Integer, BattleClassesAbstractAbilityActive>();
@@ -128,6 +128,10 @@ public class BattleClassesSpellBook {
 				this.passiveAbilities.remove(passiveAbility.getAbilityID());
 			}
 		}
+		
+		if(this.getChosenAbility() == null) {
+			this.setChosenAbilityIndex(0);
+		}
 	}
 	
 	public boolean hasAbility(BattleClassesAbstractAbility ability) {
@@ -164,7 +168,7 @@ public class BattleClassesSpellBook {
 	
 	@SideOnly(Side.CLIENT)
 	public void setChosenAbilityIndex(int i) {
-		if(i >= 0 && i < SPELLBOOK_CAPACITY) {
+		if(i >= 0 && i < this.getActionbarAbilities().size()) {
 			this.chosenAbilityIndex = i;
 		}
 		updateChosenAbilityID();
@@ -173,7 +177,7 @@ public class BattleClassesSpellBook {
 	@SideOnly(Side.CLIENT)
 	public void incrementChosenAbilityIndex() {
 		this.chosenAbilityIndex++;
-		if(this.chosenAbilityIndex >= SPELLBOOK_CAPACITY) {
+		if(this.chosenAbilityIndex >= this.getActionbarAbilities().size()) {
 			this.chosenAbilityIndex = 0;
 		}
 		updateChosenAbilityID();
@@ -183,15 +187,15 @@ public class BattleClassesSpellBook {
 	public void decrementChosenAbilityIndex() {
 		this.chosenAbilityIndex--;
 		if(this.chosenAbilityIndex < 0) {
-			this.chosenAbilityIndex = SPELLBOOK_CAPACITY - 1;
+			this.chosenAbilityIndex = this.getActionbarAbilities().size() - 1;
 		}
 		updateChosenAbilityID();
 	}
 	
 	@SideOnly(Side.CLIENT)
 	public void updateChosenAbilityID() {
-		if(chosenAbilityIndex < getActiveAbilitiesInArray().size()) {
-			setChosenAbilityID(getActiveAbilitiesInArray().get(chosenAbilityIndex).getAbilityID());
+		if(chosenAbilityIndex < getActionbarAbilities().size()) {
+			setChosenAbilityID(getActionbarAbilities().get(chosenAbilityIndex).getAbilityID());
 			cancelCasting();
 			FMLProxyPacket p = new BattleClassesPacketChosenAbilityIDSync(playerHooks.getOwnerPlayer(), this.chosenAbilityID).generatePacket();
 			//Should be sidesafe
@@ -222,7 +226,19 @@ public class BattleClassesSpellBook {
 		}
 	}
 	
+    /**
+     * Helper method to collect abilities should be drawn on the actionbar
+     * @return
+     */
+	@SideOnly(Side.CLIENT)
+    public ArrayList<BattleClassesAbstractAbilityActive> getActionbarAbilities() {
+		//Add checkbox based selector logic later
+    	return this.getActiveAbilitiesInArray();
+    }
+
+	
 	//Helper
+    
 	public ArrayList<BattleClassesAbstractAbilityActive> getActiveAbilitiesInArray() {
 		return new ArrayList<BattleClassesAbstractAbilityActive>(this.activeAbilities.values());
 	}
