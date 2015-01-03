@@ -40,9 +40,12 @@ public class BattleClassesPlayerHooks implements ICooldownMapHolder {
 	}
 	
 	public void switchToPlayerClass(EnumBattleClassesPlayerClass parPlayerClass) {
+		/*
 		if(this.playerClass != null) {
 			this.playerClass.cooldownClock.unregisterFromCooldownCenter();
 		}
+		*/
+		mainCooldownMap.clear();
 		switch(parPlayerClass) {
 			case MAGE: {
 				this.playerClass = new BattleClassesPlayerClassMage(this);
