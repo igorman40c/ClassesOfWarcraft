@@ -6,10 +6,10 @@ import mods.battleclasses.ability.BattleClassesAbstractTalent;
 
 public class BattleClassesTalentTree {
 	
-	protected BattleClassesTalentMatrix ownerTalentMatrix;
+	protected BattleClassesTalentMatrix parentTalentMatrix;
 	
 	public void setOwnerTalentMatrix(BattleClassesTalentMatrix parTalentMatrix) {
-		this.ownerTalentMatrix = parTalentMatrix;
+		this.parentTalentMatrix = parTalentMatrix;
 		
 		for(BattleClassesAbstractTalent talent : talentList) {
 			talent.setParentTree(this);
@@ -23,8 +23,8 @@ public class BattleClassesTalentTree {
 		name = parName;
 	}
 	
-	public BattleClassesTalentMatrix getOwnerTalentMatrix() {
-		return this.ownerTalentMatrix;
+	public BattleClassesTalentMatrix getParentTalentMatrix() {
+		return this.parentTalentMatrix;
 	}
 	
 	public ArrayList<BattleClassesAbstractTalent> talentList = new ArrayList<BattleClassesAbstractTalent>();
@@ -34,8 +34,8 @@ public class BattleClassesTalentTree {
 	 * @return
 	 */
 	public int getIndexOfTree() {
-		if(this.ownerTalentMatrix != null) {
-			return this.ownerTalentMatrix.talentTrees.indexOf(this);
+		if(this.parentTalentMatrix != null) {
+			return this.parentTalentMatrix.talentTrees.indexOf(this);
 		}		
 		return 0;
 	}
@@ -45,10 +45,10 @@ public class BattleClassesTalentTree {
 	 * @return
 	 */
 	public String getResoureLocationString() {
-		if(this.ownerTalentMatrix != null) {
+		if(this.parentTalentMatrix != null) {
 			int i = getIndexOfTree() + 1;
 			return "textures/talents/backgrounds/talent_background_"
-					+ (this.ownerTalentMatrix.playerHooks.playerClass.getPlayerClass().toString()).toLowerCase()
+					+ (this.parentTalentMatrix.playerHooks.playerClass.getPlayerClass().toString()).toLowerCase()
 					+ "_" + i + ".png";
 		}
 		return "";

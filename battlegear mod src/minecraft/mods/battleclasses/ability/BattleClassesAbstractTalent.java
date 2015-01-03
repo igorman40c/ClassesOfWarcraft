@@ -84,6 +84,7 @@ public class BattleClassesAbstractTalent extends BattleClassesAbstractAbilityPas
 	*/
 	
 	public void onStateChanged() {
+		this.parentTree.getParentTalentMatrix().onTalentsChanged();
 		//TODO
 		//ADD OR REMOVE THIS AMPLIFY/MODIFY PROVIDER FROM CENTRAL HASHTABLE
 		//ADD OR REMOVE CONTAINED ABILITY TO SPELLBOOK

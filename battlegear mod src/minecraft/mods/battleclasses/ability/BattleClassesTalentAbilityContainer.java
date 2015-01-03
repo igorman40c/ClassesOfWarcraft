@@ -14,6 +14,7 @@ public class BattleClassesTalentAbilityContainer extends BattleClassesAbstractTa
 	BattleClassesAbstractAbilityActive containedAbility;
 	
 	public void onStateChanged() {
+		super.onStateChanged();
 		if(this.currentState == 0) {
 			this.playerHooks.playerClass.spellBook.unLearnAbility(containedAbility);
 		}

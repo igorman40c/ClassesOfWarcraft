@@ -34,6 +34,7 @@ import mods.battleclasses.BattleClassesUtils.LogType;
 import mods.battleclasses.ability.BattleClassesAbstractAbilityActive;
 import mods.battleclasses.client.BattleClassesClientTargeting;
 import mods.battleclasses.core.BattleClassesSpellBook;
+import mods.battleclasses.enumhelper.EnumBattleClassesCooldownType;
 import mods.battleclasses.enumhelper.EnumBattleClassesPlayerClass;
 import mods.battlegear2.Battlegear;
 import mods.battlegear2.api.RenderItemBarEvent;
@@ -137,9 +138,11 @@ public class BattleClassesGuiHUDOverlay extends BattlegearInGameGUI {
     	int width = scaledresolution.getScaledWidth();
         int height = scaledresolution.getScaledHeight();
     	ArrayList<BattleClassesAbstractAbilityActive> actionbarAbilities = BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).getActionbarAbilities();
+    	if(actionbarAbilities.size() == 0) {
+    		return;
+    	}
     	int actionbarHeight = ABILITY_ACTIONBAR_HEIGHT;
     	int actionbarWidth = 1 + actionbarAbilities.size()*ABILITY_ACTIONBAR_NODE_WIDTH + 1;
-        
         
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
@@ -247,7 +250,12 @@ public class BattleClassesGuiHUDOverlay extends BattlegearInGameGUI {
     		if(BattleClassesUtils.getPlayerHooks(mc.thePlayer).playerClass.getCooldownClock().isOnCooldown()) {
     			chosenAbilit_HLL.hide();
     			f = 1.0F - BattleClassesUtils.getCooldownPercentage(BattleClassesUtils.getPlayerHooks(mc.thePlayer).playerClass);
-    			chosenAbilityName = "Switching Class...";
+    			if(BattleClassesUtils.getPlayerHooks(mc.thePlayer).playerClass.getCooldownClock().getLastUsedType() == EnumBattleClassesCooldownType.CooldownType_CLASS_SWITCH) {
+    				chosenAbilityName = "Switching Class...";
+    			}
+    			if(BattleClassesUtils.getPlayerHooks(mc.thePlayer).playerClass.getCooldownClock().getLastUsedType() == EnumBattleClassesCooldownType.CooldownType_TALENT_CHANGE) {
+    				chosenAbilityName = "Applying talent changes...";
+    			}
     		}
     		else {
     			if(BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).getChosenAbility() != null) {

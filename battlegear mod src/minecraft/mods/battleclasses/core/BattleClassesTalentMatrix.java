@@ -8,6 +8,7 @@ import mods.battleclasses.BattleClassesUtils.LogType;
 import mods.battleclasses.ability.BattleClassesAbilityTest;
 import mods.battleclasses.ability.BattleClassesAbstractAbilityActive;
 import mods.battleclasses.ability.BattleClassesAbstractTalent;
+import mods.battleclasses.enumhelper.EnumBattleClassesCooldownType;
 import mods.battleclasses.enumhelper.EnumBattleClassesPlayerClass;
 import mods.battleclasses.gui.controlls.BattleClassesGuiButtonTalentNode;
 
@@ -39,6 +40,12 @@ public class BattleClassesTalentMatrix {
         		this.talentHashMap.put(talentAbility.getAbilityID(), talentAbility);
         	}
         }
+	}
+	
+	public static final float TALENT_CHANGE_COOLDOWN_DURATION = 3.0F;
+	
+	public void onTalentsChanged() {
+		this.playerHooks.playerClass.getCooldownClock().setCooldown(TALENT_CHANGE_COOLDOWN_DURATION, false, EnumBattleClassesCooldownType.CooldownType_TALENT_CHANGE);
 	}
 	
 	public BattleClassesPlayerHooks getPlayerHooks() {
