@@ -1,4 +1,4 @@
-package mods.battleclasses.gui.tab;
+package mods.battleclasses.gui.controlls;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -26,7 +26,6 @@ import net.minecraft.util.ResourceLocation;
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
 import mods.battleclasses.client.BattleClassesClientEvents;
-import mods.battleclasses.gui.controlls.BattleClassesGuiButton;
 import mods.battlegear2.client.gui.BattleEquipGUI;
 import mods.battlegear2.client.gui.controls.GuiPlaceableButton;
 
@@ -64,6 +63,7 @@ public abstract class BattleClassesGuiTabBarButton extends BattleClassesGuiButto
 	protected int origin_Y = 0;
 	
 	public void setContentPositionAndSize() {
+		this.zLevel = 0;
 		if(this.horizontal) {
 			origin_X = 0;
 			origin_Y = 10;
@@ -202,7 +202,6 @@ public abstract class BattleClassesGuiTabBarButton extends BattleClassesGuiButto
             
             RenderItem itemRender = null; 
             Minecraft mc = Minecraft.getMinecraft();
-            /*
             if( mc.currentScreen != null) {
 				try {
 					Field f = GuiScreen.class.getDeclaredField("itemRender");
@@ -214,30 +213,17 @@ public abstract class BattleClassesGuiTabBarButton extends BattleClassesGuiButto
 					e.printStackTrace();
 				}
             }
-            */
-            /*
+            
+            
+           // this.zLevel -= 300.0F;
+            float zTemp = this.zLevel;
             if(itemRender != null) {
             	//BattleClassesUtils.Log("Button Z:" + this.zLevel + ", IR Z:" + itemRender.zLevel, LogType.GUI);
             	//this.zLevel += 10000.0F;
             	//itemRender.zLevel += 300.0F;
             }
-            */
+            this.zLevel += 300.0F;
             
-            float zTemp = this.zLevel;
-            
-            if( mc.currentScreen != null) {
-				try {
-					Field f = Gui.class.getDeclaredField("zLevel");
-					f.setAccessible(true);
-					//this.zLevel = f.getFloat(((Gui)mc.currentScreen)) + 1000.0F;
-					this.zLevel += 1000.0;
-					
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-            }
-                        
             int j1 = -267386864;
             
             this.drawGradientRect(j2 - 3, k2 - 4, j2 + k + 3, k2 - 3, j1, j1);
@@ -269,12 +255,10 @@ public abstract class BattleClassesGuiTabBarButton extends BattleClassesGuiButto
             
             //this.zLevel += 300.0F;
             this.zLevel = zTemp;
-            /*
             if(itemRender != null) {
             	//BattleClassesUtils.Log("Button Z:" + this.zLevel + ", IR Z:" + itemRender.zLevel, LogType.GUI);
             	//itemRender.zLevel -= 300.0F;
             }
-            */
             
             //this.zLevel = zTemp;
             

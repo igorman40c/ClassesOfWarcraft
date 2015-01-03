@@ -1,10 +1,11 @@
-package mods.battleclasses.gui.tab;
+package mods.battleclasses.gui.controlls;
 
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
 import mods.battleclasses.client.BattleClassesClientEvents;
-import mods.battleclasses.gui.BattleClassesGUIHandler;
+import mods.battleclasses.gui.BattleClassesGuiHandler;
 import mods.battleclasses.gui.BattleClassesGuiHUDOverlay;
+import mods.battleclasses.gui.tab.BattleClassesTabInventory;
 import mods.battlegear2.Battlegear;
 import mods.battlegear2.client.gui.BattleEquipGUI;
 import mods.battlegear2.gui.BattlegearGUIHandeler;
@@ -33,7 +34,7 @@ public class GuiTabBarButtonVanillaInventory extends BattleClassesGuiTabBarButto
 
 	@Override
 	protected Class<? extends GuiScreen> getGUIClass() {
-		return BattleClassesGuiInventory.class;
+		return BattleClassesTabInventory.class;
 	}
 	
 	@Override

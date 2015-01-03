@@ -7,7 +7,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import mods.battleclasses.BattleClassesMod;
 import mods.battleclasses.client.BattleClassesClientEvents;
-import mods.battleclasses.gui.BattleClassesGUIHandler;
+import mods.battleclasses.gui.BattleClassesGuiHandler;
 import mods.battleclasses.packet.BattleClassesPacketGUITabSwitch;
 import mods.battlegear2.Battlegear;
 import mods.battlegear2.client.BattlegearClientEvents;
@@ -39,7 +39,7 @@ public class BattleClassesTabEquipment extends BattleClassesAbstractTab {
 	
     public static void open(EntityPlayer player){
     	//send packet to open container on server
-    	BattleClassesMod.packetHandler.sendPacketToServer(new BattleClassesPacketGUITabSwitch(BattleClassesGUIHandler.equipID).generatePacket());
+    	BattleClassesMod.packetHandler.sendPacketToServer(new BattleClassesPacketGUITabSwitch(BattleClassesGuiHandler.equipID).generatePacket());
     }
 	
     @Override
@@ -64,6 +64,7 @@ public class BattleClassesTabEquipment extends BattleClassesAbstractTab {
     
     @Override
     protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3) {
+    	super.drawGuiContainerBackgroundLayer(par1, par2, par3);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.renderEngine.bindTexture(resource);
         int var5 = this.guiLeft;

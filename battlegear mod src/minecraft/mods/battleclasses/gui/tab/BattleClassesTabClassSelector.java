@@ -9,7 +9,7 @@ import mods.battleclasses.BattleClassesMod;
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
 import mods.battleclasses.enumhelper.EnumBattleClassesPlayerClass;
-import mods.battleclasses.gui.BattleClassesGUIHandler;
+import mods.battleclasses.gui.BattleClassesGuiHandler;
 import mods.battleclasses.gui.controlls.BattleClassesGuiButtonClassSelector;
 import mods.battleclasses.packet.BattleClassesPacketGUITabSwitch;
 import mods.battlegear2.Battlegear;
@@ -77,6 +77,7 @@ public class BattleClassesTabClassSelector extends BattleClassesAbstractTab  {
      */
     @Override
     protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3) {
+    	super.drawGuiContainerBackgroundLayer(par1, par2, par3);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.renderEngine.bindTexture(resource);
         int var5 = this.guiLeft;
@@ -87,7 +88,7 @@ public class BattleClassesTabClassSelector extends BattleClassesAbstractTab  {
     
     public static void open(EntityPlayer player){
     	//send packet to open container on server
-    	BattleClassesMod.packetHandler.sendPacketToServer(new BattleClassesPacketGUITabSwitch(BattleClassesGUIHandler.classSelectorID).generatePacket());
+    	BattleClassesMod.packetHandler.sendPacketToServer(new BattleClassesPacketGUITabSwitch(BattleClassesGuiHandler.classSelectorID).generatePacket());
         //Battlegear.packetHandler.sendPacketToServer(new BattlegearGUIPacket(BattleClassesGUIHandler.classSelectorID).generatePacket());
     }
     

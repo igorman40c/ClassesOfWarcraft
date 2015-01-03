@@ -23,7 +23,7 @@ import mods.battlegear2.gui.BattlegearGUIHandeler;
 import mods.battlegear2.gui.ContainerBattle;
 import mods.battlegear2.gui.ContainerHeraldry;
 
-public class BattleClassesGUIHandler implements IGuiHandler {
+public class BattleClassesGuiHandler implements IGuiHandler {
 
 	public static final int vanillaInventoryID = 0;
     public static final int equipID = 1;

@@ -13,10 +13,13 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 
-public class BattleClassesGuiInventory extends GuiInventory {
+public class BattleClassesTabInventory extends GuiInventory {
 
-	public BattleClassesGuiInventory(EntityPlayer par1EntityPlayer) {
+    protected BattleClassesTabOverlay overlay;
+	
+	public BattleClassesTabInventory(EntityPlayer par1EntityPlayer) {
 		super(par1EntityPlayer);
+		this.overlay = new BattleClassesTabOverlay();
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -39,6 +42,16 @@ public class BattleClassesGuiInventory extends GuiInventory {
         }
         */
 		//this.setTitlePosition(this.guiLeft + DEFAULT_GUI_WIDTH/2, this.guiTop + 8);
+    }
+    
+    /**
+     * Draw the background layer for the GuiContainer (everything behind the items)
+     */
+    @Override
+    protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3) {
+    	super.drawGuiContainerBackgroundLayer(par1, par2, par3);
+        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+        this.overlay.drawAttributesDisplayWindow(this.guiLeft, this.guiTop, this.xSize, this.zLevel);
     }
     
     private void func_147044_g()

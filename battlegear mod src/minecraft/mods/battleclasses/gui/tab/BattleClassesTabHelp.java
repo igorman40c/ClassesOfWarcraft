@@ -1,7 +1,7 @@
 package mods.battleclasses.gui.tab;
 
 import mods.battleclasses.BattleClassesMod;
-import mods.battleclasses.gui.BattleClassesGUIHandler;
+import mods.battleclasses.gui.BattleClassesGuiHandler;
 import mods.battleclasses.packet.BattleClassesPacketGUITabSwitch;
 import mods.battlegear2.Battlegear;
 import mods.battlegear2.packet.BattlegearGUIPacket;
@@ -42,6 +42,7 @@ public class BattleClassesTabHelp extends BattleClassesAbstractTab {
      */
     @Override
     protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3) {
+    	super.drawGuiContainerBackgroundLayer(par1, par2, par3);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.renderEngine.bindTexture(resource);
         int var5 = this.guiLeft;
@@ -53,7 +54,7 @@ public class BattleClassesTabHelp extends BattleClassesAbstractTab {
     public static void open(EntityPlayer player){
     	//send packet to open container on server
         //Battlegear.packetHandler.sendPacketToServer(new BattlegearGUIPacket(BattleClassesGUIHandler.helpID).generatePacket());
-    	BattleClassesMod.packetHandler.sendPacketToServer(new BattleClassesPacketGUITabSwitch(BattleClassesGUIHandler.helpID).generatePacket());
+    	BattleClassesMod.packetHandler.sendPacketToServer(new BattleClassesPacketGUITabSwitch(BattleClassesGuiHandler.helpID).generatePacket());
 
     }
 }

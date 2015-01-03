@@ -24,15 +24,15 @@ import mods.battleclasses.enumhelper.EnumBattleClassesPlayerClass;
 import mods.battleclasses.gui.BattleClassesGuiHelper;
 import mods.battleclasses.gui.BattleClassesGuiHUDOverlay;
 import mods.battleclasses.gui.controlls.BattleClassesGuiButtonClassSelector;
-import mods.battleclasses.gui.tab.BattleClassesGuiInventory;
-import mods.battleclasses.gui.tab.BattleClassesGuiTabBarButton;
+import mods.battleclasses.gui.controlls.BattleClassesGuiTabBarButton;
+import mods.battleclasses.gui.controlls.GuiTabBarButtonBattleInventory;
+import mods.battleclasses.gui.controlls.GuiTabBarButtonClassSelector;
+import mods.battleclasses.gui.controlls.GuiTabBarButtonConfig;
+import mods.battleclasses.gui.controlls.GuiTabBarButtonHelp;
+import mods.battleclasses.gui.controlls.GuiTabBarButtonTalentSelector;
+import mods.battleclasses.gui.controlls.GuiTabBarButtonVanillaInventory;
+import mods.battleclasses.gui.tab.BattleClassesTabInventory;
 import mods.battleclasses.gui.tab.BattleClassesTabClassSelector;
-import mods.battleclasses.gui.tab.GuiTabBarButtonBattleInventory;
-import mods.battleclasses.gui.tab.GuiTabBarButtonClassSelector;
-import mods.battleclasses.gui.tab.GuiTabBarButtonConfig;
-import mods.battleclasses.gui.tab.GuiTabBarButtonHelp;
-import mods.battleclasses.gui.tab.GuiTabBarButtonTalentSelector;
-import mods.battleclasses.gui.tab.GuiTabBarButtonVanillaInventory;
 import mods.battlegear2.client.BattlegearClientEvents;
 import mods.battlegear2.client.gui.BattlegearInGameGUI;
 import mods.battlegear2.client.gui.controls.GuiBGInventoryButton;
@@ -50,8 +50,9 @@ public class BattleClassesClientEvents {
 		tabsList.add(new GuiTabBarButtonBattleInventory(1, 20, 20));
 		tabsList.add(new GuiTabBarButtonTalentSelector(2, 30, 30));
 		tabsList.add(new GuiTabBarButtonClassSelector(3, 40, 40));
-		tabsList.add(new GuiTabBarButtonHelp(4, 50, 50));
-		tabsList.add(new GuiTabBarButtonConfig(5, 60, 60, false));
+		//tabsList.add(new GuiTabBarButtonHelp(4, 50, 50));
+		//tabsList.add(new GuiTabBarButtonConfig(5, 60, 60, false));
+		tabsList.add(new GuiTabBarButtonConfig(5, 50, 50));
 	}
 	/*
 	@SubscribeEvent
@@ -71,7 +72,7 @@ public class BattleClassesClientEvents {
 		BattleClassesUtils.Log("GuiOpenEvent!", LogType.GUI);
 		if(event.gui != null && event.gui.getClass().equals(GuiInventory.class)) {
 			event.setCanceled(true);
-			mc.displayGuiScreen(new BattleClassesGuiInventory(mc.thePlayer));
+			mc.displayGuiScreen(new BattleClassesTabInventory(mc.thePlayer));
 			BattleClassesUtils.Log("GuiInventory replaced!", LogType.GUI);
 		}
 	}
@@ -117,7 +118,7 @@ public class BattleClassesClientEvents {
 					button.setPosition(guiLeft + 28 + 11 + (i - 5) *(BattleClassesGuiTabBarButton.BAR_BUTTON_GAP + BattleClassesGuiTabBarButton.BAR_BUTTON_SIZE_W_V),
 							guiTop + 163);
 				}
-				button.id = buttons.size()+2;//Due to GuiInventory and GuiContainerCreative button performed actions, without them having buttons...
+				button.id = buttons.size()+100; //Due to GuiInventory and GuiContainerCreative button performed actions, without them having buttons...
 				i++;
 				buttons.add(button);
 			}

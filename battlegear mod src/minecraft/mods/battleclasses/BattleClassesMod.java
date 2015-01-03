@@ -2,7 +2,7 @@ package mods.battleclasses;
 
 import mods.battleclasses.BattleClassesUtils.LogType;
 import mods.battleclasses.blocks.BattleClassesBlocks;
-import mods.battleclasses.gui.BattleClassesGUIHandler;
+import mods.battleclasses.gui.BattleClassesGuiHandler;
 import mods.battleclasses.items.BattleClassesItemGem;
 import mods.battleclasses.items.BattleClassesItemTestingStaff;
 import mods.battleclasses.items.BattleClassesItems;
@@ -52,7 +52,7 @@ public class BattleClassesMod
     	//BattlegearConfig.registerRecipes();
         packetHandler = new BattleClassesPacketHandeler();
         packetHandler.registerChannels();
-        NetworkRegistry.INSTANCE.registerGuiHandler(this, new BattleClassesGUIHandler());
+        NetworkRegistry.INSTANCE.registerGuiHandler(this, new BattleClassesGuiHandler());
     }
 		
 	@EventHandler

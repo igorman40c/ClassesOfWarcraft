@@ -176,7 +176,7 @@ public class BattleClassesSpellBook {
 	
 	@SideOnly(Side.CLIENT)
 	public void incrementChosenAbilityIndex() {
-		this.chosenAbilityIndex++;
+		++this.chosenAbilityIndex;
 		if(this.chosenAbilityIndex >= this.getActionbarAbilities().size()) {
 			this.chosenAbilityIndex = 0;
 		}
@@ -185,9 +185,10 @@ public class BattleClassesSpellBook {
 	
 	@SideOnly(Side.CLIENT)
 	public void decrementChosenAbilityIndex() {
-		this.chosenAbilityIndex--;
+		--this.chosenAbilityIndex;
 		if(this.chosenAbilityIndex < 0) {
-			this.chosenAbilityIndex = this.getActionbarAbilities().size() - 1;
+			int n = this.getActionbarAbilities().size();
+			this.chosenAbilityIndex = (n > 0) ?  n - 1 : 0;
 		}
 		updateChosenAbilityID();
 	}

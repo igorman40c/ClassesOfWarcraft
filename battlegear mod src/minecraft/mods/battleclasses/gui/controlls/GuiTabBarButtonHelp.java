@@ -1,5 +1,6 @@
-package mods.battleclasses.gui.tab;
+package mods.battleclasses.gui.controlls;
 
+import mods.battleclasses.gui.tab.BattleClassesTabHelp;
 import mods.battlegear2.client.gui.BattleEquipGUI;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;

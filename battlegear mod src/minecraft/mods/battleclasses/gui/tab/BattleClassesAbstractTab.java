@@ -1,7 +1,7 @@
 package mods.battleclasses.gui.tab;
 
 import mods.battleclasses.client.BattleClassesClientEvents;
-import mods.battleclasses.gui.BattleClassesGUIHandler;
+import mods.battleclasses.gui.BattleClassesGuiHandler;
 import mods.battlegear2.Battlegear;
 import mods.battlegear2.client.BattlegearClientEvents;
 import mods.battlegear2.client.ClientProxy;
@@ -42,15 +42,25 @@ public abstract class BattleClassesAbstractTab extends InventoryEffectRenderer {
      * y size of the inventory window in pixels. Defined as float, passed as int.
      */
     public float ySize_lo;
+    
+    protected BattleClassesTabOverlay overlay;
 
     public BattleClassesAbstractTab(EntityPlayer entityPlayer, boolean isRemote, Container container) {
         //super(new ContainerBattle(entityPlayer.inventory, !isRemote, entityPlayer));
     	super(container);
     	this.ownerPlayer = entityPlayer; 
         this.allowUserInput = true;
-
+        this.overlay = new BattleClassesTabOverlay();
         //Don't need this, however maybe we can add a stat later on. I will keep it comented out for now
         //entityPlayer.addStat(AchievementList.openInventory, 1);
+    }
+    
+    /**
+     * Draws the screen and all the components in it.
+     */
+    @Override
+    public void drawScreen(int par1, int par2, float par3){
+        super.drawScreen(par1, par2, par3);
     }
 
     @Override
@@ -99,11 +109,7 @@ public abstract class BattleClassesAbstractTab extends InventoryEffectRenderer {
     @Override
     protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3) {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.renderEngine.bindTexture(resource);
-        int var5 = this.guiLeft;
-        int var6 = this.guiTop;
-        this.drawTexturedModalRect(var5, var6, 0, 0, this.xSize, this.ySize);
-        GuiInventory.func_147046_a(var5 + 31, var6 + 75, 30, (float) (var5 + 51) - this.xSize_lo, (float) (var6 + 75 - 50) - this.ySize_lo, mc.thePlayer);
+        this.overlay.drawAttributesDisplayWindow(this.guiLeft, this.guiTop, this.xSize, this.zLevel);
     }
     
 }

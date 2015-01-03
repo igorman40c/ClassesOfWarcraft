@@ -52,7 +52,7 @@ public class BattleClassesGuiHUDOverlay extends BattlegearInGameGUI {
 	
     public static Class<?> previousGui;
     public static Minecraft mc;
-    public static final ResourceLocation resourceLocationHUD = new ResourceLocation("battleclasses", "textures/gui/InGameGUI.png");
+    public static final ResourceLocation resourceLocationHUD = new ResourceLocation("battleclasses", "textures/gui/InterfaceHUD.png");
         
     public BattleClassesGuiHUDOverlay() {
     	super();
