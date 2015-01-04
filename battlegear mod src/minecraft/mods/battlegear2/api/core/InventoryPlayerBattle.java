@@ -355,6 +355,7 @@ public class InventoryPlayerBattle extends InventoryPlayer {
                 nbtList.appendTag(nbttagcompound);
             }
         }
+        this.battleClassesPlayerHooks.writeToNBT(par1nbtTagList);
         return nbtList;
     }
 
@@ -403,6 +404,7 @@ public class InventoryPlayerBattle extends InventoryPlayer {
                 }
             }
         }
+        this.battleClassesPlayerHooks.readFromNBT(nbtTagList);
     }
 
     /**
