@@ -199,7 +199,7 @@ public class BattleClassesPlayerHooks implements ICooldownMapHolder {
 	public static final String NBT_TAGNAME_COMPOUNDNAME_VALUE = "BattleClasses";
 	public static final String NBT_TAGNAME_PLAYERCLASS = "BC_PlayerClass"; 
 	
-    public NBTTagList writeToNBT(NBTTagList nbtTagList) {
+	public NBTTagCompound writeTagCompound() {
     	NBTTagCompound nbttagcompound_master = new NBTTagCompound();
     	nbttagcompound_master.setString(NBT_TAGNAME_COMPOUNDNAME_KEY, NBT_TAGNAME_COMPOUNDNAME_VALUE);
     	//Saving Player BattleClass
@@ -211,10 +211,23 @@ public class BattleClassesPlayerHooks implements ICooldownMapHolder {
     	//p_70014_1_.setTag("Inventory", this.inventory.writeToNBT(new NBTTagList()))
     	
     	//Saving main CooldownClock map
-    	
-    	
-    	nbtTagList.appendTag(nbttagcompound_master);
+    	//CompressedStreamTools.
+    	return nbttagcompound_master;
+	}
+	
+    public NBTTagList writeToNBT(NBTTagList nbtTagList) {
+    	nbtTagList.appendTag(this.writeTagCompound());
     	return nbtTagList;
+    }
+    
+    public void readTagCompound(NBTTagCompound nbttagcompound) {
+    	//Loading Player BattleClass
+    	int classCode = nbttagcompound.getInteger(NBT_TAGNAME_PLAYERCLASS);
+    	EnumBattleClassesPlayerClass playerClass = EnumBattleClassesPlayerClass.values()[classCode];
+    	System.out.println("NBTTag classcode read:" + classCode);
+    	if(playerClass != EnumBattleClassesPlayerClass.NONE) {
+    		this.applyPlayerClass(playerClass);
+    	}
     }
 	
     public void readFromNBT(NBTTagList nbtTagList) {
@@ -230,13 +243,7 @@ public class BattleClassesPlayerHooks implements ICooldownMapHolder {
     		System.out.println("Couldn't find BattleClasses NBTTagCompound");
     		return;
     	}
-    	//Loading Player BattleClass
-    	int classCode = nbttagcompound_master.getInteger(NBT_TAGNAME_PLAYERCLASS);
-    	EnumBattleClassesPlayerClass playerClass = EnumBattleClassesPlayerClass.values()[classCode];
-    	System.out.println("NBTTag classcode read:" + classCode);
-    	if(playerClass != EnumBattleClassesPlayerClass.NONE) {
-    		this.applyPlayerClass(playerClass);
-    	}
+    	this.readTagCompound(nbttagcompound_master);
     }
 	
 	

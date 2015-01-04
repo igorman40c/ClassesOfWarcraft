@@ -23,10 +23,7 @@ public class BattleClassesPacketProcessAbilityWithTarget extends AbstractMBPacke
 	private int targetEntityID = -1 ;
 	private int tickCount = -1 ;
 	private String username;
-	
-	public static final int TALENT_TREE_BUTTON_ID_OFFSET = 10000;
-	public static final int RESET_TALENTS_ID = 0;
-	
+		
 	public BattleClassesPacketProcessAbilityWithTarget(EntityPlayer user, int parAbilityID, int parTargetEntityID, int parTickCount) {
     	this.abilityID = parAbilityID;
     	this.targetEntityID =  parTargetEntityID;

@@ -12,7 +12,7 @@ import mods.battlegear2.packet.AbstractMBPacket;
 import net.minecraft.entity.player.EntityPlayer;
 import cpw.mods.fml.common.network.ByteBufUtils;
 
-public class BattleClassesPacketTalentSync  extends AbstractMBPacket {
+public class BattleClassesPacketTalentSync extends AbstractMBPacket {
 
 	public static final String packetName = "BC|TalentSync";
 
@@ -81,7 +81,6 @@ public class BattleClassesPacketTalentSync  extends AbstractMBPacket {
             			BattleClassesUtils.Log("FATAL ERROR while trying to apply synchronized talentStateMap on client! TalentAbility was null for key:" + keyTalentID, LogType.PACKET);
             		}
             	}
-                
             }
         }
 	}

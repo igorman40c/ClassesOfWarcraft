@@ -17,6 +17,8 @@ import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.player.PlayerOpenContainerEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.network.internal.FMLProxyPacket;
+import mods.battleclasses.BattleClassesMod;
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
 import mods.battleclasses.ability.BattleClassesAbstractAbilityActive;
@@ -34,6 +36,7 @@ import mods.battleclasses.gui.controlls.GuiTabBarButtonTalentSelector;
 import mods.battleclasses.gui.controlls.GuiTabBarButtonVanillaInventory;
 import mods.battleclasses.gui.tab.BattleClassesTabInventory;
 import mods.battleclasses.gui.tab.BattleClassesTabClassSelector;
+import mods.battleclasses.packet.BattleClassesPacketPlayerDataSync;
 import mods.battlegear2.client.BattlegearClientEvents;
 import mods.battlegear2.client.gui.BattlegearInGameGUI;
 import mods.battlegear2.client.gui.controls.GuiBGInventoryButton;
@@ -84,7 +87,9 @@ public class BattleClassesClientEvents {
 		if(event.entity instanceof EntityPlayer) {
 			EntityPlayer entityPlayer = (EntityPlayer)event.entity;
 			if(entityPlayer == mc.thePlayer) {
-				System.out.println("Player joined!");
+				BattleClassesUtils.Log("Player joined! Requesting PlayerData", LogType.CORE);
+				FMLProxyPacket p = new BattleClassesPacketPlayerDataSync().generatePacket();
+				BattleClassesMod.packetHandler.sendPacketToServer(p);
 			}
 		}
 	}
