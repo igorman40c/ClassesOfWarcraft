@@ -80,7 +80,7 @@ public class BattleClassesSpellBook {
 			BattleClassesGuiHUDOverlay.displayWarning(BattleClassesGuiHUDOverlay.HUD_W_BATTLEMODE_REQUIRED);
 			return false;
 		}
-		boolean hasClass = playerHooks.playerClass.getPlayerClass() != EnumBattleClassesPlayerClass.PlayerClass_NONE;
+		boolean hasClass = playerHooks.playerClass.getPlayerClass() != EnumBattleClassesPlayerClass.NONE;
 		if(!hasClass) {
 			BattleClassesGuiHUDOverlay.displayWarning(BattleClassesGuiHUDOverlay.HUD_W_CLASS_REQUIRED);
 			return false;

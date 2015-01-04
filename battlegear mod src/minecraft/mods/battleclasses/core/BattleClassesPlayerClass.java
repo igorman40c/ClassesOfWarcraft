@@ -89,7 +89,7 @@ public class BattleClassesPlayerClass implements ICooldownOwner {
 		this.playerHooks.weaponHitHandler.initAccessSet();
 		
 		switch (parPlayerClass) {
-			case PlayerClass_NONE : {
+			case NONE : {
 				this.playerHooks.weaponHitHandler.accessSet.add(EnumBattleClassesWieldAccess.WeaponAccess_DUALWIELD);
 				this.playerHooks.weaponHitHandler.accessSet.add(EnumBattleClassesWieldAccess.WeaponAccess_SHIELD);
 			}

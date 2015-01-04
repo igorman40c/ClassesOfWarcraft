@@ -14,6 +14,7 @@ import net.minecraft.util.IIcon;
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.player.PlayerOpenContainerEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import mods.battleclasses.BattleClassesUtils;
@@ -74,6 +75,17 @@ public class BattleClassesClientEvents {
 			event.setCanceled(true);
 			mc.displayGuiScreen(new BattleClassesTabInventory(mc.thePlayer));
 			BattleClassesUtils.Log("GuiInventory replaced!", LogType.GUI);
+		}
+	}
+	
+	@SubscribeEvent
+	public void playerJoinWorldEvent(EntityJoinWorldEvent event) {
+		Minecraft mc = Minecraft.getMinecraft();
+		if(event.entity instanceof EntityPlayer) {
+			EntityPlayer entityPlayer = (EntityPlayer)event.entity;
+			if(entityPlayer == mc.thePlayer) {
+				System.out.println("Player joined!");
+			}
 		}
 	}
 	

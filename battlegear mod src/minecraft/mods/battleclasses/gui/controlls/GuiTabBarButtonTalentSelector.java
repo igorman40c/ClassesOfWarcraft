@@ -26,7 +26,7 @@ public class GuiTabBarButtonTalentSelector extends BattleClassesGuiTabBarButton 
 	
 	@Override
 	public boolean isAccessAble() {
-		return BattleClassesUtils.getPlayerClass(Minecraft.getMinecraft().thePlayer) != EnumBattleClassesPlayerClass.PlayerClass_NONE ;
+		return BattleClassesUtils.getPlayerClass(Minecraft.getMinecraft().thePlayer) != EnumBattleClassesPlayerClass.NONE ;
 	}
 	
 	@Override

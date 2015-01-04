@@ -98,7 +98,7 @@ public class BattleClassesTabClassSelector extends BattleClassesAbstractTab  {
 			return "Hunter";
 		case MAGE:
 			return "Mage";
-		case PlayerClass_NONE:
+		case NONE:
 			return "No Class";
 		case PALADIN:
 			return "Paladin";

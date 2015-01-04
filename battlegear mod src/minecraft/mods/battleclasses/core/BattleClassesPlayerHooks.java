@@ -21,6 +21,7 @@ import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
 
@@ -36,11 +37,27 @@ public class BattleClassesPlayerHooks implements ICooldownMapHolder {
 		this.ownerPlayer = parOwnerPlayer;
 		mainCooldownMap = new HashMap<Integer, CooldownClock>();
 		
-		playerClass = new BattleClassesPlayerClass(this, EnumBattleClassesPlayerClass.PlayerClass_NONE);
+		playerClass = new BattleClassesPlayerClass(this, EnumBattleClassesPlayerClass.NONE);
 		weaponHitHandler = new BattleClassesWeaponHitHandler(this);
 	}
 	
 	public void switchToPlayerClass(EnumBattleClassesPlayerClass parPlayerClass) {
+		
+		this.applyPlayerClass(parPlayerClass);
+		
+		FMLProxyPacket p = new BattleClassesPacketPlayerClassSnyc(this.ownerPlayer, parPlayerClass).generatePacket();
+		if(this.getOwnerPlayer() instanceof EntityPlayerMP) {
+			EntityPlayerMP entityPlayerMP = (EntityPlayerMP) this.ownerPlayer;
+			if(entityPlayerMP != null) {
+				BattleClassesUtils.Log("Sending class switch sync to client: " + entityPlayerMP.getDisplayName(), LogType.PACKET);
+				BattleClassesMod.packetHandler.sendPacketToPlayer(p, entityPlayerMP);
+			}
+		}
+		
+		playerClass.getCooldownClock().setCooldownDefaultForced();
+	}
+	
+	protected void applyPlayerClass(EnumBattleClassesPlayerClass parPlayerClass) {
 		/*
 		if(this.playerClass != null) {
 			this.playerClass.cooldownClock.unregisterFromCooldownCenter();
@@ -70,22 +87,8 @@ public class BattleClassesPlayerHooks implements ICooldownMapHolder {
 				this.playerClass = new BattleClassesPlayerClass(this, parPlayerClass);
 			}
 				break;
-		
 		}
-		
-		FMLProxyPacket p = new BattleClassesPacketPlayerClassSnyc(this.ownerPlayer, parPlayerClass).generatePacket();
-		
-		if(this.getOwnerPlayer() instanceof EntityPlayerMP) {
-			EntityPlayerMP entityPlayerMP = (EntityPlayerMP) this.ownerPlayer;
-			if(entityPlayerMP != null) {
-				BattleClassesUtils.Log("Sending class switch sync to client: " + entityPlayerMP.getDisplayName(), LogType.PACKET);
-				BattleClassesMod.packetHandler.sendPacketToPlayer(p, entityPlayerMP);
-			}
-		}
-		
 		BattleClassesUtils.Log(this.ownerPlayer.getDisplayName() + " switched to class: " + parPlayerClass.toString(), LogType.CORE);
-		
-		playerClass.getCooldownClock().setCooldownDefaultForced();
 	}
 	
 	public EntityPlayer getOwnerPlayer() {
@@ -192,13 +195,48 @@ public class BattleClassesPlayerHooks implements ICooldownMapHolder {
 		return this.getOwnerPlayer();
 	}
 	
-    public NBTTagList writeToNBT(NBTTagList par1nbtTagList) {
+	public static final String NBT_TAGNAME_COMPOUNDNAME_KEY = "Name";
+	public static final String NBT_TAGNAME_COMPOUNDNAME_VALUE = "BattleClasses";
+	public static final String NBT_TAGNAME_PLAYERCLASS = "BC_PlayerClass"; 
+	
+    public NBTTagList writeToNBT(NBTTagList nbtTagList) {
+    	NBTTagCompound nbttagcompound_master = new NBTTagCompound();
+    	nbttagcompound_master.setString(NBT_TAGNAME_COMPOUNDNAME_KEY, NBT_TAGNAME_COMPOUNDNAME_VALUE);
+    	//Saving Player BattleClass
+    	int classCode = this.playerClass.getPlayerClass().ordinal();
+    	nbttagcompound_master.setInteger(NBT_TAGNAME_PLAYERCLASS, classCode);
+    	System.out.println("NBTTag classcode written:" + nbttagcompound_master.getInteger(NBT_TAGNAME_PLAYERCLASS));
     	
-    	return par1nbtTagList;
+    	//Saving Talent Matrix
+    	//p_70014_1_.setTag("Inventory", this.inventory.writeToNBT(new NBTTagList()))
+    	
+    	//Saving main CooldownClock map
+    	
+    	
+    	nbtTagList.appendTag(nbttagcompound_master);
+    	return nbtTagList;
     }
 	
     public void readFromNBT(NBTTagList nbtTagList) {
-    	
+    	//Searching for BattleClasses NBTTagCompound
+    	NBTTagCompound nbttagcompound_master = null;
+    	for (int i = 0; i < nbtTagList.tagCount(); ++i) {
+            NBTTagCompound nbttagcompound = nbtTagList.getCompoundTagAt(i);
+            if(nbttagcompound.getString(NBT_TAGNAME_COMPOUNDNAME_KEY).equals(NBT_TAGNAME_COMPOUNDNAME_VALUE)) {
+            	nbttagcompound_master = nbttagcompound;
+            }
+        }
+    	if(nbttagcompound_master == null) {
+    		System.out.println("Couldn't find BattleClasses NBTTagCompound");
+    		return;
+    	}
+    	//Loading Player BattleClass
+    	int classCode = nbttagcompound_master.getInteger(NBT_TAGNAME_PLAYERCLASS);
+    	EnumBattleClassesPlayerClass playerClass = EnumBattleClassesPlayerClass.values()[classCode];
+    	System.out.println("NBTTag classcode read:" + classCode);
+    	if(playerClass != EnumBattleClassesPlayerClass.NONE) {
+    		this.applyPlayerClass(playerClass);
+    	}
     }
 	
 	

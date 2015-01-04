@@ -178,7 +178,7 @@ public class BattleClassesGuiHUDOverlay extends BattlegearInGameGUI {
         }
         
         this.mc.renderEngine.bindTexture(resourceLocationHUD);
-        boolean hasClass = BattleClassesUtils.getPlayerClass(mc.thePlayer) != EnumBattleClassesPlayerClass.PlayerClass_NONE;
+        boolean hasClass = BattleClassesUtils.getPlayerClass(mc.thePlayer) != EnumBattleClassesPlayerClass.NONE;
         if (hasClass && ((IBattlePlayer) mc.thePlayer).isBattlemode()) {
         	int chosenIndex = BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).getChosenAbilityIndex();
             this.drawTexturedModalRect(actionbarPosX-1 + chosenIndex*20, actionbarPosY-1, 232, 0, 24, 24);

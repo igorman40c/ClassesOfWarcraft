@@ -1,5 +1,7 @@
 package mods.battleclasses;
 
+import java.util.EnumSet;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -36,7 +38,10 @@ public static Logger battleClassesLogger = LogManager.getLogger("Battle Classes"
     }
     
     public static void Log(String message, LogType logType) {
-    	//Side side = FMLCommonHandler.instance().getEffectiveSide();
+    	EnumSet<LogType> ignoredTypes = EnumSet.of(LogType.PACKET, LogType.GUI);
+    	if(ignoredTypes.contains(logType)) {
+    		return;
+    	}
     	String logString = new String("[" + /*side.toString() + "/" + */  logType.toString() + "] " + ": " + message);
     	battleClassesLogger.info(logString);
     }

@@ -1,7 +1,7 @@
 package mods.battleclasses.enumhelper;
 
 public enum EnumBattleClassesPlayerClass {
-	PlayerClass_NONE,
+	NONE,
 	
 	MAGE,
 	PRIEST,
