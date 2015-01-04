@@ -6,15 +6,15 @@ import mods.battlegear2.Battlegear;
 import mods.battlegear2.packet.AbstractMBPacket;
 import net.minecraft.entity.player.EntityPlayer;
 
-public class BattleClassesPacketGUITabSwitch  extends AbstractMBPacket {
+public class BattleClassesPacketGuiTabSwitch  extends AbstractMBPacket {
 
     public static final String packetName = "BC|GUITabSwitch";
 
-    public BattleClassesPacketGUITabSwitch(int equipid) {
+    public BattleClassesPacketGuiTabSwitch(int equipid) {
         this.equipid = equipid;
     }
 
-	public BattleClassesPacketGUITabSwitch() {
+	public BattleClassesPacketGuiTabSwitch() {
 	}
 
 	private int equipid;

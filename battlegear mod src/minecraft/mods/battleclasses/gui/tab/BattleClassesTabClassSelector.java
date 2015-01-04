@@ -11,7 +11,7 @@ import mods.battleclasses.BattleClassesUtils.LogType;
 import mods.battleclasses.enumhelper.EnumBattleClassesPlayerClass;
 import mods.battleclasses.gui.BattleClassesGuiHandler;
 import mods.battleclasses.gui.controlls.BattleClassesGuiButtonClassSelector;
-import mods.battleclasses.packet.BattleClassesPacketGUITabSwitch;
+import mods.battleclasses.packet.BattleClassesPacketGuiTabSwitch;
 import mods.battlegear2.Battlegear;
 import mods.battlegear2.packet.BattlegearGUIPacket;
 import net.minecraft.client.gui.inventory.GuiInventory;
@@ -88,7 +88,7 @@ public class BattleClassesTabClassSelector extends BattleClassesAbstractTab  {
     
     public static void open(EntityPlayer player){
     	//send packet to open container on server
-    	BattleClassesMod.packetHandler.sendPacketToServer(new BattleClassesPacketGUITabSwitch(BattleClassesGuiHandler.classSelectorID).generatePacket());
+    	BattleClassesMod.packetHandler.sendPacketToServer(new BattleClassesPacketGuiTabSwitch(BattleClassesGuiHandler.classSelectorID).generatePacket());
         //Battlegear.packetHandler.sendPacketToServer(new BattlegearGUIPacket(BattleClassesGUIHandler.classSelectorID).generatePacket());
     }
     

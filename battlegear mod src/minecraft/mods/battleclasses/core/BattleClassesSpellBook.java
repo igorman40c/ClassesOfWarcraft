@@ -239,7 +239,14 @@ public class BattleClassesSpellBook {
 
 	
 	//Helper
+    public BattleClassesAbstractAbilityActive getActiveAbilitiyByID(int id) {
+    	return this.activeAbilities.get(id);
+    }
     
+    public BattleClassesAbstractAbilityPassive getPassiveAbilitiyByID(int id) {
+    	return this.passiveAbilities.get(id);
+    }
+	
 	public ArrayList<BattleClassesAbstractAbilityActive> getActiveAbilitiesInArray() {
 		return new ArrayList<BattleClassesAbstractAbilityActive>(this.activeAbilities.values());
 	}

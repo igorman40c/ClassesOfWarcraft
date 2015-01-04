@@ -8,7 +8,7 @@ import net.minecraft.util.ResourceLocation;
 import mods.battleclasses.BattleClassesMod;
 import mods.battleclasses.client.BattleClassesClientEvents;
 import mods.battleclasses.gui.BattleClassesGuiHandler;
-import mods.battleclasses.packet.BattleClassesPacketGUITabSwitch;
+import mods.battleclasses.packet.BattleClassesPacketGuiTabSwitch;
 import mods.battlegear2.Battlegear;
 import mods.battlegear2.client.BattlegearClientEvents;
 import mods.battlegear2.client.ClientProxy;
@@ -39,7 +39,7 @@ public class BattleClassesTabEquipment extends BattleClassesAbstractTab {
 	
     public static void open(EntityPlayer player){
     	//send packet to open container on server
-    	BattleClassesMod.packetHandler.sendPacketToServer(new BattleClassesPacketGUITabSwitch(BattleClassesGuiHandler.equipID).generatePacket());
+    	BattleClassesMod.packetHandler.sendPacketToServer(new BattleClassesPacketGuiTabSwitch(BattleClassesGuiHandler.equipID).generatePacket());
     }
 	
     @Override

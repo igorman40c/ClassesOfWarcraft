@@ -15,7 +15,7 @@ import mods.battleclasses.gui.controlls.BattleClassesGuiButtonClassSelector;
 import mods.battleclasses.gui.controlls.BattleClassesGuiButtonTalentReset;
 import mods.battleclasses.gui.controlls.BattleClassesGuiButtonTalentTree;
 import mods.battleclasses.gui.controlls.BattleClassesGuiButtonTalentNode;
-import mods.battleclasses.packet.BattleClassesPacketGUITabSwitch;
+import mods.battleclasses.packet.BattleClassesPacketGuiTabSwitch;
 import mods.battlegear2.Battlegear;
 import mods.battlegear2.client.BattlegearClientEvents;
 import mods.battlegear2.client.ClientProxy;
@@ -164,7 +164,7 @@ public class BattleClassesTabTalents extends BattleClassesAbstractTab {
     public static void open(EntityPlayer player){
     	//send packet to open container on server
         //Battlegear.packetHandler.sendPacketToServer(new BattlegearGUIPacket(BattleClassesGUIHandler.talentsID).generatePacket());
-    	BattleClassesMod.packetHandler.sendPacketToServer(new BattleClassesPacketGUITabSwitch(BattleClassesGuiHandler.talentsID).generatePacket());
+    	BattleClassesMod.packetHandler.sendPacketToServer(new BattleClassesPacketGuiTabSwitch(BattleClassesGuiHandler.talentsID).generatePacket());
 
     }
     

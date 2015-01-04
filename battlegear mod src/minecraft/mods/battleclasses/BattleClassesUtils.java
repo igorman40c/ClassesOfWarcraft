@@ -12,11 +12,13 @@ import mods.battleclasses.core.ICooldownOwner;
 import mods.battleclasses.enumhelper.EnumBattleClassesPlayerClass;
 import mods.battlegear2.api.core.InventoryPlayerBattle;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 
 public class BattleClassesUtils {
 	
@@ -86,6 +88,19 @@ public static Logger battleClassesLogger = LogManager.getLogger("Battle Classes"
 	public static BattleClassesTalentMatrix getPlayerTalentMatrix(EntityPlayer entityPlayer) {
 		return BattleClassesUtils.getPlayerHooks(entityPlayer).playerClass.talentMatrix;
 	}
+	
+	public static Entity getEntityByID(int entityID, World world)        
+	{         
+	    for(Object o: world.getLoadedEntityList())                
+	    {                        
+	        if(((Entity)o).getEntityId() == entityID)                        
+	        {                                
+	            //System.out.println("Found the entity");                                
+	            return ((Entity)o);                        
+	        }                
+	    }                
+	    return null;        
+	} 
 		
 	public static boolean isTargetFriendly(EntityPlayer entityPlayerTargeting, EntityLivingBase target) {
 		//TODO : !!!

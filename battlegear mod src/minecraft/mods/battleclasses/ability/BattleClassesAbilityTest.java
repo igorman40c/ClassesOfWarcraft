@@ -3,6 +3,7 @@ package mods.battleclasses.ability;
 import java.util.Random;
 
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
 import mods.battleclasses.core.BattleClassesPlayerHooks;
@@ -35,7 +36,7 @@ public class BattleClassesAbilityTest extends BattleClassesAbstractAbilityActive
 		this.school = EnumBattleClassesAbilitySchool.values()[pick];
 		
 		pick = new Random().nextInt(EnumBattleClassesAbilityDirectTargetRequirement.values().length);
-		this.targetType = EnumBattleClassesAbilityDirectTargetRequirement.values()[pick];
+		this.targetRequirementType = EnumBattleClassesAbilityDirectTargetRequirement.values()[pick];
 		
 		pick = new Random().nextInt(EnumBattleClassesAbilityIntent.values().length);
 		this.intent = EnumBattleClassesAbilityIntent.values()[pick];
@@ -48,12 +49,12 @@ public class BattleClassesAbilityTest extends BattleClassesAbstractAbilityActive
 	}
 
 	@Override
-	public boolean performEffect(EntityLiving targetEntity, int tickCount) {
+	public boolean performEffect(EntityLivingBase targetEntity, int tickCount) {
 		BattleClassesUtils.Log("BANG BANG Performed effect", LogType.CORE);
 		return true;
 	}
 	
 	public String getName() {
-		return "Testing school:" + school + " intent:" + intent + " target:" + targetType;
+		return "Testing school:" + school + " intent:" + intent + " target:" + targetRequirementType;
 	}
 }

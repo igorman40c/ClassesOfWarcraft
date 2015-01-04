@@ -4,7 +4,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -17,6 +18,7 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.internal.FMLProxyPacket;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import mods.battleclasses.BattleClassesMod;
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
 import mods.battleclasses.client.BattleClassesClientTargeting;
@@ -30,6 +32,8 @@ import mods.battleclasses.enumhelper.EnumBattleClassesAbilityDirectTargetRequire
 import mods.battleclasses.gui.BattleClassesGuiHUDOverlay;
 import mods.battleclasses.items.BattleClassesItemWeapon;
 import mods.battleclasses.packet.BattleClassesPacketCooldownSet;
+import mods.battleclasses.packet.BattleClassesPacketPlayerClassSnyc;
+import mods.battleclasses.packet.BattleClassesPacketProcessAbilityWithTarget;
 import mods.battlegear2.Battlegear;
 
 public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAbstractAbilityCooldownHolder {
@@ -44,7 +48,7 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 	
 	//Basic ability parameters
 	protected EnumBattleClassesAbilitySchool school = EnumBattleClassesAbilitySchool.UNKNOWN;
-	protected EnumBattleClassesAbilityDirectTargetRequirement targetType = EnumBattleClassesAbilityDirectTargetRequirement.NEEDLESS;
+	protected EnumBattleClassesAbilityDirectTargetRequirement targetRequirementType = EnumBattleClassesAbilityDirectTargetRequirement.NEEDLESS;
 	protected EnumBattleClassesAbilityIntent intent = EnumBattleClassesAbilityIntent.DUAL;
 	protected EnumBattleClassesAbilityCastingType castingType = EnumBattleClassesAbilityCastingType.CastType_UNKNOWN;
 
@@ -79,7 +83,7 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 		}
 		
 		if(this.isInstant()) {
-			this.requestProcession(entityPlayer, itemStack, 0);
+			this.requestProceed(entityPlayer, itemStack, 0);
 		}
 		else {
 			this.startCasting(entityPlayer, itemStack);
@@ -101,7 +105,7 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 					this.getCooldownClock().setCooldownDefault();
 				}
 				BattleClassesUtils.Log("Channeling... Current tick: " + currentCastTickInverted + " Cast time in tick " + this.getCastTimeInTicks(), LogType.ABILITY);
-				this.requestProcession(entityPlayer, itemStack, tickCount);
+				this.requestProceed(entityPlayer, itemStack, tickCount);
 			}
 		}
 	}
@@ -112,7 +116,7 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 			if(this.channeled) {
 				return;
 			}
-			this.requestProcession(entityPlayer, itemStack, tickCount);
+			this.requestProceed(entityPlayer, itemStack, tickCount);
 		}
 		else {
 			this.cancelCasting(entityPlayer);
@@ -135,7 +139,7 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 	}
 	
 	public EnumBattleClassesAbilityDirectTargetRequirement getTargetingType() {
-		return targetType;
+		return this.targetRequirementType;
 	}
 	
 	public EnumBattleClassesAbilitySchool getSchool() {
@@ -190,7 +194,7 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 	}
 		
 	public boolean requiresRayTracingForTarget() {
-		switch (this.targetType) {
+		switch (this.targetRequirementType) {
 		case NEEDLESS:
 			return false;
 		case OPTIONAL:
@@ -202,6 +206,11 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 		}
 	}
 	
+	/**
+	 * Decides between the raytraced entity and the caster to be the final target depending on the intent of the ability.
+	 * @param entity - raytraced
+	 * @return final target
+	 */
 	public EntityLivingBase getFinalTargetFromRaytracedEntity(EntityLivingBase entity) {
 		if(this.requiresRayTracingForTarget()) {
 			boolean targetIsFriendly = BattleClassesUtils.isTargetFriendly(this.playerHooks.getOwnerPlayer(), entity);
@@ -213,7 +222,7 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 			}
 				break;
 			case SUPPORTIVE: {
-				switch(this.targetType) {
+				switch(this.targetRequirementType) {
 					case OPTIONAL: {
 						if(targetIsFriendly) {
 							return entity;
@@ -235,7 +244,7 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 			}
 				break;
 			case DUAL: {
-				switch(this.targetType) {
+				switch(this.targetRequirementType) {
 					case OPTIONAL: {
 						if(entity == null) {
 							return this.playerHooks.getOwnerPlayer();
@@ -275,33 +284,44 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 		BattleClassesUtils.Log("Cancelling Casting and GlobalCD", LogType.ABILITY);
 	}
 	
-	public void requestProcession(EntityPlayer entityPlayer, ItemStack itemStack, int tickCount) {
+	public void requestProceed(EntityPlayer entityPlayer, ItemStack itemStack, int tickCount) {
 		Side side = FMLCommonHandler.instance().getEffectiveSide();
 		//Checking CLIENT SIDE
-		if(side == Side.CLIENT) {
-			if(!this.requiresRayTracingForTarget()) {
-				return;
-			}
-			EntityLivingBase target = BattleClassesClientTargeting.getFinalTargetOfAbility(this);
+		if(side == Side.CLIENT && this.requiresRayTracingForTarget()) {
 			
 			//CHECK TARGET REQUIREMENTS
-			
 			//CHECK RANGE REQUIREMENTS
+			EntityLivingBase target = BattleClassesClientTargeting.getFinalTargetOfAbility(this);
 			
-			//IF REQUIREMENTS ARE SATISFIED, SEND PERFORMREQUEST PACKET
-			
+			//TODO
+			if (target != null) {
+				int targetEntityID = target.getEntityId();
+				FMLProxyPacket p = new BattleClassesPacketProcessAbilityWithTarget(entityPlayer, this.abilityID, targetEntityID, tickCount).generatePacket();
+				BattleClassesMod.packetHandler.sendPacketToServer(p);
+			}
 		}
 		//Checking SERVER SIDE
-		else {
-			if(this.requiresRayTracingForTarget()) {
-				return;
-			}
-			EntityLiving targetEntity = null;
+		else if (side == Side.SERVER && !this.requiresRayTracingForTarget()) {
+			EntityLivingBase targetEntity = null;
 			this.proceedAbility(targetEntity, tickCount);
+		} 
+		else {
+			System.out.println("ServerSide requestProcession failed. TargetRT: " + this.targetRequirementType);
 		}
 	}
 	
-	public boolean proceedAbility(EntityLiving targetEntity, int tickCount) {
+	/**
+	 * Returns the FinalTargetFromRaytracedEntity using a newly traced mouse-over target
+	 * @return
+	 */
+	@SideOnly(Side.CLIENT)
+	public EntityLivingBase getFinalTarget() {
+		EntityLivingBase target = BattleClassesClientTargeting.getClientMouseOverTarget(this.range);
+		EntityLivingBase finalTarget = this.getFinalTargetFromRaytracedEntity(target);
+		return finalTarget;
+	}
+	
+	public boolean proceedAbility(EntityLivingBase targetEntity, int tickCount) {
 		boolean performSucceeded = this.performEffect(targetEntity, tickCount);
 		if(performSucceeded && !this.channeled) {
 			this.onCastFinished(targetEntity, tickCount);
@@ -310,9 +330,9 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 		return performSucceeded;
 	}
 	
-	public abstract boolean performEffect(EntityLiving targetEntity, int tickCount);
+	public abstract boolean performEffect(EntityLivingBase targetEntity, int tickCount);
 		
-	public final void onCastFinished(EntityLiving targetEntity, int tickCount) {
+	public final void onCastFinished(EntityLivingBase targetEntity, int tickCount) {
 		BattleClassesUtils.Log("Casting finished!", LogType.ABILITY);
 		this.getCooldownClock().setCooldownDefault();
 	}

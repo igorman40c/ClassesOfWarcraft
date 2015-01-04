@@ -31,7 +31,8 @@ public class BattleClassesPacketHandeler {
 		map.put(BattleClassesPacketChosenAbilityIDSync.packetName, new BattleClassesPacketChosenAbilityIDSync());
 		map.put(BattleClassesPacketTalentNodeChosen.packetName, new BattleClassesPacketTalentNodeChosen());
 		map.put(BattleClassesPacketTalentSync.packetName, new BattleClassesPacketTalentSync());
-		map.put(BattleClassesPacketGUITabSwitch.packetName, new BattleClassesPacketGUITabSwitch());
+		map.put(BattleClassesPacketGuiTabSwitch.packetName, new BattleClassesPacketGuiTabSwitch());
+		map.put(BattleClassesPacketProcessAbilityWithTarget.packetName, new BattleClassesPacketProcessAbilityWithTarget());
 	}
 	
 	public void registerChannels() {

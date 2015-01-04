@@ -2,7 +2,7 @@ package mods.battleclasses.gui.tab;
 
 import mods.battleclasses.BattleClassesMod;
 import mods.battleclasses.gui.BattleClassesGuiHandler;
-import mods.battleclasses.packet.BattleClassesPacketGUITabSwitch;
+import mods.battleclasses.packet.BattleClassesPacketGuiTabSwitch;
 import mods.battlegear2.Battlegear;
 import mods.battlegear2.packet.BattlegearGUIPacket;
 import net.minecraft.entity.player.EntityPlayer;
@@ -54,7 +54,7 @@ public class BattleClassesTabHelp extends BattleClassesAbstractTab {
     public static void open(EntityPlayer player){
     	//send packet to open container on server
         //Battlegear.packetHandler.sendPacketToServer(new BattlegearGUIPacket(BattleClassesGUIHandler.helpID).generatePacket());
-    	BattleClassesMod.packetHandler.sendPacketToServer(new BattleClassesPacketGUITabSwitch(BattleClassesGuiHandler.helpID).generatePacket());
+    	BattleClassesMod.packetHandler.sendPacketToServer(new BattleClassesPacketGuiTabSwitch(BattleClassesGuiHandler.helpID).generatePacket());
 
     }
 }

@@ -14,7 +14,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.network.internal.FMLProxyPacket;
 
-public class BattleClassesPacketTalentNodeChosen  extends AbstractMBPacket {
+public class BattleClassesPacketTalentNodeChosen extends AbstractMBPacket {
 
 	public static final String packetName = "BC|TalentNodeChosen";
 	private int talentID = -1 ;
