@@ -21,6 +21,7 @@ import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.nbt.NBTTagList;
 
 
 public class BattleClassesPlayerHooks implements ICooldownMapHolder {
@@ -190,4 +191,15 @@ public class BattleClassesPlayerHooks implements ICooldownMapHolder {
 	public EntityPlayer getCooldownCenterOwner() {
 		return this.getOwnerPlayer();
 	}
+	
+    public NBTTagList writeToNBT(NBTTagList par1nbtTagList) {
+    	
+    	return par1nbtTagList;
+    }
+	
+    public void readFromNBT(NBTTagList nbtTagList) {
+    	
+    }
+	
+	
 }
