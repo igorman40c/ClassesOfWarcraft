@@ -1,0 +1,18 @@
+package mods.battleclasses.enumhelper;
+
+public enum EnumBattleClassesAttributeType {
+	//Primary
+	STAMINA,
+	STRENGTH,
+	AGILITY,
+	SPELLPOWER_ARCANE,
+	SPELLPOWER_FIRE,
+	SPELLPOWER_FROST,
+	SPELLPOWER_HOLY,
+	SPELLPOWER_SHADOW,
+	//Secondary
+	HASTE_RATING,
+	CRITICAL_RATING,
+	ARMOR_PENETRATION,
+	WEAPON_DAMAGE
+}

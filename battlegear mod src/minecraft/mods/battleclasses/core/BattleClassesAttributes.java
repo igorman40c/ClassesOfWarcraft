@@ -1,5 +1,7 @@
 package mods.battleclasses.core;
 
+import mods.battleclasses.enumhelper.EnumBattleClassesAttributeType;
+
 public class BattleClassesAttributes {
 
 	//Primary attributes (in points)
@@ -73,5 +75,105 @@ public class BattleClassesAttributes {
 		this.armor_pen *= attributes.armor_pen;
 		this.weapon_damage *= attributes.weapon_damage;
 		return this;
+	}
+	
+	public float getByType(EnumBattleClassesAttributeType attributeType) {
+		switch (attributeType) {
+		case AGILITY:{
+			return this.agility;
+		}
+		case ARMOR_PENETRATION:{
+			return this.armor_pen;
+		}
+		case CRITICAL_RATING:{
+			return this.crit;
+		}
+		case HASTE_RATING:{
+			return this.haste;
+		}
+		case SPELLPOWER_ARCANE:{
+			return this.spellpower_arcane;
+		}
+		case SPELLPOWER_FIRE:{
+			return this.spellpower_fire;
+		}
+		case SPELLPOWER_FROST:{
+			return this.spellpower_frost;
+		}
+		case SPELLPOWER_HOLY:{
+			return this.spellpower_holy;
+		}
+		case SPELLPOWER_SHADOW:{
+			return this.spellpower_shadow;
+		}
+		case STAMINA: {
+			return this.stamina;
+		}
+		case STRENGTH: {
+			return this.strength;
+		}
+		case WEAPON_DAMAGE: {
+			return this.weapon_damage;
+		}
+		default:
+			break;		
+		}
+		return 0;
+	}
+	
+	public void setByType(EnumBattleClassesAttributeType attributeType, float value) {
+		switch(attributeType) {
+		case AGILITY: {
+			this.agility = value;
+		}
+			break;
+		case ARMOR_PENETRATION: {
+			this.armor_pen = value;
+		}
+			break;
+		case CRITICAL_RATING: {
+			this.crit = value;
+		}
+			break;
+		case HASTE_RATING: {
+			this.haste = value;
+		}
+			break;
+		case SPELLPOWER_ARCANE: {
+			this.spellpower_arcane = value;
+		}
+			break;
+		case SPELLPOWER_FIRE: {
+			this.spellpower_fire = value;
+		}
+			break;
+		case SPELLPOWER_FROST: {
+			this.spellpower_frost = value;
+		}
+			break;
+		case SPELLPOWER_HOLY: {
+			this.spellpower_holy = value;
+		}
+			break;
+		case SPELLPOWER_SHADOW: {
+			this.spellpower_shadow = value;
+		}
+			break;
+		case STAMINA: {
+			this.stamina = value;
+		}
+			break;
+		case STRENGTH: {
+			this.strength = value;
+		}
+			break;
+		case WEAPON_DAMAGE: {
+			this.weapon_damage = value;
+		}
+			break;
+		default:
+			break;
+		
+		}
 	}
 }

@@ -78,7 +78,6 @@ public class BattleClassesTabOverlay extends Gui {
 	
 	public void drawAttributesDisplayWindow(int guiLeft, int guiTop, int guiWidth, float parZLevel) {
 		Minecraft mc = Minecraft.getMinecraft();
-		//Draw window background
 		int windowOriginX = guiLeft + guiWidth + GAP_BETWEEN_WINDOWS;
 		int windowOriginY = guiTop;
 		int windowWidth = 77;
@@ -91,6 +90,7 @@ public class BattleClassesTabOverlay extends Gui {
         //OpenGlHelper.glBlendFunc(770, 771, 1, 0);
         //GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         
+		//Draw window background
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		mc.renderEngine.bindTexture(resourceAttributes);
 		this.drawTexturedModalRect(windowOriginX, windowOriginY, 0, 0, windowWidth, windowHeight);
