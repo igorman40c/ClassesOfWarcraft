@@ -45,6 +45,7 @@ public class BattleClassesAbilityTest extends BattleClassesAbstractAbilityActive
 			this.channeled = true;
 			this.channelTickCount = 3;
 			this.school = EnumBattleClassesAbilitySchool.SPELL_ARCANE;
+			//this.cooldownClock.setDefaultDuration(300);
 		}
 	}
 

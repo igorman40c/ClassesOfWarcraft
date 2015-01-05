@@ -1,6 +1,8 @@
 package mods.battleclasses.enumhelper;
 
 public enum EnumBattleClassesCooldownType {
+	CooldownType_UNKNOWN,
+	
 	CooldownType_CLASS_SWITCH,
 	CooldownType_TALENT_CHANGE,
 	CooldownType_ABILITY,

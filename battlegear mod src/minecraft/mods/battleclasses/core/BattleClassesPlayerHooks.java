@@ -12,6 +12,7 @@ import mods.battleclasses.BattleClassesUtils.LogType;
 import mods.battleclasses.ability.BattleClassesAbstractAbilityPassive;
 import mods.battleclasses.core.classes.BattleClassesPlayerClassMage;
 import mods.battleclasses.enumhelper.EnumBattleClassesAmplifierApplyType;
+import mods.battleclasses.enumhelper.EnumBattleClassesCooldownType;
 import mods.battleclasses.enumhelper.EnumBattleClassesPlayerClass;
 import mods.battleclasses.packet.BattleClassesPacketPlayerClassSnyc;
 import mods.battlegear2.Battlegear;
@@ -199,19 +200,40 @@ public class BattleClassesPlayerHooks implements ICooldownMapHolder {
 	public static final String NBT_TAGNAME_COMPOUNDNAME_VALUE = "BattleClasses";
 	public static final String NBT_TAGNAME_PLAYERCLASS = "BC_PlayerClass"; 
 	public static final String NBT_TAGNAME_TALENT_TREE_STATES = "BC_TalentTreeStates";
+	public static final String NBT_TAGNAME_CD_MAP = "BC_Cooldowns";
+	public static final String NBT_TAGNAME_CD_KEY = "CD_Key";
+	public static final String NBT_TAGNAME_CD_SETTIME = "CD_SetTime";
+	public static final String NBT_TAGNAME_CD_LASTDURATION = "CD_LastDuration";
+	public static final String NBT_TAGNAME_CD_LASTTYPE = "CD_LastType";
+	
 	
 	public NBTTagCompound writeTagCompound() {
     	NBTTagCompound tagCompound = new NBTTagCompound();
+    	//Saving name of the tagCompound
     	tagCompound.setString(NBT_TAGNAME_COMPOUNDNAME_KEY, NBT_TAGNAME_COMPOUNDNAME_VALUE);
+    	
     	//Saving Player BattleClass
-    	int classCode = this.playerClass.getPlayerClass().ordinal();
-    	tagCompound.setInteger(NBT_TAGNAME_PLAYERCLASS, classCode);
-    	//System.out.println("NBTTag classcode written:" + tagCompound.getInteger(NBT_TAGNAME_PLAYERCLASS));
+    	tagCompound.setInteger(NBT_TAGNAME_PLAYERCLASS, this.playerClass.getPlayerClass().ordinal());
     	
     	//Saving Talent Matrix
     	tagCompound.setIntArray(NBT_TAGNAME_TALENT_TREE_STATES, this.playerClass.talentMatrix.getPointsOnTrees());
     	
     	//Saving main CooldownClock map
+    	NBTTagList cooldownClocks = new NBTTagList();
+    	ArrayList<Integer> cooldownClockKeys = new ArrayList<Integer>(mainCooldownMap.keySet());
+    	for(int i = 0; i < cooldownClockKeys.size(); ++i) {
+    		int cooldownClockKey = cooldownClockKeys.get(i);
+    		CooldownClock cooldownClock = mainCooldownMap.get(cooldownClockKey);
+    		
+    		NBTTagCompound cooldownClockTagCompound = new NBTTagCompound();
+    		cooldownClockTagCompound.setFloat(NBT_TAGNAME_CD_SETTIME, cooldownClock.getSetTime());
+    		cooldownClockTagCompound.setFloat(NBT_TAGNAME_CD_LASTDURATION, cooldownClock.getLastUsedDuration());
+    		cooldownClockTagCompound.setInteger(NBT_TAGNAME_CD_LASTTYPE, cooldownClock.getLastUsedType().ordinal());
+    		cooldownClockTagCompound.setInteger(NBT_TAGNAME_CD_KEY, cooldownClockKey);
+    		cooldownClocks.appendTag(cooldownClockTagCompound);
+    	}
+    	tagCompound.setTag(NBT_TAGNAME_CD_MAP, cooldownClocks);
+    	
     	return tagCompound;
 	}
 	
@@ -233,6 +255,21 @@ public class BattleClassesPlayerHooks implements ICooldownMapHolder {
     		this.playerClass.getCooldownClock().setEnabled(false);
     		this.playerClass.talentMatrix.applyPointsOnTrees(pointsOnTrees);
     		this.playerClass.getCooldownClock().setEnabled(true);
+    	}
+    	
+    	//Loading main CooldownClock map
+    	NBTTagList cooldownClocksNBTTagList = (NBTTagList) nbttagcompound.getTag(NBT_TAGNAME_CD_MAP);
+    	if(cooldownClocksNBTTagList != null) {
+    		for (int i = 0; i < cooldownClocksNBTTagList.tagCount(); ++i) {
+                NBTTagCompound cooldownClockTagCompound = cooldownClocksNBTTagList.getCompoundTagAt(i);
+                CooldownClock cooldownClock = this.mainCooldownMap.get(cooldownClockTagCompound.getInteger(NBT_TAGNAME_CD_KEY));
+                if(cooldownClock != null) {
+                	cooldownClock.setSetTime(cooldownClockTagCompound.getFloat(NBT_TAGNAME_CD_SETTIME));
+                	cooldownClock.setLastUsedDuration(cooldownClockTagCompound.getFloat(NBT_TAGNAME_CD_LASTDURATION));
+                	EnumBattleClassesCooldownType cooldownType = EnumBattleClassesCooldownType.values()[cooldownClockTagCompound.getInteger(NBT_TAGNAME_CD_LASTTYPE)];
+                	cooldownClock.setLastUsedType(cooldownType);
+                }
+    		}
     	}
     }
 	

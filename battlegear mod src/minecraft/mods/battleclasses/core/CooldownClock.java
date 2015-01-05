@@ -205,7 +205,7 @@ public class CooldownClock {
 	
 	public float getLastUsedDuration() {
 		return this.lastUsedDuration;
-	}
+	}	
 	
 	public boolean isEnabled() {
 		return this.enabled;
@@ -214,27 +214,35 @@ public class CooldownClock {
 	public void setEnabled(boolean parBool) {
 		this.enabled = parBool;
 	}
+	
+	public float getSetTime() {
+		return setTime;
+	}
 
 	//----------------------------------------
 	/** Stores the point in time, in which the last cooldown has been set on this clock*/
 	protected float setTime;
 	protected float lastUsedDuration;
-	protected EnumBattleClassesCooldownType lastUsedType;
+	protected EnumBattleClassesCooldownType lastUsedType = EnumBattleClassesCooldownType.CooldownType_UNKNOWN;
 
 	protected int getCooldownHashCode() {
 		return this.cooldownID;
 	}
-
-	protected float getSetTime() {
-		return setTime;
-	}
-
-	protected void setSetTime(float t) {
-		setTime = t;
-	}
 		
 	protected EntityPlayer getOwnerPlayer() {
 		return this.parentCooldownMapper.getCooldownCenterOwner();
+	}
+	
+	void setSetTime(float t) {
+		setTime = t;
+	}
+	
+	void setLastUsedType(EnumBattleClassesCooldownType type) {
+		this.lastUsedType = type;
+	}
+	
+	void setLastUsedDuration(float duration) {
+		this.lastUsedDuration = duration;
 	}
 
 }
