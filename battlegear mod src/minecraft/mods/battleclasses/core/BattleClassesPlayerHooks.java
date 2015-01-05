@@ -283,11 +283,9 @@ public class BattleClassesPlayerHooks implements ICooldownMapHolder {
             }
         }
     	if(nbttagcompound_master == null) {
-    		System.out.println("Couldn't find BattleClasses NBTTagCompound");
     		return;
     	}
     	this.readTagCompound(nbttagcompound_master);
     }
-	
 	
 }
