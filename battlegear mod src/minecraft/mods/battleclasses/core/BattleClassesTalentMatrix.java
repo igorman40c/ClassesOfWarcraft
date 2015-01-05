@@ -76,6 +76,12 @@ public class BattleClassesTalentMatrix {
 		this.talentTrees.get(2).spendTalentPoints(tree2);
 	}
 	
+	public void applyPointsOnTrees(int[] pointsOnTrees) {
+		for(int i = 0; i < pointsOnTrees.length; ++i) {
+			this.talentTrees.get(i).spendTalentPoints(pointsOnTrees[i]);
+        }
+	}
+	
 	public int[] getPointsOnTrees() {
 		int[] points = new int[this.talentTrees.size()];
 		int i = 0;

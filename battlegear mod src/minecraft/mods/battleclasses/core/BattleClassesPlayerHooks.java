@@ -230,7 +230,9 @@ public class BattleClassesPlayerHooks implements ICooldownMapHolder {
     	
     	if(playerClass != EnumBattleClassesPlayerClass.NONE) {
     		this.applyPlayerClass(playerClass);
-    		this.playerClass.talentMatrix.applyPointsOnTrees(pointsOnTrees[0], pointsOnTrees[1], pointsOnTrees[2]);
+    		this.playerClass.getCooldownClock().setEnabled(false);
+    		this.playerClass.talentMatrix.applyPointsOnTrees(pointsOnTrees);
+    		this.playerClass.getCooldownClock().setEnabled(true);
     	}
     }
 	

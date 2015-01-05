@@ -16,6 +16,7 @@ public class CooldownClock {
 
 	public final int cooldownID;
 	public ICooldownMapHolder parentCooldownMapper;
+	private boolean enabled = true;
 	
 	private CooldownClock() {
 		this.cooldownID = 0;
@@ -139,6 +140,9 @@ public class CooldownClock {
 	 * @param type - type of the cooldown
 	 */
 	public void setCooldown(float duration, boolean forced, EnumBattleClassesCooldownType type) {
+		if(!enabled) {
+			return;
+		}
 		if( duration > this.getCooldownRemaining() || forced) {
 			this.setTime = BattleClassesUtils.getCurrentTimeInSeconds();
 			this.lastUsedDuration = duration;
@@ -201,6 +205,14 @@ public class CooldownClock {
 	
 	public float getLastUsedDuration() {
 		return this.lastUsedDuration;
+	}
+	
+	public boolean isEnabled() {
+		return this.enabled;
+	}
+	
+	public void setEnabled(boolean parBool) {
+		this.enabled = parBool;
 	}
 
 	//----------------------------------------

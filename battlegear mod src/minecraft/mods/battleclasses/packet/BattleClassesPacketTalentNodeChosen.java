@@ -57,7 +57,8 @@ public class BattleClassesPacketTalentNodeChosen extends AbstractMBPacket {
             	}
             	else if(talentID >= TALENT_TREE_BUTTON_ID_OFFSET) {
             		int treeIndex = talentID - TALENT_TREE_BUTTON_ID_OFFSET;
-            		playerHooks.playerClass.talentMatrix.learnFullTreeAtIndex(treeIndex);
+            		//playerHooks.playerClass.talentMatrix.learnFullTreeAtIndex(treeIndex);
+            		playerHooks.playerClass.talentMatrix.talentTrees.get(treeIndex).spendTalentPoints(playerHooks.playerClass.talentMatrix.getTalentPoints());
             	}
             	else {
             		BattleClassesAbstractTalent talentAbility = playerHooks.playerClass.talentMatrix.talentHashMap.get(talentID);
