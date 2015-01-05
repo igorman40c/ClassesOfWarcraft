@@ -40,6 +40,23 @@ public class BattleClassesTalentTree {
 		return 0;
 	}
 	
+	public int getPointsOnTree() {
+		int n = 0;
+		for(BattleClassesAbstractTalent talentAbility : this.talentList ) {
+			n += talentAbility.getCurrentState();
+    	}
+		return n;
+	}
+	
+	public void spendTalentPoints(int points) {
+		for(BattleClassesAbstractTalent talentAbility : this.talentList ) {
+    		while(!talentAbility.isAlreadyLearned() && points != 0) {
+    			this.parentTalentMatrix.learnTalent(talentAbility);
+    			points--;
+    		}
+    	}
+	}
+	
 	/**
 	 * Returns the resource path of background image of this talent tree 
 	 * @return

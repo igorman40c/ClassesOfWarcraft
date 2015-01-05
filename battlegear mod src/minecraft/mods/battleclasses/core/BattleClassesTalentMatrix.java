@@ -70,6 +70,22 @@ public class BattleClassesTalentMatrix {
 		return talentPoints < TALENT_POINTS_TO_SPEND;
 	}
 	
+	public void applyPointsOnTrees(int tree0, int tree1, int tree2) {
+		this.talentTrees.get(0).spendTalentPoints(tree0);
+		this.talentTrees.get(1).spendTalentPoints(tree1);
+		this.talentTrees.get(2).spendTalentPoints(tree2);
+	}
+	
+	public int[] getPointsOnTrees() {
+		int[] points = new int[this.talentTrees.size()];
+		int i = 0;
+		for(BattleClassesTalentTree talentTree : this.talentTrees) {
+			points[i] = talentTree.getPointsOnTree();
+        	++i;
+        }
+		return points;
+	}
+	
 	public void learnFullTreeAtIndex(int index) {
 		BattleClassesUtils.Log("Trying to learn full talent tree at index: " + index, LogType.CORE);
 		this.resetTalentPoints();

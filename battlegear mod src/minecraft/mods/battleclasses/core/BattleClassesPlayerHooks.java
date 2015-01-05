@@ -198,21 +198,21 @@ public class BattleClassesPlayerHooks implements ICooldownMapHolder {
 	public static final String NBT_TAGNAME_COMPOUNDNAME_KEY = "Name";
 	public static final String NBT_TAGNAME_COMPOUNDNAME_VALUE = "BattleClasses";
 	public static final String NBT_TAGNAME_PLAYERCLASS = "BC_PlayerClass"; 
+	public static final String NBT_TAGNAME_TALENT_TREE_STATES = "BC_TalentTreeStates";
 	
 	public NBTTagCompound writeTagCompound() {
-    	NBTTagCompound nbttagcompound_master = new NBTTagCompound();
-    	nbttagcompound_master.setString(NBT_TAGNAME_COMPOUNDNAME_KEY, NBT_TAGNAME_COMPOUNDNAME_VALUE);
+    	NBTTagCompound tagCompound = new NBTTagCompound();
+    	tagCompound.setString(NBT_TAGNAME_COMPOUNDNAME_KEY, NBT_TAGNAME_COMPOUNDNAME_VALUE);
     	//Saving Player BattleClass
     	int classCode = this.playerClass.getPlayerClass().ordinal();
-    	nbttagcompound_master.setInteger(NBT_TAGNAME_PLAYERCLASS, classCode);
-    	System.out.println("NBTTag classcode written:" + nbttagcompound_master.getInteger(NBT_TAGNAME_PLAYERCLASS));
+    	tagCompound.setInteger(NBT_TAGNAME_PLAYERCLASS, classCode);
+    	//System.out.println("NBTTag classcode written:" + tagCompound.getInteger(NBT_TAGNAME_PLAYERCLASS));
     	
     	//Saving Talent Matrix
-    	//p_70014_1_.setTag("Inventory", this.inventory.writeToNBT(new NBTTagList()))
+    	tagCompound.setIntArray(NBT_TAGNAME_TALENT_TREE_STATES, this.playerClass.talentMatrix.getPointsOnTrees());
     	
     	//Saving main CooldownClock map
-    	//CompressedStreamTools.
-    	return nbttagcompound_master;
+    	return tagCompound;
 	}
 	
     public NBTTagList writeToNBT(NBTTagList nbtTagList) {
@@ -224,9 +224,13 @@ public class BattleClassesPlayerHooks implements ICooldownMapHolder {
     	//Loading Player BattleClass
     	int classCode = nbttagcompound.getInteger(NBT_TAGNAME_PLAYERCLASS);
     	EnumBattleClassesPlayerClass playerClass = EnumBattleClassesPlayerClass.values()[classCode];
-    	System.out.println("NBTTag classcode read:" + classCode);
+    	
+    	//Loading talent tree states
+    	int[] pointsOnTrees = nbttagcompound.getIntArray(NBT_TAGNAME_TALENT_TREE_STATES);
+    	
     	if(playerClass != EnumBattleClassesPlayerClass.NONE) {
     		this.applyPlayerClass(playerClass);
+    		this.playerClass.talentMatrix.applyPointsOnTrees(pointsOnTrees[0], pointsOnTrees[1], pointsOnTrees[2]);
     	}
     }
 	
