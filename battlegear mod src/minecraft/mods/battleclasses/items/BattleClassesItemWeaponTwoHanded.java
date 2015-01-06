@@ -21,23 +21,35 @@ public class BattleClassesItemWeaponTwoHanded extends BattleClassesItemWeapon im
 				EnumBattleClassesPlayerClass.WARRIOR);
 		BattleClassesItems.TwoHandedWeaponList.add(this);
 	}
+	
+	public BattleClassesItemWeaponTwoHanded(ToolMaterial toolMaterial, String textureName, float parAnchor, boolean parInvertSheat) {
+		this(toolMaterial,textureName);
+		this.anchor = parAnchor;
+		this.inverSheat = parInvertSheat;
+	}
 
-	public static float broadSwordAnchor = 0.25F;
+	public boolean inverSheat = false;
+	public float anchor = 0.25F;
 	
 	@Override
 	public float getRelativeAnchorPointX() {
 		// TODO Auto-generated method stub
-		return broadSwordAnchor;
+		return anchor;
 	}
 
 	@Override
 	public float getRelativeAnchorPointY() {
 		// TODO Auto-generated method stub
-		return broadSwordAnchor;
+		return anchor;
 	}
 	
 	@Override
 	public boolean sheatheOnBack(ItemStack item) {
 		return true;
+	}
+	
+	@Override
+	public boolean invertOnBack(ItemStack item) {
+		return inverSheat;
 	}
 }

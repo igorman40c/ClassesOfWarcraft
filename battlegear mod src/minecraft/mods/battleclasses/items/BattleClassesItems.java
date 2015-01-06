@@ -14,12 +14,16 @@ public class BattleClassesItems {
     
     public static ArrayList<IHighDetailWeapon> TwoHandedWeaponList = new ArrayList<IHighDetailWeapon>(); 
     public static final BattleClassesItemWeaponTwoHanded itemTestingBroadSword = new BattleClassesItemWeaponTwoHanded(ToolMaterial.EMERALD, "BroadSword");
-    
+    public static final BattleClassesItemWeaponTwoHanded itemTestingGreatStaff = new BattleClassesItemWeaponTwoHanded(ToolMaterial.EMERALD, "GreatStaff", 0.5F, true);
+    public static final BattleClassesItemWeaponTwoHanded itemTestingWarHammer = new BattleClassesItemWeaponTwoHanded(ToolMaterial.EMERALD, "BroadSword", 0.5F, true);
+
     
 	public static void registerItems() {
 		GameRegistry.registerItem(itemGem, "gemItem");
 		GameRegistry.registerItem(itemTestingStaff, itemTestingStaff.getUnlocalizedName());
 		GameRegistry.registerItem(itemTestingBroadSword, itemTestingBroadSword.getUnlocalizedName());
+		GameRegistry.registerItem(itemTestingGreatStaff, itemTestingGreatStaff.getUnlocalizedName());
+		GameRegistry.registerItem(itemTestingWarHammer, itemTestingWarHammer.getUnlocalizedName());
 
 		/*
 		TwoHandedWeaponList.add(itemTestingBroadSword);
@@ -37,7 +41,9 @@ public class BattleClassesItems {
 		*/
 		LanguageRegistry.addName(new ItemStack(itemTestingStaff), "Staff of testing and debugging");
 		
-		LanguageRegistry.addName(new ItemStack(itemTestingBroadSword), "Broadsword of fatal render errors");
+		LanguageRegistry.addName(new ItemStack(itemTestingBroadSword), "Broadsword of testing");
+		LanguageRegistry.addName(new ItemStack(itemTestingGreatStaff), "Great staff of testing");
+		LanguageRegistry.addName(new ItemStack(itemTestingWarHammer), "Warhammer of testing");
 
 		LanguageRegistry.addName(new ItemStack(itemGem, 1, 0), "True Diamond");
 		LanguageRegistry.addName(new ItemStack(itemGem, 1, 1), "Ruby");
