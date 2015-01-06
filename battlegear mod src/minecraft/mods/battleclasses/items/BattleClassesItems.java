@@ -12,7 +12,7 @@ public class BattleClassesItems {
     public static final BattleClassesItemGem itemGem = new BattleClassesItemGem();
     public static final BattleClassesItemTestingStaff itemTestingStaff = new BattleClassesItemTestingStaff(ToolMaterial.WOOD);
     
-    public static ArrayList<BattleClassesItemWeaponTwoHanded> TwoHandedWeaponList = new ArrayList<BattleClassesItemWeaponTwoHanded>(); 
+    public static ArrayList<IHighDetailWeapon> TwoHandedWeaponList = new ArrayList<IHighDetailWeapon>(); 
     public static final BattleClassesItemWeaponTwoHanded itemTestingBroadSword = new BattleClassesItemWeaponTwoHanded(ToolMaterial.EMERALD, "BroadSword");
     
     

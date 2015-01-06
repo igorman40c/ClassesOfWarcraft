@@ -2,6 +2,7 @@ package mods.battleclasses.items;
 
 import java.util.EnumSet;
 
+import net.minecraft.item.ItemStack;
 import mods.battleclasses.enumhelper.EnumBattleClassesPlayerClass;
 
 public class BattleClassesItemWeaponTwoHanded extends BattleClassesItemWeapon implements IHighDetailWeapon {
@@ -35,4 +36,8 @@ public class BattleClassesItemWeaponTwoHanded extends BattleClassesItemWeapon im
 		return broadSwordAnchor;
 	}
 	
+	@Override
+	public boolean sheatheOnBack(ItemStack item) {
+		return true;
+	}
 }

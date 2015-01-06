@@ -21,7 +21,7 @@ public class BattleClassesHDWeaponRenderer implements IItemRenderer {
 
     @Override
     public boolean handleRenderType(ItemStack item, ItemRenderType type) {
-        return item!=null && item.getItem() instanceof IHighDetailWeapon && (type == ItemRenderType.INVENTORY || type == ItemRenderType.EQUIPPED || type == ItemRenderType.EQUIPPED_FIRST_PERSON);
+        return item!=null && item.getItem() instanceof IHighDetailWeapon && (type == ItemRenderType.INVENTORY /*|| type == ItemRenderType.ENTITY*/ | type == ItemRenderType.EQUIPPED || type == ItemRenderType.EQUIPPED_FIRST_PERSON);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class BattleClassesHDWeaponRenderer implements IItemRenderer {
         IIcon icon = itemStack.getIconIndex();
         if (type == ItemRenderType.EQUIPPED || type == ItemRenderType.EQUIPPED_FIRST_PERSON) {
             
-        	float scaleFactor = 2;
+        	float scaleFactor = 1;
         	int defaultSize = 16;
         	if(icon.getIconWidth() > icon.getIconHeight()) {
         		scaleFactor = ((float)icon.getIconWidth())/ ((float)defaultSize);
@@ -91,8 +91,31 @@ public class BattleClassesHDWeaponRenderer implements IItemRenderer {
             GL11.glDisable(GL11.GL_BLEND);
             if(itemStack.hasEffect(0))
                 itemRenderer.renderEffect(Minecraft.getMinecraft().getTextureManager(), 0, 0);
-
         }
+        /*
+        else if (type == ItemRenderType.ENTITY) {
+        	float scaleFactor = 1;
+        	int defaultSize = 16;
+        	if(icon.getIconWidth() > icon.getIconHeight()) {
+        		scaleFactor = ((float)icon.getIconWidth())/ ((float)defaultSize);
+        	}
+        	else {
+        		scaleFactor = ((float)icon.getIconHeight())/ ((float)defaultSize);
+        	}
+        	GL11.glScalef(scaleFactor, scaleFactor, 1);
+            GL11.glColor4f(1F, 1F, 1F, 1F);
+            //GL11.glRotatef(90, 0, 0, 1);
+            //MOJANG derp fixes:
+                GL11.glEnable(GL11.GL_ALPHA_TEST);
+            //    GL11.glEnable(GL11.GL_BLEND);
+            itemRenderer.renderIcon(0, 0, icon, icon.getIconWidth(), icon.getIconHeight());
+            GL11.glEnable(GL11.GL_LIGHTING);
+            GL11.glDisable(GL11.GL_ALPHA_TEST);
+            GL11.glDisable(GL11.GL_BLEND);
+            if(itemStack.hasEffect(0))
+                itemRenderer.renderEffect(Minecraft.getMinecraft().getTextureManager(), 0, 0);
+        }
+        */
         GL11.glPopMatrix();
     }
 }
