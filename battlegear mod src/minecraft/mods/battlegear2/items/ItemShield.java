@@ -251,4 +251,10 @@ public class ItemShield extends Item implements IShield, IDyable, IEnchantable, 
             return 300;
         return 0;
     }
+
+	@Override
+	public boolean invertOnBack(ItemStack itemStack) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

@@ -56,4 +56,10 @@ public class TwoHandedWeapon extends ItemWeapon{
 			ItemStack mainhandItem, ItemStack offhandItem) {		
 	}
 
+	@Override
+	public boolean invertOnBack(ItemStack itemStack) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

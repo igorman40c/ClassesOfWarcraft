@@ -53,4 +53,10 @@ public class OneHandedWeapon extends ItemWeapon{
 	public int getItemEnchantability() {
         return this.getMaterial().getEnchantability();
     }
+
+	@Override
+	public boolean invertOnBack(ItemStack itemStack) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

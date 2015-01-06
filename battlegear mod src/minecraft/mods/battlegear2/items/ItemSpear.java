@@ -1,6 +1,7 @@
 package mods.battlegear2.items;
 
 import com.google.common.collect.Multimap;
+
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -71,4 +72,10 @@ public class ItemSpear extends TwoHandedWeapon implements IExtendedReachWeapon,I
         }
         return false;
     }
+    
+    @Override
+	public boolean invertOnBack(ItemStack itemStack) {
+		// TODO Auto-generated method stub
+		return true;
+	}
 }

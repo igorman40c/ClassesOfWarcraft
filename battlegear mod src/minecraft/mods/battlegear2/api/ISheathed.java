@@ -17,4 +17,7 @@ public interface ISheathed {
      * @param item the {@link ItemStack} to be sheathed
      */
     public boolean sheatheOnBack(ItemStack item);
+    
+    public boolean invertOnBack(ItemStack itemStack);
+    
 }

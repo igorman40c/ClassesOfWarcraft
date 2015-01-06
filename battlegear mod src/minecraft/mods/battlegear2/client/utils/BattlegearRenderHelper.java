@@ -572,16 +572,16 @@ public final class BattlegearRenderHelper {
             GL11.glPushMatrix();
             target.bipedBody.postRender(0.0625F);
             if(onBack){
-                if(mainhandSheathed.getItem() instanceof ItemSpear){
+            	if(mainhandSheathed.getItem() instanceof ISheathed && ((ISheathed) mainhandSheathed.getItem()).invertOnBack(mainhandSheathed)) {
                     GL11.glScalef(0.6F, -0.6F, 0.6F);
                     GL11.glTranslatef(0, -1, 0);
                 }else
                     GL11.glScalef(0.6F, 0.6F, 0.6F);
-                GL11.glTranslatef(-8F / 16F, 0, 6F / 16F);
-                GL11.glRotatef(-5F, 0.0F, 0.0F, 1.0F);
-                GL11.glRotatef(40.0F+90, 0.0F, 1.0F, 0.0F);
-                GL11.glTranslatef(0, 0, 4F/16F - backCount*2F/16F);
-                backCount++;
+	                GL11.glTranslatef(-8F / 16F, 0, 6F / 16F);
+	                GL11.glRotatef(-5F, 0.0F, 0.0F, 1.0F);
+	                GL11.glRotatef(40.0F+90, 0.0F, 1.0F, 0.0F);
+	                GL11.glTranslatef(0, 0, 4F/16F - backCount*2F/16F);
+	                backCount++;
             }else{
                 GL11.glScalef(0.6F, 0.6F, 0.6F);
                 GL11.glTranslatef(8F/16F, 1, -4F/16F);
