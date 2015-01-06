@@ -23,4 +23,8 @@ public class BattleClassesCommonProxy {
     public void registerTickHandelers(){
     	
     }
+
+	public void registerItemRenderers() {
+		// TODO Auto-generated method stub
+	}
 }

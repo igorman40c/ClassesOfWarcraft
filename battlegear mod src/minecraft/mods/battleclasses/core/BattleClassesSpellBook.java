@@ -21,7 +21,7 @@ import mods.battleclasses.enumhelper.EnumBattleClassesCooldownType;
 import mods.battleclasses.enumhelper.EnumBattleClassesPlayerClass;
 import mods.battleclasses.gui.BattleClassesGuiHUDOverlay;
 import mods.battleclasses.items.BattleClassesItemWeapon;
-import mods.battleclasses.items.IBattleClassesAbilityAccessItem;
+import mods.battleclasses.items.IBattleClassesWeapon;
 import mods.battleclasses.packet.BattleClassesPacketChosenAbilityIDSync;
 import mods.battleclasses.packet.BattleClassesPacketPlayerClassSnyc;
 import mods.battlegear2.Battlegear;
@@ -262,7 +262,7 @@ public class BattleClassesSpellBook {
 	public boolean isCastingInProgress() {
 		return ((IBattlePlayer)this.playerHooks.ownerPlayer).isBattlemode() && 
 				(this.playerHooks.ownerPlayer.isUsingItem()) && 
-				(this.playerHooks.ownerPlayer.getItemInUse().getItem() instanceof IBattleClassesAbilityAccessItem) && 
+				(this.playerHooks.ownerPlayer.getItemInUse().getItem() instanceof IBattleClassesWeapon) && 
 				(this.getChosenAbility() != null);
 	}
 }

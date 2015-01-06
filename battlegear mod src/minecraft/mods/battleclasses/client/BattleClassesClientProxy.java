@@ -27,7 +27,9 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.internal.FMLProxyPacket;
 import cpw.mods.fml.common.registry.GameData;
 import mods.battleclasses.BattleClassesCommonProxy;
+import mods.battleclasses.client.renderer.BattleClassesHDWeaponRenderer;
 import mods.battleclasses.gui.BattleClassesGuiKeyHandler;
+import mods.battleclasses.items.BattleClassesItems;
 import mods.battlegear2.Battlegear;
 import mods.battlegear2.api.core.InventoryPlayerBattle;
 import mods.battlegear2.api.heraldry.IHeraldryItem;
@@ -43,7 +45,6 @@ import mods.battlegear2.client.renderer.HeraldryCrestItemRenderer;
 import mods.battlegear2.client.renderer.HeraldryItemRenderer;
 import mods.battlegear2.client.renderer.QuiverItremRenderer;
 import mods.battlegear2.client.renderer.ShieldRenderer;
-import mods.battlegear2.client.renderer.SpearRenderer;
 import mods.battlegear2.heraldry.TileEntityFlagPole;
 import mods.battlegear2.packet.BattlegearAnimationPacket;
 import mods.battlegear2.packet.SpecialActionPacket;
@@ -70,6 +71,17 @@ public class BattleClassesClientProxy extends BattleClassesCommonProxy {
         MinecraftForge.EVENT_BUS.register(new BattleClassesClientEvents());
         FMLCommonHandler.instance().bus().register(new BattlegearClientTickHandeler());
         */
+    }
+    
+    @Override
+    public void registerItemRenderers() {
+    	super.registerItemRenderers();
+    	//Registering HD (32x32) sized weapon renderers
+    	BattleClassesHDWeaponRenderer HD_WeaponRenderer =  new BattleClassesHDWeaponRenderer();
+        for(Item HD_Weapon : BattleClassesItems.TwoHandedWeaponList){
+        	if(HD_Weapon!=null)
+        		MinecraftForgeClient.registerItemRenderer(HD_Weapon, HD_WeaponRenderer);
+        }
     }
 
 }

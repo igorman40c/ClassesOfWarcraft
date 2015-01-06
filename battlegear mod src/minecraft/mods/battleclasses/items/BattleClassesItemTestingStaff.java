@@ -26,8 +26,7 @@ public class BattleClassesItemTestingStaff extends BattleClassesItemWeapon {
 		super(toolMaterial);
 		// TODO Auto-generated constructor stub
 		
-        this.setUnlocalizedName("battleclasses:"+"weapons/WoodenStaff");
-		this.setTextureName("battleclasses:"+"weapons/WoodenStaff");
+        this.setName("WoodenStaff");
 		classAccessSet = EnumSet.of(
 				EnumBattleClassesPlayerClass.MAGE,
 				EnumBattleClassesPlayerClass.PRIEST,

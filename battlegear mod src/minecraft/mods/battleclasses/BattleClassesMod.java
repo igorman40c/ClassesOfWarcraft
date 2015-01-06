@@ -44,7 +44,7 @@ public class BattleClassesMod
 		
 		proxy.registerKeyHandelers();
         proxy.registerTickHandelers();
-        //proxy.registerItemRenderers();
+        proxy.registerItemRenderers();
 	}
     
     @EventHandler

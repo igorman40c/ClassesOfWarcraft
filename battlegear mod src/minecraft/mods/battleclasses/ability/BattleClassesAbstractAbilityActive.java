@@ -161,10 +161,11 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 	 * @return - availability of the ability
 	 */
 	public boolean isAvailable(EntityPlayer entityPlayer, ItemStack itemStack) {
-		boolean hasRequiredItem = false;
+		//boolean hasRequiredItem = false;
 		if(itemStack.getItem() instanceof BattleClassesItemWeapon) {
 			BattleClassesItemWeapon weapon = (BattleClassesItemWeapon) itemStack.getItem();
 			if(weapon.getClassAccessSet().contains(BattleClassesUtils.getPlayerClass(entityPlayer)) ) {
+				/*
 				if(weapon.getItemAbilityLevel() >= this.requiredItemLevel) {
 					hasRequiredItem = true;
 				}
@@ -172,6 +173,7 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 					BattleClassesGuiHUDOverlay.displayWarning(BattleClassesGuiHUDOverlay.HUD_W_WEAPON_LOW_LEVEL);
 					return false;
 				}
+				*/
 			}
 			else {
 				BattleClassesGuiHUDOverlay.displayWarning(BattleClassesGuiHUDOverlay.HUD_W_WEAPON_WRONG_CLASS);
@@ -190,7 +192,7 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 			BattleClassesGuiHUDOverlay.displayWarning(BattleClassesGuiHUDOverlay.HUD_W_WEAPON_NO_AMMO);
 		}
 		
-		return hasRequiredItem && cooldownFree && hasRequiredAmmo;
+		return /*hasRequiredItem &&*/ cooldownFree && hasRequiredAmmo;
 	}
 		
 	public boolean requiresRayTracingForTarget() {
