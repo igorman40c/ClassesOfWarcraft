@@ -14,8 +14,9 @@ public class BattleClassesItems {
     
     public static ArrayList<IHighDetailWeapon> TwoHandedWeaponList = new ArrayList<IHighDetailWeapon>(); 
     public static final BattleClassesItemWeaponTwoHanded itemTestingBroadSword = new BattleClassesItemWeaponTwoHanded(ToolMaterial.EMERALD, "BroadSword");
-    public static final BattleClassesItemWeaponTwoHanded itemTestingGreatStaff = new BattleClassesItemWeaponTwoHanded(ToolMaterial.EMERALD, "GreatStaff", 0.5F, true);
-    public static final BattleClassesItemWeaponTwoHanded itemTestingWarHammer = new BattleClassesItemWeaponTwoHanded(ToolMaterial.EMERALD, "BroadSword", 0.5F, true);
+    public static final BattleClassesItemWeaponTwoHanded itemTestingGreatStaff = new BattleClassesItemWeaponTwoHanded(ToolMaterial.EMERALD, "GreatStaff", 0.45F, true);
+    public static final BattleClassesItemWeaponTwoHanded itemTestingWarHammer = new BattleClassesItemWeaponTwoHanded(ToolMaterial.EMERALD, "WarHammer", 0.35F, true);
+    public static final BattleClassesItemWeaponTwoHanded itemTestingGreatStaffWooden = new BattleClassesItemWeaponTwoHanded(ToolMaterial.EMERALD, "WoodenStaffGreat", 0.45F, true);
 
     
 	public static void registerItems() {
@@ -23,14 +24,9 @@ public class BattleClassesItems {
 		GameRegistry.registerItem(itemTestingStaff, itemTestingStaff.getUnlocalizedName());
 		GameRegistry.registerItem(itemTestingBroadSword, itemTestingBroadSword.getUnlocalizedName());
 		GameRegistry.registerItem(itemTestingGreatStaff, itemTestingGreatStaff.getUnlocalizedName());
+		GameRegistry.registerItem(itemTestingGreatStaffWooden, itemTestingGreatStaffWooden.getUnlocalizedName());
 		GameRegistry.registerItem(itemTestingWarHammer, itemTestingWarHammer.getUnlocalizedName());
 
-		/*
-		TwoHandedWeaponList.add(itemTestingBroadSword);
-		TwoHandedWeaponList.add(itemTestingBroadSword2);
-		TwoHandedWeaponList.add(itemTestingBroadSword3);
-		 */
-		
 		/*
 		item.metaitem_white.name=Metaitem 0 (White)
 		item.metaitem_black.name=Metaitem 1 (Black)
@@ -40,6 +36,7 @@ public class BattleClassesItems {
 		item.metaitem_blue.name=Metaitem 5 (Blue)
 		*/
 		LanguageRegistry.addName(new ItemStack(itemTestingStaff), "Staff of testing and debugging");
+		LanguageRegistry.addName(new ItemStack(itemTestingGreatStaffWooden), "Staff of testing and debugging");
 		
 		LanguageRegistry.addName(new ItemStack(itemTestingBroadSword), "Broadsword of testing");
 		LanguageRegistry.addName(new ItemStack(itemTestingGreatStaff), "Great staff of testing");

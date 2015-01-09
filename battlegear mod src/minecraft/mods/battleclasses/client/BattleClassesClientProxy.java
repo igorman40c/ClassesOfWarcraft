@@ -80,8 +80,9 @@ public class BattleClassesClientProxy extends BattleClassesCommonProxy {
     	//Registering HD (32x32) sized weapon renderers
     	BattleClassesHDWeaponRenderer HD_WeaponRenderer =  new BattleClassesHDWeaponRenderer();
         for(IHighDetailWeapon HD_Weapon : BattleClassesItems.TwoHandedWeaponList){
-        	if(HD_Weapon!=null)
+        	if(HD_Weapon!=null) {
         		MinecraftForgeClient.registerItemRenderer((Item)HD_Weapon, HD_WeaponRenderer);
+        	}
         }
     }
 

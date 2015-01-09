@@ -52,4 +52,10 @@ public class BattleClassesItemWeaponTwoHanded extends BattleClassesItemWeapon im
 	public boolean invertOnBack(ItemStack item) {
 		return inverSheat;
 	}
+
+	@Override
+	public float getScalefactor() {
+		// TODO Auto-generated method stub
+		return 1;
+	}
 }
