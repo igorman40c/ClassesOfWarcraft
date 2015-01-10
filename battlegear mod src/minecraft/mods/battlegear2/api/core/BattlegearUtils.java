@@ -2,7 +2,9 @@ package mods.battlegear2.api.core;
 
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
+
 import cpw.mods.fml.common.eventhandler.EventBus;
+import mods.battleclasses.items.IBattleClassesBow;
 import mods.battlegear2.api.IAllowItem;
 import mods.battlegear2.api.IOffhandDual;
 import mods.battlegear2.api.IUsableItem;
@@ -199,7 +201,7 @@ public class BattlegearUtils {
      * @return true if it is considered a generic enough bow
      */
     public static boolean isBow(Item item){
-        return item instanceof ItemBow || item instanceof ISpecialBow;
+        return item instanceof ItemBow || item instanceof ISpecialBow || item instanceof IBattleClassesBow;
     }
 
     @Deprecated//See method below
