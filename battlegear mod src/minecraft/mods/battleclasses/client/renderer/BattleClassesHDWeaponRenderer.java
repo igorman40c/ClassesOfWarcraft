@@ -1,12 +1,15 @@
 package mods.battleclasses.client.renderer;
 
 import mods.battleclasses.items.BattleClassesItemWeaponTwoHanded;
+import mods.battleclasses.items.IBattleClassesBow;
 import mods.battleclasses.items.IHighDetailWeapon;
 import mods.battlegear2.client.utils.BattlegearRenderHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
@@ -41,6 +44,10 @@ public class BattleClassesHDWeaponRenderer implements IItemRenderer {
     	scaleFactor *= HD_weapon.getScalefactor();
     	return scaleFactor;
     }
+    
+    public static boolean isCurrentlyHeldBy(ItemStack itemStack, EntityLivingBase entityLivingBase) {
+    	return entityLivingBase.getHeldItem() == itemStack;
+    }
 
     @Override
     public void renderItem(ItemRenderType type, ItemStack itemStack, Object... data) {
@@ -51,15 +58,28 @@ public class BattleClassesHDWeaponRenderer implements IItemRenderer {
         GL11.glPushMatrix();
         IIcon icon = itemStack.getIconIndex();
         if (type == ItemRenderType.EQUIPPED || type == ItemRenderType.EQUIPPED_FIRST_PERSON) {
-            
         	IHighDetailWeapon HD_weapon = (IHighDetailWeapon)itemStack.getItem();
+        	
         	float scaleFactor = getRenderScalefactor(icon, HD_weapon);
         	float scaleDifference = scaleFactor - 1;
         	GL11.glTranslatef( - 0.25F - (scaleDifference) + scaleFactor*HD_weapon.getRelativeAnchorPointX(), + 0.25F - scaleFactor*HD_weapon.getRelativeAnchorPointY(), 0);
             GL11.glScalef(scaleFactor, scaleFactor, 1);
+            if(itemStack.getItem() instanceof IBattleClassesBow) {
+            	if(isCurrentlyHeldBy(itemStack,(EntityLivingBase) data[1])) {
+        			icon = ((IBattleClassesBow)itemStack.getItem()).getItemIconForUse((EntityLivingBase) data[1], itemStack);
+        			float f  = ((IBattleClassesBow)itemStack.getItem()).getInUseRatio((EntityLivingBase) data[1], itemStack);
+        			
+        			if(type == ItemRenderType.EQUIPPED) {
+        				GL11.glTranslatef(0,0, 3F/16F);
+            		}
+        			if(type == ItemRenderType.EQUIPPED_FIRST_PERSON) {
+        				GL11.glTranslatef(0, f*1F/16F*scaleFactor, 0);
+            			//GL11.glTranslatef(0, f*0.25F*scaleFactor ,0);
+            		}
+        		}
+        	}
             
             Tessellator tessellator = Tessellator.instance;
-
             ItemRenderer.renderItemIn2D(tessellator,
                     icon.getMaxU(),
                     icon.getMinV(),

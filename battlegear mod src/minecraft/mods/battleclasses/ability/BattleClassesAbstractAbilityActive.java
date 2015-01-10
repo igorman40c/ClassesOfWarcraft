@@ -384,6 +384,9 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
     @SideOnly(Side.CLIENT)
     public float getCastPercentage(EntityPlayer entityPlayer) {
     	float f = 0;
+    	if(entityPlayer.getItemInUse() == null) {
+    		return f;
+    	}
     	float total = (float) this.getCastTimeInTicks();
     	float current = total - (float) (entityPlayer.getItemInUseCount() - 72000);
     	f = current/total;

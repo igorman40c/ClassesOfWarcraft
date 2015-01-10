@@ -13,19 +13,20 @@ public class BattleClassesItems {
     public static final BattleClassesItemTestingStaff itemTestingStaff = new BattleClassesItemTestingStaff(ToolMaterial.WOOD);
     
     public static ArrayList<IHighDetailWeapon> TwoHandedWeaponList = new ArrayList<IHighDetailWeapon>(); 
-    public static final BattleClassesItemWeaponTwoHanded itemTestingBroadSword = new BattleClassesItemWeaponTwoHanded(ToolMaterial.EMERALD, "BroadSword");
-    public static final BattleClassesItemWeaponTwoHanded itemTestingGreatStaff = new BattleClassesItemWeaponTwoHanded(ToolMaterial.EMERALD, "GreatStaff", 0.45F, true);
-    public static final BattleClassesItemWeaponTwoHanded itemTestingWarHammer = new BattleClassesItemWeaponTwoHanded(ToolMaterial.EMERALD, "WarHammer", 0.35F, true);
-    public static final BattleClassesItemWeaponTwoHanded itemTestingGreatStaffWooden = new BattleClassesItemWeaponTwoHanded(ToolMaterial.EMERALD, "WoodenStaffGreat", 0.45F, true);
-
+    public static final BattleClassesItemWeaponTwoHanded itemTestingGreatStaffWooden = new BattleClassesItemWeaponTwoHanded(ToolMaterial.EMERALD, "StaffWood", 0.45F, true);
+    public static final BattleClassesItemLongBow itemLongBowWooden = new BattleClassesItemLongBow(ToolMaterial.EMERALD, "LongBowWooden", 4);
+    public static final BattleClassesItemLongBow itemLongBowComposite = new BattleClassesItemLongBow(ToolMaterial.EMERALD, "LongBowComposite", 4);
+    public static final BattleClassesItemLongBow itemLongBowMechanic = new BattleClassesItemLongBow(ToolMaterial.EMERALD, "LongBowMechanic", 4);
+    public static final BattleClassesItemLongBow itemLongBowBirch = new BattleClassesItemLongBow(ToolMaterial.EMERALD, "LongBowBirch", 4);
     
 	public static void registerItems() {
 		GameRegistry.registerItem(itemGem, "gemItem");
 		GameRegistry.registerItem(itemTestingStaff, itemTestingStaff.getUnlocalizedName());
-		GameRegistry.registerItem(itemTestingBroadSword, itemTestingBroadSword.getUnlocalizedName());
-		GameRegistry.registerItem(itemTestingGreatStaff, itemTestingGreatStaff.getUnlocalizedName());
 		GameRegistry.registerItem(itemTestingGreatStaffWooden, itemTestingGreatStaffWooden.getUnlocalizedName());
-		GameRegistry.registerItem(itemTestingWarHammer, itemTestingWarHammer.getUnlocalizedName());
+		GameRegistry.registerItem(itemLongBowWooden, itemLongBowWooden.getUnlocalizedName());
+		GameRegistry.registerItem(itemLongBowComposite, itemLongBowComposite.getUnlocalizedName());
+		GameRegistry.registerItem(itemLongBowMechanic, itemLongBowMechanic.getUnlocalizedName());
+		GameRegistry.registerItem(itemLongBowBirch, itemLongBowBirch.getUnlocalizedName());
 
 		/*
 		item.metaitem_white.name=Metaitem 0 (White)
@@ -38,10 +39,11 @@ public class BattleClassesItems {
 		LanguageRegistry.addName(new ItemStack(itemTestingStaff), "Staff of testing and debugging");
 		LanguageRegistry.addName(new ItemStack(itemTestingGreatStaffWooden), "Staff of testing and debugging");
 		
-		LanguageRegistry.addName(new ItemStack(itemTestingBroadSword), "Broadsword of testing");
-		LanguageRegistry.addName(new ItemStack(itemTestingGreatStaff), "Great staff of testing");
-		LanguageRegistry.addName(new ItemStack(itemTestingWarHammer), "Warhammer of testing");
-
+		LanguageRegistry.addName(new ItemStack(itemLongBowWooden), "Longbow");
+		LanguageRegistry.addName(new ItemStack(itemLongBowWooden), "Longbow");
+		LanguageRegistry.addName(new ItemStack(itemLongBowWooden), "Longbow");
+		LanguageRegistry.addName(new ItemStack(itemLongBowWooden), "Longbow");
+		
 		LanguageRegistry.addName(new ItemStack(itemGem, 1, 0), "True Diamond");
 		LanguageRegistry.addName(new ItemStack(itemGem, 1, 1), "Ruby");
 		LanguageRegistry.addName(new ItemStack(itemGem, 1, 2), "Shappire");
