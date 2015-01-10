@@ -71,8 +71,11 @@ public class BattleClassesItemLongBow extends BattleClassesItemWeaponTwoHanded i
 		Minecraft mc = Minecraft.getMinecraft();
 		if(entityLivingBase instanceof EntityPlayer) {
 			EntityPlayer entityPlayer = (EntityPlayer)entityLivingBase;
+			if(entityPlayer.getItemInUse() == null) {
+				return 0;
+			}
 			if(entityPlayer == mc.thePlayer) {
-				return BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).getChosenAbility().getCastPercentage(mc.thePlayer);
+				return BattleClassesUtils.getCastPercentage(mc.thePlayer);
 			}
 			else {
 				//Trying to guess useRatio using magic numbers

@@ -82,6 +82,16 @@ public static Logger battleClassesLogger = LogManager.getLogger("Battle Classes"
 		}
 	}
 	
+	public static float getCastPercentage(EntityPlayer entityplayer) {
+		BattleClassesSpellBook spellBook = getPlayerSpellBook(entityplayer);
+		if(spellBook != null) {
+			if(spellBook.getChosenAbility() != null) {
+				return spellBook.getChosenAbility().getCastPercentage(entityplayer);
+			}
+		}
+		return 0;
+	}
+	
 	public static EnumBattleClassesPlayerClass getPlayerClass(EntityPlayer entityPlayer) {
 		return BattleClassesUtils.getPlayerHooks(entityPlayer).playerClass.getPlayerClass();
 	}
