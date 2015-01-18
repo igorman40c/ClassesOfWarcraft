@@ -58,4 +58,10 @@ public class BattleClassesItemWeaponTwoHanded extends BattleClassesItemWeapon im
 		// TODO Auto-generated method stub
 		return 1;
 	}
+	
+	@Override
+	public boolean allowOffhand(ItemStack mainhand, ItemStack offhand) {
+		return offhand == null;
+		//return false;
+	}
 }
