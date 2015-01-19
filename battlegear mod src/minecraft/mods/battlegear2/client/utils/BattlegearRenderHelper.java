@@ -156,7 +156,8 @@ public final class BattlegearRenderHelper {
 
                     if (player.getItemInUseCount() > 0) {
                         EnumAction action = offhandRender.getItemToRender().getItemUseAction();
-
+                        //Battle Classes tweak: disabled offhand use animations
+                        action = null;
                         if (action == EnumAction.eat || action == EnumAction.drink) {
                             var21 = (float) player.getItemInUseCount() - frame + 1.0F;
                             var10 = 1.0F - var21 / (float) offhandRender.getItemToRender().getMaxItemUseDuration();
@@ -207,7 +208,8 @@ public final class BattlegearRenderHelper {
 
                     if (player.getItemInUseCount() > 0) {
                         EnumAction action = offhandRender.getItemToRender().getItemUseAction();
-
+                        //Battle Classes tweak: disabled offhand use animations
+                        action = null;
                         if (action == EnumAction.block) {
                             GL11.glTranslatef(-0.5F, 0.2F, 0.0F);
                             GL11.glRotatef(30.0F, 0.0F, 1.0F, 0.0F);
@@ -417,7 +419,9 @@ public final class BattlegearRenderHelper {
             EnumAction var23 = null;
 
             if (par1EntityPlayer.getItemInUseCount() > 0) {
-                var23 = var21.getItemUseAction();
+            	//Battle Classes tweak: disabled offhand use animations
+                //var23 = var21.getItemUseAction();
+            	var23 = EnumAction.none;
             }
 
             IItemRenderer customRenderer = MinecraftForgeClient.getItemRenderer(var21, EQUIPPED);
