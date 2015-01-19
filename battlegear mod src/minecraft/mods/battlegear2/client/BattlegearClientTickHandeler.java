@@ -147,7 +147,8 @@ public final class BattlegearClientTickHandeler {
                     if(flashTimer > 0){
                         flashTimer --;
                     }
-                    if(mc.gameSettings.keyBindUseItem.getIsKeyPressed() && !player.isSwingInProgress){
+                    //Battle Classes modifications: added "&& canBlockWithShield" to prevent blocking when player is unable for it
+                    if(mc.gameSettings.keyBindUseItem.getIsKeyPressed() && !player.isSwingInProgress && BattlegearUtils.canBlockWithShield(player)){
                         blockBar -= ((IShield) offhand.getItem()).getDecayRate(offhand);
                         if(blockBar > 0){
                             if(!wasBlocking){

@@ -4,6 +4,7 @@ import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
 
 import cpw.mods.fml.common.eventhandler.EventBus;
+import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.items.IBattleClassesBow;
 import mods.battlegear2.api.IAllowItem;
 import mods.battlegear2.api.IOffhandDual;
@@ -75,7 +76,8 @@ public class BattlegearUtils {
             return false;
         }
         ItemStack offhand = ((InventoryPlayerBattle)player.inventory).getCurrentOffhandWeapon();
-        return offhand != null && offhand.getItem() instanceof IShield;
+        //BattleClasses shieldblock hook
+        return BattleClassesUtils.isReadyToUseShield(player) && offhand != null && offhand.getItem() instanceof IShield;
     }
 
     /**
