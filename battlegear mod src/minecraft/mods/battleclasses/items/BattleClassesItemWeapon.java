@@ -145,6 +145,12 @@ public class BattleClassesItemWeapon extends ItemSword implements IBattleClasses
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	@Override
+	public boolean isUsedOverAttack(ItemStack itemStack) {
+		// TODO Auto-generated method stub
+		return true;
+	}
 	
 
 }

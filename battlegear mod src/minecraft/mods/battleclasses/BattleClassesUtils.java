@@ -7,6 +7,8 @@ import org.apache.logging.log4j.Logger;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
+import mods.battleclasses.ability.BattleClassesAbilityShieldBlock;
+import mods.battleclasses.ability.BattleClassesAbstractAbility;
 import mods.battleclasses.core.BattleClassesPlayerHooks;
 import mods.battleclasses.core.BattleClassesSpellBook;
 import mods.battleclasses.core.BattleClassesTalentMatrix;
@@ -93,15 +95,27 @@ public static Logger battleClassesLogger = LogManager.getLogger("Battle Classes"
 	}
 	
 	public static EnumBattleClassesPlayerClass getPlayerClass(EntityPlayer entityPlayer) {
-		return BattleClassesUtils.getPlayerHooks(entityPlayer).playerClass.getPlayerClass();
+		BattleClassesPlayerHooks playerHooks = BattleClassesUtils.getPlayerHooks(entityPlayer);
+		if(playerHooks.playerClass != null) {
+			return playerHooks.playerClass.getPlayerClass();
+		}
+		return null;
 	}
 	
 	public static BattleClassesSpellBook getPlayerSpellBook(EntityPlayer entityPlayer) {
-		return BattleClassesUtils.getPlayerHooks(entityPlayer).playerClass.spellBook;
+		BattleClassesPlayerHooks playerHooks = BattleClassesUtils.getPlayerHooks(entityPlayer);
+		if(playerHooks.playerClass != null) {
+			return playerHooks.playerClass.spellBook;
+		}
+		return null;
 	}
 	
 	public static BattleClassesTalentMatrix getPlayerTalentMatrix(EntityPlayer entityPlayer) {
-		return BattleClassesUtils.getPlayerHooks(entityPlayer).playerClass.talentMatrix;
+		BattleClassesPlayerHooks playerHooks = BattleClassesUtils.getPlayerHooks(entityPlayer);
+		if(playerHooks.playerClass != null) {
+			return playerHooks.playerClass.talentMatrix;
+		}
+		return null;
 	}
 	
 	public static Entity getEntityByID(int entityID, World world)        
@@ -130,5 +144,16 @@ public static Logger battleClassesLogger = LogManager.getLogger("Battle Classes"
 		}
 		
 		return false;
+	}
+	
+	public static boolean isReadyToUseShield(EntityPlayer entityPlayer) {
+		BattleClassesSpellBook spellBook = getPlayerSpellBook(entityPlayer);
+		if(spellBook != null) {
+			BattleClassesAbstractAbility chosenAbility = spellBook.getChosenAbility();
+			if(chosenAbility != null) {
+				return chosenAbility.getAbilityID() == BattleClassesAbilityShieldBlock.SHIELD_BLOCK_ABILITY_ID;
+			}
+		}
+		return true;
 	}
 }

@@ -3,6 +3,7 @@ package mods.battleclasses.core.classes;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
+import mods.battleclasses.ability.BattleClassesAbilityShieldBlock;
 import mods.battleclasses.ability.BattleClassesAbilityTest;
 import mods.battleclasses.ability.BattleClassesAbstractAbilityActive;
 import mods.battleclasses.ability.BattleClassesPassiveAbilityAmplifier;
@@ -28,6 +29,7 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 		abilities.put(110, new BattleClassesAbilityTest(111));
 		abilities.put(111, new BattleClassesAbilityTest(120));
 		abilities.put(112, new BattleClassesAbilityTest(121));
+		abilities.put(BattleClassesAbilityShieldBlock.SHIELD_BLOCK_ABILITY_ID, new BattleClassesAbilityShieldBlock());
 		//abilities.put(ABILITY_ID_FROSTNOVA, new FrostNovaTestAbility());
 		return abilities;
 	}

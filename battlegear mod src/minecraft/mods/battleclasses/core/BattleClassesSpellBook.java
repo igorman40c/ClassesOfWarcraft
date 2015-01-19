@@ -146,6 +146,12 @@ public class BattleClassesSpellBook {
 		return false;
 	}
 	
+	public boolean hasAbilityByID(int abilityID) {
+		boolean hasActiveAbility = this.activeAbilities.containsKey(abilityID);
+		boolean hasPassiveAbility = this.passiveAbilities.containsKey(abilityID);
+		return hasActiveAbility || hasPassiveAbility;
+	}
+	
 	public void clearSpellBook() {
 		for(BattleClassesAbstractAbilityActive ability : getActiveAbilitiesInArray()) {
 			this.unLearnAbility(ability);

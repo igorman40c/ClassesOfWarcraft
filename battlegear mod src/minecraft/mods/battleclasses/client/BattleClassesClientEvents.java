@@ -21,6 +21,7 @@ import cpw.mods.fml.common.network.internal.FMLProxyPacket;
 import mods.battleclasses.BattleClassesMod;
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
+import mods.battleclasses.ability.BattleClassesAbilityShieldBlock;
 import mods.battleclasses.ability.BattleClassesAbstractAbilityActive;
 import mods.battleclasses.core.BattleClassesPlayerClass;
 import mods.battleclasses.enumhelper.EnumBattleClassesPlayerClass;
@@ -37,6 +38,8 @@ import mods.battleclasses.gui.controlls.GuiTabBarButtonVanillaInventory;
 import mods.battleclasses.gui.tab.BattleClassesTabInventory;
 import mods.battleclasses.gui.tab.BattleClassesTabClassSelector;
 import mods.battleclasses.packet.BattleClassesPacketPlayerDataSync;
+import mods.battlegear2.api.RenderItemBarEvent;
+import mods.battlegear2.api.RenderItemBarEvent.ShieldBar;
 import mods.battlegear2.client.BattlegearClientEvents;
 import mods.battlegear2.client.gui.BattlegearInGameGUI;
 import mods.battlegear2.client.gui.controls.GuiBGInventoryButton;
@@ -94,6 +97,16 @@ public class BattleClassesClientEvents {
 		}
 	}
 	
+	
+	@SubscribeEvent
+	public void renderShieldBarEvent(ShieldBar event) {
+		Minecraft mc = Minecraft.getMinecraft();
+		if(BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).hasAbilityByID(BattleClassesAbilityShieldBlock.SHIELD_BLOCK_ABILITY_ID)) {
+			event.setCanceled(true);
+		}
+	}
+	
+	
 	@SubscribeEvent
 	public void postRenderOverlay(RenderGameOverlayEvent.Post event) {
 		if (event.type == RenderGameOverlayEvent.ElementType.HOTBAR) {
@@ -102,6 +115,7 @@ public class BattleClassesClientEvents {
 		if (event.type == RenderGameOverlayEvent.ElementType.HEALTH) {
 			inGameGUI.drawCastbar();
 			inGameGUI.drawHighLightedLabels();
+			inGameGUI.finishDrawing();
 		}
 	}
 	

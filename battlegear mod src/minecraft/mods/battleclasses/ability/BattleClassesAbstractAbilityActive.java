@@ -35,6 +35,7 @@ import mods.battleclasses.packet.BattleClassesPacketCooldownSet;
 import mods.battleclasses.packet.BattleClassesPacketPlayerClassSnyc;
 import mods.battleclasses.packet.BattleClassesPacketProcessAbilityWithTarget;
 import mods.battlegear2.Battlegear;
+import mods.battlegear2.api.core.InventoryPlayerBattle;
 
 public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAbstractAbilityCooldownHolder {
 
@@ -79,7 +80,9 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 		
 		Side side = FMLCommonHandler.instance().getEffectiveSide();
 		if(side == Side.SERVER) {
-			BattleClassesUtils.getPlayerSpellBook(entityPlayer).setGlobalCooldown();
+			if(!this.ignoresGlobalCooldown) {
+				BattleClassesUtils.getPlayerSpellBook(entityPlayer).setGlobalCooldown();
+			}
 		}
 		
 		if(this.isInstant()) {
@@ -281,7 +284,9 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 	}
 	
 	public void cancelCasting(EntityPlayer entityPlayer) {
-		this.playerHooks.playerClass.spellBook.cancelGlobalCooldown();
+		if(!this.ignoresGlobalCooldown) {
+			this.playerHooks.playerClass.spellBook.cancelGlobalCooldown();
+		}
 		entityPlayer.clearItemInUse();
 		BattleClassesUtils.Log("Cancelling Casting and GlobalCD", LogType.ABILITY);
 	}
@@ -370,6 +375,16 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
     public String getAbilityIconPath() {
     	return "textures/spells/icons/";
     }
+    
+    @SideOnly(Side.CLIENT)
+    public boolean hasItemIcon() {
+    	return false;
+    }
+    
+    @SideOnly(Side.CLIENT)
+	public ItemStack getIconItemStack() {
+		return null;
+	}
     
     @SideOnly(Side.CLIENT)    
     public ResourceLocation getIconResourceLocation() {

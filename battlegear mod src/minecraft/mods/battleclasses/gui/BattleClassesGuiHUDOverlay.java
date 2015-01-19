@@ -31,6 +31,7 @@ import org.lwjgl.opengl.GL12;
 import cpw.mods.fml.client.FMLClientHandler;
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
+import mods.battleclasses.ability.BattleClassesAbilityShieldBlock;
 import mods.battleclasses.ability.BattleClassesAbstractAbilityActive;
 import mods.battleclasses.client.BattleClassesClientTargeting;
 import mods.battleclasses.core.BattleClassesSpellBook;
@@ -93,7 +94,7 @@ public class BattleClassesGuiHUDOverlay extends BattlegearInGameGUI {
                 if(offhand!= null && offhand.getItem() instanceof IShield){
                     event = new RenderItemBarEvent.ShieldBar(renderEvent, offhand);
                     if(!MinecraftForge.EVENT_BUS.post(event))
-                        renderBlockBar(width / 2 - 91 + event.xOffset, height - 35 + event.yOffset);
+                        super.renderBlockBar(width / 2 - 91 + event.xOffset, height - 45 + event.yOffset);
                 }
 
                 ItemStack mainhand = mc.thePlayer.getCurrentEquippedItem();
@@ -176,17 +177,30 @@ public class BattleClassesGuiHUDOverlay extends BattlegearInGameGUI {
         for(int i = 0; i < actionbarAbilities.size(); ++i) {
         	this.drawAbilityIcon(actionbarPosX+3 + i*20, actionbarPosY+3, actionbarAbilities.get(i));
         }
+        this.drawAbilitySelector(actionbarPosX, actionbarPosY);
         
-        this.mc.renderEngine.bindTexture(resourceLocationHUD);
+        GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+        GL11.glDisable(GL11.GL_BLEND);
+    }
+    
+    
+    public void drawAbilitySelector(int actionbarPosX, int actionbarPosY) {
+    	GL11.glPushMatrix();
+		GL11.glEnable(GL11.GL_BLEND);
+	    GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+	    GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+	    GL11.glDisable(GL11.GL_LIGHTING);
+	    
+	    this.mc.renderEngine.bindTexture(resourceLocationHUD);
         boolean hasClass = BattleClassesUtils.getPlayerClass(mc.thePlayer) != EnumBattleClassesPlayerClass.NONE;
         if (hasClass && ((IBattlePlayer) mc.thePlayer).isBattlemode()) {
         	int chosenIndex = BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).getChosenAbilityIndex();
             this.drawTexturedModalRect(actionbarPosX-1 + chosenIndex*20, actionbarPosY-1, 232, 0, 24, 24);
         }
-        RenderHelper.enableGUIStandardItemLighting();
-        RenderHelper.disableStandardItemLighting();
+        
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
         GL11.glDisable(GL11.GL_BLEND);
+        GL11.glPopMatrix();
     }
     
     protected boolean shouldDrawBossHealthBar() {
@@ -222,88 +236,146 @@ public class BattleClassesGuiHUDOverlay extends BattlegearInGameGUI {
         }
     }
     
+    public void renderBlockBar(int x, int y) {
+    	GL11.glPushMatrix();
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+        this.mc.renderEngine.bindTexture(resourceLocationShield);
+        
+        /*
+        if(mc.thePlayer!=null){
+            if(mc.thePlayer.capabilities.isCreativeMode){
+                if(mc.thePlayer.isRidingHorse()){
+                    y-=5;
+                }
+            }else{
+                y-= 16;
+                if(ForgeHooks.getTotalArmorValue(mc.thePlayer) > 0 || mc.thePlayer.isRidingHorse() || mc.thePlayer.getAir() < 300){
+                    y-=10;
+                }
+            }
+        }
+        */
+
+        this.drawTexturedModalRect(x, y, 0, 0, 182, 9);
+
+        float[] colour = COLOUR_DEFAULT;
+        if(BattlegearClientTickHandeler.getBlockTime() < 0.33F){
+            colour = COLOUR_RED;
+        }
+        if(BattlegearClientTickHandeler.getFlashTimer() > 0 && (System.currentTimeMillis() / 250) % 2 == 0){
+            colour = COLOUR_YELLOW;
+        }
+        GL11.glColor3f(colour[0], colour[1], colour[2]);
+        this.drawTexturedModalRect(x, y, 0, 9, (int) (182 * BattlegearClientTickHandeler.getBlockTime()), 9);
+        GL11.glColor3f(1.0F, 1.0F, 1.0F);
+        GL11.glDisable(GL11.GL_BLEND);
+        GL11.glPopMatrix();
+    }
+    
     public static final int CAST_BAR_WIDTH = 182;
     public static final int CAST_BAR_HEIGHT = 5;
     public static final int CAST_BAR_ZONE_HEIGHT = 18;
     public static final int CAST_BAR_LABEL_OFFSET = -10;
     
+    public static void finishDrawing() {
+    	mc.getTextureManager().bindTexture(icons);
+    	GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+    	GL11.glColor3f(1.0F, 1.0F, 1.0F);
+    }
+    
     public void drawCastbar() {
-    	
-    	if(BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).isCastingInProgress() ||
-    			BattleClassesUtils.getPlayerHooks(mc.thePlayer).playerClass.getCooldownClock().isOnCooldown()) {
-            ScaledResolution scaledresolution = new ScaledResolution(this.mc, this.mc.displayWidth, this.mc.displayHeight);
-    		int x = scaledresolution.getScaledWidth()/2 - CAST_BAR_WIDTH/2;
-    		int y = 12 + BattleClassesGuiHUDOverlay.ABILITY_ACTIONBAR_HEIGHT;
-    		if(this.shouldDrawBossHealthBar()) {
-    			y += CAST_BAR_ZONE_HEIGHT;
-    		}
+        ScaledResolution scaledresolution = new ScaledResolution(this.mc, this.mc.displayWidth, this.mc.displayHeight);
+    	int x = scaledresolution.getScaledWidth()/2 - CAST_BAR_WIDTH/2;
+		int y = 12 + BattleClassesGuiHUDOverlay.ABILITY_ACTIONBAR_HEIGHT;
+		if(this.shouldDrawBossHealthBar()) {
+			y += CAST_BAR_ZONE_HEIGHT;
+		}
+		boolean shouldDisplayBarString = false;
+		String barDisplayString = "";
+		
+    	//DRAWING CLASS COOLDOWN
+		if(BattleClassesUtils.getPlayerHooks(mc.thePlayer).playerClass.getCooldownClock().isOnCooldown()) {
+			int v = 48;
+    		int u = 0;
+			chosenAbilit_HLL.hide();
+			float f = 0;
+			f = 1.0F - BattleClassesUtils.getCooldownPercentage(BattleClassesUtils.getPlayerHooks(mc.thePlayer).playerClass);
+			shouldDisplayBarString = true;
+			if(BattleClassesUtils.getPlayerHooks(mc.thePlayer).playerClass.getCooldownClock().getLastUsedType() == EnumBattleClassesCooldownType.CooldownType_CLASS_SWITCH) {
+				barDisplayString = "Switching Class...";
+			}
+			if(BattleClassesUtils.getPlayerHooks(mc.thePlayer).playerClass.getCooldownClock().getLastUsedType() == EnumBattleClassesCooldownType.CooldownType_TALENT_CHANGE) {
+				barDisplayString = "Applying talent changes...";
+			}
+			//DRAWING PROGRESSBAR	
+    		this.renderProgressBar(x, y, u, v, f);
+    		//DRAWING ICON TO THE END OF THE PROGRESSBAR
+    		float castBarIconScale = 1.0F;
+        	this.drawAbilityIconCentered(x + CAST_BAR_WIDTH, y + CAST_BAR_HEIGHT/4,
+					castBarIconScale, BattleClassesUtils.getPlayerHooks(mc.thePlayer).playerClass.getIconResourceLocation());
+		}
+		//DRAWING BLOCKBAR
+		else if(BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).getChosenAbility() != null &&
+    		BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).getChosenAbility().getAbilityID() == BattleClassesAbilityShieldBlock.SHIELD_BLOCK_ABILITY_ID) {
+    		ItemStack offhand = ((InventoryPlayerBattle) mc.thePlayer.inventory).getCurrentOffhandWeapon();
+            if(offhand!= null && offhand.getItem() instanceof IShield){
+            	shouldDisplayBarString = true;
+            	barDisplayString = BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).getChosenAbility().getName();
+            	renderBlockBar(x,y);
+            }
+    	}
+		//DRAWING CASTBAR
+    	else if(BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).isCastingInProgress()) {
     		int v = 48;
     		int u = 0;
-    		int vStateOffset = 8;
-    		String chosenAbilityName = "";
+    		
+    		shouldDisplayBarString = true;
     		float f = 0;
     		if( BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).getChosenAbility() != null) {
-    			chosenAbilityName = BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).getChosenAbility().getName();
+    			barDisplayString = BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).getChosenAbility().getName();
     			f = BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).getChosenAbility().getCastPercentage(mc.thePlayer);
-    		} 
-    		
-    		if(BattleClassesUtils.getPlayerHooks(mc.thePlayer).playerClass.getCooldownClock().isOnCooldown()) {
-    			chosenAbilit_HLL.hide();
-    			f = 1.0F - BattleClassesUtils.getCooldownPercentage(BattleClassesUtils.getPlayerHooks(mc.thePlayer).playerClass);
-    			if(BattleClassesUtils.getPlayerHooks(mc.thePlayer).playerClass.getCooldownClock().getLastUsedType() == EnumBattleClassesCooldownType.CooldownType_CLASS_SWITCH) {
-    				chosenAbilityName = "Switching Class...";
-    			}
-    			if(BattleClassesUtils.getPlayerHooks(mc.thePlayer).playerClass.getCooldownClock().getLastUsedType() == EnumBattleClassesCooldownType.CooldownType_TALENT_CHANGE) {
-    				chosenAbilityName = "Applying talent changes...";
-    			}
-    		}
-    		else {
-    			if(BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).getChosenAbility() != null) {
-        			v = BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).getChosenAbility().getSchool().getCastBarColoringV();
-        		}
-    		}
-    		
-    		int state = (int)(f * (float)CAST_BAR_WIDTH );
-    		state = (state > CAST_BAR_WIDTH) ? CAST_BAR_WIDTH : state;
-    		
-    		this.mc.renderEngine.bindTexture(resourceLocationHUD);
-    		
-    		//DRAWING CASTBAR
-            this.drawTexturedModalRect(x, y, u, v, CAST_BAR_WIDTH, CAST_BAR_HEIGHT);
-            if (state > 0)
-            {
-                this.drawTexturedModalRect(x, y, u, v + vStateOffset, state, CAST_BAR_HEIGHT);
-            }
-            //DRAWING CHOSEN SPELL NAME
-            FontRenderer fontrenderer = this.mc.fontRenderer;
-            fontrenderer.drawStringWithShadow(chosenAbilityName,
-            		scaledresolution.getScaledWidth()/2 - fontrenderer.getStringWidth(chosenAbilityName)/2,
-            		y + CAST_BAR_LABEL_OFFSET, 0xFFFFFF);
-            //DRAW CHOSEN SPELL ICON
-            float castBarIconScale = 0.6F;
-            if(BattleClassesUtils.getPlayerHooks(mc.thePlayer).playerClass.getCooldownClock().isOnCooldown()) {
-            	castBarIconScale = 1.0F;
-            	this.drawAbilityIconCentered(x + CAST_BAR_WIDTH, y + CAST_BAR_HEIGHT/4,
-						castBarIconScale, BattleClassesUtils.getPlayerHooks(mc.thePlayer).playerClass.getIconResourceLocation());
-    		}
-    		else {
-    			if(BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).getChosenAbility() != null) {
-        			if(BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).getChosenAbility().isChanneled()) {
-        				int channelTicks =  BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).getChosenAbility().getChannelTicks();
-        				for(int i = 0; i < channelTicks; ++i) {
-        					this.drawAbilityIconCentered(x + CAST_BAR_WIDTH - ((i+1)*(CAST_BAR_WIDTH/(channelTicks)) ), y + CAST_BAR_HEIGHT/4,
-            						castBarIconScale, BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).getChosenAbility().getIconResourceLocation());
-        				}
-        			}
-        			else {
-        				this.drawAbilityIconCentered(x + CAST_BAR_WIDTH, y + CAST_BAR_HEIGHT/4,
+    			v = BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).getChosenAbility().getSchool().getCastBarColoringV();
+    			
+    			//DRAWING PROGRESSBAR	
+        		this.renderProgressBar(x, y, u, v, f);
+                
+                //DRAW SPELL ICON ON THE PROGRESSBAR
+                float castBarIconScale = 0.6F;
+                if(BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).getChosenAbility().isChanneled()) {
+    				int channelTicks =  BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).getChosenAbility().getChannelTicks();
+    				for(int i = 0; i < channelTicks; ++i) {
+    					this.drawAbilityIconCentered(x + CAST_BAR_WIDTH - ((i+1)*(CAST_BAR_WIDTH/(channelTicks)) ), y + CAST_BAR_HEIGHT/4,
         						castBarIconScale, BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).getChosenAbility().getIconResourceLocation());
-        			}
-        		}
-    		}
-            
-            this.mc.getTextureManager().bindTexture(icons);
+    				}
+    			}
+    			else {
+    				this.drawAbilityIconCentered(x + CAST_BAR_WIDTH, y + CAST_BAR_HEIGHT/4,
+    						castBarIconScale, BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).getChosenAbility().getIconResourceLocation());
+    			}
+    		} 
     	}
+		//DRAWING TITLE
+    	if(shouldDisplayBarString) {
+            FontRenderer fontrenderer = this.mc.fontRenderer;
+            fontrenderer.drawStringWithShadow(barDisplayString,
+            		scaledresolution.getScaledWidth()/2 - fontrenderer.getStringWidth(barDisplayString)/2,
+            		y + CAST_BAR_LABEL_OFFSET, 0xFFFFFF);
+        }
+    	this.mc.getTextureManager().bindTexture(icons);
+    }
+    
+    protected void renderProgressBar(int x, int y, int u, int v, float fState) {
+    	int state = (int)(fState * (float)CAST_BAR_WIDTH );
+		state = (state > CAST_BAR_WIDTH) ? CAST_BAR_WIDTH : state;
+		int vOffset = 8;
+		this.mc.renderEngine.bindTexture(resourceLocationHUD);
+        this.drawTexturedModalRect(x, y, u, v, CAST_BAR_WIDTH, CAST_BAR_HEIGHT);
+        if (state > 0)
+        {
+            this.drawTexturedModalRect(x, y, u, v + vOffset, state, CAST_BAR_HEIGHT);
+        }
     }
 
     private void renderInventorySlot(int par1, int par2, int par3, float par4) {
@@ -333,9 +405,35 @@ public class BattleClassesGuiHUDOverlay extends BattlegearInGameGUI {
     
     public void drawAbilityIcon(int x, int y, BattleClassesAbstractAbilityActive ability ) {
     	if(ability != null && ability.getIconResourceLocation() != null) {
-    		mc.getTextureManager().bindTexture(ability.getIconResourceLocation());
-    		myDrawTexturedModalRect(x, y, 16, 16);
-        	//drawTexturedModelRectFromIcon(x, y, ability.getAbilityIcon(), 16, 16);
+    		if(ability.hasItemIcon()) {
+    			ItemStack itemStack = ability.getIconItemStack();
+    			if(itemStack != null) {
+    				
+    				GL11.glPushMatrix();
+    				itemRenderer.renderItemAndEffectIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, itemStack, x, y);
+    				GL11.glPopMatrix();
+    		        GL11.glDisable(GL11.GL_ALPHA_TEST);
+    		        GL11.glDisable(GL11.GL_LIGHTING);
+
+    				//renderStackAt(x, y, itemStack, 0);
+    			}
+    		}
+    		else {
+    			GL11.glPushMatrix();
+    			GL11.glEnable(GL11.GL_BLEND);
+    		    GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+    		    GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+    		    GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+    		    //GL11.glDisable(GL11.GL_LIGHTING);
+    		    
+    		    mc.getTextureManager().bindTexture(ability.getIconResourceLocation());
+    		    myDrawTexturedModalRect(x, y, 16, 16);
+    		        		    
+    	        GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+    	        GL11.glDisable(GL11.GL_BLEND);
+    	        GL11.glPopMatrix();
+    		     
+    		}
         	drawCooldown(x, y, BattleClassesUtils.getCooldownPercentage(ability));
         	
     	}
@@ -370,13 +468,22 @@ public class BattleClassesGuiHUDOverlay extends BattlegearInGameGUI {
     			frameIndex = (int) (((float) BattleClassesGuiHelper.cooldownIcons.length)*f);
     		}
     		IIcon cooldownIcon = BattleClassesGuiHelper.cooldownIcons[frameIndex];
-    	    GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.5F);
     	    
-            mc.getTextureManager().bindTexture(TextureMap.locationItemsTexture);
+			GL11.glPushMatrix();
+			GL11.glEnable(GL11.GL_BLEND);
+		    GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		    GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+		    GL11.glDisable(GL11.GL_LIGHTING);
+		    GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.5F);
+		    
+		    mc.getTextureManager().bindTexture(TextureMap.locationItemsTexture);
     		this.drawTexturedModelRectFromIcon(posX, posY, cooldownIcon, cooldownIcon.getIconWidth(), cooldownIcon.getIconHeight());
     		
-            GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-    	}
+    		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);    		    
+	        GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+	        GL11.glDisable(GL11.GL_BLEND);
+	        GL11.glPopMatrix();
+      	}
 	}
     
 	 // 3.  You'll need to write your own version of the Gui.drawTexturedModalRect() method
