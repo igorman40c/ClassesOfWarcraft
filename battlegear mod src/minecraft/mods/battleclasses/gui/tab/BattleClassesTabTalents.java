@@ -86,7 +86,9 @@ public class BattleClassesTabTalents extends BattleClassesAbstractTab {
 			this.buttonList.add(button);
 			button.setOrigin(0, 196);
 			button.setPosition(this.guiLeft + 7 + j*TALENT_TREE_VIEW_W, this.guiTop + 7);
-			button.setTalentTree(talentMatrix.talentTrees.get(j));
+			if(talentMatrix.getTreeAtIndex(j) != null) {
+				button.setTalentTree(talentMatrix.getTreeAtIndex(j));
+			}
 			++j;
 		}
 

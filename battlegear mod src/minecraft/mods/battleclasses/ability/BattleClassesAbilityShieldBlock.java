@@ -27,7 +27,18 @@ public class BattleClassesAbilityShieldBlock extends BattleClassesAbstractAbilit
 		this.castTime = 0;
 		this.targetRequirementType = EnumBattleClassesAbilityDirectTargetRequirement.NEEDLESS;
 	}
-		
+	/*
+	@Override
+    public float getCastTime() {
+		ItemStack offHandItemStack = getIconItemStack();
+    	if(offHandItemStack!=null) {
+    		if(offHandItemStack.getItem() instanceof IShield) {
+    			return 1/((IShield)offHandItemStack.getItem()).getDecayRate(offHandItemStack)*20;
+    		}
+    	}
+    	return this.castTime;
+    }
+	*/
 	@Override
 	public boolean performEffect(EntityLivingBase targetEntity, int tickCount) {
 		BattleClassesUtils.Log("ShieldBlock Performed effect, doing nothing", LogType.ABILITY);
@@ -47,5 +58,9 @@ public class BattleClassesAbilityShieldBlock extends BattleClassesAbstractAbilit
     	}
     	return false;
     }
+    
+    public String getName() {
+		return this.name + " school:" + school + " intent:" + intent + " target:" + targetRequirementType;
+	}
     
 }

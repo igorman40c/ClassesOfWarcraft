@@ -9,6 +9,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
@@ -69,6 +70,9 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 	protected int requiredItemLevel = 0;
 	protected String name = "Unknown Ability";
 	
+	public EnumAction getEnumActionForCasting() {
+		return EnumAction.bow;
+	}
 	/**
 	 * Called when player presses Mouse-Right button
 	 */
@@ -138,7 +142,7 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 	
 	protected void startCasting(EntityPlayer entityPlayer, ItemStack itemStack) {
 		BattleClassesUtils.Log("Casting started!", LogType.ABILITY);
-		BattleClassesUtils.setEntityPlayerItemInUseInSeconds(entityPlayer, itemStack, this.castTime);
+		BattleClassesUtils.setEntityPlayerItemInUseInSeconds(entityPlayer, itemStack, this.getCastTime());
 	}
 	
 	public EnumBattleClassesAbilityDirectTargetRequirement getTargetingType() {
@@ -276,11 +280,11 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 	}
 	
 	public boolean isInstant() {
-		return this.castTime == 0;
+		return this.getCastTime() == 0;
 	}
 	
 	public int getCastTimeInTicks() {
-		return (int) (this.castTime * 20);
+		return (int) (this.getCastTime() * 20);
 	}
 	
 	public void cancelCasting(EntityPlayer entityPlayer) {
@@ -416,6 +420,10 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
     	}
     	//System.out.println(current + "/" + total + " | F = " + f);
     	return f;
+    }
+    
+    public float getCastTime() {
+    	return this.castTime;
     }
 	
 }

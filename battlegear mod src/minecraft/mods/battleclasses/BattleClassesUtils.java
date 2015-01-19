@@ -15,9 +15,11 @@ import mods.battleclasses.core.BattleClassesTalentMatrix;
 import mods.battleclasses.core.ICooldownOwner;
 import mods.battleclasses.enumhelper.EnumBattleClassesPlayerClass;
 import mods.battlegear2.api.core.InventoryPlayerBattle;
+import mods.battlegear2.api.shield.IShield;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.IEntityOwnable;
 import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
@@ -136,12 +138,14 @@ public static Logger battleClassesLogger = LogManager.getLogger("Battle Classes"
 		if(target instanceof EntityPlayer) {
 			return true;
 		}
-		if(target instanceof EntityTameable) {
+		if(target instanceof IEntityOwnable) {
 			return true;
 		}
+		/*
 		if(target instanceof EntityHorse) {
 			return true;
 		}
+		*/
 		
 		return false;
 	}
@@ -151,9 +155,21 @@ public static Logger battleClassesLogger = LogManager.getLogger("Battle Classes"
 		if(spellBook != null) {
 			BattleClassesAbstractAbility chosenAbility = spellBook.getChosenAbility();
 			if(chosenAbility != null) {
-				return chosenAbility.getAbilityID() == BattleClassesAbilityShieldBlock.SHIELD_BLOCK_ABILITY_ID;
+				if(chosenAbility.getAbilityID() == BattleClassesAbilityShieldBlock.SHIELD_BLOCK_ABILITY_ID) {
+					ItemStack offhand = ((InventoryPlayerBattle)(entityPlayer).inventory).getCurrentOffhandWeapon();
+					if(offhand != null) {
+						return offhand.getItem() instanceof IShield;
+					}
+				}
+				else {
+					return false;
+				}
 			}
 		}
 		return true;
+	}
+	
+	public static ItemStack getOffhandItemStack(EntityPlayer entityPlayer) {
+		return BattleClassesUtils.getBattleInventory(entityPlayer).getStackInSlot(0 + InventoryPlayerBattle.OFFSET+(InventoryPlayerBattle.WEAPON_SETS));
 	}
 }

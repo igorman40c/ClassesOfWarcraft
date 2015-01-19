@@ -118,4 +118,12 @@ public class BattleClassesTalentMatrix {
     		--talentPoints;
     	}
 	}
+	
+	//Helper
+	public BattleClassesTalentTree getTreeAtIndex(int index) {
+		if(this.talentTrees.size() > 0 && index < this.talentTrees.size()) {
+			return this.talentTrees.get(index);
+		}
+		return null;
+	}
 }
