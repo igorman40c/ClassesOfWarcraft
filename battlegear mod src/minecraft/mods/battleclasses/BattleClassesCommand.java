@@ -4,6 +4,7 @@ import java.util.Random;
 
 import mods.battleclasses.BattleClassesUtils.LogType;
 import mods.battleclasses.core.BattleClassesPlayerHooks;
+import mods.battleclasses.core.BattleClassesTalentMatrix;
 import mods.battleclasses.enumhelper.EnumBattleClassesPlayerClass;
 import mods.battlegear2.Battlegear;
 import net.minecraft.command.CommandBase;
@@ -34,7 +35,7 @@ public class BattleClassesCommand extends CommandBase {
 		String helpDescription = new String("Battle Classes commands: /battleclasses ");
 		helpDescription = new String(helpDescription
 							+ " - " + new String("version")
-							+ " - " + new String("getrandomclass"));
+							+ " - " + new String("classinfo"));
 		return helpDescription;
 	}
 
@@ -44,29 +45,35 @@ public class BattleClassesCommand extends CommandBase {
 			return;
 		}
 		if(var2[0].equals("version") ) {
-			String message = new String("Running " + Battlegear.MODID + " version: " + BattleClassesMod.VERSION);
+			String message = new String("Running " + BattleClassesMod.MODID + " version: " + BattleClassesMod.VERSION);
 			if(var1 instanceof EntityPlayer) {
 				EntityPlayer player = (EntityPlayer) var1;
 				player.addChatMessage(new ChatComponentText(message));
 			}
 			else {
-				BattleClassesUtils.Log(message, LogType.COMMAND);
+				BattleClassesUtils.Log("Error! CommandSender isn't player", LogType.COMMAND);
 			}
 			return;
 		}
 		
-		if(var2[0].equals("getrandomclass") ) {
-			String message = new String("Running " + Battlegear.MODID + " version: " + BattleClassesMod.VERSION);
+		if(var2[0].equals("classinfo") ) {
 			if(var1 instanceof EntityPlayer) {
 				EntityPlayer player = (EntityPlayer) var1;
-				BattleClassesPlayerHooks playerHooks = BattleClassesUtils.getPlayerHooks(player);
-				
-				int pick = new Random().nextInt(EnumBattleClassesPlayerClass.values().length);
-			
-				playerHooks.switchToPlayerClass(EnumBattleClassesPlayerClass.values()[pick]);
+				String message = new String("Player Class: " + BattleClassesUtils.getPlayerClass(player));
+				BattleClassesTalentMatrix talentMatrix = BattleClassesUtils.getPlayerTalentMatrix(player);
+				if(talentMatrix != null) {
+					message += " Talents: ";
+					int[] treeStates = talentMatrix.getPointsOnTrees(); 
+					for(int i = 0; i<treeStates.length; ++i) {
+						message += "|" + treeStates[i] + "|";
+					}
+					message += " Unspent points: " + talentMatrix.getTalentPoints();
+				}
+				System.out.println("Player[" + player.getCommandSenderName() + "] classinfo: " + message);
+				player.addChatMessage(new ChatComponentText(message));
 			}
 			else {
-				BattleClassesUtils.Log(message, LogType.COMMAND);
+				BattleClassesUtils.Log("Error! CommandSender isn't player", LogType.COMMAND);
 			}
 			return;
 		}
