@@ -427,7 +427,7 @@ public class BattleClassesGuiHUDOverlay extends BattlegearInGameGUI {
     		    //GL11.glDisable(GL11.GL_LIGHTING);
     		    
     		    mc.getTextureManager().bindTexture(ability.getIconResourceLocation());
-    		    myDrawTexturedModalRect(x, y, 16, 16);
+    		    drawTexturedRectFromCustomSource(x, y, 16, 16);
     		        		    
     	        GL11.glDisable(GL12.GL_RESCALE_NORMAL);
     	        GL11.glDisable(GL11.GL_BLEND);
@@ -453,7 +453,7 @@ public class BattleClassesGuiHUDOverlay extends BattlegearInGameGUI {
     		int scaledPosX = (int) ( ((float)x) / scale );
     		int scaledPosY = (int) ( ((float)y) / scale );
     		
-    		myDrawTexturedModalRect(scaledPosX - iconScaledWidth/2, scaledPosY - iconScaledHeight/2, 16, 16);
+    		drawTexturedRectFromCustomSource(scaledPosX - iconScaledWidth/2, scaledPosY - iconScaledHeight/2, 16, 16);
     		
     		GL11.glScalef(1, 1, 1);
     		GL11.glPopMatrix();
@@ -488,7 +488,7 @@ public class BattleClassesGuiHUDOverlay extends BattlegearInGameGUI {
     
 	 // 3.  You'll need to write your own version of the Gui.drawTexturedModalRect() method
 	//  This method can go into your own Gui class:
-	public void myDrawTexturedModalRect(int x, int y, int width, int height)
+	public void drawTexturedRectFromCustomSource(int x, int y, int width, int height)
 	{
 		 Tessellator tessellator = Tessellator.instance;
 		 tessellator.startDrawingQuads();    

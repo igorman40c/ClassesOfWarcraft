@@ -4,6 +4,7 @@ import java.util.Random;
 
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.potion.PotionEffect;
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
 import mods.battleclasses.core.BattleClassesPlayerHooks;
@@ -52,6 +53,8 @@ public class BattleClassesAbilityTest extends BattleClassesAbstractAbilityActive
 	@Override
 	public boolean performEffect(EntityLivingBase targetEntity, int tickCount) {
 		BattleClassesUtils.Log("BANG BANG Performed effect", LogType.CORE);
+		//targetEntity.addPotionEffect(new PotionEffect(33, 5*20, 1, false));
+		this.playerHooks.getOwnerPlayer().addPotionEffect(new PotionEffect(33, 10*20, 0, false));
 		return true;
 	}
 	

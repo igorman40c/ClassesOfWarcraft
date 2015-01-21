@@ -31,6 +31,7 @@ import mods.battleclasses.enumhelper.EnumBattleClassesAbilityCastingType;
 import mods.battleclasses.enumhelper.EnumBattleClassesCooldownType;
 import mods.battleclasses.enumhelper.EnumBattleClassesAbilityDirectTargetRequirement;
 import mods.battleclasses.gui.BattleClassesGuiHUDOverlay;
+import mods.battleclasses.gui.BattleClassesGuiHelper;
 import mods.battleclasses.items.BattleClassesItemWeapon;
 import mods.battleclasses.packet.BattleClassesPacketCooldownSet;
 import mods.battleclasses.packet.BattleClassesPacketPlayerClassSnyc;
@@ -42,7 +43,7 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 
 	public BattleClassesAbstractAbilityActive(int parAbilityID) {
 		super(parAbilityID);
-		abilityIconResourceLocation = new ResourceLocation("battleclasses", getAbilityIconPath() + getAbilityIconName() );
+		abilityIconResourceLocation = BattleClassesGuiHelper.getAbilityIconResourceLocation(this.abilityID);
 	}
 	
 	protected IIcon abilityIcon;
@@ -370,16 +371,6 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 		}
 	}
 	
-	@SideOnly(Side.CLIENT)
-	public String getAbilityIconName() {
-		return "ability_" + this.abilityID + ".png";
-	}
-	
-    @SideOnly(Side.CLIENT)
-    public String getAbilityIconPath() {
-    	return "textures/spells/icons/";
-    }
-    
     @SideOnly(Side.CLIENT)
     public boolean hasItemIcon() {
     	return false;

@@ -38,7 +38,7 @@ public class BattleClassesMod
     
     @EventHandler
 	public static void preInit(FMLPreInitializationEvent event) {
-    	BattleClassesPotion.increasePotionTypesCapacity();
+    	BattleClassesPotion.registerPotions();
     	BattleClassesItems.registerItems();
 		BattleClassesBlocks.registerBlocks();
 		BattleClassesBlocks.registerWorldGenerator();

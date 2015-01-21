@@ -1,5 +1,6 @@
 package mods.battleclasses.ability;
 
+import mods.battleclasses.gui.BattleClassesGuiHelper;
 import net.minecraft.util.ResourceLocation;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -25,7 +26,7 @@ public class BattleClassesTalentAbilityContainer extends BattleClassesAbstractTa
 	
 	@SideOnly(Side.CLIENT)    
     public ResourceLocation getIconResourceLocation() {
-    	return new ResourceLocation("battleclasses", containedAbility.getAbilityIconPath() + containedAbility.getAbilityIconName());
+    	return BattleClassesGuiHelper.getAbilityIconResourceLocation(containedAbility.getAbilityID());
     }
 	
 	@SideOnly(Side.CLIENT)
