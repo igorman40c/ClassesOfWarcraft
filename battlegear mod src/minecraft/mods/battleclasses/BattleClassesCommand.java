@@ -12,6 +12,7 @@ import net.minecraft.command.ICommandManager;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.ServerCommandManager;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.potion.Potion;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ChatComponentText;
 
@@ -53,6 +54,7 @@ public class BattleClassesCommand extends CommandBase {
 			else {
 				BattleClassesUtils.Log("Error! CommandSender isn't player", LogType.COMMAND);
 			}
+			System.out.println("Potion types capacity: " + Potion.potionTypes.length);
 			return;
 		}
 		

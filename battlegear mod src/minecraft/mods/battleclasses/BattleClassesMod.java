@@ -7,6 +7,7 @@ import mods.battleclasses.items.BattleClassesItemGem;
 import mods.battleclasses.items.BattleClassesItemTestingStaff;
 import mods.battleclasses.items.BattleClassesItems;
 import mods.battleclasses.packet.BattleClassesPacketHandeler;
+import mods.battleclasses.potion.BattleClassesPotion;
 import mods.battlegear2.Battlegear;
 import mods.battlegear2.utils.BattlegearConfig;
 import net.minecraft.item.ItemStack;
@@ -37,6 +38,7 @@ public class BattleClassesMod
     
     @EventHandler
 	public static void preInit(FMLPreInitializationEvent event) {
+    	BattleClassesPotion.increasePotionTypesCapacity();
     	BattleClassesItems.registerItems();
 		BattleClassesBlocks.registerBlocks();
 		BattleClassesBlocks.registerWorldGenerator();
