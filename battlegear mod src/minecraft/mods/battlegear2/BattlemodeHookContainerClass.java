@@ -7,6 +7,7 @@ import cpw.mods.fml.relauncher.Side;
 import mods.battlegear2.api.EnchantmentHelper;
 import mods.battlegear2.api.IHandListener;
 import mods.battlegear2.api.IOffhandDual;
+import mods.battlegear2.api.IUsableItem;
 import mods.battlegear2.api.PlayerEventChild;
 import mods.battlegear2.api.core.BattlegearUtils;
 import mods.battlegear2.api.core.IBattlePlayer;
@@ -241,7 +242,8 @@ public final class BattlemodeHookContainerClass {
             if(offhandItem == null || !BattlegearUtils.usagePriorAttack(offhandItem)){
                 ItemStack mainHandItem = event.entityPlayer.getCurrentEquippedItem();
                 PlayerEventChild.OffhandAttackEvent offAttackEvent = new PlayerEventChild.OffhandAttackEvent(event, mainHandItem, offhandItem);
-                if(!MinecraftForge.EVENT_BUS.post(offAttackEvent)){
+                boolean useableItemInMainhand = mainHandItem != null && mainHandItem.getItem() != null && mainHandItem.getItem() instanceof IUsableItem;
+                if(!useableItemInMainhand && !MinecraftForge.EVENT_BUS.post(offAttackEvent)){
                     if (offAttackEvent.swingOffhand){
                         sendOffSwingEvent(event, mainHandItem, offhandItem);
                     }
