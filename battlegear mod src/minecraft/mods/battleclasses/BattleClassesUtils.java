@@ -49,6 +49,10 @@ public static Logger battleClassesLogger = LogManager.getLogger("Battle Classes"
     	String logString = new String("[" + /*side.toString() + "/" + */  logType.toString() + "] " + ": " + message);
     	battleClassesLogger.info(logString);
     }
+    
+    public static boolean testMode() {
+    	return false;
+    }
 	
 	public static float getCurrentTimeInSeconds() {
 		return ((float) Minecraft.getSystemTime()) / 1000;

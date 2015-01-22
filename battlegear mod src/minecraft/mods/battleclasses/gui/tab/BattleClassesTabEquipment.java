@@ -25,12 +25,12 @@ public class BattleClassesTabEquipment extends BattleClassesAbstractTab {
     /**
      * x size of the inventory window in pixels. Defined as float, passed as int
      */
-    private float xSize_lo;
+    //private float xSize_lo;
 
     /**
      * y size of the inventory window in pixels. Defined as float, passed as int.
      */
-    private float ySize_lo;
+    //private float ySize_lo;
     
 	public BattleClassesTabEquipment(EntityPlayer entityPlayer, boolean isRemote) {
 		super(entityPlayer, isRemote, new ContainerBattle(entityPlayer.inventory, !isRemote, entityPlayer));
@@ -51,12 +51,12 @@ public class BattleClassesTabEquipment extends BattleClassesAbstractTab {
     /**
      * Draws the screen and all the components in it.
      */
-    /*
+    
     @Override
     public void drawScreen(int par1, int par2, float par3) {
         super.drawScreen(par1, par2, par3);
     }
-    */
+    
 	
     /**
      * Draw the background layer for the GuiContainer (everything behind the items)

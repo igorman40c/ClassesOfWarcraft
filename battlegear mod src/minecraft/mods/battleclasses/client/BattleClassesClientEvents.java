@@ -96,7 +96,7 @@ public class BattleClassesClientEvents {
 		Minecraft mc = Minecraft.getMinecraft();
 		boolean canReturnEventGuiScreen = false;
 		for (BattleClassesGuiTabBarButton button : tabsButtonList) {
-			if(event.gui.getClass() == button.getGUIClass()) {
+			if(event.gui.getClass() == button.getGUIClass() && !(mc.thePlayer.capabilities.isCreativeMode)) {
 				canReturnEventGuiScreen = true;
 			}
 		}
