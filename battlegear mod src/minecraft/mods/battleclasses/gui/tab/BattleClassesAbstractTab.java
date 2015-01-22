@@ -1,5 +1,9 @@
 package mods.battleclasses.gui.tab;
 
+import java.lang.reflect.Field;
+import java.util.Iterator;
+import java.util.List;
+
 import mods.battleclasses.client.BattleClassesClientEvents;
 import mods.battleclasses.gui.BattleClassesGuiHandler;
 import mods.battlegear2.Battlegear;
@@ -10,16 +14,20 @@ import mods.battlegear2.gui.ContainerBattle;
 import mods.battlegear2.packet.BattlegearGUIPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.renderer.InventoryEffectRenderer;
+import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
 
-public abstract class BattleClassesAbstractTab extends InventoryEffectRenderer {
+public abstract class BattleClassesAbstractTab extends InventoryEffectRenderer implements ITooltipDisplayGui {
 	
 	public ResourceLocation resource;
     public Class equipTab;
@@ -61,24 +69,18 @@ public abstract class BattleClassesAbstractTab extends InventoryEffectRenderer {
     @Override
     public void drawScreen(int par1, int par2, float par3){
         super.drawScreen(par1, par2, par3);
+        this.xSize_lo = (float) par1;
+        this.ySize_lo = (float) par2;
+        if(this.shouldDisplayTooltip) {
+        	this.drawHoveringText(this.toolTipTextLines, this.toolTipMousePosX, this.toolTipMousePosY, fontRendererObj);
+        	this.shouldDisplayTooltip = false;
+        }
     }
 
     @Override
     public void initGui() {
         super.initGui();
         BattleClassesClientEvents.onOpenGui(this.buttonList, guiLeft-28, guiTop);
-        if(ClientProxy.tconstructEnabled){
-            this.buttonList.clear();
-            try{
-                if(equipTab==null){
-                    equipTab = Class.forName("mods.battlegear2.client.gui.controls.EquipGearTab");
-                }
-                ClientProxy.updateTab.invoke(null, guiLeft, guiTop, equipTab);
-                ClientProxy.addTabs.invoke(null, this.buttonList);
-            }catch(Exception e){
-                ClientProxy.tconstructEnabled = false;
-            }
-        }
 		this.setTitlePosition(this.guiLeft + DEFAULT_GUI_WIDTH/2, this.guiTop + 8);
     }
     
@@ -92,18 +94,6 @@ public abstract class BattleClassesAbstractTab extends InventoryEffectRenderer {
     }
 
     /**
-     * Draws the screen and all the components in it.
-     */
-    /*
-    @Override
-    public void drawScreen(int par1, int par2, float par3){
-        super.drawScreen(par1, par2, par3);
-        this.xSize_lo = (float) par1;
-        this.ySize_lo = (float) par2;
-    }
-    */
-
-    /**
      * Draw the background layer for the GuiContainer (everything behind the items)
      */
     @Override
@@ -112,4 +102,14 @@ public abstract class BattleClassesAbstractTab extends InventoryEffectRenderer {
         this.overlay.drawAttributesDisplayWindow(this.guiLeft, this.guiTop, this.xSize, this.zLevel);
     }
     
+    protected List toolTipTextLines;
+    protected int toolTipMousePosX;
+    protected int toolTipMousePosY;
+    protected boolean shouldDisplayTooltip = false;
+    public void displayTooltip(List textLines, int mousePosX, int mousePosY) {
+    	this.toolTipTextLines = textLines;
+    	this.toolTipMousePosX = mousePosX;
+    	this.toolTipMousePosY = mousePosY;
+    	this.shouldDisplayTooltip = true;
+    }
 }

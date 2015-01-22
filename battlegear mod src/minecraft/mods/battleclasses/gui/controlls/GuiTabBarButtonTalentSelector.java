@@ -15,12 +15,12 @@ public class GuiTabBarButtonTalentSelector extends BattleClassesGuiTabBarButton 
 	}
 
 	@Override
-	protected void openGui(Minecraft mc) {
+	public void openGui(Minecraft mc) {
 		BattleClassesTabTalents.open(mc.thePlayer);
 	}
 
 	@Override
-	protected Class<? extends GuiScreen> getGUIClass() {
+	public Class<? extends GuiScreen> getGUIClass() {
 		return BattleClassesTabTalents.class;
 	}
 	

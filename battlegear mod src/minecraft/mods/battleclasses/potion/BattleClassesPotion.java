@@ -3,6 +3,9 @@ package mods.battleclasses.potion;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.battleclasses.gui.BattleClassesGuiHelper;
@@ -21,10 +24,17 @@ public class BattleClassesPotion extends Potion {
 	
 	@SideOnly(Side.CLIENT)
     public void renderInventoryEffect(int x, int y, PotionEffect effect, net.minecraft.client.Minecraft mc) { 
-		//ResourceLocation potionIcon = BattleClassesGuiHelper.getAbilityIconResourceLocation(121);
-		ResourceLocation potionIcon = BattleClassesGuiHelper.getResourceLocationOfTexture("textures/talents/icons/", "talent_icon_mage_2_1.png");
+		ResourceLocation potionIcon = BattleClassesGuiHelper.getAbilityIconResourceLocation(102);
+		//ResourceLocation potionIcon = BattleClassesGuiHelper.getResourceLocationOfTexture("textures/talents/icons/", "talent_icon_mage_2_1.png");
 		mc.getTextureManager().bindTexture(potionIcon);
-		BattleClassesGuiHelper.drawTexturedRectFromCustomSource(x+7, y+8, 16, 16, 0);
+		//BattleClassesGuiHelper.drawTexturedRectFromCustomSource(x+7, y+8, 16, 16, 0);
+		
+		GL11.glPushMatrix();
+		GL11.glEnable(GL11.GL_BLEND);
+	    GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+	    BattleClassesGuiHelper.drawTexturedRectFromCustomSource(x+7, y+8, 16, 16, 0);
+        GL11.glDisable(GL11.GL_BLEND);
+        GL11.glPopMatrix();
 	}
 
 	public static final int POTION_TYPES_CAPACITY = 256;

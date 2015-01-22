@@ -8,6 +8,7 @@ import java.util.List;
 import org.lwjgl.opengl.GL11;
 
 import mods.battleclasses.enumhelper.EnumBattleClassesPlayerClass;
+import mods.battleclasses.gui.tab.ITooltipDisplayGui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
@@ -92,7 +93,7 @@ public class BattleClassesGuiButton extends GuiButton {
 	/**
      * Draws this button to the screen.
      */
-    public void drawButton(Minecraft mc, int p_146112_2_, int p_146112_3_)
+    public void drawButton(Minecraft mc, int currentMousePosX, int currentMousePosY)
     {
         if (this.visible)
         {	
@@ -101,7 +102,7 @@ public class BattleClassesGuiButton extends GuiButton {
             mc.getTextureManager().bindTexture(this.resource);
             
             //InWindow
-            this.field_146123_n = p_146112_2_ >= this.xPosition && p_146112_3_ >= this.yPosition && p_146112_2_ < this.xPosition + this.width && p_146112_3_ < this.yPosition + this.height;
+            this.field_146123_n = currentMousePosX >= this.xPosition && currentMousePosY >= this.yPosition && currentMousePosX < this.xPosition + this.width && currentMousePosY < this.yPosition + this.height;
             int k = this.getHoverState(this.field_146123_n);
             
             //Bar Button Texture
@@ -123,14 +124,25 @@ public class BattleClassesGuiButton extends GuiButton {
             }
             this.drawCenteredString(fontrenderer, this.displayString, this.xPosition + this.width / 2, this.yPosition + (this.height - 8) / 2, l);
 
-            //Rendering Tooltip
-            if( this.field_146123_n && this.displayTooltip) {
-            	this.drawHoveringText(this.getDescriptionList(), p_146112_2_, p_146112_3_, fontrenderer);
-            }
+            this.renderHoveringText(currentMousePosX, currentMousePosY);
+        }
+    }
+    
+    public void renderHoveringText(int currentMousePosX, int currentMousePosY) {
+    	//Rendering Tooltip
+    	Minecraft mc = Minecraft.getMinecraft();
+        FontRenderer fontrenderer = mc.fontRenderer;
+        if( this.field_146123_n && this.displayTooltip) {
+        	if(mc.currentScreen instanceof ITooltipDisplayGui) {
+        		((ITooltipDisplayGui)mc.currentScreen).displayTooltip(this.getDescriptionList(), currentMousePosX, currentMousePosY);
+        	}
+        	else {
+        		this.drawHoveringText(this.getDescriptionList(), currentMousePosX, currentMousePosY, fontrenderer);
+        	}
         }
     }
 	
-    protected void drawHoveringText(List p_146283_1_, int p_146283_2_, int p_146283_3_, FontRenderer font)
+    protected void drawHoveringText(List p_146283_1_, int mousePosX, int mousePosY, FontRenderer font)
     {
         if (!p_146283_1_.isEmpty())
         {
@@ -152,8 +164,8 @@ public class BattleClassesGuiButton extends GuiButton {
                 }
             }
 
-            int j2 = p_146283_2_ + 12;
-            int k2 = p_146283_3_ - 12;
+            int j2 = mousePosX + 12;
+            int k2 = mousePosY - 12;
             int i1 = 8;
 
             if (p_146283_1_.size() > 1)
@@ -195,7 +207,7 @@ public class BattleClassesGuiButton extends GuiButton {
             	//this.zLevel += 10000.0F;
             	//itemRender.zLevel += 300.0F;
             }
-            this.zLevel -= 1000.0F;
+            this.zLevel += 300.0F;
             
             int j1 = -267386864;
             
@@ -227,7 +239,7 @@ public class BattleClassesGuiButton extends GuiButton {
             
             
             //this.zLevel += 300.0F;
-            this.zLevel += 1000.0F;
+            this.zLevel = zTemp;
             if(itemRender != null) {
             	//BattleClassesUtils.Log("Button Z:" + this.zLevel + ", IR Z:" + itemRender.zLevel, LogType.GUI);
             	//itemRender.zLevel -= 300.0F;

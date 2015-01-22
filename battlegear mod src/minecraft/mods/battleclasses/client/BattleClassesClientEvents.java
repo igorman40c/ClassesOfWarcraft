@@ -3,8 +3,10 @@ package mods.battleclasses.client;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.gui.inventory.GuiInventory;
@@ -51,15 +53,16 @@ public class BattleClassesClientEvents {
 	
 	private final BattleClassesGuiHUDOverlay inGameGUI = new BattleClassesGuiHUDOverlay();
 	
-	public static List<BattleClassesGuiTabBarButton> tabsList = new ArrayList<BattleClassesGuiTabBarButton>();
+	public static BattleClassesGuiTabBarButton lastUsedTabButton = null;
+	public static List<BattleClassesGuiTabBarButton> tabsButtonList = new ArrayList<BattleClassesGuiTabBarButton>();
 	static {
-		tabsList.add(new GuiTabBarButtonVanillaInventory(0, 10, 10));
-		tabsList.add(new GuiTabBarButtonBattleInventory(1, 20, 20));
-		tabsList.add(new GuiTabBarButtonTalentSelector(2, 30, 30));
-		tabsList.add(new GuiTabBarButtonClassSelector(3, 40, 40));
+		tabsButtonList.add(new GuiTabBarButtonVanillaInventory(0, 10, 10));
+		tabsButtonList.add(new GuiTabBarButtonBattleInventory(1, 20, 20));
+		tabsButtonList.add(new GuiTabBarButtonTalentSelector(2, 30, 30));
+		tabsButtonList.add(new GuiTabBarButtonClassSelector(3, 40, 40));
 		//tabsList.add(new GuiTabBarButtonHelp(4, 50, 50));
 		//tabsList.add(new GuiTabBarButtonConfig(5, 60, 60, false));
-		tabsList.add(new GuiTabBarButtonConfig(5, 50, 50));
+		tabsButtonList.add(new GuiTabBarButtonConfig(5, 50, 50));
 	}
 	/*
 	@SubscribeEvent
@@ -81,6 +84,28 @@ public class BattleClassesClientEvents {
 			event.setCanceled(true);
 			mc.displayGuiScreen(new BattleClassesTabInventory(mc.thePlayer));
 			BattleClassesUtils.Log("GuiInventory replaced!", LogType.GUI);
+			return;
+			//this.onOpenGui(mc.currentScreen., guiLeft, guiTop);
+		}
+		if(event.gui != null) {
+			returnToLastUsedTab(event);
+		}
+	}
+	
+	public static void returnToLastUsedTab(GuiOpenEvent event) {
+		Minecraft mc = Minecraft.getMinecraft();
+		boolean canReturnEventGuiScreen = false;
+		for (BattleClassesGuiTabBarButton button : tabsButtonList) {
+			if(event.gui.getClass() == button.getGUIClass()) {
+				canReturnEventGuiScreen = true;
+			}
+		}
+		if(canReturnEventGuiScreen &&
+			lastUsedTabButton != null &&
+			lastUsedTabButton.isAccessAble() &&
+			event.gui.getClass() != lastUsedTabButton.getGUIClass()) {
+				event.setCanceled(true);
+				lastUsedTabButton.openGui(mc);
 		}
 	}
 	
@@ -139,7 +164,7 @@ public class BattleClassesClientEvents {
 		BattleClassesUtils.Log("Adding Extra inventory buttons", LogType.GUI);
         if(BattlegearConfig.enableGuiButtons){
 			int i = 0;
-			for (BattleClassesGuiTabBarButton button : tabsList) {
+			for (BattleClassesGuiTabBarButton button : tabsButtonList) {
 				if(i < TABS_ON_LEFT) {
 					//Placing to horizontal bar button positions
 					button.setPosition(guiLeft + 0, guiTop + 11 + i * (BattleClassesGuiTabBarButton.BAR_BUTTON_GAP + BattleClassesGuiTabBarButton.BAR_BUTTON_SIZE_H_H) );
@@ -218,7 +243,7 @@ public class BattleClassesClientEvents {
 		//super.preStitch(event);
 		if (event.map.getTextureType() == 1) {
 			//Registering Tab Bar Button Icons
-			for (BattleClassesGuiTabBarButton button : tabsList) {
+			for (BattleClassesGuiTabBarButton button : tabsButtonList) {
 				BattleClassesUtils.Log("Registering " + button.getIconRegisterPath(), LogType.GUI);
 				button.tabButtonIcon = event.map.registerIcon(button.getIconRegisterPath());
 			}

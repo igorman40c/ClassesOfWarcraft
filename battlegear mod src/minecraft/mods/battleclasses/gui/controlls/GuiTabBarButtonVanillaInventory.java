@@ -24,7 +24,7 @@ public class GuiTabBarButtonVanillaInventory extends BattleClassesGuiTabBarButto
 	}
 
 	@Override
-	protected void openGui(Minecraft mc) {
+	public void openGui(Minecraft mc) {
 		BattleClassesUtils.Log("GuiTabBarButtonVanillaInventory openGui", LogType.GUI);
 		BattleClassesGuiHUDOverlay.previousGui = mc.currentScreen.getClass();
         mc.thePlayer.sendQueue.addToSendQueue(new C0DPacketCloseWindow(mc.thePlayer.openContainer.windowId));
@@ -33,7 +33,7 @@ public class GuiTabBarButtonVanillaInventory extends BattleClassesGuiTabBarButto
 	}
 
 	@Override
-	protected Class<? extends GuiScreen> getGUIClass() {
+	public Class<? extends GuiScreen> getGUIClass() {
 		return BattleClassesTabInventory.class;
 	}
 	

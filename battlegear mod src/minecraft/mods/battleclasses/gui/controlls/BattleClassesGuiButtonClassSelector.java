@@ -28,6 +28,8 @@ public class BattleClassesGuiButtonClassSelector extends BattleClassesGuiButton 
 	public BattleClassesGuiButtonClassSelector(int id, ResourceLocation resource, EnumBattleClassesPlayerClass parPlayerClass) {
 		super(id, resource);
 		this.playerClass = parPlayerClass;
+		this.displayTooltip = true;
+		this.tooltipDescription = BattleClassesTabClassSelector.getClassDescription(playerClass);
 	}
 	
 	public boolean shouldBeDisabled() {
@@ -41,11 +43,11 @@ public class BattleClassesGuiButtonClassSelector extends BattleClassesGuiButton 
 	/**
      * Draws this button to the screen.
      */
-    public void drawButton(Minecraft mc, int p_146112_2_, int p_146112_3_)
+    public void drawButton(Minecraft mc, int currentMousePosX, int currentMousePosY)
     {
         if (this.visible)
         {	
-            super.drawButton(mc, p_146112_2_, p_146112_3_);
+            super.drawButton(mc, currentMousePosX, currentMousePosY);
             FontRenderer fontrenderer = mc.fontRenderer;
             //Drawing Tab Icon
             IIcon classIcon = BattleClassesPlayerClass.getClassIcon(playerClass);
@@ -58,19 +60,6 @@ public class BattleClassesGuiButtonClassSelector extends BattleClassesGuiButton 
             	drawCooldown(this.xPosition + this.width/2 - classIcon.getIconWidth()/2, 
 						this.yPosition + this.height/2 -  classIcon.getIconHeight()/2,
 						BattleClassesUtils.getCooldownPercentage(BattleClassesUtils.getPlayerHooks(mc.thePlayer).playerClass));
-            	/*
-            	BattleClassesUtils.Log("Class CD: " + BattleClassesUtils.getPlayerHooks(mc.thePlayer).playerClass.getCooldownRemaining() + 
-            			" Set Time: " + BattleClassesUtils.getPlayerHooks(mc.thePlayer).playerClass.getSetTime() +
-            			" Set Duration: " + BattleClassesUtils.getPlayerHooks(mc.thePlayer).playerClass.getSetTime() + 
-            			" Curent Time: " + BattleClassesUtils.getCurrentTimeInSeconds(), LogType.GUI);
-            	*/
-            }
-            
-            //Drawing Class Description
-            if( field_146123_n ) {
-            	ArrayList stringList = new ArrayList();
-            	stringList.add(BattleClassesTabClassSelector.getClassDescription(playerClass));
-            	this.drawHoveringText(stringList, p_146112_2_, p_146112_3_, fontrenderer);
             }
         }
     }
@@ -87,9 +76,7 @@ public class BattleClassesGuiButtonClassSelector extends BattleClassesGuiButton 
     		this.drawTexturedModelRectFromIcon(posX, posY, cooldownIcon, cooldownIcon.getIconWidth(), cooldownIcon.getIconHeight());
     		
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-
     	}
-    	
 	}
     
 	@Override
@@ -97,7 +84,6 @@ public class BattleClassesGuiButtonClassSelector extends BattleClassesGuiButton 
 		boolean inWindow = super.mousePressed(mc, mouseX, mouseY);
 		boolean press = inWindow && !isClassSelected();
 		if (press) {
-			//BattleClassesUtils.getPlayerHooks(Minecraft.getMinecraft().thePlayer).playerClass.switchToPlayerClass(this.playerClass);
 			FMLProxyPacket p = new BattleClassesPacketPlayerClassSnyc(mc.thePlayer, this.playerClass).generatePacket();
 			BattleClassesMod.packetHandler.sendPacketToServer(p);
 		}

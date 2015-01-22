@@ -43,7 +43,7 @@ public class BattleClassesPlayerHooks implements ICooldownMapHolder {
 	}
 	
 	public void switchToPlayerClass(EnumBattleClassesPlayerClass parPlayerClass) {
-		
+		EnumBattleClassesPlayerClass previousClass = this.playerClass.getPlayerClass();
 		this.applyPlayerClass(parPlayerClass);
 		
 		FMLProxyPacket p = new BattleClassesPacketPlayerClassSnyc(this.ownerPlayer, parPlayerClass).generatePacket();
@@ -55,7 +55,9 @@ public class BattleClassesPlayerHooks implements ICooldownMapHolder {
 			}
 		}
 		
-		playerClass.getCooldownClock().setCooldownDefaultForced();
+		if(previousClass != EnumBattleClassesPlayerClass.NONE) {
+			playerClass.getCooldownClock().setCooldownDefaultForced();
+		}
 	}
 	
 	protected void applyPlayerClass(EnumBattleClassesPlayerClass parPlayerClass) {

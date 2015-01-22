@@ -51,12 +51,12 @@ public class BattleClassesTabEquipment extends BattleClassesAbstractTab {
     /**
      * Draws the screen and all the components in it.
      */
+    /*
     @Override
     public void drawScreen(int par1, int par2, float par3) {
         super.drawScreen(par1, par2, par3);
-        this.xSize_lo = (float) par1;
-        this.ySize_lo = (float) par2;
     }
+    */
 	
     /**
      * Draw the background layer for the GuiContainer (everything behind the items)
