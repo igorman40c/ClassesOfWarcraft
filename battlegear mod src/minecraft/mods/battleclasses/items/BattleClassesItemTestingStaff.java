@@ -20,7 +20,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.ArrowNockEvent;
 
-public class BattleClassesItemTestingStaff extends BattleClassesItemWeapon {
+public class BattleClassesItemTestingStaff extends BattleClassesItemWeaponOneHanded {
 	
 	public BattleClassesItemTestingStaff(ToolMaterial toolMaterial) {
 		super(toolMaterial);

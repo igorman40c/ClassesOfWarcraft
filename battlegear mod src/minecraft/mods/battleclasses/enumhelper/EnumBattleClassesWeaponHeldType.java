@@ -1,6 +1,6 @@
 package mods.battleclasses.enumhelper;
 
-public enum EnumBattleClassesItemHandRequirement {
+public enum EnumBattleClassesWeaponHeldType {
 	ONE_HANDED,
 	MAIN_HANDED,
 	TWO_HANDED,

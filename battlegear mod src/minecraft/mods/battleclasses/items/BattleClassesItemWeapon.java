@@ -4,7 +4,7 @@ import java.util.EnumSet;
 
 import cpw.mods.fml.relauncher.Side;
 import mods.battleclasses.BattleClassesUtils;
-import mods.battleclasses.enumhelper.EnumBattleClassesItemHandRequirement;
+import mods.battleclasses.enumhelper.EnumBattleClassesWeaponHeldType;
 import mods.battleclasses.enumhelper.EnumBattleClassesItemRarity;
 import mods.battleclasses.enumhelper.EnumBattleClassesPlayerClass;
 import mods.battleclasses.enumhelper.EnumBattleClassesWieldAccess;
@@ -81,10 +81,10 @@ public class BattleClassesItemWeapon extends ItemSword implements IBattleClasses
 		return 0;
 	}
 
+	protected EnumBattleClassesWeaponHeldType heldType = EnumBattleClassesWeaponHeldType.ONE_HANDED;
 	@Override
-	public EnumBattleClassesItemHandRequirement getHandRequirement() {
-		// TODO Auto-generated method stub
-		return null;
+	public EnumBattleClassesWeaponHeldType getHeldType() {
+		return heldType;
 	}
 
 	@Override
@@ -99,12 +99,67 @@ public class BattleClassesItemWeapon extends ItemSword implements IBattleClasses
 		return true;
 	}
 
+
 	@Override
 	public boolean isOffhandHandDual(ItemStack off) {
-		// TODO Auto-generated method stub
+		switch(this.getHeldType()) {
+		case MAIN_HANDED: {
+			return false;
+		}
+		case OFF_HANDED: {
+			return true;
+		}
+		case ONE_HANDED: {
+			return true;
+		}
+		case TWO_HANDED: {
+			return false;
+		}
+		default:
+			break;
+		}
+		return true;
+	}
+	
+	@Override
+	public boolean allowOffhand(ItemStack mainhand, ItemStack offhand) {
+		System.out.println("bammm0!");
+		switch(this.getHeldType()) {
+		case MAIN_HANDED: {
+			return true;
+		}
+		case OFF_HANDED: {
+			System.out.println("bammm1!");
+			if(mainhand.getItem() instanceof IBattleClassesHandHeld) {
+				System.out.println("bammm2!");
+				if(((IBattleClassesHandHeld) mainhand.getItem()).getHeldType() == EnumBattleClassesWeaponHeldType.OFF_HANDED) {
+					System.out.println("bammm3!");
+					return false;
+				}
+			}
+			return true;
+		}
+		case ONE_HANDED: {
+			return true;
+		}
+		case TWO_HANDED: {
+			return offhand == null;
+		}
+		default:
+			break;
+		}
+		return true;
+	}
+
+	@Override
+	public boolean invertOnBack(ItemStack itemStack) {
 		return false;
 	}
 
+	@Override
+	public boolean isUsedOverAttack(ItemStack itemStack) {
+		return true;
+	}
 	@Override
 	public boolean offhandAttackEntity(OffhandAttackEvent event,
 			ItemStack mainhandItem, ItemStack offhandItem) {
@@ -132,25 +187,4 @@ public class BattleClassesItemWeapon extends ItemSword implements IBattleClasses
 		// TODO Auto-generated method stub
 		
 	}
-
-	
-	@Override
-	public boolean allowOffhand(ItemStack mainhand, ItemStack offhand) {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	@Override
-	public boolean invertOnBack(ItemStack itemStack) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isUsedOverAttack(ItemStack itemStack) {
-		// TODO Auto-generated method stub
-		return true;
-	}
-	
-
 }

@@ -4,6 +4,7 @@ import java.util.EnumSet;
 
 import net.minecraft.item.ItemStack;
 import mods.battleclasses.enumhelper.EnumBattleClassesPlayerClass;
+import mods.battleclasses.enumhelper.EnumBattleClassesWeaponHeldType;
 
 public class BattleClassesItemWeaponTwoHanded extends BattleClassesItemWeapon implements IHighDetailWeapon {
 
@@ -20,6 +21,7 @@ public class BattleClassesItemWeaponTwoHanded extends BattleClassesItemWeapon im
 				EnumBattleClassesPlayerClass.PALADIN,
 				EnumBattleClassesPlayerClass.WARRIOR);
 		BattleClassesItems.TwoHandedWeaponList.add(this);
+		this.heldType = EnumBattleClassesWeaponHeldType.TWO_HANDED;
 	}
 	
 	public BattleClassesItemWeaponTwoHanded(ToolMaterial toolMaterial, String textureName, float parAnchor, boolean parInvertSheat) {
@@ -59,9 +61,4 @@ public class BattleClassesItemWeaponTwoHanded extends BattleClassesItemWeapon im
 		return 1;
 	}
 	
-	@Override
-	public boolean allowOffhand(ItemStack mainhand, ItemStack offhand) {
-		return offhand == null;
-		//return false;
-	}
 }
