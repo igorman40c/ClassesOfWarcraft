@@ -536,6 +536,8 @@ public class BattleClassesGuiHUDOverlay extends BattlegearInGameGUI {
 	public static final String HUD_W_BATTLEMODE_REQUIRED = "You need to be in Battle mode to use that!";
 	public static final String HUD_W_ON_COOLDOWN = "That ability is not ready yet!";
 	public static final String HUD_W_ON_CLASS_COOLDOWN = "Your class is not ready yet!";
+	public static final String HUD_W_SILENCED = "You are silenced!";
+	public static final String HUD_W_COMBAT_DISABLED = "You can't do that now!";
 	public static final String HUD_W_WEAPON_WRONG_CLASS = "That weapon is not for your class!";
 	public static final String HUD_W_WEAPON_LOW_LEVEL = "That ability requires a better weapon'";
 	public static final String HUD_W_WEAPON_NO_AMMO = "That ability requires ammo!";

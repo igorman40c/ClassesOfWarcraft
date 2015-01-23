@@ -56,6 +56,7 @@ public class BattleClassesClientProxy extends BattleClassesCommonProxy {
 
     @Override
     public void registerKeyHandelers() {
+    	super.registerKeyHandelers();
     	/*
         if(BattlegearConfig.enableGUIKeys){
             FMLCommonHandler.instance().bus().register(new BattleClassesGuiKeyHandler());

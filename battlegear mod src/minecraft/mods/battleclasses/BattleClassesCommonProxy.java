@@ -6,6 +6,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import mods.battleclasses.core.BattleClassesCombatHooks;
 import mods.battlegear2.BattlegearTickHandeler;
 import mods.battlegear2.BattlemodeHookContainerClass;
 import mods.battlegear2.BgPlayerTracker;
@@ -21,7 +22,7 @@ public class BattleClassesCommonProxy {
     }
 
     public void registerTickHandelers(){
-    	
+		 MinecraftForge.EVENT_BUS.register(new BattleClassesCombatHooks());
     }
 
 	public void registerItemRenderers() {

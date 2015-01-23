@@ -54,7 +54,7 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 	protected EnumBattleClassesAbilityDirectTargetRequirement targetRequirementType = EnumBattleClassesAbilityDirectTargetRequirement.NEEDLESS;
 	protected EnumBattleClassesAbilityIntent intent = EnumBattleClassesAbilityIntent.DUAL;
 	protected EnumBattleClassesAbilityCastingType castingType = EnumBattleClassesAbilityCastingType.CastType_UNKNOWN;
-
+	
 	//Basic ability attributes
 	public float castTime = 0;
 	public float range = 40;
@@ -139,6 +139,10 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 	public float getAbilityDamageAmplified() {
 		//TODO
 		return 0;
+	}
+	
+	public boolean isIgnoringSilence() {
+		return this.ignoresSilence;
 	}
 	
 	protected void startCasting(EntityPlayer entityPlayer, ItemStack itemStack) {
