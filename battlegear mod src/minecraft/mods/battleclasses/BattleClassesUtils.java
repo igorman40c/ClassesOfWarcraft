@@ -24,6 +24,7 @@ import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 
 public class BattleClassesUtils {
@@ -138,18 +139,33 @@ public static Logger battleClassesLogger = LogManager.getLogger("Battle Classes"
 	} 
 		
 	public static boolean isTargetFriendly(EntityPlayer entityPlayerTargeting, EntityLivingBase target) {
-		//TODO : !!!
 		if(target instanceof EntityPlayer) {
-			return true;
+			EntityPlayer targetPlayer = (EntityPlayer) target;
+			MinecraftServer mcs = MinecraftServer.getServer();
+			if(entityPlayerTargeting.getTeam() != null && target.getTeam() != null) {
+				return entityPlayerTargeting.getTeam() == target.getTeam();
+			}
+			if(mcs.isPVPEnabled()) {
+				return false;
+			}
+			else {
+				return true;
+			}
 		}
 		if(target instanceof IEntityOwnable) {
+			IEntityOwnable targetOwnable = (IEntityOwnable) target;
+			if(targetOwnable.getOwner() != null && (targetOwnable.getOwner() instanceof EntityPlayer)) {
+				return isTargetFriendly(entityPlayerTargeting, (EntityPlayer)targetOwnable);
+			}
 			return true;
 		}
-		/*
 		if(target instanceof EntityHorse) {
-			return true;
+			EntityHorse targetHorse = (EntityHorse) target;
+			if(targetHorse.isTame()) {
+				return true;
+			}
+			return false;
 		}
-		*/
 		
 		return false;
 	}
