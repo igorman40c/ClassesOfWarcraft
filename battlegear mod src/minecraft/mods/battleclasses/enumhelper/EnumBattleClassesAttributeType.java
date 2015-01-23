@@ -28,6 +28,25 @@ public enum EnumBattleClassesAttributeType {
 		return 208; 
 	}
 	
+	public boolean isDisplayedInPercentage() {
+		switch(this) {
+			case ARMOR_PENETRATION:  {
+				return true;
+			}
+			case CRITICAL_RATING: {
+				return true;
+			}
+			case HASTE_RATING: {
+				return true;
+			}
+		
+		default:
+			break;
+		
+		}
+		return false;
+	}
+	
 	public int getDisplayIconV() {
 		switch(this) {
 		case STAMINA:{

@@ -51,7 +51,7 @@ public class BattleClassesGuiButton extends GuiButton {
 		super(id, DEFAULT_X, DEFAULT_Y, DEFAULT_WIDHT, DEFAULT_HEIGHT, DEFAULT_NAME);
 		this.resource = resource;
 	}
-	
+		
 	public void setOrigin(int u, int v) {
 		this.origin_u = u;
 		this.origin_v = v;
@@ -97,6 +97,10 @@ public class BattleClassesGuiButton extends GuiButton {
 		ArrayList stringList = new ArrayList();
     	stringList.add(this.tooltipDescription);
     	return stringList;
+	}
+	
+	public String getDisplayString() {
+		return this.displayString;
 	}
 	
 	/**

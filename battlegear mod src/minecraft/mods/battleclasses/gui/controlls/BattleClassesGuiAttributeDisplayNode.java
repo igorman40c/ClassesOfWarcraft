@@ -3,6 +3,7 @@ package mods.battleclasses.gui.controlls;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
+import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.enumhelper.EnumBattleClassesAttributeType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -83,7 +84,7 @@ public class BattleClassesGuiAttributeDisplayNode extends BattleClassesGuiButton
                 l = 16777120;
             }
             //Rendering value label of the attribute
-            this.drawString(fontrenderer, "14 (33.3%)", this.xPosition + 15, this.yPosition + 2, l);
+            this.drawString(fontrenderer, this.getDisplayString(), this.xPosition + 15, this.yPosition + 2, l);
 
             this.renderHoveringText(currentMousePosX, currentMousePosY);
             
@@ -92,4 +93,30 @@ public class BattleClassesGuiAttributeDisplayNode extends BattleClassesGuiButton
         }
     }
 
+    
+	public String getDisplayString() {
+		Minecraft mc = Minecraft.getMinecraft();
+		float displayedValue = 0;
+		if(this.displayedAttributeType == EnumBattleClassesAttributeType.ARMOR) {
+			displayedValue = 0;
+		}
+		else {
+			displayedValue = BattleClassesUtils.getPlayerHooks(mc.thePlayer).getDisplayedAttributes().getByType(this.displayedAttributeType);
+		}
+		String valueString;
+		if(this.displayedAttributeType.isDisplayedInPercentage()) {
+			if(displayedValue % 10 > 0) {
+				valueString = String.format("%.2f", displayedValue);
+			}
+			else {
+				valueString = String.format("%.0f", displayedValue);
+			}
+			valueString += " %";
+		}
+		else {
+			valueString = String.format("%.0f", displayedValue);
+		}
+		
+		return valueString;
+	}
 }
