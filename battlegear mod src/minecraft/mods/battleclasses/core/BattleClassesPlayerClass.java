@@ -10,6 +10,7 @@ import cpw.mods.fml.common.network.internal.FMLProxyPacket;
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
 import mods.battleclasses.ability.BattleClassesAbstractAbilityActive;
+import mods.battleclasses.enumhelper.EnumBattleClassesAttributeType;
 import mods.battleclasses.enumhelper.EnumBattleClassesCooldownType;
 import mods.battleclasses.enumhelper.EnumBattleClassesPlayerClass;
 import mods.battleclasses.enumhelper.EnumBattleClassesWieldAccess;
@@ -138,6 +139,34 @@ public class BattleClassesPlayerClass implements ICooldownOwner {
 	
 	public ResourceLocation getIconResourceLocation() {
 		return new ResourceLocation("battleclasses", "textures/sharedicons/classes/" + this.playerClass.toString() + ".png");
+	}
+
+	public ArrayList<EnumBattleClassesAttributeType> getDefaultAttributesToDisplay() {
+		ArrayList<EnumBattleClassesAttributeType> attributes = new ArrayList<EnumBattleClassesAttributeType>();
+		attributes.add(EnumBattleClassesAttributeType.STAMINA);
+		attributes.add(EnumBattleClassesAttributeType.ARMOR);
+		return attributes;
+	}
+	
+	public ArrayList<EnumBattleClassesAttributeType> getPrimaryAttributesToDisplay() {
+		ArrayList<EnumBattleClassesAttributeType> attributes = new ArrayList<EnumBattleClassesAttributeType>();
+		attributes.add(EnumBattleClassesAttributeType.STRENGTH);
+		attributes.add(EnumBattleClassesAttributeType.AGILITY);
+		attributes.add(EnumBattleClassesAttributeType.SPELLPOWER_ARCANE);
+		attributes.add(EnumBattleClassesAttributeType.SPELLPOWER_FIRE);
+		attributes.add(EnumBattleClassesAttributeType.SPELLPOWER_FROST);
+		attributes.add(EnumBattleClassesAttributeType.SPELLPOWER_HOLY);
+		attributes.add(EnumBattleClassesAttributeType.SPELLPOWER_SHADOW);
+		return attributes;
+	}
+	
+	public ArrayList<EnumBattleClassesAttributeType> getSecondaryAttributesToDisplay() {
+		ArrayList<EnumBattleClassesAttributeType> attributes = new ArrayList<EnumBattleClassesAttributeType>();
+		attributes.add(EnumBattleClassesAttributeType.WEAPON_DAMAGE);
+		attributes.add(EnumBattleClassesAttributeType.CRITICAL_RATING);
+		attributes.add(EnumBattleClassesAttributeType.HASTE_RATING);
+		attributes.add(EnumBattleClassesAttributeType.ARMOR_PENETRATION);
+		return attributes;
 	}
 	
 	// -------------------- ICooldownOwner implementation --------------------

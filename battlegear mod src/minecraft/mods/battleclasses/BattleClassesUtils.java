@@ -9,6 +9,7 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import mods.battleclasses.ability.BattleClassesAbilityShieldBlock;
 import mods.battleclasses.ability.BattleClassesAbstractAbility;
+import mods.battleclasses.core.BattleClassesPlayerClass;
 import mods.battleclasses.core.BattleClassesPlayerHooks;
 import mods.battleclasses.core.BattleClassesSpellBook;
 import mods.battleclasses.core.BattleClassesTalentMatrix;
@@ -101,7 +102,15 @@ public static Logger battleClassesLogger = LogManager.getLogger("Battle Classes"
 		return 0;
 	}
 	
-	public static EnumBattleClassesPlayerClass getPlayerClass(EntityPlayer entityPlayer) {
+	public static BattleClassesPlayerClass getPlayerClassObj(EntityPlayer entityPlayer) {
+		BattleClassesPlayerHooks playerHooks = BattleClassesUtils.getPlayerHooks(entityPlayer);
+		if(playerHooks != null) {
+			return playerHooks.playerClass;
+		}
+		return null;
+	}
+	
+	public static EnumBattleClassesPlayerClass getPlayerClassEnum(EntityPlayer entityPlayer) {
 		BattleClassesPlayerHooks playerHooks = BattleClassesUtils.getPlayerHooks(entityPlayer);
 		if(playerHooks.playerClass != null) {
 			return playerHooks.playerClass.getPlayerClass();

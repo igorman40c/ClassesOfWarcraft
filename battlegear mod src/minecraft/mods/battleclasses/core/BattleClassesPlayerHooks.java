@@ -40,6 +40,7 @@ public class BattleClassesPlayerHooks implements ICooldownMapHolder {
 		
 		playerClass = new BattleClassesPlayerClass(this, EnumBattleClassesPlayerClass.NONE);
 		weaponHitHandler = new BattleClassesWeaponHitHandler(this);
+		this.refreshBaseAttributes();
 	}
 	
 	public void switchToPlayerClass(EnumBattleClassesPlayerClass parPlayerClass) {
@@ -99,10 +100,12 @@ public class BattleClassesPlayerHooks implements ICooldownMapHolder {
 	}
 	
 	
+	protected BattleClassesAttributes baseAttributes;
+	protected BattleClassesAttributes displayedAttributes;
 	//AMPLIFIERS
 	/** Should be called every time when there is a change in: Armor worn OR Talent points OR Potion effects OR onPlayerSpawn  */
 	public void onAttributeSourcesChanged() {
-		BattleClassesAttributes totalAttributes = this.getTotalAttributes(0);
+		BattleClassesAttributes totalAttributes = this.getTotalAttributesForAbility(0);
 		//par1EntityLivingBase.setAbsorptionAmount(par1EntityLivingBase.getAbsorptionAmount() - (float)(4 * (par3 + 1)));
 		//SharedMonsterAttributes.maxHealth
 		
@@ -141,6 +144,7 @@ public class BattleClassesPlayerHooks implements ICooldownMapHolder {
 		BattleClassesAttributes baseAttributes = new BattleClassesAttributes();
 		//baseAttributes.stamina = this.getOwnerPlayer().getMaxHealth();
 		baseAttributes.stamina = DEFAULT_PLAYER_HP;
+		//baseAttributes.armor = this.getOwnerPlayer().getArm
 		return baseAttributes;
 	}
 	
@@ -177,10 +181,23 @@ public class BattleClassesPlayerHooks implements ICooldownMapHolder {
 		return totalAttributeBonuses;
 	}
 	
-	public BattleClassesAttributes getTotalAttributes(int targetAbilityID) {
+	protected void refreshBaseAttributes() {
+		BattleClassesAttributes attributes = new BattleClassesAttributes();
+		attributes.add(this.getDefaultAttributes());
+		attributes.add(this.getItemAttributes());
+		this.baseAttributes = attributes;
+		this.displayedAttributes = new BattleClassesAttributes();
+		this.displayedAttributes.add(baseAttributes);
+		this.displayedAttributes.add(this.getTotalBasedAttributeBonuses(0, this.displayedAttributes));
+	}
+	
+	public BattleClassesAttributes getDisplayedAttributes() {
+		return this.displayedAttributes;
+	}
+	
+	public BattleClassesAttributes getTotalAttributesForAbility(int targetAbilityID) {
 		BattleClassesAttributes totalAttributes = new BattleClassesAttributes();
-		totalAttributes.add(this.getDefaultAttributes());
-		totalAttributes.add(this.getItemAttributes());
+		totalAttributes.add(this.baseAttributes);
 		totalAttributes.add(this.getBaseAttributeBonuses(targetAbilityID));
 		totalAttributes.multiply(this.getBaseAttributeAmplifiers(targetAbilityID));
 		totalAttributes.add(this.getTotalBasedAttributeBonuses(targetAbilityID, totalAttributes));
@@ -207,7 +224,6 @@ public class BattleClassesPlayerHooks implements ICooldownMapHolder {
 	public static final String NBT_TAGNAME_CD_SETTIME = "CD_SetTime";
 	public static final String NBT_TAGNAME_CD_LASTDURATION = "CD_LastDuration";
 	public static final String NBT_TAGNAME_CD_LASTTYPE = "CD_LastType";
-	
 	
 	public NBTTagCompound writeTagCompound() {
     	NBTTagCompound tagCompound = new NBTTagCompound();

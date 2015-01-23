@@ -61,7 +61,7 @@ public class BattleClassesCommand extends CommandBase {
 		if(var2[0].equals("classinfo") ) {
 			if(var1 instanceof EntityPlayer) {
 				EntityPlayer player = (EntityPlayer) var1;
-				String message = new String("Player Class: " + BattleClassesUtils.getPlayerClass(player));
+				String message = new String("Player Class: " + BattleClassesUtils.getPlayerClassEnum(player));
 				BattleClassesTalentMatrix talentMatrix = BattleClassesUtils.getPlayerTalentMatrix(player);
 				if(talentMatrix != null) {
 					message += " Talents: ";

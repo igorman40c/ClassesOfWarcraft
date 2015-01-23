@@ -32,15 +32,13 @@ public class BattleClassesSpellBook {
 	
 	protected BattleClassesPlayerHooks playerHooks;
 	
-	//public static final int SPELLBOOK_CAPACITY = 7;
 	public static final float GLOBAL_COOLDOWN_DURATION = 1.0F;
 	
 	public LinkedHashMap<Integer, BattleClassesAbstractAbilityActive> activeAbilities = new LinkedHashMap<Integer, BattleClassesAbstractAbilityActive>();
 	public LinkedHashMap<Integer, BattleClassesAbstractAbilityPassive> passiveAbilities = new LinkedHashMap<Integer, BattleClassesAbstractAbilityPassive>();
 	
 	protected int chosenAbilityIndex = 0;
-	public int chosenAbilityID = 0;
-	//public LinkedHashMap<Integer, BattleClassesAbstractAbilityPassive> passiveAbilities = new LinkedHashMap<Integer, BattleClassesAbstractAbilityPassive>();
+	protected int chosenAbilityID = 0;
 	
 	public BattleClassesSpellBook(BattleClassesPlayerHooks parPlayerHooks) {
 		this.playerHooks = parPlayerHooks;

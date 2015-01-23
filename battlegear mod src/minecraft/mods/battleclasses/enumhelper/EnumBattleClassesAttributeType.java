@@ -70,7 +70,7 @@ public enum EnumBattleClassesAttributeType {
 			return 176;
 		}
 		case HASTE_RATING: {
-			return 188;
+			return 192;
 		}
 		
 		default:

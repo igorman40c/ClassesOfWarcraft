@@ -37,7 +37,7 @@ public class BattleClassesGuiButtonClassSelector extends BattleClassesGuiButton 
 	}
 	
 	public boolean isClassSelected() {
-		return BattleClassesUtils.getPlayerClass(Minecraft.getMinecraft().thePlayer) == this.playerClass;
+		return BattleClassesUtils.getPlayerClassEnum(Minecraft.getMinecraft().thePlayer) == this.playerClass;
 	}
 	
 	/**

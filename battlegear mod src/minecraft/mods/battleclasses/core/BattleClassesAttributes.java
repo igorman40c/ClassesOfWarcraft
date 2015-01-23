@@ -19,7 +19,7 @@ public class BattleClassesAttributes {
 	public float crit = 0;
 	public float armor_pen = 0;
 	public float weapon_damage = 0;
-	
+		
 	public BattleClassesAttributes() {
 		
 	}

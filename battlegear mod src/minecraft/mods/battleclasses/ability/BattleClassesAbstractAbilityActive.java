@@ -176,7 +176,7 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 		//boolean hasRequiredItem = false;
 		if(itemStack.getItem() instanceof BattleClassesItemWeapon) {
 			BattleClassesItemWeapon weapon = (BattleClassesItemWeapon) itemStack.getItem();
-			if(weapon.getClassAccessSet().contains(BattleClassesUtils.getPlayerClass(entityPlayer)) ) {
+			if(weapon.getClassAccessSet().contains(BattleClassesUtils.getPlayerClassEnum(entityPlayer)) ) {
 				/*
 				if(weapon.getItemAbilityLevel() >= this.requiredItemLevel) {
 					hasRequiredItem = true;

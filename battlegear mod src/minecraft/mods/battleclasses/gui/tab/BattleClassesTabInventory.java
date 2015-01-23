@@ -23,11 +23,11 @@ import net.minecraft.potion.PotionEffect;
 
 public class BattleClassesTabInventory extends GuiInventory implements ITooltipDisplayGui {
 
-    protected BattleClassesTabOverlay overlay;
+    protected BattleClassesTabOverlayAttributes overlay;
 	
 	public BattleClassesTabInventory(EntityPlayer par1EntityPlayer) {
 		super(par1EntityPlayer);
-		this.overlay = new BattleClassesTabOverlay();
+		this.overlay = new BattleClassesTabOverlayAttributes();
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -71,7 +71,8 @@ public class BattleClassesTabInventory extends GuiInventory implements ITooltipD
     protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3) {
     	super.drawGuiContainerBackgroundLayer(par1, par2, par3);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.overlay.drawAttributesDisplayWindow(this.guiLeft, this.guiTop, this.xSize, this.zLevel);
+        this.overlay.drawAttributesDisplayWindowBackground(this.guiLeft, this.guiTop, this.xSize, this.zLevel);
+        this.overlay.drawScreen(par2, par3, par1);
     }
     
     protected List toolTipTextLines;

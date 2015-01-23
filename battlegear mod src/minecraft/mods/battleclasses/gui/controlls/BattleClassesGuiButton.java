@@ -31,8 +31,8 @@ public class BattleClassesGuiButton extends GuiButton {
 	public static final int DEFAULT_HEIGHT = 20;
 	public static final String DEFAULT_NAME = "";
 	
-	public int origin_x = 0;
-	public int origin_y = 0;
+	public int origin_u = 0;
+	public int origin_v = 0;
 	
 	public boolean displayTooltip = false;
 	public String tooltipDescription = "";
@@ -52,19 +52,28 @@ public class BattleClassesGuiButton extends GuiButton {
 		this.resource = resource;
 	}
 	
-	public void setOrigin(int x, int y) {
-		this.origin_x = x;
-		this.origin_y = y;
+	public void setOrigin(int u, int v) {
+		this.origin_u = u;
+		this.origin_v = v;
+	}
+	
+	protected int positionOffsetX = 0;
+	protected int positionOffsetY = 0;
+	
+	public void setPositionOffset(int offsetX, int offsetY) {
+		positionOffsetX = offsetX;
+		positionOffsetY = offsetY;
+		this.setPosition(this.xPosition, this.yPosition);
 	}
 	
 	public void setPosition(int x, int y) {
-		this.xPosition = x;
-		this.yPosition = y;
+		this.xPosition = x + positionOffsetX;
+		this.yPosition = y + positionOffsetY;
 	}
 	
 	public void setSize(int width, int height) {
-		this.height = height;
 		this.width = width;
+		this.height = height;
 	}
 	
 	public String getIconRegisterPath() {
@@ -109,7 +118,7 @@ public class BattleClassesGuiButton extends GuiButton {
             GL11.glEnable(GL11.GL_BLEND);
             OpenGlHelper.glBlendFunc(770, 771, 1, 0);
             GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-            this.drawTexturedModalRect(this.xPosition, this.yPosition, this.origin_x, this.origin_y + k*this.height, this.width, this.height);
+            this.drawTexturedModalRect(this.xPosition, this.yPosition, this.origin_u, this.origin_v + k*this.height, this.width, this.height);
             
             //Rendering Button display string
             int l = 14737632;
