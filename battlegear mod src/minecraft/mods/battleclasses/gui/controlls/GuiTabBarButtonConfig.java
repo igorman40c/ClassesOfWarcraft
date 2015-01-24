@@ -8,12 +8,12 @@ import net.minecraft.client.gui.GuiScreen;
 public class GuiTabBarButtonConfig extends BattleClassesGuiTabBarButton {
 
 	public GuiTabBarButtonConfig(int par1, int par2, int par3) {
-		super(par1, par2, par3, "Battle Classes Mod Settings");
+		super(par1, par2, par3, "config");
 		// TODO Auto-generated constructor stub
 	}
 
 	public GuiTabBarButtonConfig(int par1, int par2, int par3, boolean parHorizontal) {
-		super(par1, par2, par3, "Battle Classes Mod Settings", parHorizontal);
+		super(par1, par2, par3, "config", parHorizontal);
 	}
 
 	@Override
@@ -25,10 +25,4 @@ public class GuiTabBarButtonConfig extends BattleClassesGuiTabBarButton {
 	public Class<? extends GuiScreen> getGUIClass() {
 		return BattleClassesTabConfig.class;
 	}
-
-	@Override
-	public String getIconName() {
-		return "tab_config";
-	}
-
 }

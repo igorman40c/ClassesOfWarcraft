@@ -132,14 +132,6 @@ public class BattleClassesPlayerClass implements ICooldownOwner {
 	public EnumBattleClassesPlayerClass getPlayerClass() {
 		return this.playerClass;
 	}
-	
-	public static IIcon getClassIcon(EnumBattleClassesPlayerClass parPlayerClass) {
-		return classIcons[parPlayerClass.ordinal()];
-	}
-	
-	public ResourceLocation getIconResourceLocation() {
-		return new ResourceLocation("battleclasses", "textures/sharedicons/classes/" + this.playerClass.toString() + ".png");
-	}
 
 	public ArrayList<EnumBattleClassesAttributeType> getDefaultAttributesToDisplay() {
 		ArrayList<EnumBattleClassesAttributeType> attributes = new ArrayList<EnumBattleClassesAttributeType>();

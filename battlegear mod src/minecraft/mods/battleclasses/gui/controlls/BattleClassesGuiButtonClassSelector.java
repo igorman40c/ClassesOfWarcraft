@@ -50,15 +50,18 @@ public class BattleClassesGuiButtonClassSelector extends BattleClassesGuiButton 
             super.drawButton(mc, currentMousePosX, currentMousePosY);
             FontRenderer fontrenderer = mc.fontRenderer;
             //Drawing Tab Icon
-            IIcon classIcon = BattleClassesPlayerClass.getClassIcon(playerClass);
-            mc.getTextureManager().bindTexture(TextureMap.locationItemsTexture);
-            this.drawTexturedModelRectFromIcon(this.xPosition + this.width/2 - classIcon.getIconWidth()/2, 
+            mc.getTextureManager().bindTexture(this.playerClass.getIconResourceLocation());
+            int classIconWidth = 16;
+            int classIconHeight = 16;
+            BattleClassesGuiHelper.drawTexturedRectFromCustomSource(this.xPosition + this.width/2 - classIconWidth/2, this.yPosition + this.height/2 -  classIconHeight/2, classIconWidth, classIconHeight, this.zLevel);
+            /*this.drawTexturedModelRectFromIcon(this.xPosition + this.width/2 - classIcon.getIconWidth()/2, 
             								this.yPosition + this.height/2 -  classIcon.getIconHeight()/2,
             								classIcon, classIcon.getIconWidth(), classIcon.getIconHeight());
+             */
             //Drawing Cooldown
             if(shouldBeDisabled()) {
-            	drawCooldown(this.xPosition + this.width/2 - classIcon.getIconWidth()/2, 
-						this.yPosition + this.height/2 -  classIcon.getIconHeight()/2,
+            	drawCooldown(this.xPosition + this.width/2 - classIconWidth/2, 
+						this.yPosition + this.height/2 -  classIconHeight/2,
 						BattleClassesUtils.getCooldownPercentage(BattleClassesUtils.getPlayerHooks(mc.thePlayer).playerClass));
             }
         }

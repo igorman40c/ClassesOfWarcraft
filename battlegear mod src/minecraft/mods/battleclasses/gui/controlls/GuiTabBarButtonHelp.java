@@ -8,7 +8,7 @@ import net.minecraft.client.gui.GuiScreen;
 public class GuiTabBarButtonHelp extends BattleClassesGuiTabBarButton {
 	
 	public GuiTabBarButtonHelp(int par1, int par2, int par3) {
-		super(par1, par2, par3, "Help");
+		super(par1, par2, par3, "info");
 		// TODO Auto-generated constructor stub
 	}
 
@@ -20,10 +20,5 @@ public class GuiTabBarButtonHelp extends BattleClassesGuiTabBarButton {
 	@Override
 	public Class<? extends GuiScreen> getGUIClass() {
 		return BattleClassesTabHelp.class;
-	}
-	
-	@Override
-	public String getIconName() {
-		return "tab_help";
 	}
 }

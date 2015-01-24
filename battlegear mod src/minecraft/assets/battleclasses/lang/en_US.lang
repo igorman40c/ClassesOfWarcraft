@@ -1,5 +1,13 @@
 bcpotion.testing=Polymorhped
 
+bctab.inventory.name=Inventory
+bctab.equipment.name=Battle Equipment
+bctab.spellbook.name=Spellbook
+bctab.talents.name=Talent Specialization
+bctab.classselector.name=Class Selection
+bctab.config.name=Battle Classes mod settings
+bctab.info.name=Information
+
 bcattribute.health.name=Health
 bcattribute.strength.name=Strength
 bcattribute.agility.name=Agility

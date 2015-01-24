@@ -13,6 +13,7 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.common.ForgeHooks;
 
 public class BattleClassesGuiAttributeDisplayNode extends BattleClassesGuiButton {
 
@@ -110,7 +111,7 @@ public class BattleClassesGuiAttributeDisplayNode extends BattleClassesGuiButton
 		Minecraft mc = Minecraft.getMinecraft();
 		float displayedValue = 0;
 		if(this.displayedAttributeType == EnumBattleClassesAttributeType.ARMOR) {
-			displayedValue = 0;
+			displayedValue = ForgeHooks.getTotalArmorValue(mc.thePlayer);
 		}
 		else {
 			displayedValue = BattleClassesUtils.getPlayerHooks(mc.thePlayer).getDisplayedAttributes().getByType(this.displayedAttributeType);

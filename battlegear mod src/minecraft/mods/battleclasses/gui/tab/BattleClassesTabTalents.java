@@ -12,6 +12,7 @@ import mods.battleclasses.core.BattleClassesTalentMatrix;
 import mods.battleclasses.core.BattleClassesTalentTree;
 import mods.battleclasses.enumhelper.EnumBattleClassesPlayerClass;
 import mods.battleclasses.gui.BattleClassesGuiHandler;
+import mods.battleclasses.gui.BattleClassesGuiHelper;
 import mods.battleclasses.gui.controlls.BattleClassesGuiButtonClassSelector;
 import mods.battleclasses.gui.controlls.BattleClassesGuiButtonTalentReset;
 import mods.battleclasses.gui.controlls.BattleClassesGuiButtonTalentTree;
@@ -117,7 +118,7 @@ public class BattleClassesTabTalents extends BattleClassesAbstractTab {
     	   	
     	//Draws a textured rectangle at the stored z-value. Args: x, y, u, v, width, height
     	//this.drawTexturedModalRect(x, y, 0, 0, TALENT_TREE_VIEW_W, TALENT_TREE_VIEW_H);
-    	myDrawTexturedModalRect( x,  y,  TALENT_TREE_VIEW_W,  TALENT_TREE_VIEW_H);
+    	BattleClassesGuiHelper.drawTexturedRectFromCustomSource(x,  y,  TALENT_TREE_VIEW_W,  TALENT_TREE_VIEW_H, this.zLevel);
 
     	int talentNodeOffsetX = 19;
     	int talentNodeOffsetY = 10;
@@ -174,18 +175,5 @@ public class BattleClassesTabTalents extends BattleClassesAbstractTab {
         //Battlegear.packetHandler.sendPacketToServer(new BattlegearGUIPacket(BattleClassesGUIHandler.talentsID).generatePacket());
     	BattleClassesMod.packetHandler.sendPacketToServer(new BattleClassesPacketGuiTabSwitch(BattleClassesGuiHandler.talentsID).generatePacket());
     }
-    
-	 // 3.  You'll need to write your own version of the Gui.drawTexturedModalRect() method
-	//  This method can go into your own Gui class:
-	public void myDrawTexturedModalRect(int x, int y, int width, int height)
-	{
-		 Tessellator tessellator = Tessellator.instance;
-		 tessellator.startDrawingQuads();    
-		 tessellator.addVertexWithUV(x        , y + height, (double)this.zLevel, 0.0, 1.0);
-		 tessellator.addVertexWithUV(x + width, y + height, (double)this.zLevel, 1.0, 1.0);
-		 tessellator.addVertexWithUV(x + width, y         , (double)this.zLevel, 1.0, 0.0);
-		 tessellator.addVertexWithUV(x        , y         , (double)this.zLevel, 0.0, 0.0);
-		 tessellator.draw();
-	}
-    
+        
 }

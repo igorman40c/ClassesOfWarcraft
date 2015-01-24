@@ -314,7 +314,7 @@ public class BattleClassesGuiHUDOverlay extends BattlegearInGameGUI {
     		//DRAWING ICON TO THE END OF THE PROGRESSBAR
     		float castBarIconScale = 1.0F;
         	this.drawAbilityIconCentered(x + CAST_BAR_WIDTH, y + CAST_BAR_HEIGHT/4,
-					castBarIconScale, BattleClassesUtils.getPlayerHooks(mc.thePlayer).playerClass.getIconResourceLocation());
+					castBarIconScale, BattleClassesUtils.getPlayerClassEnum(mc.thePlayer).getIconResourceLocation());
 		}
 		//DRAWING BLOCKBAR
 		else if(BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).getChosenAbility() != null &&

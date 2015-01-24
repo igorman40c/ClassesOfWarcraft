@@ -35,6 +35,7 @@ import mods.battleclasses.gui.controlls.GuiTabBarButtonBattleInventory;
 import mods.battleclasses.gui.controlls.GuiTabBarButtonClassSelector;
 import mods.battleclasses.gui.controlls.GuiTabBarButtonConfig;
 import mods.battleclasses.gui.controlls.GuiTabBarButtonHelp;
+import mods.battleclasses.gui.controlls.GuiTabBarButtonSpellbook;
 import mods.battleclasses.gui.controlls.GuiTabBarButtonTalentSelector;
 import mods.battleclasses.gui.controlls.GuiTabBarButtonVanillaInventory;
 import mods.battleclasses.gui.tab.BattleClassesTabInventory;
@@ -58,11 +59,12 @@ public class BattleClassesClientEvents {
 	static {
 		tabsButtonList.add(new GuiTabBarButtonVanillaInventory(0, 10, 10));
 		tabsButtonList.add(new GuiTabBarButtonBattleInventory(1, 20, 20));
-		tabsButtonList.add(new GuiTabBarButtonTalentSelector(2, 30, 30));
-		tabsButtonList.add(new GuiTabBarButtonClassSelector(3, 40, 40));
+		tabsButtonList.add(new GuiTabBarButtonSpellbook(2, 30, 30));
+		tabsButtonList.add(new GuiTabBarButtonTalentSelector(3, 30, 30));
+		tabsButtonList.add(new GuiTabBarButtonClassSelector(4, 40, 40));
+		
+		tabsButtonList.add(new GuiTabBarButtonConfig(5, 60, 60, false));
 		//tabsList.add(new GuiTabBarButtonHelp(4, 50, 50));
-		//tabsList.add(new GuiTabBarButtonConfig(5, 60, 60, false));
-		tabsButtonList.add(new GuiTabBarButtonConfig(5, 50, 50));
 	}
 	/*
 	@SubscribeEvent
@@ -243,12 +245,15 @@ public class BattleClassesClientEvents {
 		//super.preStitch(event);
 		if (event.map.getTextureType() == 1) {
 			//Registering Tab Bar Button Icons
+			/*
 			for (BattleClassesGuiTabBarButton button : tabsButtonList) {
 				BattleClassesUtils.Log("Registering " + button.getIconRegisterPath(), LogType.GUI);
 				button.tabButtonIcon = event.map.registerIcon(button.getIconRegisterPath());
 			}
+			*/
 			
 			//Registering Player Class Icons
+			/*
 			BattleClassesPlayerClass.classIcons = new IIcon[EnumBattleClassesPlayerClass.values().length];
 			BattleClassesPlayerClass.classIcons[EnumBattleClassesPlayerClass.MAGE.ordinal()] = event.map.registerIcon("battleclasses:sharedicons/classes/" + "mage");
 			BattleClassesPlayerClass.classIcons[EnumBattleClassesPlayerClass.PRIEST.ordinal()] = event.map.registerIcon("battleclasses:sharedicons/classes/" + "priest");
@@ -257,7 +262,7 @@ public class BattleClassesClientEvents {
 			BattleClassesPlayerClass.classIcons[EnumBattleClassesPlayerClass.HUNTER.ordinal()] = event.map.registerIcon("battleclasses:sharedicons/classes/" + "hunter");
 			BattleClassesPlayerClass.classIcons[EnumBattleClassesPlayerClass.PALADIN.ordinal()] = event.map.registerIcon("battleclasses:sharedicons/classes/" + "paladin");
 			BattleClassesPlayerClass.classIcons[EnumBattleClassesPlayerClass.WARRIOR.ordinal()] = event.map.registerIcon("battleclasses:sharedicons/classes/" + "warrior");
-			
+			*/
 			//Registering Cooldown Icons
 			BattleClassesGuiHelper.cooldownIcons = new IIcon[BattleClassesGuiHelper.COOLDOWN_FRAMES];
 			for(int i = 0; i < BattleClassesGuiHelper.COOLDOWN_FRAMES; ++i) {

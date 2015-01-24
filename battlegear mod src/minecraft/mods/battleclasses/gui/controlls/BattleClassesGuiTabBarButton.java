@@ -23,17 +23,17 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
 import mods.battleclasses.client.BattleClassesClientEvents;
+import mods.battleclasses.gui.BattleClassesGuiHelper;
 import mods.battleclasses.gui.tab.ITooltipDisplayGui;
 import mods.battlegear2.client.gui.BattleEquipGUI;
 import mods.battlegear2.client.gui.controls.GuiPlaceableButton;
 
 public abstract class BattleClassesGuiTabBarButton extends BattleClassesGuiButton {
-	
-	public IIcon tabButtonIcon;
-	
+		
 	public boolean horizontal = true;
 	
     protected static final ResourceLocation barButtonTexture = new ResourceLocation("battleclasses", "textures/gui/InterfaceOverlay.png");
@@ -42,15 +42,17 @@ public abstract class BattleClassesGuiTabBarButton extends BattleClassesGuiButto
 			String name) {
 		this(par1, par2, par3, name, true);
 	}
-
+	
 	public BattleClassesGuiTabBarButton(int par1, int par2, int par3,
 			String name, boolean parHorizontal) {
 		super(par1, par2, par3, name);
-		this.hoveringTextString = name;
+		this.tabName = name;
 		this.horizontal = parHorizontal;
 		this.setContentPositionAndSize();
 		this.showHoveringText = true;
 	}
+	
+	public String tabName;
 	
 	public static final int BAR_BUTTON_GAP = 1;
 	
@@ -126,13 +128,26 @@ public abstract class BattleClassesGuiTabBarButton extends BattleClassesGuiButto
             
             //Rendering Tab Icon
             int iconOffsetX = (this.horizontal) ? 7 : 6;
-            mc.getTextureManager().bindTexture(TextureMap.locationItemsTexture);
-            this.drawTexturedModelRectFromIcon(this.xPosition  + iconOffsetX, this.yPosition + this.height - 16 - 6, tabButtonIcon, 16, 16);
+            mc.getTextureManager().bindTexture(this.getIconResourceLocation());
+            int tabIconWidth = 16;
+            int tabIconHeight = 16;
+            BattleClassesGuiHelper.drawTexturedRectFromCustomSource(this.xPosition + iconOffsetX, this.yPosition + this.height - 16 - 6, tabIconWidth, tabIconHeight, this.zLevel);
+            //this.drawTexturedModelRectFromIcon(this.xPosition + iconOffsetX, this.yPosition + this.height - 16 - 6, tabButtonIcon, 16, 16);
                         
             this.renderHoveringText(currentMousePosX, currentMousePosY);
         }
     }    
-
+    
+	public List<String> getHoveringTextStringList() {
+		ArrayList<String> stringList = new ArrayList<String>();
+    	stringList.add(StatCollector.translateToLocal(this.getUnlocizedName()));
+    	return stringList;
+	}
+	
+	public String getUnlocizedName() {
+		return "bctab." + this.tabName + ".name";
+	}
+	
 	public String getIconRegisterPath() {
 		return ( "battleclasses:sharedicons/gui/"+this.getIconName() );
 	}
@@ -146,6 +161,12 @@ public abstract class BattleClassesGuiTabBarButton extends BattleClassesGuiButto
 
 	public abstract void openGui(Minecraft mc);
 	
-	public abstract String getIconName();
+	public String getIconName() {
+		return "tab_" + this.tabName;
+	}
+	
+	public ResourceLocation getIconResourceLocation() {
+		return new ResourceLocation("battleclasses", "textures/sharedicons/inventory/" + this.getIconName() + ".png");
+	}
 
 }

@@ -19,7 +19,7 @@ import net.minecraft.network.play.client.C16PacketClientStatus;
 public class GuiTabBarButtonVanillaInventory extends BattleClassesGuiTabBarButton {
 	
 	public GuiTabBarButtonVanillaInventory(int par1, int par2, int par3) {
-		super(par1, par2, par3, "Inventory");
+		super(par1, par2, par3, "inventory");
 		// TODO Auto-generated constructor stub
 	}
 
@@ -35,10 +35,5 @@ public class GuiTabBarButtonVanillaInventory extends BattleClassesGuiTabBarButto
 	@Override
 	public Class<? extends GuiScreen> getGUIClass() {
 		return BattleClassesTabInventory.class;
-	}
-	
-	@Override
-	public String getIconName() {
-		return "tab_inventory";
 	}
 }

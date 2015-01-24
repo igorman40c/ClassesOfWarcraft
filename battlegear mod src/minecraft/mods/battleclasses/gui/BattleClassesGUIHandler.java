@@ -14,6 +14,7 @@ import mods.battleclasses.gui.tab.BattleClassesTabClassSelector;
 import mods.battleclasses.gui.tab.BattleClassesTabConfig;
 import mods.battleclasses.gui.tab.BattleClassesTabEquipment;
 import mods.battleclasses.gui.tab.BattleClassesTabHelp;
+import mods.battleclasses.gui.tab.BattleClassesTabSpellbook;
 import mods.battleclasses.gui.tab.BattleClassesTabTalents;
 import mods.battlegear2.Battlegear;
 import mods.battlegear2.client.gui.BattleEquipGUI;
@@ -27,10 +28,12 @@ public class BattleClassesGuiHandler implements IGuiHandler {
 
 	public static final int vanillaInventoryID = 0;
     public static final int equipID = 1;
-    public static final int talentsID = 2;
-    public static final int classSelectorID = 3;
-    public static final int helpID = 4;
+    public static final int spellbookID = 2;
+    public static final int talentsID = 3;
+    public static final int classSelectorID = 4;
     public static final int configID = 5;
+    public static final int helpID = 6;
+    
     
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world,
@@ -40,6 +43,7 @@ public class BattleClassesGuiHandler implements IGuiHandler {
         		//BattleClassesClientEvents.returnToInventory(player);
             case equipID:
                 return new ContainerBattle(player.inventory, !world.isRemote, player);
+                /*
             case talentsID:
                 return new BattleClassesContainerEmpty(player.inventory, !world.isRemote, player);
             case classSelectorID:
@@ -48,8 +52,10 @@ public class BattleClassesGuiHandler implements IGuiHandler {
                 return new BattleClassesContainerEmpty(player.inventory, !world.isRemote, player);
             case configID:
                 return new BattleClassesContainerEmpty(player.inventory, !world.isRemote, player);
+                */
             default:
-                return null;
+            	return new BattleClassesContainerEmpty(player.inventory, !world.isRemote, player);
+                //return null;
         }
 
     }
@@ -62,6 +68,8 @@ public class BattleClassesGuiHandler implements IGuiHandler {
         		//
             case equipID:
                 return new BattleClassesTabEquipment(player, world.isRemote);
+            case spellbookID:
+                return new BattleClassesTabSpellbook(player, world.isRemote);
             case talentsID:
                 return new BattleClassesTabTalents(player, world.isRemote);
             case classSelectorID:
