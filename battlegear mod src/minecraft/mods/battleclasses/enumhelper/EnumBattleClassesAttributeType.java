@@ -2,7 +2,7 @@ package mods.battleclasses.enumhelper;
 
 public enum EnumBattleClassesAttributeType {
 	//Primary
-	STAMINA,
+	HEALTH,
 	STRENGTH,
 	AGILITY,
 	SPELLPOWER_ARCANE,
@@ -49,7 +49,7 @@ public enum EnumBattleClassesAttributeType {
 	
 	public int getDisplayIconV() {
 		switch(this) {
-		case STAMINA:{
+		case HEALTH:{
 			return 0;
 		}
 		case ARMOR: {
@@ -97,5 +97,15 @@ public enum EnumBattleClassesAttributeType {
 		
 		}
 		return 0;
+	}
+	
+	public static final String attributeUnlocalizedPre = "bcattribute.";
+	
+	public String getUnlocalizedName() {
+		return attributeUnlocalizedPre + this.toString().toLowerCase() + ".name";
+	}
+	
+	public String getUnlocalizedDescription() {
+		return attributeUnlocalizedPre + this.toString().toLowerCase() + ".description";
 	}
 }

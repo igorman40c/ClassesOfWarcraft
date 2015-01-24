@@ -34,8 +34,8 @@ public class BattleClassesGuiButton extends GuiButton {
 	public int origin_u = 0;
 	public int origin_v = 0;
 	
-	public boolean displayTooltip = false;
-	public String tooltipDescription = "";
+	public boolean showHoveringText = false;
+	public String hoveringTextString = "";
 	
 	public BattleClassesGuiButton(int id, int x, int y, String name) {
 		super(id, x, y, DEFAULT_WIDHT, DEFAULT_HEIGHT, name);
@@ -93,9 +93,9 @@ public class BattleClassesGuiButton extends GuiButton {
 		return false;
 	}
 	
-	public List getDescriptionList() {
-		ArrayList stringList = new ArrayList();
-    	stringList.add(this.tooltipDescription);
+	public List<String> getHoveringTextStringList() {
+		ArrayList<String> stringList = new ArrayList<String>();
+    	stringList.add(this.hoveringTextString);
     	return stringList;
 	}
 	
@@ -145,12 +145,12 @@ public class BattleClassesGuiButton extends GuiButton {
     	//Rendering Tooltip
     	Minecraft mc = Minecraft.getMinecraft();
         FontRenderer fontrenderer = mc.fontRenderer;
-        if( this.field_146123_n && this.displayTooltip) {
+        if( this.field_146123_n && this.showHoveringText) {
         	if(mc.currentScreen instanceof ITooltipDisplayGui) {
-        		((ITooltipDisplayGui)mc.currentScreen).displayTooltip(this.getDescriptionList(), currentMousePosX, currentMousePosY);
+        		((ITooltipDisplayGui)mc.currentScreen).displayTooltip(this.getHoveringTextStringList(), currentMousePosX, currentMousePosY);
         	}
         	else {
-        		this.drawHoveringText(this.getDescriptionList(), currentMousePosX, currentMousePosY, fontrenderer);
+        		this.drawHoveringText(this.getHoveringTextStringList(), currentMousePosX, currentMousePosY, fontrenderer);
         	}
         }
     }

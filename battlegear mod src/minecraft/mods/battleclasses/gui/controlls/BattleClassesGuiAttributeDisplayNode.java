@@ -1,14 +1,18 @@
 package mods.battleclasses.gui.controlls;
 
+import java.util.List;
+
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.enumhelper.EnumBattleClassesAttributeType;
+import mods.battleclasses.gui.BattleClassesGuiHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 
 public class BattleClassesGuiAttributeDisplayNode extends BattleClassesGuiButton {
 
@@ -20,8 +24,8 @@ public class BattleClassesGuiAttributeDisplayNode extends BattleClassesGuiButton
 	public BattleClassesGuiAttributeDisplayNode(int id, int x, int y, EnumBattleClassesAttributeType type) {
 		super(id, x, y, GUI_ELEMENT_WIDTH, GUI_ELEMENT_HEIGHT, "attributeDisplayNode");
 		this.displayedAttributeType = type;
-		this.displayTooltip = true;
-		this.tooltipDescription = type.toString();
+		this.showHoveringText = true;
+		this.hoveringTextString = type.toString();
 		this.origin_u = 112;
 		this.origin_v = 0;
 		this.setSize(GUI_ELEMENT_WIDTH, GUI_ELEMENT_HEIGHT);
@@ -93,6 +97,14 @@ public class BattleClassesGuiAttributeDisplayNode extends BattleClassesGuiButton
         }
     }
 
+    @Override
+    public List<String> getHoveringTextStringList() {
+    	List<String> hoveringText = BattleClassesGuiHelper.createHoveringText();
+    	BattleClassesGuiHelper.addTitle(hoveringText, StatCollector.translateToLocal(this.displayedAttributeType.getUnlocalizedName()));
+    	BattleClassesGuiHelper.addParagraph(hoveringText, StatCollector.translateToLocal(this.displayedAttributeType.getUnlocalizedDescription()));
+    	hoveringText = BattleClassesGuiHelper.getLimitedWidthHoveringText(hoveringText, 28);
+    	return hoveringText;
+    }
     
 	public String getDisplayString() {
 		Minecraft mc = Minecraft.getMinecraft();

@@ -1,5 +1,8 @@
 package mods.battleclasses.gui;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
@@ -10,6 +13,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 
@@ -71,5 +75,69 @@ public class BattleClassesGuiHelper extends Gui {
 		 tessellator.addVertexWithUV(x + width, y         , (double)zLevel, 1.0, 0.0);
 		 tessellator.addVertexWithUV(x        , y         , (double)zLevel, 0.0, 0.0);
 		 tessellator.draw();
+	}
+	
+	public static List<String> createHoveringText() {
+		return new ArrayList<String>();
+	}
+	
+	public static List<String> addTitle(List<String> hoveringText, String titleText) {
+		addLine(hoveringText, "", EnumChatFormatting.GOLD, false);
+		addLine(hoveringText, titleText, EnumChatFormatting.GOLD, false);
+		return hoveringText;
+	}
+	
+	public static List<String> addParagraph(List<String> hoveringText, String paragraphText) {
+		//addLine(hoveringText, paragraphText, EnumChatFormatting.GRAY, true);
+		addLine(hoveringText, paragraphText, EnumChatFormatting.WHITE, true);
+		return hoveringText;
+	}
+	
+	protected static List<String> addLine(List<String> hoveringText, String text, EnumChatFormatting format, boolean insertWithAppend) {
+		String line = new String(format + text);
+		if(insertWithAppend) {
+			hoveringText.add(line);
+		}
+		else {
+			hoveringText.add(0, line);
+		}
+		return hoveringText;
+	}
+	
+	public static List<String> getLimitedWidthHoveringText(List<String> hoveringText, int numberOfMaximalCharactersInLine) {
+		List<String> limitedHoveringText = createHoveringText();
+		for(String textLine : hoveringText) {
+			int formatStringCharacters = 2;
+			String formatString = "";
+			if(textLine.startsWith("\u00a7")) {
+				//System.out.println("Checking formatedLine: " + textLine + " Length:" + textLine.length());
+				formatString = textLine.substring(0, formatStringCharacters);
+				textLine = textLine.substring(formatStringCharacters);
+			}
+			if(textLine.length() > numberOfMaximalCharactersInLine) {
+				while(textLine.length() > numberOfMaximalCharactersInLine) {
+					String[] textLineWords = textLine.split(" ");
+					String limitedTextLine = "";
+					String remainingTextLine = "";
+					for(int i = 0; i<textLineWords.length; ++i) {
+						if((limitedTextLine.length()+textLineWords[i].length()+1) <= numberOfMaximalCharactersInLine) {
+							String separator = (limitedTextLine.length() > 0) ? " " : "";
+							limitedTextLine += (separator + textLineWords[i]);
+						}
+						else {
+							String separator = (remainingTextLine.length() > 0) ? " " : "";
+							remainingTextLine += (separator + textLineWords[i]);
+						}
+					}
+					limitedHoveringText.add(new String(formatString) + limitedTextLine);
+					textLine = new String(formatString) + remainingTextLine;
+				}
+				limitedHoveringText.add(new String(formatString) + textLine);
+			}
+			else {
+				limitedHoveringText.add(formatString + textLine);
+			}
+		}
+		return limitedHoveringText;
 	}
 }

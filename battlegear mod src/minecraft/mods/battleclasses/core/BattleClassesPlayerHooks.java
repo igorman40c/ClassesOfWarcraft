@@ -143,7 +143,7 @@ public class BattleClassesPlayerHooks implements ICooldownMapHolder {
 	public BattleClassesAttributes getDefaultAttributes() {
 		BattleClassesAttributes baseAttributes = new BattleClassesAttributes();
 		//baseAttributes.stamina = this.getOwnerPlayer().getMaxHealth();
-		baseAttributes.stamina = DEFAULT_PLAYER_HP;
+		baseAttributes.health = DEFAULT_PLAYER_HP;
 		//baseAttributes.armor = this.getOwnerPlayer().getArm
 		return baseAttributes;
 	}

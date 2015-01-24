@@ -46,10 +46,10 @@ public abstract class BattleClassesGuiTabBarButton extends BattleClassesGuiButto
 	public BattleClassesGuiTabBarButton(int par1, int par2, int par3,
 			String name, boolean parHorizontal) {
 		super(par1, par2, par3, name);
-		this.tooltipDescription = name;
+		this.hoveringTextString = name;
 		this.horizontal = parHorizontal;
 		this.setContentPositionAndSize();
-		this.displayTooltip = true;
+		this.showHoveringText = true;
 	}
 	
 	public static final int BAR_BUTTON_GAP = 1;

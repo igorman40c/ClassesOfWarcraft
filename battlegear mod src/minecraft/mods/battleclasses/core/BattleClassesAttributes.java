@@ -5,7 +5,7 @@ import mods.battleclasses.enumhelper.EnumBattleClassesAttributeType;
 public class BattleClassesAttributes {
 
 	//Primary attributes (in points)
-	public float stamina = 0;
+	public float health = 0;
 	public float strength = 0;
 	public float agility = 0;
 	public float spellpower_arcane = 0;
@@ -26,7 +26,7 @@ public class BattleClassesAttributes {
 	
 	public BattleClassesAttributes(int value) {
 		//Primary attributes (in points)
-		this.stamina = value;
+		this.health = value;
 		this.strength = value;
 		this.agility = value;
 		this.spellpower_arcane = value;
@@ -43,7 +43,7 @@ public class BattleClassesAttributes {
 	
 	public BattleClassesAttributes add(BattleClassesAttributes attributes) {
 		//Primary attributes (in points)
-		this.stamina += attributes.stamina;
+		this.health += attributes.health;
 		this.strength += attributes.strength;
 		this.agility += attributes.agility;
 		this.spellpower_arcane += attributes.spellpower_arcane;
@@ -61,7 +61,7 @@ public class BattleClassesAttributes {
 	
 	public BattleClassesAttributes multiply(BattleClassesAttributes attributes) {
 		//Primary attributes (in points)
-		this.stamina *= attributes.stamina;
+		this.health *= attributes.health;
 		this.strength *= attributes.strength;
 		this.agility *= attributes.agility;
 		this.spellpower_arcane *= attributes.spellpower_arcane;
@@ -106,8 +106,8 @@ public class BattleClassesAttributes {
 		case SPELLPOWER_SHADOW:{
 			return this.spellpower_shadow;
 		}
-		case STAMINA: {
-			return this.stamina;
+		case HEALTH: {
+			return this.health;
 		}
 		case STRENGTH: {
 			return this.strength;
@@ -159,8 +159,8 @@ public class BattleClassesAttributes {
 			this.spellpower_shadow = value;
 		}
 			break;
-		case STAMINA: {
-			this.stamina = value;
+		case HEALTH: {
+			this.health = value;
 		}
 			break;
 		case STRENGTH: {

@@ -28,8 +28,8 @@ public class BattleClassesGuiButtonClassSelector extends BattleClassesGuiButton 
 	public BattleClassesGuiButtonClassSelector(int id, ResourceLocation resource, EnumBattleClassesPlayerClass parPlayerClass) {
 		super(id, resource);
 		this.playerClass = parPlayerClass;
-		this.displayTooltip = true;
-		this.tooltipDescription = BattleClassesTabClassSelector.getClassDescription(playerClass);
+		this.showHoveringText = true;
+		this.hoveringTextString = BattleClassesTabClassSelector.getClassDescription(playerClass);
 	}
 	
 	public boolean shouldBeDisabled() {

@@ -10,6 +10,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.battleclasses.gui.BattleClassesGuiHelper;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
@@ -17,6 +18,7 @@ import net.minecraft.util.ResourceLocation;
 public class BattleClassesPotion extends Potion {
 	
 	public static BattleClassesPotion testing;// = (BattleClassesPotion) (new BattleClassesPotion(33, false, 10044730)).setPotionName("potion.bctesting");
+	public static BattleClassesPotion judgementOfJustice;
 	
 	protected BattleClassesPotion(int id, boolean badEffect, int liquidColorCode) {
 		super(id, badEffect, liquidColorCode);
@@ -64,5 +66,6 @@ public class BattleClassesPotion extends Potion {
 		
 		//Initializing potion effects
 		testing = (BattleClassesPotion) (new BattleClassesPotion(33, false, 10044730)).setPotionName("bcpotion.testing");
+		judgementOfJustice = (BattleClassesPotion) (new BattleClassesPotion(34, true, 10044730)).setPotionName("bcpotion.judgementOfJustice").func_111184_a(SharedMonsterAttributes.movementSpeed, "7107DE5E-7CE8-4030-940E-514C1F160890", -0.85000000596046448D, 2);
 	}
 }

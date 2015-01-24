@@ -1,1 +1,29 @@
 bcpotion.testing=Polymorhped
+
+bcattribute.health.name=Health
+bcattribute.strength.name=Strength
+bcattribute.agility.name=Agility
+bcattribute.spellpower_arcane.name=Arcane Spellpower
+bcattribute.spellpower_fire.name=Fire Spellpower
+bcattribute.spellpower_frost.name=Frost Spellpower
+bcattribute.spellpower_holy.name=Holy Spellpower
+bcattribute.spellpower_shadow.name=Shadow Spellpower
+bcattribute.haste_rating.name=Haste Rating
+bcattribute.critical_rating.name=Critical Chance
+bcattribute.armor_penetration.name=Armor Penetration
+bcattribute.weapon_damage.name=Weapon Damage
+bcattribute.armor.name=Armor
+
+bcattribute.health.description=Increases your maximal health by half a heart per point.
+bcattribute.strength.description=Increases your weapon damage.
+bcattribute.agility.description=Increases your critical chance, ranged and melee weapon damage.
+bcattribute.spellpower_arcane.description=Increases the power of your arcane school spells.
+bcattribute.spellpower_fire.description=Increases the power of your fire school spells.
+bcattribute.spellpower_frost.description=Increases the power of your frost school spells.
+bcattribute.spellpower_holy.description=Increases the power of your holy school spells.
+bcattribute.spellpower_shadow.description=Increases the power of your shadow school spells.
+bcattribute.haste_rating.description=Increases the speed that your spells and abilities cast. Also increases speed of your weapons.
+bcattribute.critical_rating.description=Increases the chance of your abilities to deal a critical effect.
+bcattribute.armor_penetration.description=Ignores the armor of your enemy.
+bcattribute.weapon_damage.description=Estimated ammount of damage you will deal with your main hand weapon.
+bcattribute.armor.description=Reduces physical damage you recieve.
