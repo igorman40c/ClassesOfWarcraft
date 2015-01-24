@@ -119,12 +119,14 @@ public class BattleClassesGuiHelper extends Gui {
 					String[] textLineWords = textLine.split(" ");
 					String limitedTextLine = "";
 					String remainingTextLine = "";
+					boolean breakLine = false; 
 					for(int i = 0; i<textLineWords.length; ++i) {
-						if((limitedTextLine.length()+textLineWords[i].length()+1) <= numberOfMaximalCharactersInLine) {
+						if((limitedTextLine.length()+textLineWords[i].length()+1) <= numberOfMaximalCharactersInLine && !breakLine) {
 							String separator = (limitedTextLine.length() > 0) ? " " : "";
 							limitedTextLine += (separator + textLineWords[i]);
 						}
 						else {
+							breakLine = true;
 							String separator = (remainingTextLine.length() > 0) ? " " : "";
 							remainingTextLine += (separator + textLineWords[i]);
 						}
