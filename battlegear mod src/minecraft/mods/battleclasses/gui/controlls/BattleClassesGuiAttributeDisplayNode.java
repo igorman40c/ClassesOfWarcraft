@@ -103,7 +103,7 @@ public class BattleClassesGuiAttributeDisplayNode extends BattleClassesGuiButton
     	List<String> hoveringText = BattleClassesGuiHelper.createHoveringText();
     	BattleClassesGuiHelper.addTitle(hoveringText, StatCollector.translateToLocal(this.displayedAttributeType.getUnlocalizedName()));
     	BattleClassesGuiHelper.addParagraph(hoveringText, StatCollector.translateToLocal(this.displayedAttributeType.getUnlocalizedDescription()));
-    	hoveringText = BattleClassesGuiHelper.getLimitedWidthHoveringText(hoveringText, 28);
+    	hoveringText = BattleClassesGuiHelper.getLimitedWidthHoveringText(hoveringText, 30);
     	return hoveringText;
     }
     

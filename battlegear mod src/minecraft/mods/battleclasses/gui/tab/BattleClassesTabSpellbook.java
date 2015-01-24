@@ -7,6 +7,7 @@ import org.lwjgl.opengl.GL11;
 import mods.battleclasses.BattleClassesMod;
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
+import mods.battleclasses.ability.BattleClassesAbstractAbilityActive;
 import mods.battleclasses.ability.BattleClassesAbstractTalent;
 import mods.battleclasses.core.BattleClassesTalentMatrix;
 import mods.battleclasses.core.BattleClassesTalentTree;
@@ -17,6 +18,7 @@ import mods.battleclasses.gui.controlls.BattleClassesGuiButtonTalentReset;
 import mods.battleclasses.gui.controlls.BattleClassesGuiButtonTalentTree;
 import mods.battleclasses.packet.BattleClassesPacketGuiTabSwitch;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
@@ -58,6 +60,26 @@ public class BattleClassesTabSpellbook extends BattleClassesAbstractTab {
         int var5 = this.guiLeft;
         int var6 = this.guiTop;
         this.drawTexturedModalRect(var5, var6, 0, 0, this.xSize, this.ySize);
+        
+        
+        
+        ScaledResolution scaledresolution = new ScaledResolution(this.mc, this.mc.displayWidth, this.mc.displayHeight);	
+    	int width = scaledresolution.getScaledWidth();
+        int height = scaledresolution.getScaledHeight();
+    	ArrayList<BattleClassesAbstractAbilityActive> actionbarAbilities = BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).getActionbarAbilities();
+    	if(actionbarAbilities.size() == 0) {
+    		return;
+    	}
+
+    	int centerX = width/2;
+    	int actionbarPosX = centerX - BattleClassesGuiHelper.getActionBarWidth(actionbarAbilities.size())/2;
+        int actionbarPosY = this.guiTop - BattleClassesGuiHelper.ABILITY_ACTIONBAR_HEIGHT;
+    	BattleClassesGuiHelper.INSTANCE.drawActionbarBackgroundCentered(centerX, actionbarPosY, actionbarAbilities.size());
+    	
+        for(int i = 0; i < actionbarAbilities.size(); ++i) {
+        	BattleClassesGuiHelper.INSTANCE.drawAbilityIcon(actionbarPosX+3 + i*20, actionbarPosY+3, actionbarAbilities.get(i));
+        }
+        BattleClassesGuiHelper.INSTANCE.drawAbilitySelector(actionbarPosX, actionbarPosY);
 	}
     
     public static void open(EntityPlayer player){

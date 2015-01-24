@@ -37,6 +37,7 @@ import mods.battleclasses.client.BattleClassesClientTargeting;
 import mods.battleclasses.core.BattleClassesSpellBook;
 import mods.battleclasses.enumhelper.EnumBattleClassesCooldownType;
 import mods.battleclasses.enumhelper.EnumBattleClassesPlayerClass;
+import mods.battleclasses.gui.tab.BattleClassesTabSpellbook;
 import mods.battlegear2.Battlegear;
 import mods.battlegear2.api.RenderItemBarEvent;
 import mods.battlegear2.api.core.IBattlePlayer;
@@ -77,10 +78,11 @@ public class BattleClassesGuiHUDOverlay extends BattlegearInGameGUI {
                 zLevel = -90.0F;
 
                 RenderItemBarEvent event = new RenderItemBarEvent.BattleSlots(renderEvent, true);
-                
-                AbilityActionBarPosX = event.xOffset+width/2;
-                AbilityActionBarPosY = event.yOffset;
-                renderAbilityActionBar(frame, event.xOffset+width/2, event.yOffset);
+                if(!(mc.currentScreen instanceof BattleClassesTabSpellbook)) {
+                    AbilityActionBarPosX = event.xOffset+width/2;
+                    AbilityActionBarPosY = event.yOffset;
+                    renderAbilityActionBar(frame, event.xOffset+width/2, event.yOffset);
+                }
 
                 if(!MinecraftForge.EVENT_BUS.post(event)){
                     renderBattleSlots(width / 2 + 121 + event.xOffset, height - 22 + event.yOffset, frame, true);
@@ -131,8 +133,7 @@ public class BattleClassesGuiHUDOverlay extends BattlegearInGameGUI {
         GL11.glDisable(GL11.GL_BLEND);
     }
     
-    public static final int ABILITY_ACTIONBAR_NODE_WIDTH = 20;
-    public static final int ABILITY_ACTIONBAR_HEIGHT = 22;
+    
 
     public void renderAbilityActionBar(float frame, int xOffset, int yOffset) {
     	ScaledResolution scaledresolution = new ScaledResolution(this.mc, this.mc.displayWidth, this.mc.displayHeight);	
@@ -142,66 +143,19 @@ public class BattleClassesGuiHUDOverlay extends BattlegearInGameGUI {
     	if(actionbarAbilities.size() == 0) {
     		return;
     	}
-    	int actionbarHeight = ABILITY_ACTIONBAR_HEIGHT;
-    	int actionbarWidth = 1 + actionbarAbilities.size()*ABILITY_ACTIONBAR_NODE_WIDTH + 1;
-        
-        GL11.glEnable(GL11.GL_BLEND);
-        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.renderEngine.bindTexture(resourceLocationHUD);
-        
-        int actionbarPosX = width/2 - actionbarWidth/2;
+
+    	int centerX = width/2;
+    	int actionbarPosX = centerX - BattleClassesGuiHelper.getActionBarWidth(actionbarAbilities.size())/2;
         int actionbarPosY = 0;
-        int currentX = actionbarPosX;
+    	BattleClassesGuiHelper.INSTANCE.drawActionbarBackgroundCentered(centerX, actionbarPosY, actionbarAbilities.size());
+    	
         for(int i = 0; i < actionbarAbilities.size(); ++i) {
-        	int drawNodeWith = ABILITY_ACTIONBAR_NODE_WIDTH;
-        	int drawNodeHeight = ABILITY_ACTIONBAR_HEIGHT;
-        	int u = 21;
-        	int v = 0;
-        	if(i == 0) {
-        		++drawNodeWith;
-        		u = 0;
-            	v = 0;
-        	}
-        	if(i == (actionbarAbilities.size() - 1)) {
-        		++drawNodeWith;
-        		u += 20;
-            	v = 0;
-        	}
-            this.drawTexturedModalRect(currentX, actionbarPosY, u, v, drawNodeWith, drawNodeHeight);
-            currentX += drawNodeWith;
+        	BattleClassesGuiHelper.INSTANCE.drawAbilityIcon(actionbarPosX+3 + i*20, actionbarPosY+3, actionbarAbilities.get(i));
         }
-        
-        GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-        
-        for(int i = 0; i < actionbarAbilities.size(); ++i) {
-        	this.drawAbilityIcon(actionbarPosX+3 + i*20, actionbarPosY+3, actionbarAbilities.get(i));
-        }
-        this.drawAbilitySelector(actionbarPosX, actionbarPosY);
-        
-        GL11.glDisable(GL12.GL_RESCALE_NORMAL);
-        GL11.glDisable(GL11.GL_BLEND);
+        BattleClassesGuiHelper.INSTANCE.drawAbilitySelector(actionbarPosX, actionbarPosY);
     }
     
     
-    public void drawAbilitySelector(int actionbarPosX, int actionbarPosY) {
-    	GL11.glPushMatrix();
-		GL11.glEnable(GL11.GL_BLEND);
-	    GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-	    GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-	    GL11.glDisable(GL11.GL_LIGHTING);
-	    
-	    this.mc.renderEngine.bindTexture(resourceLocationHUD);
-        boolean hasClass = BattleClassesUtils.getPlayerClassEnum(mc.thePlayer) != EnumBattleClassesPlayerClass.NONE;
-        if (hasClass && ((IBattlePlayer) mc.thePlayer).isBattlemode()) {
-        	int chosenIndex = BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).getChosenAbilityIndex();
-            this.drawTexturedModalRect(actionbarPosX-1 + chosenIndex*20, actionbarPosY-1, 232, 0, 24, 24);
-        }
-        
-        GL11.glDisable(GL12.GL_RESCALE_NORMAL);
-        GL11.glDisable(GL11.GL_BLEND);
-        GL11.glPopMatrix();
-    }
     
     protected boolean shouldDrawBossHealthBar() {
     	return (BossStatus.bossName != null && BossStatus.statusBarTime > 0);
@@ -219,7 +173,7 @@ public class BattleClassesGuiHUDOverlay extends BattlegearInGameGUI {
             int j = i / 2 - short1 / 2;
             int k = (int)(BossStatus.healthScale * (float)(short1 + 1));
             
-            byte b0 = 12 + BattleClassesGuiHUDOverlay.ABILITY_ACTIONBAR_HEIGHT;	//MAIN Y coord
+            byte b0 = 12 + BattleClassesGuiHelper.ABILITY_ACTIONBAR_HEIGHT;	//MAIN Y coord
             
             this.drawTexturedModalRect(j, b0, 0, 74, short1, 5);
             this.drawTexturedModalRect(j, b0, 0, 74, short1, 5);
@@ -288,7 +242,7 @@ public class BattleClassesGuiHUDOverlay extends BattlegearInGameGUI {
     public void drawCastbar() {
         ScaledResolution scaledresolution = new ScaledResolution(this.mc, this.mc.displayWidth, this.mc.displayHeight);
     	int x = scaledresolution.getScaledWidth()/2 - CAST_BAR_WIDTH/2;
-		int y = 12 + BattleClassesGuiHUDOverlay.ABILITY_ACTIONBAR_HEIGHT;
+		int y = 12 + BattleClassesGuiHelper.ABILITY_ACTIONBAR_HEIGHT;
 		if(this.shouldDrawBossHealthBar()) {
 			y += CAST_BAR_ZONE_HEIGHT;
 		}
@@ -402,43 +356,7 @@ public class BattleClassesGuiHUDOverlay extends BattlegearInGameGUI {
             itemRenderer.renderItemOverlayIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, itemstack, x, y);
         }
     }
-    
-    public void drawAbilityIcon(int x, int y, BattleClassesAbstractAbilityActive ability ) {
-    	if(ability != null && ability.getIconResourceLocation() != null) {
-    		if(ability.hasItemIcon()) {
-    			ItemStack itemStack = ability.getIconItemStack();
-    			if(itemStack != null) {
-    				
-    				GL11.glPushMatrix();
-    				itemRenderer.renderItemAndEffectIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, itemStack, x, y);
-    				GL11.glPopMatrix();
-    		        GL11.glDisable(GL11.GL_ALPHA_TEST);
-    		        GL11.glDisable(GL11.GL_LIGHTING);
-
-    				//renderStackAt(x, y, itemStack, 0);
-    			}
-    		}
-    		else {
-    			GL11.glPushMatrix();
-    			GL11.glEnable(GL11.GL_BLEND);
-    		    GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-    		    GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-    		    GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-    		    //GL11.glDisable(GL11.GL_LIGHTING);
-    		    
-    		    mc.getTextureManager().bindTexture(ability.getIconResourceLocation());
-    		    drawTexturedRectFromCustomSource(x, y, 16, 16);
-    		        		    
-    	        GL11.glDisable(GL12.GL_RESCALE_NORMAL);
-    	        GL11.glDisable(GL11.GL_BLEND);
-    	        GL11.glPopMatrix();
-    		     
-    		}
-        	drawCooldown(x, y, BattleClassesUtils.getCooldownPercentage(ability));
-        	
-    	}
-    }
-    
+        
     public void drawAbilityIconCentered(int x, int y, float scale, ResourceLocation iconResourceLocation ) {
     	if(iconResourceLocation != null) {
     		mc.getTextureManager().bindTexture(iconResourceLocation);
@@ -519,7 +437,7 @@ public class BattleClassesGuiHUDOverlay extends BattlegearInGameGUI {
 		warningDisplay_HLL.posX = scaledresolution.getScaledWidth() / 2; // - centerGap;
 		warningDisplay_HLL.posY = scaledresolution.getScaledHeight() / 2 + centerGap;
 		
-		int y = 12 + BattleClassesGuiHUDOverlay.ABILITY_ACTIONBAR_HEIGHT;
+		int y = 12 + BattleClassesGuiHelper.ABILITY_ACTIONBAR_HEIGHT;
 		if(this.shouldDrawBossHealthBar()) {
 			y += CAST_BAR_ZONE_HEIGHT;
 		}

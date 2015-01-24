@@ -13,6 +13,7 @@ import mods.battleclasses.ability.BattleClassesTalentTest;
 import mods.battleclasses.core.BattleClassesPlayerClass;
 import mods.battleclasses.core.BattleClassesPlayerHooks;
 import mods.battleclasses.core.BattleClassesTalentTree;
+import mods.battleclasses.enumhelper.EnumBattleClassesAttributeType;
 import mods.battleclasses.enumhelper.EnumBattleClassesPlayerClass;
 
 public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
@@ -64,6 +65,23 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 		
 		return talentTrees;
 	}
+	
+	public ArrayList<EnumBattleClassesAttributeType> getPrimaryAttributesToDisplay() {
+		ArrayList<EnumBattleClassesAttributeType> attributes = new ArrayList<EnumBattleClassesAttributeType>();
+		attributes.add(EnumBattleClassesAttributeType.SPELLPOWER_ARCANE);
+		attributes.add(EnumBattleClassesAttributeType.SPELLPOWER_FIRE);
+		attributes.add(EnumBattleClassesAttributeType.SPELLPOWER_FROST);
+		return attributes;
+	}
+	
+	public ArrayList<EnumBattleClassesAttributeType> getSecondaryAttributesToDisplay() {
+		ArrayList<EnumBattleClassesAttributeType> attributes = new ArrayList<EnumBattleClassesAttributeType>();
+		attributes.add(EnumBattleClassesAttributeType.WEAPON_DAMAGE);
+		attributes.add(EnumBattleClassesAttributeType.CRITICAL_RATING);
+		attributes.add(EnumBattleClassesAttributeType.HASTE_RATING);
+		return attributes;
+	}
+
 	
 	//--------------------------------------------------------------------------------------------------------
 	//										CLASS SPECIFIC ABILITIES

@@ -9,21 +9,38 @@ import org.lwjgl.opengl.GL12;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.battleclasses.BattleClassesMod;
+import mods.battleclasses.BattleClassesUtils;
+import mods.battleclasses.ability.BattleClassesAbstractAbilityActive;
+import mods.battleclasses.enumhelper.EnumBattleClassesPlayerClass;
+import mods.battlegear2.api.core.IBattlePlayer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 
 public class BattleClassesGuiHelper extends Gui {
 	
+	public static BattleClassesGuiHelper INSTANCE = new BattleClassesGuiHelper(); 
+	public static final RenderItem itemRenderer = new RenderItem();
 	public static final int COOLDOWN_FRAMES = 16;
+	public static final int COOLDOWN_ICON_SIZE = 32;
 	public static IIcon cooldownIcons[];
 	
 	public static Minecraft mc = Minecraft.getMinecraft();
-
+	
+	public BattleClassesGuiHelper() {
+		super();
+		this.zLevel = 0;
+	}
+	
+    public static final ResourceLocation resourceLocationHUD = new ResourceLocation("battleclasses", "textures/gui/InterfaceHUD.png");
+    
 	public static ResourceLocation getAbilityIconResourceLocation(int abilityID) {
 		return getResourceLocationOfTexture("textures/spells/icons/","ability_" + abilityID + ".png");
 	}
@@ -32,13 +49,16 @@ public class BattleClassesGuiHelper extends Gui {
 		return new ResourceLocation(BattleClassesMod.MODID, path + fileName );
 	}
 	
+	public static ResourceLocation getCooldownIconResourceLocation(int cooldownFrameIndex) {
+		return new ResourceLocation("battleclasses", "textures/sharedicons/cooldown/cooldown_" + cooldownFrameIndex + ".png");
+	}
+	
 	public static void drawCooldown(int posX, int posY, float f) {
     	if(f > 0) {
     		int frameIndex = BattleClassesGuiHelper.cooldownIcons.length-1;
     		if(f < 1) {
     			frameIndex = (int) (((float) BattleClassesGuiHelper.cooldownIcons.length)*f);
     		}
-    		IIcon cooldownIcon = BattleClassesGuiHelper.cooldownIcons[frameIndex];
     	    
 			GL11.glPushMatrix();
 			GL11.glEnable(GL11.GL_BLEND);
@@ -47,14 +67,114 @@ public class BattleClassesGuiHelper extends Gui {
 		    GL11.glDisable(GL11.GL_LIGHTING);
 		    GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.5F);
 		    
-		    mc.getTextureManager().bindTexture(TextureMap.locationItemsTexture);
-    		//this.drawTexturedModelRectFromIcon(posX, posY, cooldownIcon, cooldownIcon.getIconWidth(), cooldownIcon.getIconHeight());
+		    mc.getTextureManager().bindTexture(getCooldownIconResourceLocation(frameIndex));
+		    drawTexturedRectFromCustomSource(posX, posY, COOLDOWN_ICON_SIZE, COOLDOWN_ICON_SIZE, 0);
     		
     		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);    		    
 	        GL11.glDisable(GL12.GL_RESCALE_NORMAL);
 	        GL11.glDisable(GL11.GL_BLEND);
 	        GL11.glPopMatrix();
       	}
+	}
+	
+	public static final int ABILITY_ACTIONBAR_NODE_WIDTH = 20;
+    public static final int ABILITY_ACTIONBAR_HEIGHT = 22;
+	public void drawActionbarBackgroundCentered(int centerX, int posY, int length) {
+    	if(length == 0) {
+    		return;
+    	}
+    	int actionbarHeight = ABILITY_ACTIONBAR_HEIGHT;
+    	int actionbarWidth = getActionBarWidth(length);
+        
+		GL11.glPushMatrix();
+		GL11.glEnable(GL11.GL_BLEND);
+	    GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+	    GL11.glDisable(GL11.GL_LIGHTING);
+	    GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+	    
+        this.mc.renderEngine.bindTexture(resourceLocationHUD);
+        int actionbarPosX = centerX - actionbarWidth/2;
+        int actionbarPosY = posY;
+        int currentX = actionbarPosX;
+        for(int i = 0; i < length; ++i) {
+        	int drawNodeWith = ABILITY_ACTIONBAR_NODE_WIDTH;
+        	int drawNodeHeight = ABILITY_ACTIONBAR_HEIGHT;
+        	int u = 21;
+        	int v = 0;
+        	if(i == 0) {
+        		++drawNodeWith;
+        		u = 0;
+            	v = 0;
+        	}
+        	if(i == (length - 1)) {
+        		++drawNodeWith;
+        		u += 20;
+            	v = 0;
+        	}
+            this.drawTexturedModalRect(currentX, actionbarPosY, u, v, drawNodeWith, drawNodeHeight);
+            currentX += drawNodeWith;
+        }
+        GL11.glDisable(GL11.GL_BLEND);
+        GL11.glPopMatrix();
+	}
+	
+    public void drawAbilityIcon(int x, int y, BattleClassesAbstractAbilityActive ability ) {
+    	if(ability != null && ability.getIconResourceLocation() != null) {
+    		if(ability.hasItemIcon()) {
+    			ItemStack itemStack = ability.getIconItemStack();
+    			if(itemStack != null) {
+    				
+    				GL11.glPushMatrix();
+    				itemRenderer.renderItemAndEffectIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, itemStack, x, y);
+    				GL11.glPopMatrix();
+    		        GL11.glDisable(GL11.GL_ALPHA_TEST);
+    		        GL11.glDisable(GL11.GL_LIGHTING);
+
+    				//renderStackAt(x, y, itemStack, 0);
+    			}
+    		}
+    		else {
+    			GL11.glPushMatrix();
+    			GL11.glEnable(GL11.GL_BLEND);
+    		    GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+    		    GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+    		    GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+    		    //GL11.glDisable(GL11.GL_LIGHTING);
+    		    
+    		    mc.getTextureManager().bindTexture(ability.getIconResourceLocation());
+    		    drawTexturedRectFromCustomSource(x, y, 16, 16, this.zLevel);
+    		        		    
+    	        GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+    	        GL11.glDisable(GL11.GL_BLEND);
+    	        GL11.glPopMatrix();
+    		     
+    		}
+        	drawCooldown(x, y, BattleClassesUtils.getCooldownPercentage(ability));
+    	}
+    }
+    
+    public void drawAbilitySelector(int actionbarPosX, int actionbarPosY) {
+    	GL11.glPushMatrix();
+		GL11.glEnable(GL11.GL_BLEND);
+	    GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+	    GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+	    GL11.glDisable(GL11.GL_LIGHTING);
+	    
+	    this.mc.renderEngine.bindTexture(resourceLocationHUD);
+        boolean hasClass = BattleClassesUtils.getPlayerClassEnum(mc.thePlayer) != EnumBattleClassesPlayerClass.NONE;
+        if (hasClass && ((IBattlePlayer) mc.thePlayer).isBattlemode()) {
+        	int chosenIndex = BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).getChosenAbilityIndex();
+            this.drawTexturedModalRect(actionbarPosX-1 + chosenIndex*20, actionbarPosY-1, 232, 0, 24, 24);
+        }
+        
+        GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+        GL11.glDisable(GL11.GL_BLEND);
+        GL11.glPopMatrix();
+    }
+
+	
+	public static int getActionBarWidth(int length) {
+		return 1 + length*ABILITY_ACTIONBAR_NODE_WIDTH + 1;
 	}
 	
 	/**
