@@ -45,9 +45,10 @@ public class BattleClassesTabOverlayAttributes extends GuiScreen {
 		this.attributeDisplayNodes.clear();
 		this.buttonList.clear();
 		for(EnumBattleClassesAttributeType attributeType : this.attributesToDisplay) {
-			BattleClassesGuiAttributeDisplayNode attributeDisplay = new BattleClassesGuiAttributeDisplayNode(i++, 5, 5 + i*10, attributeType);
+			BattleClassesGuiAttributeDisplayNode attributeDisplay = new BattleClassesGuiAttributeDisplayNode(7000 + i, 5, 5 + i*10, attributeType);
 			this.attributeDisplayNodes.add(attributeDisplay);
 			this.buttonList.add(attributeDisplay);
+			i++;
 		}
 	}
 	

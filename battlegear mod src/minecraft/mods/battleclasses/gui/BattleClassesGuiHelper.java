@@ -280,7 +280,11 @@ public class BattleClassesGuiHelper extends Gui {
 					String remainingTextLine = "";
 					boolean breakLine = false; 
 					for(int i = 0; i<textLineWords.length; ++i) {
-						if((limitedTextLine.length()+textLineWords[i].length()+1) <= numberOfMaximalCharactersInLine && !breakLine) {
+						if(limitedTextLine.length()==0 && textLineWords[i].length() >= numberOfMaximalCharactersInLine) {
+							String separator = (limitedTextLine.length() > 0) ? " " : "";
+							limitedTextLine += (separator + textLineWords[i]);
+						}
+						else if(((limitedTextLine.length()+textLineWords[i].length()+1) <= numberOfMaximalCharactersInLine && !breakLine)) {
 							String separator = (limitedTextLine.length() > 0) ? " " : "";
 							limitedTextLine += (separator + textLineWords[i]);
 						}
@@ -290,7 +294,9 @@ public class BattleClassesGuiHelper extends Gui {
 							remainingTextLine += (separator + textLineWords[i]);
 						}
 					}
-					limitedHoveringText.add(new String(formatString) + limitedTextLine);
+					if(limitedTextLine.length()>0) {
+						limitedHoveringText.add(new String(formatString) + limitedTextLine);
+					}
 					textLine = new String(formatString) + remainingTextLine;
 				}
 				limitedHoveringText.add(new String(formatString) + textLine);

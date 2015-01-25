@@ -51,3 +51,6 @@ bcattribute.critical_rating.description=Increases the chance of your abilities t
 bcattribute.armor_penetration.description=Ignores the armor of your enemy.
 bcattribute.weapon_damage.description=Estimated ammount of damage you will deal with your main hand weapon.
 bcattribute.armor.description=Reduces physical damage you recieve.
+
+ability.mage.iceblock.name=Ice Block
+ability.mage.iceblock.description=You become encased in a block of ice, protecting you from all physical attacks and spells for 10 sec, but during that time you cannot attack, move or cast spells.

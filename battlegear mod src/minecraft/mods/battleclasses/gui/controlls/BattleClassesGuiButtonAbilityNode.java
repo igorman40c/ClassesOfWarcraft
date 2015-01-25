@@ -23,6 +23,12 @@ public class BattleClassesGuiButtonAbilityNode extends BattleClassesGuiButton
 		this.showHoveringText = true;
 		this.setSize(16, 16);
 	}
+	public BattleClassesGuiButtonAbilityNode(BattleClassesAbstractAbilityActive parAbility, int id) {
+		super(id, BattleClassesTabSpellbook.resource);
+		this.ability = parAbility;
+		this.showHoveringText = true;
+		this.setSize(16, 16);
+	}
 	
 	public boolean isAddButton = false;
 	
@@ -158,6 +164,7 @@ public class BattleClassesGuiButtonAbilityNode extends BattleClassesGuiButton
 		List<String> hoveringTextList = BattleClassesGuiHelper.createHoveringText();
     	BattleClassesGuiHelper.addTitle(hoveringTextList, this.ability.getTranslatedName());
     	BattleClassesGuiHelper.addParagraph(hoveringTextList, this.ability.getTranslatedDescription());
+    	hoveringTextList = BattleClassesGuiHelper.getLimitedWidthHoveringText(hoveringTextList, 30);
     	return hoveringTextList;
 	}
 }

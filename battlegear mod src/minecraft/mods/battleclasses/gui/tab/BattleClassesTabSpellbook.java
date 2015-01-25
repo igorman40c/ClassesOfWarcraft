@@ -58,7 +58,7 @@ public class BattleClassesTabSpellbook extends BattleClassesAbstractTab {
     	actionbarAbilityNodes.clear();
     	if(spellbook != null) {
     		for(BattleClassesAbstractAbilityActive actionbarAbility : spellbook.getActionbarAbilities()) {
-    			BattleClassesGuiButtonAbilityNode actionbarAbilityNode = new BattleClassesGuiButtonAbilityNode(actionbarAbility);
+    			BattleClassesGuiButtonAbilityNode actionbarAbilityNode = new BattleClassesGuiButtonAbilityNode(actionbarAbility, 8000+actionbarAbility.getAbilityID());
         		actionbarAbilityNodes.add(actionbarAbilityNode);
     			this.buttonList.add(actionbarAbilityNode);
         	}
@@ -83,7 +83,7 @@ public class BattleClassesTabSpellbook extends BattleClassesAbstractTab {
     		int i = 0;
     		for(BattleClassesAbstractAbilityActive activeAbility : spellbook.getActiveAbilitiesInArray()) {
     			BattleClassesGuiButtonAbilityNode spellbookAbilityNode = new BattleClassesGuiButtonAbilityNode(activeAbility);
-    			BattleClassesGuiButtonAbilityUpgrade upgradeButton = new BattleClassesGuiButtonAbilityUpgrade(9000+i, activeAbility);
+    			BattleClassesGuiButtonAbilityUpgrade upgradeButton = new BattleClassesGuiButtonAbilityUpgrade(9900+i, activeAbility);
     			spellbookAbilityNodes.add(spellbookAbilityNode);
     			upgradeButtons.add(upgradeButton);
     			this.buttonList.add(spellbookAbilityNode);
