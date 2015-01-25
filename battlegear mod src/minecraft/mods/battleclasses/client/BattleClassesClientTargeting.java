@@ -8,6 +8,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.StatCollector;
 
 public class BattleClassesClientTargeting {
 	public static EntityLivingBase lastTarget;
@@ -49,14 +50,14 @@ public class BattleClassesClientTargeting {
 				EntityLivingBase finalTarget = getFinalTargetOfAbility(chosenAbility);
 				if(finalTarget != null) {
 					if(BattleClassesUtils.isTargetFriendly(mc.thePlayer, finalTarget)) {
-						targetInfo = "Healing " + getEntityName( finalTarget );
+						targetInfo = StatCollector.translateToLocal("bchud.target.healing") + " " + getEntityName( finalTarget );
 					}
 					else {
-						targetInfo = "Targeting " + getEntityName( finalTarget );
+						targetInfo = StatCollector.translateToLocal("bchud.target.targeting") + " " +  getEntityName( finalTarget );
 					}
 				}
 				else if (BattleClassesClientTargeting.lastTarget != null) {
-					targetInfo = "Target lost!";
+					targetInfo = StatCollector.translateToLocal("bchud.target.target_lost");
 				}
 				
 				//Saving latest target
@@ -73,7 +74,7 @@ public class BattleClassesClientTargeting {
 	public static String getEntityName(EntityLivingBase entity) {
 		Minecraft mc = Minecraft.getMinecraft();
 		if(entity == mc.thePlayer) {
-			return "Self";
+			return StatCollector.translateToLocal("bchud.target.self");
 		}
 		return entity.getCommandSenderName();
 	}

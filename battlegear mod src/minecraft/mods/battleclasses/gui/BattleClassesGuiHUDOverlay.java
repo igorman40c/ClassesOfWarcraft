@@ -21,6 +21,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.MinecraftForge;
@@ -258,10 +259,10 @@ public class BattleClassesGuiHUDOverlay extends BattlegearInGameGUI {
 			f = 1.0F - BattleClassesUtils.getCooldownPercentage(BattleClassesUtils.getPlayerHooks(mc.thePlayer).playerClass);
 			shouldDisplayBarString = true;
 			if(BattleClassesUtils.getPlayerHooks(mc.thePlayer).playerClass.getCooldownClock().getLastUsedType() == EnumBattleClassesCooldownType.CooldownType_CLASS_SWITCH) {
-				barDisplayString = "Switching Class...";
+				barDisplayString = StatCollector.translateToLocal("bchud.info.changeclass");
 			}
 			if(BattleClassesUtils.getPlayerHooks(mc.thePlayer).playerClass.getCooldownClock().getLastUsedType() == EnumBattleClassesCooldownType.CooldownType_TALENT_CHANGE) {
-				barDisplayString = "Applying talent changes...";
+				barDisplayString = StatCollector.translateToLocal("bchud.info.changetalents");
 			}
 			//DRAWING PROGRESSBAR	
     		this.renderProgressBar(x, y, u, v, f);
@@ -450,28 +451,27 @@ public class BattleClassesGuiHUDOverlay extends BattlegearInGameGUI {
 		chosenAbilit_HLL.draw(mc.fontRenderer);
 	}
 
-	public static final String HUD_W_CLASS_REQUIRED = "You need to choose a class to use that!";
-	public static final String HUD_W_BATTLEMODE_REQUIRED = "You need to be in Battle mode to use that!";
-	public static final String HUD_W_ON_COOLDOWN = "That ability is not ready yet!";
-	public static final String HUD_W_ON_CLASS_COOLDOWN = "Your class is not ready yet!";
-	public static final String HUD_W_SILENCED = "You are silenced!";
-	public static final String HUD_W_COMBAT_DISABLED = "You can't do that now!";
-	public static final String HUD_W_WEAPON_WRONG_CLASS = "That weapon is not for your class!";
-	public static final String HUD_W_WEAPON_LOW_LEVEL = "That ability requires a better weapon'";
-	public static final String HUD_W_WEAPON_NO_AMMO = "That ability requires ammo!";
+	public static final String HUD_W_CLASS_REQUIRED = "bchud.warning.class_required";
+	public static final String HUD_W_BATTLEMODE_REQUIRED = "bchud.warning.battlemode_required";
+	public static final String HUD_W_WEAPON_AMMO_REQUIRED = "bchud.warning.ammo_required";
+	public static final String HUD_W_ON_COOLDOWN = "bchud.warning.on_cooldown";
+	public static final String HUD_W_ON_CLASS_COOLDOWN = "bchud.warning.on_classcooldown";
+	public static final String HUD_W_SILENCED = "bchud.warning.silenced";
+	public static final String HUD_W_COMBAT_DISABLED = "bchud.warning.combat_disabled";
+	public static final String HUD_W_WEAPON_WRONG_CLASS = "bchud.warning.weapon_wrong_class";
 	
 	public static void displayWarning(String message) {
-		warningDisplay_HLL.setText(message);
+		warningDisplay_HLL.setTranslatedText(message);
 		warningDisplay_HLL.show();
 	}
 	
 	public static void displayChosenAbilityName(String message) {
-		chosenAbilit_HLL.setText(message);
+		chosenAbilit_HLL.setTranslatedText(message);
 		chosenAbilit_HLL.show();
 	}
 	
 	public static void displayTargetInfo(String message) {
-		targetDisplay_HLL.setText(message);
+		targetDisplay_HLL.setTranslatedText(message);
 		targetDisplay_HLL.show();
 	}
 }

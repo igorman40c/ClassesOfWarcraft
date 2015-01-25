@@ -59,11 +59,13 @@ public class BattleClassesGuiButtonClassSelector extends BattleClassesGuiButton 
             								classIcon, classIcon.getIconWidth(), classIcon.getIconHeight());
              */
             //Drawing Cooldown
+            /*
             if(shouldBeDisabled()) {
             	drawCooldown(this.xPosition + this.width/2 - classIconWidth/2, 
 						this.yPosition + this.height/2 -  classIconHeight/2,
 						BattleClassesUtils.getCooldownPercentage(BattleClassesUtils.getPlayerHooks(mc.thePlayer).playerClass));
             }
+            */
         }
     }
     

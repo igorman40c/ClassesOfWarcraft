@@ -201,7 +201,7 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 		
 		boolean hasRequiredAmmo = true;
 		if(!hasRequiredAmmo) {
-			BattleClassesGuiHUDOverlay.displayWarning(BattleClassesGuiHUDOverlay.HUD_W_WEAPON_NO_AMMO);
+			BattleClassesGuiHUDOverlay.displayWarning(BattleClassesGuiHUDOverlay.HUD_W_WEAPON_AMMO_REQUIRED);
 		}
 		
 		return /*hasRequiredItem &&*/ cooldownFree && hasRequiredAmmo;

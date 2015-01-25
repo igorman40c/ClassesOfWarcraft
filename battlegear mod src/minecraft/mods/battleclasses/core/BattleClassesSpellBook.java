@@ -89,14 +89,20 @@ public class BattleClassesSpellBook {
 			BattleClassesGuiHUDOverlay.displayWarning(BattleClassesGuiHUDOverlay.HUD_W_ON_CLASS_COOLDOWN);
 			return false;
 		}
-		boolean combatDisabled = !this.getChosenAbility().isIgnoringSilence() && BattleClassesCombatHooks.isPlayerSilenced(entityPlayer);
-		if(combatDisabled) {
-			BattleClassesGuiHUDOverlay.displayWarning(BattleClassesGuiHUDOverlay.HUD_W_COMBAT_DISABLED);
-			return false;
+		BattleClassesAbstractAbilityActive chosenAbility = getChosenAbility();
+		if(chosenAbility != null) {
+			boolean combatDisabled = !this.getChosenAbility().isIgnoringSilence() && BattleClassesCombatHooks.isPlayerSilenced(entityPlayer);
+			if(combatDisabled) {
+				BattleClassesGuiHUDOverlay.displayWarning(BattleClassesGuiHUDOverlay.HUD_W_COMBAT_DISABLED);
+				return false;
+			}
+			boolean silenced = !this.getChosenAbility().isIgnoringSilence() && BattleClassesCombatHooks.isPlayerSilenced(entityPlayer);
+			if(silenced) {
+				BattleClassesGuiHUDOverlay.displayWarning(BattleClassesGuiHUDOverlay.HUD_W_SILENCED);
+				return false;
+			}
 		}
-		boolean silenced = !this.getChosenAbility().isIgnoringSilence() && BattleClassesCombatHooks.isPlayerSilenced(entityPlayer);
-		if(silenced) {
-			BattleClassesGuiHUDOverlay.displayWarning(BattleClassesGuiHUDOverlay.HUD_W_SILENCED);
+		else {
 			return false;
 		}
 		

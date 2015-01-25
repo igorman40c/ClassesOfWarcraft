@@ -6,6 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.util.StatCollector;
 
 public class GuiHighLightLabel extends Gui {
 	
@@ -43,8 +44,8 @@ public class GuiHighLightLabel extends Gui {
 		this.colorHEX = parColorHEX;
 	}
 	
-	public void setText(String parText) {
-		this.text = parText;
+	public void setTranslatedText(String parText) {
+		this.text = StatCollector.translateToLocal(parText);
 	}
 	
 	public void setVisibleDuration(float seconds) {

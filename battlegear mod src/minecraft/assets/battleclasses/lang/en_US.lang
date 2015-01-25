@@ -8,6 +8,21 @@ bctab.classselector.name=Class Selection
 bctab.config.name=Battle Classes mod settings
 bctab.info.name=Information
 
+bchud.info.changeclass=Changing Class...
+bchud.info.changetalents=Applying talent changes...
+bchud.warning.class_required=You need to choose a class to use that!
+bchud.warning.battlemode_required=You need to be in Battle mode to use that!
+bchud.warning.ammo_required=You are missing some item to use that!
+bchud.warning.on_cooldown=That ability is not ready yet!
+bchud.warning.on_classcooldown=Your class is not ready yet!
+bchud.warning.silenced=You are silenced!
+bchud.warning.combat_disabled=You can't do that now!
+bchud.warning.weapon_wrong_class=That weapon is not for your class!
+bchud.target.healing=Healing
+bchud.target.targeting=Targeting
+bchud.target.target_lost=Target lost!
+bchud.target.self=Self
+
 bcattribute.health.name=Health
 bcattribute.strength.name=Strength
 bcattribute.agility.name=Agility
