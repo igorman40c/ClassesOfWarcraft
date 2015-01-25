@@ -166,7 +166,7 @@ public class BattleClassesGuiHelper extends Gui {
     			GL11.glEnable(GL11.GL_BLEND);
     		    GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
     		    GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-    		    GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+    		    //GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
     		    //GL11.glDisable(GL11.GL_LIGHTING);
     		    
     		    mc.getTextureManager().bindTexture(ability.getIconResourceLocation());
@@ -225,7 +225,7 @@ public class BattleClassesGuiHelper extends Gui {
 		 tessellator.draw();
 	}
 	
-	public static List<String> createHoveringText() {
+	public static ArrayList<String> createHoveringText() {
 		return new ArrayList<String>();
 	}
 	

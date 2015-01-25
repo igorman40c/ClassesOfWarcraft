@@ -123,17 +123,13 @@ public class BattleClassesItemWeapon extends ItemSword implements IBattleClasses
 	
 	@Override
 	public boolean allowOffhand(ItemStack mainhand, ItemStack offhand) {
-		System.out.println("bammm0!");
 		switch(this.getHeldType()) {
 		case MAIN_HANDED: {
 			return true;
 		}
 		case OFF_HANDED: {
-			System.out.println("bammm1!");
 			if(mainhand.getItem() instanceof IBattleClassesHandHeld) {
-				System.out.println("bammm2!");
 				if(((IBattleClassesHandHeld) mainhand.getItem()).getHeldType() == EnumBattleClassesWeaponHeldType.OFF_HANDED) {
-					System.out.println("bammm3!");
 					return false;
 				}
 			}

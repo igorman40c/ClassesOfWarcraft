@@ -1,6 +1,7 @@
 package mods.battleclasses.ability;
 
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.battleclasses.core.BattleClassesPlayerHooks;
@@ -32,6 +33,14 @@ public abstract class BattleClassesAbstractAbility {
 	
 	public String getUnlocalizedIconName() {
 		return UNLOCALIZED_PREFIX + this.name + ".icon";
+	}
+	
+	public String getTranslatedName() {
+		return StatCollector.translateToLocal(this.getUnlocalizedName());
+	}
+	
+	public String getTranslatedDescription() {
+		return StatCollector.translateToLocal(this.getUnlocalizedDescription());
 	}
 	
 	public BattleClassesAbstractAbility(int parAbilityID) {

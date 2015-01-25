@@ -6,6 +6,7 @@ import java.util.List;
 
 import mods.battleclasses.client.BattleClassesClientEvents;
 import mods.battleclasses.gui.BattleClassesGuiHandler;
+import mods.battleclasses.gui.controlls.BattleClassesGuiButtonAbilityNode;
 import mods.battlegear2.Battlegear;
 import mods.battlegear2.client.BattlegearClientEvents;
 import mods.battlegear2.client.ClientProxy;
@@ -113,4 +114,6 @@ public abstract class BattleClassesAbstractTab extends InventoryEffectRenderer i
     	this.toolTipMousePosY = mousePosY;
     	this.shouldDisplayTooltip = true;
     }
+    
+    
 }

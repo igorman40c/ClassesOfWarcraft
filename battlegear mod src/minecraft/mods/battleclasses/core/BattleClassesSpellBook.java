@@ -265,6 +265,30 @@ public class BattleClassesSpellBook {
     	return this.actionbarAbilities;
     }
 	
+	@SideOnly(Side.CLIENT)
+	public void repleaceAbilitiesOnActionbar(BattleClassesAbstractAbilityActive ability1, BattleClassesAbstractAbilityActive ability2) {
+		if(this.actionbarAbilities.contains(ability1) && this.actionbarAbilities.contains(ability2)) {
+			int index1 = this.actionbarAbilities.indexOf(ability1);
+			int index2 = this.actionbarAbilities.indexOf(ability2);
+			this.actionbarAbilities.set(index2, ability1);
+			this.actionbarAbilities.set(index1, ability2);
+		}
+	}
+	
+	@SideOnly(Side.CLIENT)
+	public void removeAbilityFromActionbar(BattleClassesAbstractAbilityActive ability) {
+		if(this.actionbarAbilities.contains(ability)) {
+			this.actionbarAbilities.remove(ability);
+		}
+	}
+	
+	@SideOnly(Side.CLIENT)
+	public void addAbilityToActionbar(BattleClassesAbstractAbilityActive ability) {
+		if(!this.actionbarAbilities.contains(ability)) {
+			this.actionbarAbilities.add(ability);
+		}
+	}
+	
 	public EnumAction getCurrentEnumAction() {
 		BattleClassesAbstractAbilityActive chosenAbility = this.getChosenAbility();
 		if(chosenAbility != null) {

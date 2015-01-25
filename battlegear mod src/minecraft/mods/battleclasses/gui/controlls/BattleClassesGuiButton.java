@@ -71,6 +71,14 @@ public class BattleClassesGuiButton extends GuiButton {
 		this.yPosition = y + positionOffsetY;
 	}
 	
+	public int getPositionX() {
+		return this.xPosition;
+	}
+	
+	public int getPositionY() {
+		return this.yPosition;
+	}
+	
 	public void setSize(int width, int height) {
 		this.width = width;
 		this.height = height;
@@ -141,6 +149,10 @@ public class BattleClassesGuiButton extends GuiButton {
         }
     }
     
+    public boolean isMouseOver(int currentMousePosX, int currentMousePosY) {
+    	return currentMousePosX >= this.xPosition && currentMousePosY >= this.yPosition && currentMousePosX < this.xPosition + this.width && currentMousePosY < this.yPosition + this.height;
+    }
+    
     public void renderHoveringText(int currentMousePosX, int currentMousePosY) {
     	//Rendering Tooltip
     	Minecraft mc = Minecraft.getMinecraft();
@@ -150,7 +162,7 @@ public class BattleClassesGuiButton extends GuiButton {
         		((ITooltipDisplayGui)mc.currentScreen).displayTooltip(this.getHoveringTextStringList(), currentMousePosX, currentMousePosY);
         	}
         	else {
-        		this.drawHoveringText(this.getHoveringTextStringList(), currentMousePosX, currentMousePosY, fontrenderer);
+        		this.drawHoveringText(getHoveringTextStringList(), currentMousePosX, currentMousePosY, fontrenderer);
         	}
         }
     }
