@@ -261,9 +261,14 @@ public class BattleClassesSpellBook {
      */
 	@SideOnly(Side.CLIENT)
     public ArrayList<BattleClassesAbstractAbilityActive> getActionbarAbilities() {
-		//Add checkbox based selector logic later
     	return this.actionbarAbilities;
     }
+	
+	@SideOnly(Side.CLIENT)
+	public boolean isAbilityOnActionbar(BattleClassesAbstractAbilityActive ability) {
+		return this.actionbarAbilities.contains(ability);
+	}
+
 	
 	@SideOnly(Side.CLIENT)
 	public void repleaceAbilitiesOnActionbar(BattleClassesAbstractAbilityActive ability1, BattleClassesAbstractAbilityActive ability2) {

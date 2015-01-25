@@ -71,7 +71,7 @@ public class BattleClassesTabSpellbook extends BattleClassesAbstractTab {
     	}
     	spellbookAbilityNodes.clear();
     	if(spellbook != null) {
-    		for(BattleClassesAbstractAbilityActive activeAbility : spellbook.getActionbarAbilities()) {
+    		for(BattleClassesAbstractAbilityActive activeAbility : spellbook.getActiveAbilitiesInArray()) {
     			BattleClassesGuiButtonAbilityNode spellbookAbilityNode = new BattleClassesGuiButtonAbilityNode(activeAbility);
     			spellbookAbilityNodes.add(spellbookAbilityNode);
     			this.buttonList.add(spellbookAbilityNode);
@@ -103,6 +103,11 @@ public class BattleClassesTabSpellbook extends BattleClassesAbstractTab {
         this.drawTexturedModalRect(var5, var6, 0, 0, this.xSize, this.ySize);
         
         this.drawActionbar();
+        
+        //Refresh spellbookAbilityNode positions
+        for(int i = 0; i < spellbookAbilityNodes.size(); ++i) {
+        	spellbookAbilityNodes.get(i).setPosition(this.guiLeft + 22, 5 + this.guiTop+i*18);
+        }
         
         if(this.tempMovingNode != null) {
         	this.tempMovingNode.setPosition(mouseX-tempMovingNode.width/2, mouseY-tempMovingNode.height/2);
@@ -174,16 +179,18 @@ public class BattleClassesTabSpellbook extends BattleClassesAbstractTab {
         	}
         	else if(spellbookAbilityNodes.contains(selectedNode)) {
         		if(isInsideActionbar(mouseX, mouseY)) {
-        			
+        			BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).addAbilityToActionbar(selectedNode.ability);
         			this.onAbilityNodeReleased();
         			return;
         		}
         	}
         }
+        this.onAbilityNodeReleased();
     }
     
     public BattleClassesGuiButtonAbilityNode selectedNode;
     public BattleClassesGuiButtonAbilityNode tempMovingNode;
+    public BattleClassesGuiButtonAbilityNode tempAddNode;
     /**
      * Called from BattleClassesGuiButtonAbilityNode
      * @param abilityNode
@@ -192,7 +199,11 @@ public class BattleClassesTabSpellbook extends BattleClassesAbstractTab {
     	this.selectedNode = abilityNode;
     	tempMovingNode = new BattleClassesGuiButtonAbilityNode(abilityNode, 9999);
     	tempMovingNode.setPosition(abilityNode.getPositionX(), abilityNode.getPositionY());
-    	
+    	if(spellbookAbilityNodes.contains(this.selectedNode) && !BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).isAbilityOnActionbar(this.selectedNode.ability)) {
+    		tempAddNode = new BattleClassesGuiButtonAbilityNode(9998);
+    		actionbarAbilityNodes.add(tempAddNode);
+    		this.buttonList.add(tempAddNode);
+    	}
     	this.buttonList.add(tempMovingNode);
     }
     
@@ -202,7 +213,10 @@ public class BattleClassesTabSpellbook extends BattleClassesAbstractTab {
     public void onAbilityNodeReleased() {
     	this.selectedNode = null;
     	this.buttonList.remove(tempMovingNode);
+    	this.buttonList.remove(tempAddNode);
+    	actionbarAbilityNodes.remove(tempAddNode);
     	tempMovingNode = null;
+    	tempAddNode = null;
     	this.initActionbarAbilityNodes();
     }
 

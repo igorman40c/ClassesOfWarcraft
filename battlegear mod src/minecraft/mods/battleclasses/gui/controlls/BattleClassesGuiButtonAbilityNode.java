@@ -24,13 +24,15 @@ public class BattleClassesGuiButtonAbilityNode extends BattleClassesGuiButton
 		this.setSize(16, 16);
 	}
 	
+	public boolean isAddButton = false;
+	
 	/**
 	 * Should only be used for creating temp draggable nodes
 	 * @param copyNode
 	 * @param newID
 	 */
-	public BattleClassesGuiButtonAbilityNode(BattleClassesGuiButtonAbilityNode copyNode, int newID) {
-		super(newID, BattleClassesTabSpellbook.resource);
+	public BattleClassesGuiButtonAbilityNode(BattleClassesGuiButtonAbilityNode copyNode, int id) {
+		super(id, BattleClassesTabSpellbook.resource);
 		this.ability = copyNode.ability;
 		this.showHoveringText = false;
 		this.setSize(16, 16);
@@ -39,18 +41,39 @@ public class BattleClassesGuiButtonAbilityNode extends BattleClassesGuiButton
 		this.yPosition = copyNode.yPosition;
 	}
 	
+	public BattleClassesGuiButtonAbilityNode(int id) {
+		super(id, BattleClassesTabSpellbook.resource);
+		this.showHoveringText = false;
+		this.setSize(16, 16);
+		this.isAddButton = true;
+		this.setOrigin(240, 240);
+	}
+	
 		
 	/**
      * Draws this button to the screen.
      */
     public void drawButton(Minecraft mc, int mouseX, int mouseY)
     {
-        if (this.visible && ability != null)
+    	if(this.visible && isAddButton) {
+    		GL11.glPushMatrix();
+    		GL11.glEnable(GL11.GL_BLEND);
+    		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+            GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+            GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+            
+            mc.getTextureManager().bindTexture(this.resource);
+            this.drawTexturedModalRect(this.xPosition, this.yPosition, this.origin_u, this.origin_v, this.width, this.height);
+            
+            GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+            GL11.glDisable(GL11.GL_BLEND);
+            GL11.glPopMatrix();
+    	}
+    	else if (this.visible && ability != null)
         {	
             FontRenderer fontrenderer = mc.fontRenderer;
             
             GL11.glPushMatrix();
-    		
             
             //InWindow
             this.field_146123_n = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
