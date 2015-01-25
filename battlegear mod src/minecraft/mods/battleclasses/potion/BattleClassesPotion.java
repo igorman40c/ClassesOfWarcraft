@@ -26,7 +26,7 @@ public class BattleClassesPotion extends Potion {
 	
 	@SideOnly(Side.CLIENT)
     public void renderInventoryEffect(int x, int y, PotionEffect effect, net.minecraft.client.Minecraft mc) { 
-		ResourceLocation potionIcon = BattleClassesGuiHelper.getAbilityIconResourceLocation(102);
+		ResourceLocation potionIcon = BattleClassesGuiHelper.getAbilityIconResourceLocation("mage.frostbolt");
 		//ResourceLocation potionIcon = BattleClassesGuiHelper.getResourceLocationOfTexture("textures/talents/icons/", "talent_icon_mage_2_1.png");
 		mc.getTextureManager().bindTexture(potionIcon);
 		//BattleClassesGuiHelper.drawTexturedRectFromCustomSource(x+7, y+8, 16, 16, 0);

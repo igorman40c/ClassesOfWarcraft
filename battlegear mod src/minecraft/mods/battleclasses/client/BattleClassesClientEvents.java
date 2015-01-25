@@ -63,8 +63,8 @@ public class BattleClassesClientEvents {
 		tabsButtonList.add(new GuiTabBarButtonTalentSelector(3, 30, 30));
 		tabsButtonList.add(new GuiTabBarButtonClassSelector(4, 40, 40));
 		
-		tabsButtonList.add(new GuiTabBarButtonConfig(5, 60, 60, false));
-		//tabsList.add(new GuiTabBarButtonHelp(4, 50, 50));
+		//tabsButtonList.add(new GuiTabBarButtonConfig(5, 60, 60, false));
+		//tabsButtonList.add(new GuiTabBarButtonHelp(6, 60, 60, false));
 	}
 	/*
 	@SubscribeEvent
@@ -176,7 +176,7 @@ public class BattleClassesClientEvents {
 					button.setPosition(guiLeft + 28 + 11 + (i - 5) *(BattleClassesGuiTabBarButton.BAR_BUTTON_GAP + BattleClassesGuiTabBarButton.BAR_BUTTON_SIZE_W_V),
 							guiTop + 163);
 				}
-				button.id = buttons.size()+100; //Due to GuiInventory and GuiContainerCreative button performed actions, without them having buttons...
+				button.id = buttons.size()+70; //Due to GuiInventory and GuiContainerCreative button performed actions, without them having buttons...
 				i++;
 				buttons.add(button);
 			}

@@ -10,6 +10,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.battleclasses.BattleClassesMod;
 import mods.battleclasses.BattleClassesUtils;
+import mods.battleclasses.ability.BattleClassesAbstractAbility;
 import mods.battleclasses.ability.BattleClassesAbstractAbilityActive;
 import mods.battleclasses.enumhelper.EnumBattleClassesPlayerClass;
 import mods.battlegear2.api.core.IBattlePlayer;
@@ -41,8 +42,8 @@ public class BattleClassesGuiHelper extends Gui {
 	
     public static final ResourceLocation resourceLocationHUD = new ResourceLocation("battleclasses", "textures/gui/InterfaceHUD.png");
     
-	public static ResourceLocation getAbilityIconResourceLocation(int abilityID) {
-		return getResourceLocationOfTexture("textures/spells/icons/","ability_" + abilityID + ".png");
+	public static ResourceLocation getAbilityIconResourceLocation(String abilityName) {
+		return getResourceLocationOfTexture("textures/spells/icons/", BattleClassesAbstractAbility.UNLOCALIZED_PREFIX + abilityName + ".icon" + ".png");
 	}
 	
 	public static ResourceLocation getResourceLocationOfTexture(String path, String fileName) {

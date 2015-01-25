@@ -24,12 +24,12 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 
 	public LinkedHashMap<Integer, BattleClassesAbstractAbilityActive> getClassAbilities() {
 		LinkedHashMap<Integer, BattleClassesAbstractAbilityActive> abilities = new LinkedHashMap<Integer, BattleClassesAbstractAbilityActive>();
-		abilities.put(100, new BattleClassesAbilityTest(100));
-		abilities.put(101, new BattleClassesAbilityTest(101));
-		abilities.put(102, new BattleClassesAbilityTest(110));
-		abilities.put(110, new BattleClassesAbilityTest(111));
-		abilities.put(111, new BattleClassesAbilityTest(120));
-		abilities.put(112, new BattleClassesAbilityTest(121));
+		abilities.put(100, new BattleClassesAbilityTest(100).setName("mage.arcanemissiles"));
+		abilities.put(101, new BattleClassesAbilityTest(101).setName("mage.blink"));
+		abilities.put(102, new BattleClassesAbilityTest(110).setName("mage.fireball"));
+		abilities.put(110, new BattleClassesAbilityTest(111).setName("mage.scorch"));
+		abilities.put(111, new BattleClassesAbilityTest(120).setName("mage.frostbolt"));
+		abilities.put(112, new BattleClassesAbilityTest(121).setName("mage.frostnova"));
 		abilities.put(BattleClassesAbilityShieldBlock.SHIELD_BLOCK_ABILITY_ID, new BattleClassesAbilityShieldBlock());
 		//abilities.put(ABILITY_ID_FROSTNOVA, new FrostNovaTestAbility());
 		return abilities;
@@ -42,7 +42,7 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 //		talentTree1.talentList.add(new BattleClassesTalentAbilityContainer(1100, 0, new BattleClassesPassiveAbilityAmplifier(1100, 0)));
 		talentTree1.talentList.add(new BattleClassesTalentAbilityAmplifier(1100, 0));
 		talentTree1.talentList.add(new BattleClassesTalentTest(1101, 1));
-		talentTree1.talentList.add(new BattleClassesTalentAbilityContainer(1102, 2, new PolimorphTestAbility()));
+		talentTree1.talentList.add(new BattleClassesTalentAbilityContainer(1102, 2, new PolymorphTestAbility()));
 		BattleClassesTalentTree talentTree2 = new BattleClassesTalentTree();
 		talentTree2.setName("Fire");
 		talentTree2.talentList.add(new BattleClassesTalentTest(1110, 0));
@@ -93,10 +93,11 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 		}
 	}
 	
-	public static final int ABILITY_ID_POLIMORPH = 102;
-	class PolimorphTestAbility extends BattleClassesAbilityTest {
-		public PolimorphTestAbility() {
-			super(ABILITY_ID_POLIMORPH);
+	public static final int ABILITY_ID_POLYMORPH = 102;
+	class PolymorphTestAbility extends BattleClassesAbilityTest {
+		public PolymorphTestAbility() {
+			super(ABILITY_ID_POLYMORPH);
+			this.setName("mage.polymorph");
 		}
 	}
 	
@@ -104,6 +105,7 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 	class DragonsBreathTestAbility extends BattleClassesAbilityTest {
 		public DragonsBreathTestAbility() {
 			super(ABILITY_ID_DRAGONSBREATH);
+			this.setName("mage.dragonsbreath");
 		}
 	}
 	
@@ -111,6 +113,7 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 	class IceBlockTestAbility extends BattleClassesAbilityTest {
 		public IceBlockTestAbility() {
 			super(ABILITY_ID_ICEBLOCK);
+			this.setName("mage.iceblock");
 		}
 	}
 	

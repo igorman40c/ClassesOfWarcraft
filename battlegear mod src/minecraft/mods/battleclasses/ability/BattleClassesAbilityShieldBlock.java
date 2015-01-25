@@ -22,7 +22,7 @@ public class BattleClassesAbilityShieldBlock extends BattleClassesAbstractAbilit
 
 	public BattleClassesAbilityShieldBlock() {
 		super(SHIELD_BLOCK_ABILITY_ID);
-		this.name = "Shield Block";
+		this.setName("universal.shieldblock");
 		this.ignoresGlobalCooldown = true;
 		this.castTime = 0;
 		this.targetRequirementType = EnumBattleClassesAbilityDirectTargetRequirement.NEEDLESS;

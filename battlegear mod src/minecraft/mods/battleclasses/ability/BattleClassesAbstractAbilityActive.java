@@ -43,7 +43,6 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 
 	public BattleClassesAbstractAbilityActive(int parAbilityID) {
 		super(parAbilityID);
-		abilityIconResourceLocation = BattleClassesGuiHelper.getAbilityIconResourceLocation(this.abilityID);
 	}
 	
 	protected IIcon abilityIcon;
@@ -389,6 +388,13 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
     public ResourceLocation getIconResourceLocation() {
     	return abilityIconResourceLocation;
     }
+    
+    @Override
+    public BattleClassesAbstractAbilityActive setName(String parName) {
+		super.setName(parName);
+		abilityIconResourceLocation = BattleClassesGuiHelper.getResourceLocationOfTexture("textures/spells/icons/", this.getUnlocalizedIconName() + ".png");
+		return this;
+	}
     
     @SideOnly(Side.CLIENT)
     public String getName() {

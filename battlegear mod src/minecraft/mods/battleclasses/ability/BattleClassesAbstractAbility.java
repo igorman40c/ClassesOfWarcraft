@@ -8,11 +8,30 @@ import mods.battleclasses.core.BattleClassesPlayerHooks;
 public abstract class BattleClassesAbstractAbility {
 
 	protected int abilityID;
-	
 	protected BattleClassesPlayerHooks playerHooks;
+	protected String name = "";
 	
 	public int getAbilityID() {
 		return abilityID;
+	}
+	
+	public BattleClassesAbstractAbility setName(String parName) {
+		this.name = parName;
+		return this;
+	}
+	
+	public static final String UNLOCALIZED_PREFIX = "ability.";
+	
+	public String getUnlocalizedName() {
+		return UNLOCALIZED_PREFIX + this.name + ".name";
+	}
+	
+	public String getUnlocalizedDescription() {
+		return UNLOCALIZED_PREFIX + this.name + ".description";
+	}
+	
+	public String getUnlocalizedIconName() {
+		return UNLOCALIZED_PREFIX + this.name + ".icon";
 	}
 	
 	public BattleClassesAbstractAbility(int parAbilityID) {

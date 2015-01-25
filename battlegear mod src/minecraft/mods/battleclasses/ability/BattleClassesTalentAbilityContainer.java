@@ -26,7 +26,7 @@ public class BattleClassesTalentAbilityContainer extends BattleClassesAbstractTa
 	
 	@SideOnly(Side.CLIENT)    
     public ResourceLocation getIconResourceLocation() {
-    	return BattleClassesGuiHelper.getAbilityIconResourceLocation(containedAbility.getAbilityID());
+    	return containedAbility.getIconResourceLocation();
     }
 	
 	@SideOnly(Side.CLIENT)

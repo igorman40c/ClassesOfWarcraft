@@ -18,6 +18,7 @@ import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 
 public class BattleClassesTabClassSelector extends BattleClassesAbstractTab  {
 	
@@ -44,7 +45,7 @@ public class BattleClassesTabClassSelector extends BattleClassesAbstractTab  {
     public void initGui ()
     {
         super.initGui();
-        this.displayTitle = "Class Selector";
+        this.displayTitle = StatCollector.translateToLocal("bctab.classselector.name");
         //Init Buttons
 		for (BattleClassesGuiButtonClassSelector button : BattleClassesTabClassSelector.classButtonList) {
 			this.buttonList.add(button);
@@ -111,7 +112,6 @@ public class BattleClassesTabClassSelector extends BattleClassesAbstractTab  {
 			return "Warrior";
 		default:
 			return "Unkown Class Description";
-    		
     	}
     }
 
