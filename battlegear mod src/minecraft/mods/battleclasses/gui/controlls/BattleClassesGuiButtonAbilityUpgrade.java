@@ -1,10 +1,17 @@
 package mods.battleclasses.gui.controlls;
 
+import mods.battleclasses.ability.BattleClassesAbstractAbilityActive;
+import mods.battleclasses.gui.tab.BattleClassesTabSpellbook;
+import net.minecraft.util.StatCollector;
+
 public class BattleClassesGuiButtonAbilityUpgrade extends BattleClassesGuiButton {
 
-	public BattleClassesGuiButtonAbilityUpgrade(int id, int x, int y,
-			int width, int height, String name) {
-		super(id, x, y, width, height, name);
+	public BattleClassesAbstractAbilityActive ability;
+	public BattleClassesGuiButtonAbilityUpgrade(int id, BattleClassesAbstractAbilityActive parAbility) {
+		super(id, 0, 0, 40, 14, StatCollector.translateToLocal("bctab.spellbook.upgrade"));
+		this.ability = parAbility;
+		this.setOrigin(36, 214);
+		this.resource = BattleClassesTabSpellbook.resource;
 	}
 
 }

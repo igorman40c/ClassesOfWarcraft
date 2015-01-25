@@ -3,6 +3,7 @@ package mods.battleclasses.gui.tab;
 import java.util.ArrayList;
 
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
 
 import mods.battleclasses.BattleClassesMod;
 import mods.battleclasses.BattleClassesUtils;
@@ -15,6 +16,7 @@ import mods.battleclasses.core.BattleClassesTalentTree;
 import mods.battleclasses.gui.BattleClassesGuiHandler;
 import mods.battleclasses.gui.BattleClassesGuiHelper;
 import mods.battleclasses.gui.controlls.BattleClassesGuiButtonAbilityNode;
+import mods.battleclasses.gui.controlls.BattleClassesGuiButtonAbilityUpgrade;
 import mods.battleclasses.gui.controlls.BattleClassesGuiButtonTalentNode;
 import mods.battleclasses.gui.controlls.BattleClassesGuiButtonTalentReset;
 import mods.battleclasses.gui.controlls.BattleClassesGuiButtonTalentTree;
@@ -36,6 +38,7 @@ public class BattleClassesTabSpellbook extends BattleClassesAbstractTab {
 	
 	public static ArrayList<BattleClassesGuiButtonAbilityNode> actionbarAbilityNodes = new ArrayList<BattleClassesGuiButtonAbilityNode>();
 	public static ArrayList<BattleClassesGuiButtonAbilityNode> spellbookAbilityNodes = new ArrayList<BattleClassesGuiButtonAbilityNode>();
+	public static ArrayList<BattleClassesGuiButtonAbilityUpgrade> upgradeButtons = new ArrayList<BattleClassesGuiButtonAbilityUpgrade>();
 	
     @Override
     public void initGui()
@@ -69,12 +72,23 @@ public class BattleClassesTabSpellbook extends BattleClassesAbstractTab {
     			this.buttonList.remove(spellbookAbilityNode);
     		}
     	}
+    	for(BattleClassesGuiButtonAbilityUpgrade upgradeButton : upgradeButtons) {
+    		if(this.buttonList.contains(upgradeButton)) {
+    			this.buttonList.remove(upgradeButton);
+    		}
+    	}
     	spellbookAbilityNodes.clear();
+    	upgradeButtons.clear();
     	if(spellbook != null) {
+    		int i = 0;
     		for(BattleClassesAbstractAbilityActive activeAbility : spellbook.getActiveAbilitiesInArray()) {
     			BattleClassesGuiButtonAbilityNode spellbookAbilityNode = new BattleClassesGuiButtonAbilityNode(activeAbility);
+    			BattleClassesGuiButtonAbilityUpgrade upgradeButton = new BattleClassesGuiButtonAbilityUpgrade(9000+i, activeAbility);
     			spellbookAbilityNodes.add(spellbookAbilityNode);
+    			upgradeButtons.add(upgradeButton);
     			this.buttonList.add(spellbookAbilityNode);
+    			this.buttonList.add(upgradeButton);
+    			++i;
         	}
     	}
     }
@@ -106,7 +120,12 @@ public class BattleClassesTabSpellbook extends BattleClassesAbstractTab {
         
         //Refresh spellbookAbilityNode positions
         for(int i = 0; i < spellbookAbilityNodes.size(); ++i) {
-        	spellbookAbilityNodes.get(i).setPosition(this.guiLeft + 22, 5 + this.guiTop+i*18);
+        	int posX = this.guiLeft + ((i<4) ? 21 : 96);
+        	int posY = this.guiTop + 23 + ((i<4) ? i*(12+18) : (i-4)*(12+18)) ;
+        	this.drawAbilityFrame(posX, posY);
+        	this.drawAbilityRank(posX + 19, posY, spellbookAbilityNodes.get(i).ability);
+        	spellbookAbilityNodes.get(i).setPosition(posX+1, posY+1);
+        	upgradeButtons.get(i).setPosition(posX+19, posY+10);
         }
         
         if(this.tempMovingNode != null) {
@@ -118,6 +137,25 @@ public class BattleClassesTabSpellbook extends BattleClassesAbstractTab {
     	//send packet to open container on server
         //Battlegear.packetHandler.sendPacketToServer(new BattlegearGUIPacket(BattleClassesGUIHandler.talentsID).generatePacket());
     	BattleClassesMod.packetHandler.sendPacketToServer(new BattleClassesPacketGuiTabSwitch(BattleClassesGuiHandler.spellbookID).generatePacket());
+    }
+    
+    public void drawAbilityFrame(int x, int y) {
+    	GL11.glPushMatrix();
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+        
+        mc.getTextureManager().bindTexture(this.resource);
+        this.drawTexturedModalRect(x, y, 199, 0, 18, 18);
+        
+        GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+        GL11.glDisable(GL11.GL_BLEND);
+        GL11.glPopMatrix();
+    }
+    
+    public void drawAbilityRank(int x, int y, BattleClassesAbstractAbilityActive activeAbility) {
+    	this.drawString(Minecraft.getMinecraft().fontRenderer, "Rank 1", x, y, 0xFFFFFF);
     }
     
     public void drawActionbar() {
@@ -143,7 +181,7 @@ public class BattleClassesTabSpellbook extends BattleClassesAbstractTab {
     }
     
     public int getActionbarPosY() {
-    	return this.guiTop - BattleClassesGuiHelper.ABILITY_ACTIONBAR_HEIGHT;
+    	return this.guiTop - (BattleClassesGuiHelper.ABILITY_ACTIONBAR_HEIGHT + BattleClassesTabOverlayAttributes.GAP_BETWEEN_WINDOWS);
     }
     
     public boolean isInsideActionbar(int x, int y) {

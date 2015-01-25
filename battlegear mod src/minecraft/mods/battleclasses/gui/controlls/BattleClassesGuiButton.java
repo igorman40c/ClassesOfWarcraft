@@ -44,7 +44,6 @@ public class BattleClassesGuiButton extends GuiButton {
 	
 	public BattleClassesGuiButton(int id, int x, int y, int width, int height, String name) {
 		super(id, x, y, width, height, name);
-		this.displayString = "";
 	}
 	
 	public BattleClassesGuiButton(int id, ResourceLocation resource) {

@@ -120,28 +120,39 @@ public class BattleClassesGuiHelper extends Gui {
 	    GL11.glDisable(GL11.GL_LIGHTING);
 	    GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 	    
-        this.mc.renderEngine.bindTexture(resourceLocationHUD);
-        int actionbarPosX = centerX - actionbarWidth/2;
+	    this.mc.renderEngine.bindTexture(resourceLocationHUD);
+	    int actionbarPosX = centerX - actionbarWidth/2;
         int actionbarPosY = posY;
         int currentX = actionbarPosX;
-        for(int i = 0; i < length; ++i) {
-        	int drawNodeWith = ABILITY_ACTIONBAR_NODE_WIDTH;
-        	int drawNodeHeight = ABILITY_ACTIONBAR_HEIGHT;
-        	int u = 21;
-        	int v = 0;
-        	if(i == 0) {
-        		++drawNodeWith;
-        		u = 0;
-            	v = 0;
-        	}
-        	if(i == (length - 1)) {
-        		++drawNodeWith;
-        		u += 20;
-            	v = 0;
-        	}
-            this.drawTexturedModalRect(currentX, actionbarPosY, u, v, drawNodeWith, drawNodeHeight);
-            currentX += drawNodeWith;
-        }
+	    if(length == 1) {
+	    	int drawNodeWith = ABILITY_ACTIONBAR_NODE_WIDTH+2;
+	    	int drawNodeHeight = ABILITY_ACTIONBAR_HEIGHT;
+	    	this.drawTexturedModalRect(currentX, actionbarPosY, 0, 0, drawNodeWith/2, drawNodeHeight);
+            currentX += drawNodeWith/2;
+            this.drawTexturedModalRect(currentX, actionbarPosY, 40 + drawNodeWith/2, 0, drawNodeWith/2, drawNodeHeight);
+	    }
+	    else {
+	        for(int i = 0; i < length; ++i) {
+	        	int drawNodeWith = ABILITY_ACTIONBAR_NODE_WIDTH;
+		    	int drawNodeHeight = ABILITY_ACTIONBAR_HEIGHT;
+	        	int u = 21;
+	        	int v = 0;
+	        	if(i == 0) {
+	        		++drawNodeWith;
+	        		u = 0;
+	            	v = 0;
+	        	}
+	        	if(i == (length - 1)) {
+	        		++drawNodeWith;
+	        		u += 20;
+	            	v = 0;
+	        	}
+	            this.drawTexturedModalRect(currentX, actionbarPosY, u, v, drawNodeWith, drawNodeHeight);
+	            currentX += drawNodeWith;
+	        }
+	    }
+        
+        
         GL11.glDisable(GL11.GL_BLEND);
         GL11.glPopMatrix();
 	}
