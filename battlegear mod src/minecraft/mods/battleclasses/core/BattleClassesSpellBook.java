@@ -109,6 +109,7 @@ public class BattleClassesSpellBook {
 			if(!this.activeAbilities.containsValue(activeAbility)) {
 				activeAbility.setPlayerHooks(this.playerHooks);
 				this.activeAbilities.put(activeAbility.getAbilityID(), activeAbility);
+				this.actionbarAbilities.add(activeAbility);
 				activeAbility.onLearn();
 			}
 		}
@@ -126,6 +127,9 @@ public class BattleClassesSpellBook {
 			BattleClassesAbstractAbilityActive activeAbility = (BattleClassesAbstractAbilityActive) ability;
 			if(hasAbility(activeAbility)) {
 				BattleClassesUtils.Log("Unlearning ability (ID: " + activeAbility.getAbilityID() + ")", LogType.ABILITY);
+				if(this.actionbarAbilities.contains(activeAbility)) {
+					this.actionbarAbilities.remove(activeAbility);
+				}
 				this.activeAbilities.remove(activeAbility.getAbilityID());
 				activeAbility.onUnLearn();
 			}
@@ -166,6 +170,7 @@ public class BattleClassesSpellBook {
 			this.unLearnAbility(ability);
 		}
 		this.activeAbilities.clear();
+		this.actionbarAbilities.clear();
 	}
 	
 	public void initWithAbilities(LinkedHashMap<Integer, BattleClassesAbstractAbilityActive> parAbilities) {
@@ -242,6 +247,8 @@ public class BattleClassesSpellBook {
 		}
 	}
 	
+	
+	public ArrayList<BattleClassesAbstractAbilityActive> actionbarAbilities = new ArrayList<BattleClassesAbstractAbilityActive>();
     /**
      * Helper method to collect abilities should be drawn on the actionbar
      * @return
@@ -249,7 +256,7 @@ public class BattleClassesSpellBook {
 	@SideOnly(Side.CLIENT)
     public ArrayList<BattleClassesAbstractAbilityActive> getActionbarAbilities() {
 		//Add checkbox based selector logic later
-    	return this.getActiveAbilitiesInArray();
+    	return this.actionbarAbilities;
     }
 	
 	public EnumAction getCurrentEnumAction() {

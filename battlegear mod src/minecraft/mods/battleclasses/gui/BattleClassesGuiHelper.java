@@ -53,6 +53,7 @@ public class BattleClassesGuiHelper extends Gui {
 		return new ResourceLocation("battleclasses", "textures/sharedicons/cooldown/cooldown_" + cooldownFrameIndex + ".png");
 	}
 	
+	/*
 	public static void drawCooldown(int posX, int posY, float f) {
     	if(f > 0) {
     		int frameIndex = BattleClassesGuiHelper.cooldownIcons.length-1;
@@ -63,12 +64,38 @@ public class BattleClassesGuiHelper extends Gui {
 			GL11.glPushMatrix();
 			GL11.glEnable(GL11.GL_BLEND);
 		    GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		    GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+		    //GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 		    GL11.glDisable(GL11.GL_LIGHTING);
 		    GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.5F);
 		    
 		    mc.getTextureManager().bindTexture(getCooldownIconResourceLocation(frameIndex));
 		    drawTexturedRectFromCustomSource(posX, posY, COOLDOWN_ICON_SIZE, COOLDOWN_ICON_SIZE, 0);
+    		
+    		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);    		    
+	        //GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+	        GL11.glDisable(GL11.GL_BLEND);
+	        GL11.glPopMatrix();
+      	}
+	}
+	*/
+	
+    public void drawCooldown(int posX, int posY, float f) {
+    	if(f > 0) {
+    		int frameIndex = BattleClassesGuiHelper.cooldownIcons.length-1;
+    		if(f < 1) {
+    			frameIndex = (int) (((float) BattleClassesGuiHelper.cooldownIcons.length)*f);
+    		}
+    		IIcon cooldownIcon = BattleClassesGuiHelper.cooldownIcons[frameIndex];
+    	    
+			GL11.glPushMatrix();
+			GL11.glEnable(GL11.GL_BLEND);
+		    GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		    GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+		    GL11.glDisable(GL11.GL_LIGHTING);
+		    GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.5F);
+		    
+		    mc.getTextureManager().bindTexture(TextureMap.locationItemsTexture);
+    		this.drawTexturedModelRectFromIcon(posX, posY, cooldownIcon, cooldownIcon.getIconWidth(), cooldownIcon.getIconHeight());
     		
     		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);    		    
 	        GL11.glDisable(GL12.GL_RESCALE_NORMAL);

@@ -79,7 +79,6 @@ public class BattleClassesTabSpellbook extends BattleClassesAbstractTab {
         for(int i = 0; i < actionbarAbilities.size(); ++i) {
         	BattleClassesGuiHelper.INSTANCE.drawAbilityIcon(actionbarPosX+3 + i*20, actionbarPosY+3, actionbarAbilities.get(i));
         }
-        BattleClassesGuiHelper.INSTANCE.drawAbilitySelector(actionbarPosX, actionbarPosY);
 	}
     
     public static void open(EntityPlayer player){
