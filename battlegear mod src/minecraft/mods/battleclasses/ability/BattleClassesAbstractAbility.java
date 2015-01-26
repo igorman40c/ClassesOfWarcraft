@@ -22,17 +22,20 @@ public abstract class BattleClassesAbstractAbility {
 	}
 	
 	public static final String UNLOCALIZED_PREFIX = "ability.";
+	public String getUnlocalizedPrefix() {
+		return "ability.";
+	}
 	
 	public String getUnlocalizedName() {
-		return UNLOCALIZED_PREFIX + this.name + ".name";
+		return getUnlocalizedPrefix() + this.name + ".name";
 	}
 	
 	public String getUnlocalizedDescription() {
-		return UNLOCALIZED_PREFIX + this.name + ".description";
+		return getUnlocalizedPrefix() + this.name + ".description";
 	}
 	
 	public String getUnlocalizedIconName() {
-		return UNLOCALIZED_PREFIX + this.name + ".icon";
+		return getUnlocalizedPrefix() + this.name + ".icon";
 	}
 	
 	public String getTranslatedName() {

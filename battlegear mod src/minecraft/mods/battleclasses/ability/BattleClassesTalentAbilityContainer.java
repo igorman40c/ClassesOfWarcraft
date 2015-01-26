@@ -2,6 +2,7 @@ package mods.battleclasses.ability;
 
 import mods.battleclasses.gui.BattleClassesGuiHelper;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -10,6 +11,7 @@ public class BattleClassesTalentAbilityContainer extends BattleClassesAbstractTa
 	public BattleClassesTalentAbilityContainer(int parAbilityID, int parTalentLevel, BattleClassesAbstractAbilityActive parAbility) {
 		super(parAbilityID, parTalentLevel);
 		containedAbility = parAbility;
+		this.setName("universal.abilitycontainer");
 	}
 	
 	BattleClassesAbstractAbilityActive containedAbility;
@@ -32,6 +34,16 @@ public class BattleClassesTalentAbilityContainer extends BattleClassesAbstractTa
 	@SideOnly(Side.CLIENT)
 	public String getAbilityIconName() {
 		return containedAbility.getAbilityIconName();
+	}
+	
+	@Override
+	public String getTranslatedName() {
+		return super.getTranslatedName() + ": " + this.containedAbility.getTranslatedName();
+	}
+	
+	@Override
+	public String getTranslatedDescription() {
+		return this.containedAbility.getTranslatedDescription();
 	}
 
 }

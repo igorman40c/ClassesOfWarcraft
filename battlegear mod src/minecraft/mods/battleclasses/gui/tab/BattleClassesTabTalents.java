@@ -127,6 +127,9 @@ public class BattleClassesTabTalents extends BattleClassesAbstractTab {
     	for(BattleClassesGuiButtonTalentNode talentNode : treeList.get(treeIndex)) {
     		
     		talentNode.setPosition(x + talentNodeOffsetX, y + talentNodeOffsetY + i*talentNodeDistanceH);
+    		if(i>0) {
+    			this.drawArrowNode(talentNode.getPositionX(),talentNode.getPositionY()-18,talentNode.talentAbility.isLitOnUI());
+    		}
     		
     		++i;
     	}
@@ -135,6 +138,23 @@ public class BattleClassesTabTalents extends BattleClassesAbstractTab {
     	this.mc.renderEngine.bindTexture(resource);
     	this.drawTexturedModalRect(x, y, 176, 0, TALENT_TREE_VIEW_W, TALENT_TREE_VIEW_H);
     	//DRAW ARROWS
+    }
+    
+    public void drawArrowNode(int x, int y, boolean lit) {
+    	int u = (lit) ? 16 : 0;
+    	int v = 166;
+    	GL11.glPushMatrix();
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+        
+        mc.getTextureManager().bindTexture(this.resource);
+        this.drawTexturedModalRect(x, y, u, v, 16, 16);
+        
+        GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+        GL11.glDisable(GL11.GL_BLEND);
+        GL11.glPopMatrix();
     }
 
     /**

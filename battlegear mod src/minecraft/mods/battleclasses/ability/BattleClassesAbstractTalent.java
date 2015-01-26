@@ -15,6 +15,11 @@ public class BattleClassesAbstractTalent extends BattleClassesAbstractAbilityPas
 		talentLevel = parTalentLevel;
 	}
 	
+	@Override
+	public String getUnlocalizedPrefix() {
+		return "talent.";
+	}
+	
 	protected BattleClassesTalentTree parentTree;
 	
 	int talentLevel = 0;

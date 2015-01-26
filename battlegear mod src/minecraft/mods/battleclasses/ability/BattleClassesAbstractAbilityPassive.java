@@ -9,5 +9,5 @@ public class BattleClassesAbstractAbilityPassive extends BattleClassesAbstractAb
 	public BattleClassesAbstractAbilityPassive(int parAbilityID) {
 		super(parAbilityID);
 	}
-	
+		
 }

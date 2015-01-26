@@ -1,7 +1,10 @@
 package mods.battleclasses.gui.controlls;
 
+import java.util.List;
+
 import mods.battleclasses.BattleClassesMod;
 import mods.battleclasses.ability.BattleClassesAbstractTalent;
+import mods.battleclasses.gui.BattleClassesGuiHelper;
 import mods.battleclasses.packet.BattleClassesPacketPlayerClassSnyc;
 import mods.battleclasses.packet.BattleClassesPacketTalentNodeChosen;
 import mods.battlegear2.Battlegear;
@@ -21,12 +24,13 @@ public class BattleClassesGuiButtonTalentNode extends BattleClassesGuiButton {
 	public BattleClassesGuiButtonTalentNode(int id, BattleClassesAbstractTalent talentAbility) {
 		super(id, 0, 0, 20, 20, "talentNode");
 		this.talentAbility = talentAbility;
+		this.showHoveringText = true;
 	}
 
 	/**
      * Draws this button to the screen.
      */
-    public void drawButton(Minecraft mc, int p_146112_2_, int p_146112_3_)
+    public void drawButton(Minecraft mc, int currentMousePosX, int currentMousePosY)
     {
         if (this.visible && talentAbility != null)
         {	
@@ -36,7 +40,7 @@ public class BattleClassesGuiButtonTalentNode extends BattleClassesGuiButton {
     		
             
             //InWindow
-            this.field_146123_n = p_146112_2_ >= this.xPosition && p_146112_3_ >= this.yPosition && p_146112_2_ < this.xPosition + this.width && p_146112_3_ < this.yPosition + this.height;
+            this.field_146123_n = currentMousePosX >= this.xPosition && currentMousePosY >= this.yPosition && currentMousePosX < this.xPosition + this.width && currentMousePosY < this.yPosition + this.height;
             int k = this.getHoverState(this.field_146123_n);
             
             //Draw talent icon (alpha by availability)
@@ -66,14 +70,10 @@ public class BattleClassesGuiButtonTalentNode extends BattleClassesGuiButton {
                 this.drawGradientRect(j1, k1, j1 + 16, k1 + 16, -2130706433, -2130706433);
                 GL11.glColorMask(true, true, true, true);
                 GL11.glPopMatrix();
+                
+                this.renderHoveringText(currentMousePosX, currentMousePosY);
             }
             
-            //Draw hover-over Tooltip
-            /*
-            if( this.field_146123_n && this.displayTooltip) {
-            	this.drawHoveringText(this.getDescriptionList(), p_146112_2_, p_146112_3_, fontrenderer);
-            }
-            */
     		GL11.glPopMatrix();
 
         }
@@ -88,5 +88,14 @@ public class BattleClassesGuiButtonTalentNode extends BattleClassesGuiButton {
 			BattleClassesMod.packetHandler.sendPacketToServer(p);
 		}
 		return press;
+	}
+    
+    @Override
+    public List<String> getHoveringTextStringList() {
+		List<String> hoveringTextList = BattleClassesGuiHelper.createHoveringText();
+    	BattleClassesGuiHelper.addTitle(hoveringTextList, this.talentAbility.getTranslatedName());
+    	BattleClassesGuiHelper.addParagraph(hoveringTextList, this.talentAbility.getTranslatedDescription());
+    	hoveringTextList = BattleClassesGuiHelper.getLimitedWidthHoveringText(hoveringTextList, 30);
+    	return hoveringTextList;
 	}
 }
