@@ -297,9 +297,16 @@ public class BattleClassesGuiHelper extends Gui {
 					if(limitedTextLine.length()>0) {
 						limitedHoveringText.add(new String(formatString) + limitedTextLine);
 					}
-					textLine = new String(formatString) + remainingTextLine;
+					if(remainingTextLine.length() > 0) {
+						textLine = new String(formatString) + remainingTextLine;
+					}
+					else {
+						textLine = remainingTextLine;
+					}
 				}
-				limitedHoveringText.add(new String(formatString) + textLine);
+				if(textLine.length() > 0) {
+					limitedHoveringText.add(new String(formatString) + textLine);
+				}
 			}
 			else {
 				limitedHoveringText.add(formatString + textLine);

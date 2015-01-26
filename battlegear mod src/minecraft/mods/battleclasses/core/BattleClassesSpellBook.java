@@ -284,6 +284,9 @@ public class BattleClassesSpellBook {
 	public void removeAbilityFromActionbar(BattleClassesAbstractAbilityActive ability) {
 		if(this.actionbarAbilities.contains(ability)) {
 			this.actionbarAbilities.remove(ability);
+			if(this.chosenAbilityID >= this.actionbarAbilities.size() && this.actionbarAbilities.size() > 0) {
+				this.setChosenAbilityIndex(0);
+			}
 		}
 	}
 	

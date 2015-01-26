@@ -14,4 +14,7 @@ public class BattleClassesGuiButtonAbilityUpgrade extends BattleClassesGuiButton
 		this.resource = BattleClassesTabSpellbook.resource;
 	}
 
+	public boolean shouldBeDisabled() {
+		return true;
+	}
 }
