@@ -197,6 +197,9 @@ public class BattleClassesSpellBook {
 		if(i >= 0 && i < this.getActionbarAbilities().size()) {
 			this.chosenAbilityIndex = i;
 		}
+		else if(this.getActionbarAbilities().size() > 0 && i >= this.getActionbarAbilities().size()) {
+			this.chosenAbilityIndex = this.getActionbarAbilities().size()-1;
+		}
 		updateChosenAbilityID();
 	}
 	

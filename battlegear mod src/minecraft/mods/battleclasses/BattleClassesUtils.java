@@ -15,6 +15,7 @@ import mods.battleclasses.core.BattleClassesSpellBook;
 import mods.battleclasses.core.BattleClassesTalentMatrix;
 import mods.battleclasses.core.ICooldownOwner;
 import mods.battleclasses.enumhelper.EnumBattleClassesPlayerClass;
+import mods.battlegear2.api.core.IBattlePlayer;
 import mods.battlegear2.api.core.InventoryPlayerBattle;
 import mods.battlegear2.api.shield.IShield;
 import net.minecraft.client.Minecraft;
@@ -67,6 +68,10 @@ public static Logger battleClassesLogger = LogManager.getLogger("Battle Classes"
 	public static void setEntityPlayerItemInUseInSeconds(EntityPlayer entityPlayer, ItemStack itemStack, float time) {
 		int countDownTickStart = (int) (72000 + time*20);
 		entityPlayer.setItemInUse(itemStack, countDownTickStart);
+	}
+	
+	public static boolean isPlayerInBattlemode(EntityPlayer entityplayer) {
+		return entityplayer instanceof IBattlePlayer && ((IBattlePlayer)entityplayer).isBattlemode();
 	}
 	
 	public static InventoryPlayerBattle getBattleInventory(EntityPlayer entityplayer) throws NullPointerException {

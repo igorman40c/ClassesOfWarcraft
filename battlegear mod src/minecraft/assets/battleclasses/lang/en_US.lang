@@ -1,5 +1,7 @@
 bcpotion.testing=Polymorhped
 
+bcgui.keycategories.actionbar=Ability action bar
+
 bctab.inventory.name=Inventory
 bctab.equipment.name=Battle Equipment
 bctab.spellbook.name=Spellbook
@@ -55,4 +57,5 @@ bcattribute.armor.description=Reduces physical damage you recieve.
 talent.universal.abilitycontainer.name=Teaches new ability
 ability.mage.iceblock.name=Ice Block
 ability.mage.iceblock.description=You become encased in a block of ice, protecting you from all physical attacks and spells for 10 sec, but during that time you cannot attack, move or cast spells.
+
 
