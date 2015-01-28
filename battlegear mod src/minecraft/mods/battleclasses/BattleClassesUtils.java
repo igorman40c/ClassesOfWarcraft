@@ -15,6 +15,7 @@ import mods.battleclasses.core.BattleClassesSpellBook;
 import mods.battleclasses.core.BattleClassesTalentMatrix;
 import mods.battleclasses.core.ICooldownOwner;
 import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
+import mods.battlegear2.api.core.BattlegearUtils;
 import mods.battlegear2.api.core.IBattlePlayer;
 import mods.battlegear2.api.core.InventoryPlayerBattle;
 import mods.battlegear2.api.shield.IShield;
@@ -206,4 +207,9 @@ public static Logger battleClassesLogger = LogManager.getLogger("Battle Classes"
 	public static ItemStack getOffhandItemStack(EntityPlayer entityPlayer) {
 		return BattleClassesUtils.getBattleInventory(entityPlayer).getStackInSlot(0 + InventoryPlayerBattle.OFFSET+(InventoryPlayerBattle.WEAPON_SETS));
 	}
+	
+	public static ItemStack getMainhandItemStack(EntityPlayer entityPlayer) {
+		return BattleClassesUtils.getBattleInventory(entityPlayer).getStackInSlot(0 + InventoryPlayerBattle.OFFSET);
+	}
+	
 }

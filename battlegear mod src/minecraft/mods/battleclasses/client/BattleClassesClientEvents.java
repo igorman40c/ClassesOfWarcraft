@@ -12,11 +12,14 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerOpenContainerEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.network.internal.FMLProxyPacket;
@@ -25,7 +28,9 @@ import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
 import mods.battleclasses.ability.BattleClassesAbilityShieldBlock;
 import mods.battleclasses.ability.BattleClassesAbstractAbilityActive;
+import mods.battleclasses.core.BattleClassesAttributes;
 import mods.battleclasses.core.BattleClassesPlayerClass;
+import mods.battleclasses.enums.EnumBattleClassesAttributeType;
 import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
 import mods.battleclasses.gui.BattleClassesGuiHelper;
 import mods.battleclasses.gui.BattleClassesGuiHUDOverlay;
@@ -40,14 +45,20 @@ import mods.battleclasses.gui.controlls.GuiTabBarButtonTalentSelector;
 import mods.battleclasses.gui.controlls.GuiTabBarButtonVanillaInventory;
 import mods.battleclasses.gui.tab.BattleClassesTabInventory;
 import mods.battleclasses.gui.tab.BattleClassesTabClassSelector;
+import mods.battleclasses.items.IAttributeProvider;
 import mods.battleclasses.packet.BattleClassesPacketPlayerDataSync;
 import mods.battlegear2.api.RenderItemBarEvent;
 import mods.battlegear2.api.RenderItemBarEvent.ShieldBar;
+import mods.battlegear2.api.weapons.IBackStabbable;
+import mods.battlegear2.api.weapons.IExtendedReachWeapon;
+import mods.battlegear2.api.weapons.IHitTimeModifier;
+import mods.battlegear2.api.weapons.IPenetrateWeapon;
 import mods.battlegear2.client.BattlegearClientEvents;
 import mods.battlegear2.client.gui.BattlegearInGameGUI;
 import mods.battlegear2.client.gui.controls.GuiBGInventoryButton;
 import mods.battlegear2.client.gui.controls.GuiPlaceableButton;
 import mods.battlegear2.client.gui.controls.GuiSigilButton;
+import mods.battlegear2.items.ItemWeapon;
 import mods.battlegear2.utils.BattlegearConfig;
 
 public class BattleClassesClientEvents {
@@ -239,6 +250,25 @@ public class BattleClassesClientEvents {
 			*/
     	}
 	}
+	
+    @SubscribeEvent
+    public void onItemTooltip(ItemTooltipEvent event){
+        if(event.itemStack.getItem() instanceof IAttributeProvider){
+        	/*
+            for(String txt:event.toolTip){
+                if(txt.startsWith(EnumChatFormatting.BLUE.toString())){
+                    if(txt.contains(StatCollector.translateToLocal("attribute.name."+ ItemWeapon.armourPenetrate.getAttributeUnlocalizedName())) || txt.contains(StatCollector.translateToLocal("attribute.name."+ ItemWeapon.attackSpeed.getAttributeUnlocalizedName())) || txt.contains(StatCollector.translateToLocal("attribute.name."+ ItemWeapon.extendedReach.getAttributeUnlocalizedName())))
+                        event.toolTip.set(event.toolTip.indexOf(txt), EnumChatFormatting.DARK_GREEN + EnumChatFormatting.getTextWithoutFormattingCodes(txt));
+                }
+            }
+            */
+        	BattleClassesAttributes attributes = ((IAttributeProvider)event.itemStack.getItem()).getAttributes();
+        	for(EnumBattleClassesAttributeType activeAttributeType : attributes.getActiveTypes()) {
+        		event.toolTip.add(EnumChatFormatting.BLUE + attributes.getDisplayStringByType(activeAttributeType));
+        	}
+        	
+        }
+    }
 	
 	@SubscribeEvent
 	public void preStitch(TextureStitchEvent.Pre event) {

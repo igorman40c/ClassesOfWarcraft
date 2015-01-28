@@ -1,5 +1,9 @@
 package mods.battleclasses.core;
 
+import java.util.ArrayList;
+import java.util.EnumSet;
+
+import net.minecraft.util.StatCollector;
 import mods.battleclasses.enums.EnumBattleClassesAttributeType;
 
 public class BattleClassesAttributes {
@@ -77,7 +81,17 @@ public class BattleClassesAttributes {
 		return this;
 	}
 	
-	public float getByType(EnumBattleClassesAttributeType attributeType) {
+	public ArrayList<EnumBattleClassesAttributeType> getActiveTypes() {
+		ArrayList<EnumBattleClassesAttributeType> activeTypes = new ArrayList<EnumBattleClassesAttributeType>();
+		for(EnumBattleClassesAttributeType type : EnumBattleClassesAttributeType.values()) {
+			if(this.getValueByType(type) != 0) {
+				activeTypes.add(type);
+			}
+		}
+		return activeTypes;
+	}
+	
+	public float getValueByType(EnumBattleClassesAttributeType attributeType) {
 		switch (attributeType) {
 		case AGILITY:{
 			return this.agility;
@@ -121,7 +135,7 @@ public class BattleClassesAttributes {
 		return 0;
 	}
 	
-	public void setByType(EnumBattleClassesAttributeType attributeType, float value) {
+	public void setValueByType(EnumBattleClassesAttributeType attributeType, float value) {
 		switch(attributeType) {
 		case AGILITY: {
 			this.agility = value;
@@ -175,5 +189,20 @@ public class BattleClassesAttributes {
 			break;
 		
 		}
+	}
+	
+	//Helper
+	public String getDisplayStringByType(EnumBattleClassesAttributeType attributeType) {
+		float value = this.getValueByType(attributeType);
+		String valueString = "+" + fmt(value);
+		return valueString + " " + StatCollector.translateToLocal(attributeType.getUnlocalizedName());
+	}
+	
+	public static String fmt(double d)
+	{
+	    if(d == (long) d)
+	        return String.format("%d",(long)d);
+	    else
+	        return String.format("%s",d);
 	}
 }

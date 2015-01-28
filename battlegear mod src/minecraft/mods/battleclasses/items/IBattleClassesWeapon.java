@@ -10,5 +10,4 @@ import mods.battlegear2.api.IUsableItem;
 public interface IBattleClassesWeapon extends IBattleClassesHandHeld, IUsableItem {
 	public float getBaseWeaponDamage();
 	public float getBonusReach();
-    public EnumSet<EnumBattleClassesPlayerClass> getClassAccessSet();
 }

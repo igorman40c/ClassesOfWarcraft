@@ -114,7 +114,7 @@ public class BattleClassesGuiAttributeDisplayNode extends BattleClassesGuiButton
 			displayedValue = ForgeHooks.getTotalArmorValue(mc.thePlayer);
 		}
 		else {
-			displayedValue = BattleClassesUtils.getPlayerHooks(mc.thePlayer).getDisplayedAttributes().getByType(this.displayedAttributeType);
+			displayedValue = BattleClassesUtils.getPlayerHooks(mc.thePlayer).getDisplayedAttributes().getValueByType(this.displayedAttributeType);
 		}
 		String valueString;
 		if(this.displayedAttributeType.isDisplayedInPercentage()) {

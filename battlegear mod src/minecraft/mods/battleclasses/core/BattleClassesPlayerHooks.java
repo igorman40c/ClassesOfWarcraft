@@ -14,6 +14,7 @@ import mods.battleclasses.core.classes.BattleClassesPlayerClassMage;
 import mods.battleclasses.enums.EnumBattleClassesAmplifierApplyType;
 import mods.battleclasses.enums.EnumBattleClassesCooldownType;
 import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
+import mods.battleclasses.items.IAttributeProvider;
 import mods.battleclasses.packet.BattleClassesPacketPlayerClassSnyc;
 import mods.battlegear2.Battlegear;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -22,6 +23,7 @@ import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
@@ -40,7 +42,7 @@ public class BattleClassesPlayerHooks implements ICooldownMapHolder {
 		
 		playerClass = new BattleClassesPlayerClass(this, EnumBattleClassesPlayerClass.NONE);
 		weaponHitHandler = new BattleClassesWeaponHitHandler(this);
-		this.refreshBaseAttributes();
+		//this.refreshBaseAttributes();
 	}
 	
 	public void switchToPlayerClass(EnumBattleClassesPlayerClass parPlayerClass) {
@@ -103,18 +105,23 @@ public class BattleClassesPlayerHooks implements ICooldownMapHolder {
 	protected BattleClassesAttributes baseAttributes;
 	protected BattleClassesAttributes displayedAttributes;
 	//AMPLIFIERS
-	/** Should be called every time when there is a change in: Armor worn OR Talent points OR Potion effects OR onPlayerSpawn  */
+	/** Should be called every time when there is a change in: Weapon equiped OR Armor worn OR Talent points OR Potion effects OR onPlayerSpawn  */
 	public void onAttributeSourcesChanged() {
+		refreshBaseAttributes();
 		BattleClassesAttributes totalAttributes = this.getTotalAttributesForAbility(0);
+		
 		//par1EntityLivingBase.setAbsorptionAmount(par1EntityLivingBase.getAbsorptionAmount() - (float)(4 * (par3 + 1)));
 		//SharedMonsterAttributes.maxHealth
 		
 		//Refreshing health based on totalAttributes
 		float relativeHealth = this.getOwnerPlayer().getHealth() / this.getOwnerPlayer().getMaxHealth();
-		AttributeModifier attributemodifier = new AttributeModifier(UUID.fromString("5D6F0BA2-1186-46AC-B896-C61C5CEE99CC"), "potion.healthBoost", 10.0F, 0);
+		AttributeModifier newHealthModifier = new AttributeModifier(UUID.fromString("5D6F0BA2-1186-46AC-B896-BCA001EE0001"), "bcattribute.healthBoost", totalAttributes.health, 0);
 		IAttributeInstance iattributeinstance = this.ownerPlayer.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.maxHealth);
-		iattributeinstance.removeAllModifiers();
-		iattributeinstance.applyModifier(attributemodifier);
+		AttributeModifier oldHealthModifier = iattributeinstance.getModifier(UUID.fromString("5D6F0BA2-1186-46AC-B896-BCA001EE0001"));
+		if(oldHealthModifier != null) {
+			iattributeinstance.removeModifier(oldHealthModifier);
+		}
+		iattributeinstance.applyModifier(newHealthModifier);
 		
 		this.getOwnerPlayer().setHealth(relativeHealth * this.getOwnerPlayer().getMaxHealth());
 	}
@@ -150,7 +157,21 @@ public class BattleClassesPlayerHooks implements ICooldownMapHolder {
 	
 	public BattleClassesAttributes getItemAttributes() {
 		BattleClassesAttributes itemAttributes = new BattleClassesAttributes();
-		//TODO
+		if(this.ownerPlayer.inventory != null) {
+			for(ItemStack armorItemStack : this.ownerPlayer.inventory.armorInventory) {
+				if(armorItemStack != null && armorItemStack.getItem() instanceof IAttributeProvider) {
+					itemAttributes.add(((IAttributeProvider)armorItemStack.getItem()).getAttributes());
+				}
+			}
+		}
+		ItemStack mainHandItemStack = BattleClassesUtils.getMainhandItemStack(ownerPlayer);
+		ItemStack offHandItemStack = BattleClassesUtils.getOffhandItemStack(ownerPlayer);
+		if(mainHandItemStack != null && mainHandItemStack.getItem() instanceof IAmplifyProvider) {
+			itemAttributes.add(((IAttributeProvider)mainHandItemStack.getItem()).getAttributes());
+		}
+		if(offHandItemStack != null && offHandItemStack.getItem() instanceof IAmplifyProvider) {
+			itemAttributes.add(((IAttributeProvider)offHandItemStack.getItem()).getAttributes());
+		}
 		return itemAttributes;
 	}
 	
@@ -192,6 +213,9 @@ public class BattleClassesPlayerHooks implements ICooldownMapHolder {
 	}
 	
 	public BattleClassesAttributes getDisplayedAttributes() {
+		if(this.displayedAttributes == null) {
+			this.refreshBaseAttributes();
+		}
 		return this.displayedAttributes;
 	}
 	
