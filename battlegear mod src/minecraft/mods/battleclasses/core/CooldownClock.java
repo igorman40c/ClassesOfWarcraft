@@ -3,7 +3,7 @@ package mods.battleclasses.core;
 import mods.battleclasses.BattleClassesMod;
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
-import mods.battleclasses.enumhelper.EnumBattleClassesCooldownType;
+import mods.battleclasses.enums.EnumBattleClassesCooldownType;
 import mods.battleclasses.packet.BattleClassesPacketCooldownSet;
 import mods.battlegear2.Battlegear;
 import net.minecraft.entity.player.EntityPlayer;

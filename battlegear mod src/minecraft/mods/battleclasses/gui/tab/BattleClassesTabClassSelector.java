@@ -8,7 +8,7 @@ import org.lwjgl.opengl.GL11;
 import mods.battleclasses.BattleClassesMod;
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
-import mods.battleclasses.enumhelper.EnumBattleClassesPlayerClass;
+import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
 import mods.battleclasses.gui.BattleClassesGuiHandler;
 import mods.battleclasses.gui.controlls.BattleClassesGuiButtonClassSelector;
 import mods.battleclasses.packet.BattleClassesPacketGuiTabSwitch;

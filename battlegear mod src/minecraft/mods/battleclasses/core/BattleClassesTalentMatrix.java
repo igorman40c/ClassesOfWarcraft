@@ -8,8 +8,8 @@ import mods.battleclasses.BattleClassesUtils.LogType;
 import mods.battleclasses.ability.BattleClassesAbilityTest;
 import mods.battleclasses.ability.BattleClassesAbstractAbilityActive;
 import mods.battleclasses.ability.BattleClassesAbstractTalent;
-import mods.battleclasses.enumhelper.EnumBattleClassesCooldownType;
-import mods.battleclasses.enumhelper.EnumBattleClassesPlayerClass;
+import mods.battleclasses.enums.EnumBattleClassesCooldownType;
+import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
 import mods.battleclasses.gui.controlls.BattleClassesGuiButtonTalentNode;
 
 public class BattleClassesTalentMatrix {

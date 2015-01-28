@@ -5,7 +5,7 @@ import java.util.Random;
 import mods.battleclasses.BattleClassesUtils.LogType;
 import mods.battleclasses.core.BattleClassesPlayerHooks;
 import mods.battleclasses.core.BattleClassesTalentMatrix;
-import mods.battleclasses.enumhelper.EnumBattleClassesPlayerClass;
+import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
 import mods.battlegear2.Battlegear;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandManager;

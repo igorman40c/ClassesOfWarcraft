@@ -6,7 +6,7 @@ import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
 import mods.battleclasses.ability.BattleClassesAbstractTalent;
 import mods.battleclasses.core.BattleClassesPlayerHooks;
-import mods.battleclasses.enumhelper.EnumBattleClassesPlayerClass;
+import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
 import mods.battlegear2.Battlegear;
 import mods.battlegear2.packet.AbstractMBPacket;
 import net.minecraft.entity.player.EntityPlayer;

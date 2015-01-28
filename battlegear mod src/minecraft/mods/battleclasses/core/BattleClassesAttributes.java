@@ -1,6 +1,6 @@
 package mods.battleclasses.core;
 
-import mods.battleclasses.enumhelper.EnumBattleClassesAttributeType;
+import mods.battleclasses.enums.EnumBattleClassesAttributeType;
 
 public class BattleClassesAttributes {
 

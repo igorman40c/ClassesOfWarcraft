@@ -6,7 +6,7 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 import mods.battleclasses.BattleClassesUtils;
-import mods.battleclasses.enumhelper.EnumBattleClassesAttributeType;
+import mods.battleclasses.enums.EnumBattleClassesAttributeType;
 import mods.battleclasses.gui.BattleClassesGuiHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;

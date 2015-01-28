@@ -12,7 +12,7 @@ import mods.battleclasses.BattleClassesMod;
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.ability.BattleClassesAbstractAbility;
 import mods.battleclasses.ability.BattleClassesAbstractAbilityActive;
-import mods.battleclasses.enumhelper.EnumBattleClassesPlayerClass;
+import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
 import mods.battlegear2.api.core.IBattlePlayer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;

@@ -1,7 +1,7 @@
 package mods.battleclasses.items;
 
-import mods.battleclasses.enumhelper.EnumBattleClassesWeaponHeldType;
-import mods.battleclasses.enumhelper.EnumBattleClassesItemRarity;
+import mods.battleclasses.enums.EnumBattleClassesItemRarity;
+import mods.battleclasses.enums.EnumBattleClassesWeaponHeldType;
 import mods.battlegear2.api.IAllowItem;
 import mods.battlegear2.api.IOffhandDual;
 import mods.battlegear2.api.ISheathed;

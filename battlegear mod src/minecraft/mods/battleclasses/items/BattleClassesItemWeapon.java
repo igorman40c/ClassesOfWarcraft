@@ -4,10 +4,10 @@ import java.util.EnumSet;
 
 import cpw.mods.fml.relauncher.Side;
 import mods.battleclasses.BattleClassesUtils;
-import mods.battleclasses.enumhelper.EnumBattleClassesWeaponHeldType;
-import mods.battleclasses.enumhelper.EnumBattleClassesItemRarity;
-import mods.battleclasses.enumhelper.EnumBattleClassesPlayerClass;
-import mods.battleclasses.enumhelper.EnumBattleClassesWieldAccess;
+import mods.battleclasses.enums.EnumBattleClassesItemRarity;
+import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
+import mods.battleclasses.enums.EnumBattleClassesWeaponHeldType;
+import mods.battleclasses.enums.EnumBattleClassesWieldAccess;
 import mods.battlegear2.api.PlayerEventChild.OffhandAttackEvent;
 import mods.battlegear2.api.weapons.WeaponRegistry;
 import mods.battlegear2.utils.BattlegearConfig;
@@ -29,7 +29,8 @@ public class BattleClassesItemWeapon extends ItemSword implements IBattleClasses
     public BattleClassesItemWeapon(ToolMaterial toolMaterial) {
 		super(toolMaterial);
 		this.material = toolMaterial;
-		this.setCreativeTab(BattlegearConfig.customTab);
+		//this.setCreativeTab(BattlegearConfig.customTab);
+		this.setCreativeTab(BattleClassesItems.TabWeapons);
 	}
     
     protected void setName(String parName) {

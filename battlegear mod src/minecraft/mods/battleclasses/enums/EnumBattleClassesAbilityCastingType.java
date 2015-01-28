@@ -1,4 +1,4 @@
-package mods.battleclasses.enumhelper;
+package mods.battleclasses.enums;
 
 public enum EnumBattleClassesAbilityCastingType {
 	CastType_CASTED,

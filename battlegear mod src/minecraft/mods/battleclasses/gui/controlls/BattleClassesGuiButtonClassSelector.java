@@ -9,7 +9,7 @@ import mods.battleclasses.BattleClassesMod;
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
 import mods.battleclasses.core.BattleClassesPlayerClass;
-import mods.battleclasses.enumhelper.EnumBattleClassesPlayerClass;
+import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
 import mods.battleclasses.gui.BattleClassesGuiHelper;
 import mods.battleclasses.gui.tab.BattleClassesTabClassSelector;
 import mods.battleclasses.packet.BattleClassesPacketPlayerClassSnyc;

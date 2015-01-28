@@ -6,7 +6,7 @@ import java.util.Iterator;
 
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.core.BattleClassesPlayerClass;
-import mods.battleclasses.enumhelper.EnumBattleClassesAttributeType;
+import mods.battleclasses.enums.EnumBattleClassesAttributeType;
 import mods.battleclasses.gui.controlls.BattleClassesGuiAttributeDisplayNode;
 import mods.battleclasses.gui.controlls.BattleClassesGuiButton;
 import net.minecraft.client.Minecraft;

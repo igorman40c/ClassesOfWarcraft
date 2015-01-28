@@ -13,7 +13,7 @@ import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import mods.battleclasses.ability.BattleClassesWeaponSkill;
-import mods.battleclasses.enumhelper.EnumBattleClassesWieldAccess;
+import mods.battleclasses.enums.EnumBattleClassesWieldAccess;
 import mods.battlegear2.Battlegear;
 import mods.battlegear2.api.weapons.IBackStabbable;
 import mods.battlegear2.api.weapons.IHitTimeModifier;

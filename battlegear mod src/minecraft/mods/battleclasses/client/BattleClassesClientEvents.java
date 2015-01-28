@@ -26,7 +26,7 @@ import mods.battleclasses.BattleClassesUtils.LogType;
 import mods.battleclasses.ability.BattleClassesAbilityShieldBlock;
 import mods.battleclasses.ability.BattleClassesAbstractAbilityActive;
 import mods.battleclasses.core.BattleClassesPlayerClass;
-import mods.battleclasses.enumhelper.EnumBattleClassesPlayerClass;
+import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
 import mods.battleclasses.gui.BattleClassesGuiHelper;
 import mods.battleclasses.gui.BattleClassesGuiHUDOverlay;
 import mods.battleclasses.gui.controlls.BattleClassesGuiButtonClassSelector;

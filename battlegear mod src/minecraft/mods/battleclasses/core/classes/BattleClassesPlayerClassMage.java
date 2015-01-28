@@ -13,8 +13,8 @@ import mods.battleclasses.ability.BattleClassesTalentTest;
 import mods.battleclasses.core.BattleClassesPlayerClass;
 import mods.battleclasses.core.BattleClassesPlayerHooks;
 import mods.battleclasses.core.BattleClassesTalentTree;
-import mods.battleclasses.enumhelper.EnumBattleClassesAttributeType;
-import mods.battleclasses.enumhelper.EnumBattleClassesPlayerClass;
+import mods.battleclasses.enums.EnumBattleClassesAttributeType;
+import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
 
 public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 

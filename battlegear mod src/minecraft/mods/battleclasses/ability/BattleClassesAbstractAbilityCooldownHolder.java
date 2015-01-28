@@ -7,7 +7,7 @@ import mods.battleclasses.BattleClassesUtils.LogType;
 import mods.battleclasses.core.BattleClassesPlayerHooks;
 import mods.battleclasses.core.CooldownClock;
 import mods.battleclasses.core.ICooldownOwner;
-import mods.battleclasses.enumhelper.EnumBattleClassesCooldownType;
+import mods.battleclasses.enums.EnumBattleClassesCooldownType;
 import mods.battleclasses.packet.BattleClassesPacketCooldownSet;
 import mods.battlegear2.Battlegear;
 

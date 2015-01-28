@@ -1,4 +1,4 @@
-package mods.battleclasses.enumhelper;
+package mods.battleclasses.enums;
 
 import net.minecraft.util.ResourceLocation;
 

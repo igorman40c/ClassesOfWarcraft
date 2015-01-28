@@ -1,6 +1,8 @@
 bcpotion.testing=Polymorhped
 
 bcgui.keycategories.actionbar=Ability action bar
+itemGroup.bcweapons=Classes of Warcraft weapons
+itemGroup.bcarmor=Classes of Warcraft armor
 
 bctab.inventory.name=Inventory
 bctab.equipment.name=Battle Equipment

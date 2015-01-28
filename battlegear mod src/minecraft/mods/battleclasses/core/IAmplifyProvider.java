@@ -1,6 +1,6 @@
 package mods.battleclasses.core;
 
-import mods.battleclasses.enumhelper.EnumBattleClassesAmplifierApplyType;
+import mods.battleclasses.enums.EnumBattleClassesAmplifierApplyType;
 
 public interface IAmplifyProvider {
 	public EnumBattleClassesAmplifierApplyType getApplyType();

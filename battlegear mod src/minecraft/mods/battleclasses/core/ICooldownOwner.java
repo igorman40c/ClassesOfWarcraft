@@ -1,6 +1,6 @@
 package mods.battleclasses.core;
 
-import mods.battleclasses.enumhelper.EnumBattleClassesCooldownType;
+import mods.battleclasses.enums.EnumBattleClassesCooldownType;
 
 public interface ICooldownOwner {
 	

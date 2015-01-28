@@ -7,7 +7,7 @@ import net.minecraft.world.WorldServer;
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
 import mods.battleclasses.core.BattleClassesPlayerHooks;
-import mods.battleclasses.enumhelper.EnumBattleClassesPlayerClass;
+import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
 import mods.battlegear2.api.core.IBattlePlayer;
 import mods.battlegear2.packet.AbstractMBPacket;
 import mods.battlegear2.utils.EnumBGAnimations;

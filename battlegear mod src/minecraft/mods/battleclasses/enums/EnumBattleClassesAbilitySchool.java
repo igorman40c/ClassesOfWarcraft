@@ -1,4 +1,4 @@
-package mods.battleclasses.enumhelper;
+package mods.battleclasses.enums;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

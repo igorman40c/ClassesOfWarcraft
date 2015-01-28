@@ -10,7 +10,7 @@ import mods.battleclasses.ability.BattleClassesAbstractTalent;
 import mods.battleclasses.core.BattleClassesPlayerClass;
 import mods.battleclasses.core.BattleClassesTalentMatrix;
 import mods.battleclasses.core.BattleClassesTalentTree;
-import mods.battleclasses.enumhelper.EnumBattleClassesPlayerClass;
+import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
 import mods.battleclasses.gui.BattleClassesGuiHandler;
 import mods.battleclasses.gui.BattleClassesGuiHelper;
 import mods.battleclasses.gui.controlls.BattleClassesGuiButtonClassSelector;

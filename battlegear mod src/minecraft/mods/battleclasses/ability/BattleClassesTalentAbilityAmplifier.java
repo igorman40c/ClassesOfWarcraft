@@ -2,7 +2,7 @@ package mods.battleclasses.ability;
 
 import mods.battleclasses.core.BattleClassesAttributes;
 import mods.battleclasses.core.IAmplifyProvider;
-import mods.battleclasses.enumhelper.EnumBattleClassesAmplifierApplyType;
+import mods.battleclasses.enums.EnumBattleClassesAmplifierApplyType;
 
 public class BattleClassesTalentAbilityAmplifier extends BattleClassesAbstractTalent implements IAmplifyProvider {
 

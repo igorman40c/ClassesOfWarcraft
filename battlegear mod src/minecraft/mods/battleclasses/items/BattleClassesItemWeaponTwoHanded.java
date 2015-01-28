@@ -3,8 +3,8 @@ package mods.battleclasses.items;
 import java.util.EnumSet;
 
 import net.minecraft.item.ItemStack;
-import mods.battleclasses.enumhelper.EnumBattleClassesPlayerClass;
-import mods.battleclasses.enumhelper.EnumBattleClassesWeaponHeldType;
+import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
+import mods.battleclasses.enums.EnumBattleClassesWeaponHeldType;
 
 public class BattleClassesItemWeaponTwoHanded extends BattleClassesItemWeapon implements IHighDetailWeapon {
 
