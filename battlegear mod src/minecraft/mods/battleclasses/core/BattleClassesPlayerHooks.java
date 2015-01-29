@@ -159,20 +159,24 @@ public class BattleClassesPlayerHooks implements ICooldownMapHolder {
 		BattleClassesAttributes itemAttributes = new BattleClassesAttributes();
 		if(this.ownerPlayer.inventory != null) {
 			for(ItemStack armorItemStack : this.ownerPlayer.inventory.armorInventory) {
-				if(armorItemStack != null && armorItemStack.getItem() instanceof IAttributeProvider) {
-					itemAttributes.add(((IAttributeProvider)armorItemStack.getItem()).getAttributes());
-				}
+				addAttributesFromItemStack(itemAttributes, armorItemStack, this.ownerPlayer);
+			}
+			ItemStack mainHandItemStack = BattleClassesUtils.getMainhandItemStack(ownerPlayer);
+			addAttributesFromItemStack(itemAttributes, mainHandItemStack, this.ownerPlayer);
+			ItemStack offHandItemStack = BattleClassesUtils.getOffhandItemStack(ownerPlayer);
+			addAttributesFromItemStack(itemAttributes, offHandItemStack, this.ownerPlayer);
+		}
+		
+		return itemAttributes;
+	}
+	
+	public static void addAttributesFromItemStack(BattleClassesAttributes attributes, ItemStack itemStack, EntityPlayer entityPlayer) {
+		if(itemStack != null && itemStack.getItem() instanceof IAttributeProvider) {
+			if(((IAttributeProvider)itemStack.getItem()).getClassAccessSet() != null && 
+				((IAttributeProvider)itemStack.getItem()).getClassAccessSet().contains(BattleClassesUtils.getPlayerClassEnum(entityPlayer))) {
+				attributes.add(((IAttributeProvider)itemStack.getItem()).getAttributes());
 			}
 		}
-		ItemStack mainHandItemStack = BattleClassesUtils.getMainhandItemStack(ownerPlayer);
-		ItemStack offHandItemStack = BattleClassesUtils.getOffhandItemStack(ownerPlayer);
-		if(mainHandItemStack != null && mainHandItemStack.getItem() instanceof IAmplifyProvider) {
-			itemAttributes.add(((IAttributeProvider)mainHandItemStack.getItem()).getAttributes());
-		}
-		if(offHandItemStack != null && offHandItemStack.getItem() instanceof IAmplifyProvider) {
-			itemAttributes.add(((IAttributeProvider)offHandItemStack.getItem()).getAttributes());
-		}
-		return itemAttributes;
 	}
 	
 	private BattleClassesAttributes getBaseAttributeBonuses(int targetAbilityID) {

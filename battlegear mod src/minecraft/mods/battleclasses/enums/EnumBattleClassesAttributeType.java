@@ -19,6 +19,10 @@ public enum EnumBattleClassesAttributeType {
 	//Vanilla attributes
 	ARMOR
 	;
+	
+	public float getRelativeCreateCost() {
+		return 1F;
+	}
 		
 	public int getDisplayIconSquareSize() {
 		return 9;
@@ -98,7 +102,7 @@ public enum EnumBattleClassesAttributeType {
 		}
 		return 0;
 	}
-	
+		
 	public static final String attributeUnlocalizedPre = "bcattribute.";
 	
 	public String getUnlocalizedName() {

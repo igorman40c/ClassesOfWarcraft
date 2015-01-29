@@ -5,6 +5,7 @@ import java.util.EnumSet;
 
 import net.minecraft.util.StatCollector;
 import mods.battleclasses.enums.EnumBattleClassesAttributeType;
+import mods.battleclasses.enums.EnumBattleClassesWeaponHeldType;
 
 public class BattleClassesAttributes {
 
@@ -189,6 +190,27 @@ public class BattleClassesAttributes {
 			break;
 		
 		}
+	}
+	
+	public static float createValueForType(int itemLevel, EnumBattleClassesAttributeType type) {
+		float value = itemLevel * 2 / type.getRelativeCreateCost();
+		return value;
+	}
+		
+	public static BattleClassesAttributes createForArmor(int itemLevel, EnumSet<EnumBattleClassesAttributeType> types) {
+		BattleClassesAttributes attributes = new BattleClassesAttributes();
+		for(EnumBattleClassesAttributeType attributeType : types) {
+			attributes.setValueByType(attributeType, createValueForType(itemLevel, attributeType));
+		}
+		return attributes;
+	}
+	
+	public static BattleClassesAttributes createForHandheld(int itemLevel, EnumSet<EnumBattleClassesAttributeType> types, EnumBattleClassesWeaponHeldType heldType) {
+		BattleClassesAttributes attributes = new BattleClassesAttributes();
+		for(EnumBattleClassesAttributeType attributeType : types) {
+			attributes.setValueByType(attributeType, createValueForType(itemLevel, attributeType)*heldType.getAttributeMultiplier());
+		}
+		return attributes;
 	}
 	
 	//Helper

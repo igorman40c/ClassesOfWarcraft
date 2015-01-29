@@ -15,19 +15,29 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 
-public class BattleClassesItemArmor extends ItemArmor implements IPlayerClassAccess, IAttributeProvider {
+public class BattleClassesItemArmor extends ItemArmor implements IAttributeProvider {
 
 	/** The EnumArmorMaterial used for this ItemArmor */
     private final ItemArmor.ArmorMaterial material;
 	protected int itemLevel;
 	protected String armorTexture;
 	protected EnumSet<EnumBattleClassesPlayerClass> classAccessSet;
+	protected BattleClassesAttributes storedAttributes;
 	public BattleClassesItemArmor(ArmorMaterial material, int armorType, int itemLevel, String name) {
 		super(material, 1, armorType);
 		//super(material, renderIndex, armorType);
 		this.material = material;
 		this.setName(name);
 		this.setCreativeTab(BattleClassesItems.TabArmors);
+		classAccessSet = EnumSet.of(
+				EnumBattleClassesPlayerClass.MAGE,
+				EnumBattleClassesPlayerClass.PRIEST,
+				EnumBattleClassesPlayerClass.WARLOCK,
+				EnumBattleClassesPlayerClass.ROGUE,
+				EnumBattleClassesPlayerClass.HUNTER,
+				EnumBattleClassesPlayerClass.PALADIN,
+				EnumBattleClassesPlayerClass.WARRIOR);
+		storedAttributes = BattleClassesAttributes.createForArmor(itemLevel, EnumSet.of(EnumBattleClassesAttributeType.HEALTH, EnumBattleClassesAttributeType.STRENGTH, EnumBattleClassesAttributeType.SPELLPOWER_FIRE));
 	}
 	
 	public BattleClassesItemArmor(ArmorMaterial material, int armorType, int itemLevel, String name, EnumSet<EnumBattleClassesPlayerClass> classAccess) {
@@ -65,11 +75,6 @@ public class BattleClassesItemArmor extends ItemArmor implements IPlayerClassAcc
 
 	@Override
 	public BattleClassesAttributes getAttributes() {
-		BattleClassesAttributes attributesTesting =  new BattleClassesAttributes();
-		attributesTesting.setValueByType(EnumBattleClassesAttributeType.HEALTH, 5);
-		attributesTesting.setValueByType(EnumBattleClassesAttributeType.STRENGTH, 5);
-		attributesTesting.setValueByType(EnumBattleClassesAttributeType.SPELLPOWER_HOLY, 5);
-		attributesTesting.setValueByType(EnumBattleClassesAttributeType.SPELLPOWER_FIRE, 5);
-		return attributesTesting;
+		return storedAttributes;
 	}	
 }

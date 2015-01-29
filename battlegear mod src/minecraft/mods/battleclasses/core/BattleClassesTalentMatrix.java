@@ -46,6 +46,7 @@ public class BattleClassesTalentMatrix {
 	
 	public void onTalentsChanged() {
 		this.playerHooks.playerClass.getCooldownClock().setCooldown(TALENT_CHANGE_COOLDOWN_DURATION, false, EnumBattleClassesCooldownType.CooldownType_TALENT_CHANGE);
+		this.playerHooks.onAttributeSourcesChanged();
 	}
 	
 	public BattleClassesPlayerHooks getPlayerHooks() {

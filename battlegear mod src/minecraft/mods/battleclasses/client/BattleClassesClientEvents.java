@@ -154,7 +154,6 @@ public class BattleClassesClientEvents {
 	private ItemStack savedOffhandItemStack;
 	private ItemStack[] savedArmorItemStacks = new ItemStack[4];
 	@SubscribeEvent
-	@SideOnly(Side.CLIENT)
 	public void updateEquipment(LivingUpdateEvent event) {
 		Minecraft mc = Minecraft.getMinecraft();
 		if(event.entity == mc.thePlayer && mc.thePlayer.inventory.inventoryChanged) {
@@ -179,12 +178,14 @@ public class BattleClassesClientEvents {
 					}
 				}
 			}
-			//Saving current equipment
+			
 			if(shouldUpdateEquipment) {
+				//Updating attribute sources
 				System.out.println("Equipment Changed! " + reason);
 				FMLProxyPacket p = new BattleClassesPacketAttributeChanges().generatePacket();
 				BattleClassesMod.packetHandler.sendPacketToServer(p);
 				BattleClassesUtils.getPlayerHooks(mc.thePlayer).onAttributeSourcesChanged();
+				//Saving current equipment
 				savedMainhandItemStack = BattleClassesUtils.getMainhandItemStack(mc.thePlayer);
 				savedOffhandItemStack = BattleClassesUtils.getOffhandItemStack(mc.thePlayer);
 				savedArmorItemStacks = new ItemStack[4];

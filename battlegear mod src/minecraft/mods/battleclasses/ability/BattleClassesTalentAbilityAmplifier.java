@@ -38,6 +38,5 @@ public class BattleClassesTalentAbilityAmplifier extends BattleClassesAbstractTa
 		else {
 			this.playerHooks.playerClass.spellBook.learnAbility(this);
 		}
-		this.parentTree.getParentTalentMatrix().getPlayerHooks().onAttributeSourcesChanged();
 	}
 }
