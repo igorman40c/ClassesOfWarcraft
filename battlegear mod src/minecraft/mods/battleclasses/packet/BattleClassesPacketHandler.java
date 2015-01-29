@@ -17,14 +17,14 @@ import mods.battlegear2.Battlegear;
 import mods.battlegear2.packet.AbstractMBPacket;
 import mods.battlegear2.packet.BattlegearPacketHandeler;
 
-public class BattleClassesPacketHandeler {
+public class BattleClassesPacketHandler {
 	
 	public Side side;
 	
     public Map<String, AbstractMBPacket> map = new Hashtable<String, AbstractMBPacket>();
     public Map<String, FMLEventChannel> channels = new Hashtable<String, FMLEventChannel>();
 
-	public BattleClassesPacketHandeler() {
+	public BattleClassesPacketHandler() {
 		side = FMLCommonHandler.instance().getEffectiveSide();
 		map.put(BattleClassesPacketPlayerClassSnyc.packetName, new BattleClassesPacketPlayerClassSnyc());
 		map.put(BattleClassesPacketCooldownSet.packetName, new BattleClassesPacketCooldownSet());

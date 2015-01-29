@@ -205,11 +205,13 @@ public static Logger battleClassesLogger = LogManager.getLogger("Battle Classes"
 	}
 	
 	public static ItemStack getOffhandItemStack(EntityPlayer entityPlayer) {
-		return BattleClassesUtils.getBattleInventory(entityPlayer).getStackInSlot(0 + InventoryPlayerBattle.OFFSET+(InventoryPlayerBattle.WEAPON_SETS));
+		//return BattleClassesUtils.getBattleInventory(entityPlayer).getStackInSlot(0 + InventoryPlayerBattle.OFFSET+(InventoryPlayerBattle.WEAPON_SETS));
+		return BattleClassesUtils.getBattleInventory(entityPlayer).extraItems[1];
 	}
 	
 	public static ItemStack getMainhandItemStack(EntityPlayer entityPlayer) {
-		return BattleClassesUtils.getBattleInventory(entityPlayer).getStackInSlot(0 + InventoryPlayerBattle.OFFSET);
+		//return BattleClassesUtils.getBattleInventory(entityPlayer).getStackInSlot(0 + InventoryPlayerBattle.OFFSET);
+		return BattleClassesUtils.getBattleInventory(entityPlayer).extraItems[0];
 	}
 	
 }

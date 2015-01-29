@@ -6,7 +6,7 @@ import mods.battleclasses.gui.BattleClassesGuiHandler;
 import mods.battleclasses.items.BattleClassesItemGem;
 import mods.battleclasses.items.BattleClassesItemTestingStaff;
 import mods.battleclasses.items.BattleClassesItems;
-import mods.battleclasses.packet.BattleClassesPacketHandeler;
+import mods.battleclasses.packet.BattleClassesPacketHandler;
 import mods.battleclasses.potion.BattleClassesPotion;
 import mods.battlegear2.Battlegear;
 import mods.battlegear2.utils.BattlegearConfig;
@@ -33,7 +33,7 @@ public class BattleClassesMod
     @SidedProxy(modId = MODID, clientSide = "mods.battleclasses.client.BattleClassesClientProxy", serverSide = "mods.battleclasses.BattleClassesCommonProxy")
     public static BattleClassesCommonProxy proxy;
     
-    public static BattleClassesPacketHandeler packetHandler;
+    public static BattleClassesPacketHandler packetHandler;
 
     
     @EventHandler
@@ -52,7 +52,7 @@ public class BattleClassesMod
     @EventHandler
     public void init(FMLInitializationEvent event)  {
     	//BattlegearConfig.registerRecipes();
-        packetHandler = new BattleClassesPacketHandeler();
+        packetHandler = new BattleClassesPacketHandler();
         packetHandler.registerChannels();
         NetworkRegistry.INSTANCE.registerGuiHandler(this, new BattleClassesGuiHandler());
     }

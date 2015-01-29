@@ -12,6 +12,7 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
@@ -19,10 +20,13 @@ import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerOpenContainerEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.network.internal.FMLProxyPacket;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import mods.battleclasses.BattleClassesMod;
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
@@ -143,6 +147,50 @@ public class BattleClassesClientEvents {
 			event.setCanceled(true);
 		}
 	}
+	
+	private ItemStack savedMainhandItemStack;
+	private ItemStack savedOffhandItemStack;
+	private ItemStack[] savedArmorItemStacks = new ItemStack[4];
+	@SubscribeEvent
+	@SideOnly(Side.CLIENT)
+	public void updateEquipment(LivingUpdateEvent event) {
+		Minecraft mc = Minecraft.getMinecraft();
+		if(event.entity == mc.thePlayer && mc.thePlayer.inventory.inventoryChanged) {
+			//System.out.println("Client player update");
+			//Checking for equipment change
+			boolean shouldUpdateEquipment = false;
+			String reason = "";
+			if(!ItemStack.areItemStacksEqual(BattleClassesUtils.getMainhandItemStack(mc.thePlayer),savedMainhandItemStack)) {
+				shouldUpdateEquipment = true;
+				reason = "reason: Mainhand item";
+			}
+			if(!shouldUpdateEquipment && !ItemStack.areItemStacksEqual(BattleClassesUtils.getOffhandItemStack(mc.thePlayer),savedOffhandItemStack)) {
+				shouldUpdateEquipment = true;
+				reason = "reason: Offhand";
+			}
+			if(!shouldUpdateEquipment && savedArmorItemStacks != null) {
+				for(int i = 0; i < savedArmorItemStacks.length; ++i) {
+					if(!ItemStack.areItemStacksEqual(savedArmorItemStacks[i],mc.thePlayer.inventory.armorInventory[i])) {
+						shouldUpdateEquipment = true;
+						reason = "reason: Armor at: " +i;
+						break;
+					}
+				}
+			}
+			if(shouldUpdateEquipment) {
+				System.out.println("Equipment Changed! " + reason);
+				
+				//Saving current equipment
+				savedMainhandItemStack = BattleClassesUtils.getMainhandItemStack(mc.thePlayer);
+				savedOffhandItemStack = BattleClassesUtils.getOffhandItemStack(mc.thePlayer);
+				savedArmorItemStacks = new ItemStack[4];
+				for(int i = 0; i < mc.thePlayer.inventory.armorInventory.length; ++i) {
+					savedArmorItemStacks[i] = mc.thePlayer.inventory.armorInventory[i];
+				}
+			}
+		}
+	}
+	
 	
 	
 	@SubscribeEvent
