@@ -11,6 +11,8 @@ import mods.battleclasses.gui.BattleClassesGuiHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.ForgeHooks;
@@ -112,6 +114,10 @@ public class BattleClassesGuiAttributeDisplayNode extends BattleClassesGuiButton
 		float displayedValue = 0;
 		if(this.displayedAttributeType == EnumBattleClassesAttributeType.ARMOR) {
 			displayedValue = ForgeHooks.getTotalArmorValue(mc.thePlayer);
+		}
+		else if(this.displayedAttributeType == EnumBattleClassesAttributeType.HEALTH) {
+			IAttributeInstance iattributeinstance = mc.thePlayer.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.maxHealth);
+			displayedValue = (float) iattributeinstance.getAttributeValue();
 		}
 		else {
 			displayedValue = BattleClassesUtils.getPlayerHooks(mc.thePlayer).getDisplayedAttributes().getValueByType(this.displayedAttributeType);

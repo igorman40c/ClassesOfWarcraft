@@ -50,6 +50,8 @@ import mods.battleclasses.gui.controlls.GuiTabBarButtonVanillaInventory;
 import mods.battleclasses.gui.tab.BattleClassesTabInventory;
 import mods.battleclasses.gui.tab.BattleClassesTabClassSelector;
 import mods.battleclasses.items.IAttributeProvider;
+import mods.battleclasses.packet.BattleClassesPacketAttributeChanges;
+import mods.battleclasses.packet.BattleClassesPacketPlayerClassSnyc;
 import mods.battleclasses.packet.BattleClassesPacketPlayerDataSync;
 import mods.battlegear2.api.RenderItemBarEvent;
 import mods.battlegear2.api.RenderItemBarEvent.ShieldBar;
@@ -156,7 +158,7 @@ public class BattleClassesClientEvents {
 	public void updateEquipment(LivingUpdateEvent event) {
 		Minecraft mc = Minecraft.getMinecraft();
 		if(event.entity == mc.thePlayer && mc.thePlayer.inventory.inventoryChanged) {
-			//System.out.println("Client player update");
+			
 			//Checking for equipment change
 			boolean shouldUpdateEquipment = false;
 			String reason = "";
@@ -177,10 +179,12 @@ public class BattleClassesClientEvents {
 					}
 				}
 			}
+			//Saving current equipment
 			if(shouldUpdateEquipment) {
 				System.out.println("Equipment Changed! " + reason);
-				
-				//Saving current equipment
+				FMLProxyPacket p = new BattleClassesPacketAttributeChanges().generatePacket();
+				BattleClassesMod.packetHandler.sendPacketToServer(p);
+				BattleClassesUtils.getPlayerHooks(mc.thePlayer).onAttributeSourcesChanged();
 				savedMainhandItemStack = BattleClassesUtils.getMainhandItemStack(mc.thePlayer);
 				savedOffhandItemStack = BattleClassesUtils.getOffhandItemStack(mc.thePlayer);
 				savedArmorItemStacks = new ItemStack[4];

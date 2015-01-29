@@ -34,7 +34,7 @@ public class BattleClassesPacketHandler {
 		map.put(BattleClassesPacketGuiTabSwitch.packetName, new BattleClassesPacketGuiTabSwitch());
 		map.put(BattleClassesPacketProcessAbilityWithTarget.packetName, new BattleClassesPacketProcessAbilityWithTarget());
 		map.put(BattleClassesPacketPlayerDataSync.packetName, new BattleClassesPacketPlayerDataSync());
-		
+		map.put(BattleClassesPacketAttributeChanges.packetName, new BattleClassesPacketAttributeChanges());
 	}
 	
 	public void registerChannels() {
