@@ -1,10 +1,11 @@
-Classes of Warcraft (Fork project of Mine & Blade Battlegear 2)
-===============================================================
+Classes of Warcraft
+===================
+[Fork project of Mine & Blade Battlegear 2](https://github.com/Mine-and-blade-admin/Battlegear2)
 	
 Minecraft version: 1.7.10  
 Forge Version: 1.7.10-10.13.2.1230
 
-This the second generation of an RPG mod that brings classes with abilities, talent specialization, armor and weapons from World of Warcraft into Minecraft. Our project is based on Mine & Blade Battlegear 2 mod, to involve advanced features such as dual wielding or shield blocking.  (Earlier this project was called Battle Classes)
+This the second generation of an RPG mod that brings classes with abilities, talent specialization, armor and weapons from World of Warcraft into Minecraft. Our project is based on Mine & Blade Battlegear 2 mod, to involve advanced features such as dual wielding or shield blocking. (Earlier this project was called Battle Classes)
 
 Note: Classes of Warcraft is currently incompatible with the original Mine & Blade Battlegear 2 (we use a modified version of it, packed into our mod), however we are working to on this compatibility issue.
 
