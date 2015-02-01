@@ -52,14 +52,11 @@ public abstract class BattleClassesAbstractTab extends InventoryEffectRenderer i
      */
     public float ySize_lo;
     
-    protected BattleClassesTabOverlayAttributes overlay;
-
     public BattleClassesAbstractTab(EntityPlayer entityPlayer, boolean isRemote, Container container) {
         //super(new ContainerBattle(entityPlayer.inventory, !isRemote, entityPlayer));
     	super(container);
     	this.ownerPlayer = entityPlayer; 
         this.allowUserInput = true;
-        this.overlay = new BattleClassesTabOverlayAttributes();
         //Don't need this, however maybe we can add a stat later on. I will keep it comented out for now
         //entityPlayer.addStat(AchievementList.openInventory, 1);
     }
@@ -100,8 +97,8 @@ public abstract class BattleClassesAbstractTab extends InventoryEffectRenderer i
     @Override
     protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3) {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.overlay.drawAttributesDisplayWindowBackground(this.guiLeft, this.guiTop, this.xSize, this.zLevel);
-        this.overlay.drawScreen(par2, par3, par1);
+        BattleClassesTabOverlayAttributes.INSTANCE.drawAttributesDisplayWindowBackground(this.guiLeft, this.guiTop, this.xSize, this.zLevel);
+        BattleClassesTabOverlayAttributes.INSTANCE.drawScreen(par2, par3, par1);
     }
     
     protected List toolTipTextLines;

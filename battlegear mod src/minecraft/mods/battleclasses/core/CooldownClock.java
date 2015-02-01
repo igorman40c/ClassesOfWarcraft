@@ -233,7 +233,15 @@ public class CooldownClock {
 		return this.parentCooldownMapper.getCooldownCenterOwner();
 	}
 	
+	/**
+	 * Helper method for deserialization to apply cooldown data.
+	 * @param t
+	 */
 	void setSetTime(float t) {
+		if(BattleClassesUtils.getCurrentTimeInSeconds() < t) {
+			this.initCooldownHolder();
+			return;
+		}
 		setTime = t;
 	}
 	

@@ -25,13 +25,18 @@ import org.lwjgl.opengl.GL11;
 public class BattleClassesTabOverlayAttributes extends GuiScreen {
 	
     public static final ResourceLocation resourceAttributes = new ResourceLocation("battleclasses", "textures/gui/InterfaceAttributes.png");
-	
+    public static BattleClassesTabOverlayAttributes INSTANCE = new BattleClassesTabOverlayAttributes();
+    
 	public BattleClassesTabOverlayAttributes() {
 		super();
 		initAttributesDisplay();
 	}
 	
-	public void initAttributesDisplay() {
+	public void reInit() {
+		this.initAttributesDisplay();
+	}
+	
+	protected void initAttributesDisplay() {
 		this.mc = Minecraft.getMinecraft();
 		BattleClassesPlayerClass playerClassObj = BattleClassesUtils.getPlayerClassObj(mc.thePlayer);
 		if(playerClassObj != null) {

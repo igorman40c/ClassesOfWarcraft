@@ -192,8 +192,12 @@ public class BattleClassesAttributes {
 		}
 	}
 	
+	public static final float MULTIPLIER_ITEMLEVEL = 2;
+	public static final float MULTIPLIER_HANDHELD = 2;
+	
 	public static float createValueForType(int itemLevel, EnumBattleClassesAttributeType type) {
-		float value = itemLevel * 2 / type.getRelativeCreateCost();
+		float value = type.getConstantCreateBonus() + itemLevel * MULTIPLIER_ITEMLEVEL / type.getRelativeCreateCost();
+		value = (value > 0) ? value : 0;
 		return value;
 	}
 		
@@ -208,7 +212,7 @@ public class BattleClassesAttributes {
 	public static BattleClassesAttributes createForHandheld(int itemLevel, EnumSet<EnumBattleClassesAttributeType> types, EnumBattleClassesWeaponHeldType heldType) {
 		BattleClassesAttributes attributes = new BattleClassesAttributes();
 		for(EnumBattleClassesAttributeType attributeType : types) {
-			attributes.setValueByType(attributeType, createValueForType(itemLevel, attributeType)*heldType.getAttributeMultiplier());
+			attributes.setValueByType(attributeType, createValueForType(itemLevel, attributeType)*heldType.getAttributeMultiplier()*MULTIPLIER_HANDHELD);
 		}
 		return attributes;
 	}

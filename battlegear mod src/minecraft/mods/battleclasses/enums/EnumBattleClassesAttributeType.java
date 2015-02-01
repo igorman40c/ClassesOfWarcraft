@@ -21,7 +21,22 @@ public enum EnumBattleClassesAttributeType {
 	;
 	
 	public float getRelativeCreateCost() {
-		return 1F;
+		switch(this) {
+			default: {
+				return 1F;
+			}
+		}
+	}
+	
+	public float getConstantCreateBonus() {
+		switch(this) {
+			case HEALTH:  {
+				return -1F;
+			}
+			default: {
+				return 0F;
+			}
+		}
 	}
 		
 	public int getDisplayIconSquareSize() {

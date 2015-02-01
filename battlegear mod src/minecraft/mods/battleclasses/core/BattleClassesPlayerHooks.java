@@ -5,7 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.internal.FMLProxyPacket;
+import cpw.mods.fml.relauncher.Side;
 import mods.battleclasses.BattleClassesMod;
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
@@ -14,6 +16,7 @@ import mods.battleclasses.core.classes.BattleClassesPlayerClassMage;
 import mods.battleclasses.enums.EnumBattleClassesAmplifierApplyType;
 import mods.battleclasses.enums.EnumBattleClassesCooldownType;
 import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
+import mods.battleclasses.gui.tab.BattleClassesTabOverlayAttributes;
 import mods.battleclasses.items.IAttributeProvider;
 import mods.battleclasses.packet.BattleClassesPacketPlayerClassSnyc;
 import mods.battlegear2.Battlegear;
@@ -42,6 +45,7 @@ public class BattleClassesPlayerHooks implements ICooldownMapHolder {
 		
 		playerClass = new BattleClassesPlayerClass(this, EnumBattleClassesPlayerClass.NONE);
 		weaponHitHandler = new BattleClassesWeaponHitHandler(this);
+		System.out.println("PlayerHooks constructed!");
 		//this.refreshBaseAttributes();
 	}
 	
@@ -93,6 +97,11 @@ public class BattleClassesPlayerHooks implements ICooldownMapHolder {
 				this.playerClass = new BattleClassesPlayerClass(this, parPlayerClass);
 			}
 				break;
+		}
+		onAttributeSourcesChanged();
+		Side side = FMLCommonHandler.instance().getEffectiveSide();
+		if(side == Side.CLIENT) {
+			BattleClassesTabOverlayAttributes.INSTANCE.reInit();
 		}
 		BattleClassesUtils.Log(this.ownerPlayer.getDisplayName() + " switched to class: " + parPlayerClass.toString(), LogType.CORE);
 	}
