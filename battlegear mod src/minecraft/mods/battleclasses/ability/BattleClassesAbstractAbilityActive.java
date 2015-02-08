@@ -3,6 +3,7 @@ package mods.battleclasses.ability;
 import java.util.HashMap;
 import java.util.HashSet;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -33,6 +34,7 @@ import mods.battleclasses.enums.EnumBattleClassesCooldownType;
 import mods.battleclasses.gui.BattleClassesGuiHUDOverlay;
 import mods.battleclasses.gui.BattleClassesGuiHelper;
 import mods.battleclasses.items.BattleClassesItemWeapon;
+import mods.battleclasses.packet.BattleClassesPacketCastingSound;
 import mods.battleclasses.packet.BattleClassesPacketCooldownSet;
 import mods.battleclasses.packet.BattleClassesPacketPlayerClassSnyc;
 import mods.battleclasses.packet.BattleClassesPacketProcessAbilityWithTarget;
@@ -147,6 +149,9 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 	protected void startCasting(EntityPlayer entityPlayer, ItemStack itemStack) {
 		BattleClassesUtils.Log("Casting started!", LogType.ABILITY);
 		BattleClassesUtils.setEntityPlayerItemInUseInSeconds(entityPlayer, itemStack, this.getCastTime());
+		
+		//TODO: Sound/Casting sound STARTPLAY
+		sendCastingSoundPacket(true);
 	}
 	
 	public EnumBattleClassesAbilityDirectTargetRequirement getTargetingType() {
@@ -296,6 +301,7 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 			this.playerHooks.playerClass.spellBook.cancelGlobalCooldown();
 		}
 		entityPlayer.clearItemInUse();
+		sendCastingSoundPacket(false);
 		BattleClassesUtils.Log("Cancelling Casting and GlobalCD", LogType.ABILITY);
 	}
 	
@@ -350,6 +356,7 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 	public final void onCastFinished(EntityLivingBase targetEntity, int tickCount) {
 		BattleClassesUtils.Log("Casting finished!", LogType.ABILITY);
 		this.getCooldownClock().setCooldownDefault();
+		sendCastingSoundPacket(false);
 	}
 	
 	//Helper method
@@ -427,4 +434,18 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
     	return this.castTime;
     }
 	
+    public void sendCastingSoundPacket(boolean start) {
+    	Side side = FMLCommonHandler.instance().getEffectiveSide();
+		if(side == Side.SERVER && this.school.hasCastingSound()) {
+			float range = (start) ? 60 : 100;
+			FMLProxyPacket packet;
+			if(start) {
+				packet = (new BattleClassesPacketCastingSound(this.playerHooks.getOwnerPlayer(), "casting_" + this.school.toString().toLowerCase() ,true)).generatePacket();
+			}
+			else {
+				packet = (new BattleClassesPacketCastingSound(this.playerHooks.getOwnerPlayer())).generatePacket();
+			}
+			BattleClassesMod.packetHandler.sendPacketAround(this.playerHooks.getOwnerPlayer(), range, packet);
+		}
+    }
 }

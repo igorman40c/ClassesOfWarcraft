@@ -13,6 +13,7 @@ import mods.battleclasses.core.BattleClassesPlayerClass;
 import mods.battleclasses.core.BattleClassesPlayerHooks;
 import mods.battleclasses.core.BattleClassesSpellBook;
 import mods.battleclasses.core.BattleClassesTalentMatrix;
+import mods.battleclasses.core.BattleClassesWeaponHitHandler;
 import mods.battleclasses.core.ICooldownOwner;
 import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
 import mods.battlegear2.api.core.BattlegearUtils;
@@ -136,6 +137,14 @@ public static Logger battleClassesLogger = LogManager.getLogger("Battle Classes"
 		BattleClassesPlayerHooks playerHooks = BattleClassesUtils.getPlayerHooks(entityPlayer);
 		if(playerHooks.playerClass != null) {
 			return playerHooks.playerClass.talentMatrix;
+		}
+		return null;
+	}
+	
+	public static BattleClassesWeaponHitHandler getPlayerWeaponHandler(EntityPlayer entityPlayer) {
+		BattleClassesPlayerHooks playerHooks = BattleClassesUtils.getPlayerHooks(entityPlayer);
+		if(playerHooks.weaponHitHandler != null) {
+			return playerHooks.weaponHitHandler;
 		}
 		return null;
 	}

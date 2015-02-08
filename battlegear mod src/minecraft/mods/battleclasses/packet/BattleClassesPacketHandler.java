@@ -35,6 +35,7 @@ public class BattleClassesPacketHandler {
 		map.put(BattleClassesPacketProcessAbilityWithTarget.packetName, new BattleClassesPacketProcessAbilityWithTarget());
 		map.put(BattleClassesPacketPlayerDataSync.packetName, new BattleClassesPacketPlayerDataSync());
 		map.put(BattleClassesPacketAttributeChanges.packetName, new BattleClassesPacketAttributeChanges());
+		map.put(BattleClassesPacketCastingSound.packetName, new BattleClassesPacketCastingSound());
 	}
 	
 	public void registerChannels() {

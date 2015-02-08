@@ -22,7 +22,7 @@ public class BattleClassesCommonProxy {
     }
 
     public void registerTickHandelers(){
-		 //MinecraftForge.EVENT_BUS.register(new BattleClassesCombatHooks());
+		 MinecraftForge.EVENT_BUS.register(new BattleClassesCombatHooks());
     }
 
 	public void registerItemRenderers() {

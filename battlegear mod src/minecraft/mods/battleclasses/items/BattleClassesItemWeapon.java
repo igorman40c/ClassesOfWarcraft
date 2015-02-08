@@ -9,8 +9,10 @@ import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
 import mods.battleclasses.enums.EnumBattleClassesWeaponHeldType;
 import mods.battleclasses.enums.EnumBattleClassesWieldAccess;
 import mods.battlegear2.api.PlayerEventChild.OffhandAttackEvent;
+import mods.battlegear2.api.core.IBattlePlayer;
 import mods.battlegear2.api.weapons.WeaponRegistry;
 import mods.battlegear2.utils.BattlegearConfig;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
@@ -25,6 +27,7 @@ public class BattleClassesItemWeapon extends ItemSword implements IBattleClasses
 	protected EnumSet<EnumBattleClassesPlayerClass> classAccessSet;
 	protected String name;
 	protected float baseWeaponDamage;
+	protected float weaponSpeed = 0;
 	
     public BattleClassesItemWeapon(ToolMaterial toolMaterial) {
 		super(toolMaterial);
@@ -184,4 +187,24 @@ public class BattleClassesItemWeapon extends ItemSword implements IBattleClasses
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public float getSpeedInSeconds() {
+		return this.weaponSpeed;
+	}
+	
+	/*
+	@Override
+	public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack itemStack)
+    {
+		if(entityLiving instanceof EntityPlayer && entityLiving instanceof IBattlePlayer) {
+			EntityPlayer entityPlayer = (EntityPlayer)entityLiving;
+			if(itemStack != null && itemStack.getItem() instanceof IControlledSpeedWeapon) {
+				return BattleClassesUtils.getPlayerWeaponHandler(entityPlayer).processAttack(itemStack);
+			}
+		}
+		
+    	return false;
+    }
+    */
 }

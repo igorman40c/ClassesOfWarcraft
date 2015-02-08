@@ -35,7 +35,6 @@ public class BattleClassesItemTestingStaff extends BattleClassesItemWeapon {
 				EnumBattleClassesPlayerClass.HUNTER,
 				EnumBattleClassesPlayerClass.PALADIN,
 				EnumBattleClassesPlayerClass.WARRIOR);
+		this.weaponSpeed = 2F;
 	}
-	
-	
 }

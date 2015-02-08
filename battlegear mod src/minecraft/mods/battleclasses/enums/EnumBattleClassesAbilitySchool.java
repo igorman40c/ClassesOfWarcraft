@@ -64,6 +64,19 @@ public enum EnumBattleClassesAbilitySchool {
 		return 0;
 	}
 	
+	public boolean hasCastingSound() {
+		switch (this) {
+			case UNKNOWN:
+				return false;
+			case PHYSICAL_MELEE_RAGE:
+				return false;
+			case PHYSICAL_MELEE_ENERGY:
+				return false;
+			default:
+				return true;
+		}
+	}
+	
     @SideOnly(Side.CLIENT)
 	public int getCastBarColoringV() {
 		switch (this) {
