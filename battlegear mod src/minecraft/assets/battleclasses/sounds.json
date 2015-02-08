@@ -1,50 +1,40 @@
 {
+    ###Classes Of Warcraft sound configuration###
+    ##Ability school casting sounds##
     "casting_physical_ranged": {
     "category": "player",
     "sounds": [
         "abilityschool_casting_ranged"
       ]
-    }
-    
+    },
     "casting_spell_arcane": {
     "category": "player",
     "sounds": [
         "abilityschool_casting_arcane"
       ]
-    }
-    
+    },
     "casting_spell_fire": {
     "category": "player",
     "sounds": [
         "abilityschool_casting_fire"
       ]
-    }
-    
+    },
     "casting_spell_frost": {
     "category": "player",
     "sounds": [
         "abilityschool_casting_frost"
       ]
-    }
-    
+    },
     "casting_spell_holy": {
     "category": "player",
     "sounds": [
         "abilityschool_casting_holy"
       ]
-    }
-    
+    },
     "casting_spell_shadow": {
     "category": "player",
     "sounds": [
-        "abilityschool_casting_holy"
-      ]
-    }
-    
-    "casting_holy": {
-    "category": "player",
-    "sounds": [
-        "abilityschool_casting_holy"
+        "abilityschool_casting_shadow"
       ]
     }
 }

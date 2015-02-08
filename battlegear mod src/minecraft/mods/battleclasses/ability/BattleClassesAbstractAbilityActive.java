@@ -122,6 +122,7 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 	public void onCastRelease(ItemStack itemStack, EntityPlayer entityPlayer, int tickCount) {
 		int remainingCastTick = tickCount - 72000;
 		if(remainingCastTick <= 0) {
+			sendCastingSoundPacket(false);
 			if(this.channeled) {
 				return;
 			}
@@ -356,7 +357,6 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 	public final void onCastFinished(EntityLivingBase targetEntity, int tickCount) {
 		BattleClassesUtils.Log("Casting finished!", LogType.ABILITY);
 		this.getCooldownClock().setCooldownDefault();
-		sendCastingSoundPacket(false);
 	}
 	
 	//Helper method
@@ -436,7 +436,7 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 	
     public void sendCastingSoundPacket(boolean start) {
     	Side side = FMLCommonHandler.instance().getEffectiveSide();
-		if(side == Side.SERVER && this.school.hasCastingSound()) {
+		if(side == Side.SERVER && this.school.hasCastingSound() && this.castTime > 0) {
 			float range = (start) ? 60 : 100;
 			FMLProxyPacket packet;
 			if(start) {
