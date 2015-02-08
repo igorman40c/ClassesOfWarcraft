@@ -53,7 +53,7 @@ public class BattleClassesAbilityTest extends BattleClassesAbstractAbilityActive
 	@Override
 	public boolean performEffect(EntityLivingBase targetEntity, int tickCount) {
 		BattleClassesUtils.Log("BANG BANG Performed effect", LogType.CORE);
-		//targetEntity.addPotionEffect(new PotionEffect(33, 5*20, 1, false));
+		this.playReleaseSound();
 		this.playerHooks.getOwnerPlayer().addPotionEffect(new PotionEffect(34, 10*20, 0, false));
 		return true;
 	}

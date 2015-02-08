@@ -119,6 +119,14 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 		}
 	}
 	
+	/**
+	 * Helper method to get the owner of this ability
+	 * @return
+	 */
+	protected EntityPlayer getOwnerPlayer() {
+		return this.playerHooks.getOwnerPlayer();
+	}
+	
 	public void onCastRelease(ItemStack itemStack, EntityPlayer entityPlayer, int tickCount) {
 		int remainingCastTick = tickCount - 72000;
 		if(remainingCastTick <= 0) {
@@ -232,7 +240,7 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 	 */
 	public EntityLivingBase getFinalTargetFromRaytracedEntity(EntityLivingBase entity) {
 		if(this.requiresRayTracingForTarget()) {
-			boolean targetIsFriendly = BattleClassesUtils.isTargetFriendly(this.playerHooks.getOwnerPlayer(), entity);
+			boolean targetIsFriendly = BattleClassesUtils.isTargetFriendly(this.getOwnerPlayer(), entity);
 			switch(this.intent) {
 			case OFFENSIVE: {
 				if(!targetIsFriendly) {
@@ -247,7 +255,7 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 							return entity;
 						}
 						else {
-							return this.playerHooks.getOwnerPlayer();
+							return this.getOwnerPlayer();
 						}
 					}
 						//break;
@@ -266,7 +274,7 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 				switch(this.targetRequirementType) {
 					case OPTIONAL: {
 						if(entity == null) {
-							return this.playerHooks.getOwnerPlayer();
+							return this.getOwnerPlayer();
 						}
 						else {
 							return entity;
@@ -439,13 +447,30 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 		if(side == Side.SERVER && this.school.hasCastingSound() && this.castTime > 0) {
 			float range = (start) ? 60 : 100;
 			FMLProxyPacket packet;
+			String soundEvent = "abilityschool." + this.school.toString().toLowerCase() + ".casting";
 			if(start) {
-				packet = (new BattleClassesPacketCastingSound(this.playerHooks.getOwnerPlayer(), "casting_" + this.school.toString().toLowerCase() ,true)).generatePacket();
+				packet = (new BattleClassesPacketCastingSound(this.getOwnerPlayer(), soundEvent,true)).generatePacket();
 			}
 			else {
-				packet = (new BattleClassesPacketCastingSound(this.playerHooks.getOwnerPlayer())).generatePacket();
+				packet = (new BattleClassesPacketCastingSound(this.getOwnerPlayer())).generatePacket();
 			}
-			BattleClassesMod.packetHandler.sendPacketAround(this.playerHooks.getOwnerPlayer(), range, packet);
+			BattleClassesMod.packetHandler.sendPacketAround(this.getOwnerPlayer(), range, packet);
+		}
+    }
+    
+    public void playReleaseSound() {
+    	Side side = FMLCommonHandler.instance().getEffectiveSide();
+		if(side == Side.SERVER) {
+			String soundEvent = BattleClassesMod.MODID + ":" + this.getUnlocalizedID() + ".release";
+			this.getOwnerPlayer().worldObj.playSoundAtEntity(getOwnerPlayer(), soundEvent, 1F, 1F);
+		}
+    }
+    
+    public void playImpactSoundAtEntity(Entity targetEntity) {
+    	Side side = FMLCommonHandler.instance().getEffectiveSide();
+		if(side == Side.SERVER) {
+			String soundEvent = BattleClassesMod.MODID + ":" + this.getUnlocalizedID() + ".impact";
+			this.getOwnerPlayer().worldObj.playSoundAtEntity(targetEntity, soundEvent, 1F, 1F);
 		}
     }
 }

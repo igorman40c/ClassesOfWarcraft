@@ -26,6 +26,10 @@ public abstract class BattleClassesAbstractAbility {
 		return "ability.";
 	}
 	
+	public String getUnlocalizedID() {
+		return getUnlocalizedPrefix() + this.name;
+	}
+	
 	public String getUnlocalizedName() {
 		return getUnlocalizedPrefix() + this.name + ".name";
 	}
