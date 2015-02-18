@@ -15,6 +15,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
+import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import cpw.mods.fml.common.eventhandler.Event;
@@ -22,40 +23,14 @@ import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class BattleClassesCombatHooks {
-	
+		
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
-    public void playerInteract(PlayerInteractEvent event) {
-		System.out.println("asd");
-        if(event.entityPlayer instanceof FakePlayer)
-            return;
-        /*
-        if(((IBattlePlayer) event.entityPlayer).getSpecialActionTimer() > 0){
-            event.setCanceled(true);
-            event.entityPlayer.isSwingInProgress = false;
-        }else
-        */
-        if(((IBattlePlayer) event.entityPlayer).isBattlemode()) {
-        	System.out.println("asd");
-        	//Right click block
-            if(event.action == PlayerInteractEvent.Action.RIGHT_CLICK_AIR || event.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {//Right click
-            	System.out.println("asd");
-            	/*
-                ItemStack mainHandItem = event.entityPlayer.getCurrentEquippedItem();
-                if(mainHandItem == null || !BattlegearUtils.usagePriorAttack(mainHandItem)) {
-                    ItemStack offhandItem = ((InventoryPlayerBattle) event.entityPlayer.inventory).getCurrentOffhandWeapon();
-                    if (event.action == PlayerInteractEvent.Action.RIGHT_CLICK_AIR)
-                        event.setCanceled(true);
-                    sendOffSwingEvent(event, mainHandItem, offhandItem);
-                }
-                */
-            }
-            //Left click block
-            else {
-                ItemStack mainHandItem = event.entityPlayer.getCurrentEquippedItem();
-                System.out.println("Alter hand!");
-            }
-        }
-    }
+	public void alterHandsOnWeaponHit(AttackEntityEvent event) {
+		BattleClassesWeaponHitHandler weaponHitHandler = BattleClassesUtils.getPlayerWeaponHandler(event.entityPlayer);
+		if(weaponHitHandler != null) {
+			weaponHitHandler.processAttack(event);
+		}
+	}
 	
 	/**
 	 * Helper method to certain events, should be called on attack, on hit recieved.
@@ -82,5 +57,4 @@ public class BattleClassesCombatHooks {
 	public static boolean isPlayerSilenced(EntityPlayer player) {
 		return false;
 	}
-	
 }

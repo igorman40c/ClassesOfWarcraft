@@ -9,7 +9,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
+import net.minecraftforge.event.entity.player.AttackEntityEvent;
+import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import mods.battleclasses.BattleClassesUtils;
@@ -19,6 +22,7 @@ import mods.battleclasses.enums.EnumBattleClassesWieldAccess;
 import mods.battleclasses.items.IControlledSpeedWeapon;
 import mods.battlegear2.Battlegear;
 import mods.battlegear2.BattlemodeHookContainerClass;
+import mods.battlegear2.api.IUsableItem;
 import mods.battlegear2.api.PlayerEventChild;
 import mods.battlegear2.api.core.IBattlePlayer;
 import mods.battlegear2.api.weapons.IBackStabbable;
@@ -46,32 +50,43 @@ public class BattleClassesWeaponHitHandler {
 		offHandClock = new CooldownClock(WEAPONSKILL_COOLDOWN_HASHCODE_OFFHAND, parPlayerHooks);
 	}
 	
-	private ItemStack lastUsedMainhand;
-	public boolean processAttack(ItemStack itemStackHeld) {
-		boolean cancelMainhandHitEvent = false;
-		lastUsedMainhand = itemStackHeld;
-		ItemStack mainHandItemStack = BattleClassesUtils.getMainhandItemStack(playerHooks.getOwnerPlayer());
-		ItemStack offHandItemStack = BattleClassesUtils.getOffhandItemStack(playerHooks.getOwnerPlayer());
-		if(mainHandClock.isOnCooldown()) {
-			if(itemStackHeld == mainHandItemStack && offHandItemStack != null) {
-				if(offHandClock.isOnCooldown()) {
-					System.out.println("Offhand on CD!");
-				}
-				else {
-					((IBattlePlayer) playerHooks.getOwnerPlayer()).swingOffItem();
-		            Battlegear.proxy.sendAnimationPacket(EnumBGAnimations.OffHandSwing, playerHooks.getOwnerPlayer());
-					setOffhandToCooldown(itemStackHeld, offHandItemStack);
-				}
-			}
-			System.out.println("Mainhand on CD!");
-			cancelMainhandHitEvent = true;
-		}
-		else {
+	public void processAttack(AttackEntityEvent attackEvent) {
+		ItemStack item = attackEvent.entityPlayer.getCurrentEquippedItem();
+		ItemStack mainHandItemStack = BattleClassesUtils.getMainhandItemStack(attackEvent.entityPlayer);
+		ItemStack offHandItemStack = BattleClassesUtils.getOffhandItemStack(attackEvent.entityPlayer);
+		if(!mainHandClock.isOnCooldown()) {
 			System.out.println("Using mainhand, setting CD");
-			this.setMainhandToCooldown(itemStackHeld, (itemStackHeld == mainHandItemStack) ? offHandItemStack : null );
+			this.setMainhandToCooldown(mainHandItemStack, offHandItemStack);
 		}
-		
-		return cancelMainhandHitEvent;
+		else if(offHandItemStack != null) {
+			System.out.println("Mainhand on CD!");
+			if(!offHandClock.isOnCooldown()) {
+				//Generating offhand attack event
+				//Transforming attack->interact event
+				System.out.println("Using offhand, setting CD");
+				EntityInteractEvent interactEvent = new EntityInteractEvent(attackEvent.entityPlayer, attackEvent.target);
+				PlayerEventChild.OffhandAttackEvent offAttackEvent = new PlayerEventChild.OffhandAttackEvent(interactEvent, mainHandItemStack, offHandItemStack);
+                boolean useableItemInMainhand = mainHandItemStack != null && mainHandItemStack.getItem() != null && mainHandItemStack.getItem() instanceof IUsableItem;
+                if(!useableItemInMainhand && !MinecraftForge.EVENT_BUS.post(offAttackEvent)){
+                    if (offAttackEvent.swingOffhand){
+                    	BattlemodeHookContainerClass.sendOffSwingEvent(interactEvent, mainHandItemStack, offHandItemStack);
+                    }
+                    if (offAttackEvent.shouldAttack) {
+                        ((IBattlePlayer) interactEvent.entityPlayer).attackTargetEntityWithCurrentOffItem(interactEvent.target);
+                    }
+                    if (offAttackEvent.cancelParent) {
+                    	interactEvent.setCanceled(true);
+                    }
+                }
+				
+				setOffhandToCooldown(mainHandItemStack, offHandItemStack);
+			}
+			else {
+				System.out.println("Offhand on CD!");
+			}
+			this.cancelMainhandWeaponSwingAnimation(attackEvent.entityPlayer);
+			attackEvent.setCanceled(true);
+		}
 	}
 	
 	public void initAccessSet() {
@@ -120,5 +135,9 @@ public class BattleClassesWeaponHitHandler {
 		}
 	}
 
+	public void cancelMainhandWeaponSwingAnimation(EntityPlayer entityPlayer) {
+		//TODO
+		entityPlayer.swingProgress = 0;
+	}
 	
 }

@@ -7,22 +7,27 @@ import java.util.Set;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.GuiIngame;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.client.event.GuiOpenEvent;
+import net.minecraftforge.client.event.MouseEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerOpenContainerEvent;
+import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.network.internal.FMLProxyPacket;
 import cpw.mods.fml.relauncher.Side;
@@ -53,8 +58,11 @@ import mods.battleclasses.items.IAttributeProvider;
 import mods.battleclasses.packet.BattleClassesPacketAttributeChanges;
 import mods.battleclasses.packet.BattleClassesPacketPlayerClassSnyc;
 import mods.battleclasses.packet.BattleClassesPacketPlayerDataSync;
+import mods.battlegear2.Battlegear;
+import mods.battlegear2.BattlemodeHookContainerClass;
 import mods.battlegear2.api.RenderItemBarEvent;
 import mods.battlegear2.api.RenderItemBarEvent.ShieldBar;
+import mods.battlegear2.api.core.IBattlePlayer;
 import mods.battlegear2.api.weapons.IBackStabbable;
 import mods.battlegear2.api.weapons.IExtendedReachWeapon;
 import mods.battlegear2.api.weapons.IHitTimeModifier;
@@ -66,6 +74,7 @@ import mods.battlegear2.client.gui.controls.GuiPlaceableButton;
 import mods.battlegear2.client.gui.controls.GuiSigilButton;
 import mods.battlegear2.items.ItemWeapon;
 import mods.battlegear2.utils.BattlegearConfig;
+import mods.battlegear2.utils.EnumBGAnimations;
 
 public class BattleClassesClientEvents {
 	
@@ -140,7 +149,6 @@ public class BattleClassesClientEvents {
 			}
 		}
 	}
-	
 	
 	@SubscribeEvent
 	public void renderShieldBarEvent(ShieldBar event) {
@@ -325,45 +333,40 @@ public class BattleClassesClientEvents {
 	
 	@SubscribeEvent
 	public void preStitch(TextureStitchEvent.Pre event) {
-		//super.preStitch(event);
 		if (event.map.getTextureType() == 1) {
-			//Registering Tab Bar Button Icons
-			/*
-			for (BattleClassesGuiTabBarButton button : tabsButtonList) {
-				BattleClassesUtils.Log("Registering " + button.getIconRegisterPath(), LogType.GUI);
-				button.tabButtonIcon = event.map.registerIcon(button.getIconRegisterPath());
-			}
-			*/
-			
-			//Registering Player Class Icons
-			/*
-			BattleClassesPlayerClass.classIcons = new IIcon[EnumBattleClassesPlayerClass.values().length];
-			BattleClassesPlayerClass.classIcons[EnumBattleClassesPlayerClass.MAGE.ordinal()] = event.map.registerIcon("battleclasses:sharedicons/classes/" + "mage");
-			BattleClassesPlayerClass.classIcons[EnumBattleClassesPlayerClass.PRIEST.ordinal()] = event.map.registerIcon("battleclasses:sharedicons/classes/" + "priest");
-			BattleClassesPlayerClass.classIcons[EnumBattleClassesPlayerClass.WARLOCK.ordinal()] = event.map.registerIcon("battleclasses:sharedicons/classes/" + "warlock");
-			BattleClassesPlayerClass.classIcons[EnumBattleClassesPlayerClass.ROGUE.ordinal()] = event.map.registerIcon("battleclasses:sharedicons/classes/" + "rogue");
-			BattleClassesPlayerClass.classIcons[EnumBattleClassesPlayerClass.HUNTER.ordinal()] = event.map.registerIcon("battleclasses:sharedicons/classes/" + "hunter");
-			BattleClassesPlayerClass.classIcons[EnumBattleClassesPlayerClass.PALADIN.ordinal()] = event.map.registerIcon("battleclasses:sharedicons/classes/" + "paladin");
-			BattleClassesPlayerClass.classIcons[EnumBattleClassesPlayerClass.WARRIOR.ordinal()] = event.map.registerIcon("battleclasses:sharedicons/classes/" + "warrior");
-			*/
 			//Registering Cooldown Icons
 			BattleClassesGuiHelper.cooldownIcons = new IIcon[BattleClassesGuiHelper.COOLDOWN_FRAMES];
 			for(int i = 0; i < BattleClassesGuiHelper.COOLDOWN_FRAMES; ++i) {
 				int frameIndex = i + 1;
 				BattleClassesGuiHelper.cooldownIcons[i] = event.map.registerIcon("battleclasses:sharedicons/cooldown/" + "cooldown_" + frameIndex);
 			}
-			
-			/*
-			//Registering Ability Icons
-			ArrayList<BattleClassesAbstractAbilityActive> abilityIcons = new ArrayList<BattleClassesAbstractAbilityActive> 
-																		(BattleClassesAbstractAbilityActive.activeAbilityFactoryHashSet.values());
-			for(int i = 0; i < abilityIcons.size(); ++i) {
-				abilityIcons.get(i).registerIcons(event.map);
-			}
-			*/
-						
 		}
 		
 	}
 	
+	private boolean offhandNext = false;
+	@SubscribeEvent(priority = EventPriority.HIGHEST)
+	public void alterHandsOnAirClick(MouseEvent event) {
+		if(event.button == 0 &&  event.buttonstate == true) {
+			Minecraft mc = Minecraft.getMinecraft();
+			if(mc.currentScreen == null && mc.objectMouseOver != null) {
+				if(BattleClassesUtils.isPlayerInBattlemode(mc.thePlayer) 
+					&& BattleClassesUtils.getOffhandItemStack(mc.thePlayer) != null 
+					&& mc.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.MISS) {
+					
+					System.out.println("Alter hands");
+					if(offhandNext) {
+						event.setCanceled(true);
+						((IBattlePlayer) mc.thePlayer).swingOffItem();
+			            Battlegear.proxy.sendAnimationPacket(EnumBGAnimations.OffHandSwing, mc.thePlayer);
+						offhandNext = false;
+					}
+					else {
+						offhandNext = true;
+					}
+				}
+			}
+		}
+	}
+		
 }
