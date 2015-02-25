@@ -39,6 +39,7 @@ import mods.battleclasses.ability.BattleClassesAbilityShieldBlock;
 import mods.battleclasses.ability.BattleClassesAbstractAbilityActive;
 import mods.battleclasses.core.BattleClassesAttributes;
 import mods.battleclasses.core.BattleClassesPlayerClass;
+import mods.battleclasses.core.BattleClassesWeaponHitHandler;
 import mods.battleclasses.enums.EnumBattleClassesAttributeType;
 import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
 import mods.battleclasses.gui.BattleClassesGuiHelper;
@@ -346,23 +347,45 @@ public class BattleClassesClientEvents {
 	
 	private boolean offhandNext = false;
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
-	public void alterHandsOnAirClick(MouseEvent event) {
+	public void alterHandsOnClick(MouseEvent event) {
 		if(event.button == 0 &&  event.buttonstate == true) {
 			Minecraft mc = Minecraft.getMinecraft();
 			if(mc.currentScreen == null && mc.objectMouseOver != null) {
-				if(BattleClassesUtils.isPlayerInBattlemode(mc.thePlayer) 
-					&& BattleClassesUtils.getOffhandItemStack(mc.thePlayer) != null 
-					&& mc.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.MISS) {
-					
-					System.out.println("Alter hands");
-					if(offhandNext) {
-						event.setCanceled(true);
-						((IBattlePlayer) mc.thePlayer).swingOffItem();
-			            Battlegear.proxy.sendAnimationPacket(EnumBGAnimations.OffHandSwing, mc.thePlayer);
-						offhandNext = false;
-					}
-					else {
-						offhandNext = true;
+				if(BattleClassesUtils.isPlayerInBattlemode(mc.thePlayer) && BattleClassesUtils.getOffhandItemStack(mc.thePlayer) != null) { 
+					switch(mc.objectMouseOver.typeOfHit) {
+						case ENTITY: {
+							BattleClassesWeaponHitHandler weaponHitHandler = BattleClassesUtils.getPlayerWeaponHandler(mc.thePlayer);
+							if(!weaponHitHandler.mainHandClock.isOnCooldown()) {
+								//Can use mainhand
+								offhandNext = true;
+								return;
+							}
+							else {
+								event.setCanceled(true);
+								if(!weaponHitHandler.offHandClock.isOnCooldown()) {
+									//Can use offhand
+									weaponHitHandler.processOffhandAttack(mc.thePlayer, mc.objectMouseOver.entityHit);
+									offhandNext = false;
+									return;
+								}
+							}
+						}
+							break;
+						case MISS: {
+							System.out.println("Alter hands");
+							if(offhandNext) {
+								event.setCanceled(true);
+								((IBattlePlayer) mc.thePlayer).swingOffItem();
+					            Battlegear.proxy.sendAnimationPacket(EnumBGAnimations.OffHandSwing, mc.thePlayer);
+								offhandNext = false;
+							}
+							else {
+								offhandNext = true;
+							}
+						}
+							break;
+						default:
+							break;
 					}
 				}
 			}

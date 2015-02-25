@@ -20,24 +20,24 @@ public class CooldownClock {
 	
 	private CooldownClock() {
 		this.cooldownID = 0;
-		this.initCooldownHolder();
+		this.resetClock();
 	}
 	
 	public CooldownClock(int id) {
 		this.cooldownID = id;
-		this.initCooldownHolder();
+		this.resetClock();
 	}
 	
 	public CooldownClock(int id, float duration, EnumBattleClassesCooldownType type) {
 		this.cooldownID = id;
 		this.setDefaultDuration(duration);
 		this.setDefaultType(type);
-		this.initCooldownHolder();
+		this.resetClock();
 	}
 	
 	public CooldownClock(int id, ICooldownMapHolder parameterCDcenter) {
 		this.cooldownID = id;
-		this.initCooldownHolder();
+		this.resetClock();
 		this.registerInCooldownCenter(parameterCDcenter);
 	}
 	
@@ -45,11 +45,11 @@ public class CooldownClock {
 		this.cooldownID = id;
 		this.setDefaultDuration(duration);
 		this.setDefaultType(type);
-		this.initCooldownHolder();
+		this.resetClock();
 		this.registerInCooldownCenter(parameterCDcenter);
 	}
 	
-	public void initCooldownHolder() {
+	public void resetClock() {
 		setTime = BattleClassesUtils.getCurrentTimeInSeconds() - COOLDOWN_INITIALIZER;
 	}
 	//----------------------------------------
@@ -163,7 +163,7 @@ public class CooldownClock {
 	 * Removes the previously set cooldown
 	 */
 	public void cancelCooldown() {
-		this.initCooldownHolder();
+		this.resetClock();
 		if(this.getOwnerPlayer() instanceof EntityPlayerMP) {
 			EntityPlayerMP entityPlayerMP = (EntityPlayerMP) this.getOwnerPlayer();
 			if(entityPlayerMP != null) {
@@ -239,7 +239,7 @@ public class CooldownClock {
 	 */
 	void setSetTime(float t) {
 		if(BattleClassesUtils.getCurrentTimeInSeconds() < t) {
-			this.initCooldownHolder();
+			this.resetClock();
 			return;
 		}
 		setTime = t;

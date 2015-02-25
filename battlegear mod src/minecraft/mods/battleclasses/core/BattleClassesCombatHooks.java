@@ -3,7 +3,9 @@ package mods.battleclasses.core;
 import java.util.List;
 
 import mods.battleclasses.BattleClassesUtils;
+import mods.battleclasses.items.IControlledSpeedWeapon;
 import mods.battlegear2.api.IHandListener;
+import mods.battlegear2.api.PlayerEventChild.OffhandAttackEvent;
 import mods.battlegear2.api.core.BattlegearUtils;
 import mods.battlegear2.api.core.IBattlePlayer;
 import mods.battlegear2.api.core.InventoryPlayerBattle;
@@ -23,15 +25,26 @@ import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class BattleClassesCombatHooks {
-		
-	@SubscribeEvent(priority = EventPriority.HIGHEST)
-	public void alterHandsOnWeaponHit(AttackEntityEvent event) {
+	
+	@SubscribeEvent
+	public void onMainhandAttack(AttackEntityEvent event) {
+		//Settings Mainhand weapon CD
 		BattleClassesWeaponHitHandler weaponHitHandler = BattleClassesUtils.getPlayerWeaponHandler(event.entityPlayer);
-		if(weaponHitHandler != null) {
-			weaponHitHandler.processAttack(event);
+		weaponHitHandler.setMainhandToCooldown(event.entityPlayer);
+		
+		//Reseting hurtResistanceTime for ControlledSpeedWeapons
+		ItemStack mainHandItemStack = BattleClassesUtils.getMainhandItemStack(event.entityPlayer);
+		if(mainHandItemStack.getItem() instanceof IControlledSpeedWeapon) {
+			event.target.hurtResistantTime = 0;
 		}
 	}
-	
+
+	@SubscribeEvent
+	public void onOffhandAttack(OffhandAttackEvent event) {
+		System.out.println("Settings offhandCD");
+		BattleClassesUtils.getPlayerWeaponHandler(event.entityPlayer).setOffhandToCooldown(event.entityPlayer);
+	}
+			
 	/**
 	 * Helper method to certain events, should be called on attack, on hit recieved.
 	 * @param player
