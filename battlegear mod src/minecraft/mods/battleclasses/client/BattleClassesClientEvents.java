@@ -5,12 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang3.ArrayUtils;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiIngame;
+import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.gui.inventory.GuiInventory;
+import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemBlock;
@@ -29,6 +33,7 @@ import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerOpenContainerEvent;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.network.internal.FMLProxyPacket;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -44,6 +49,7 @@ import mods.battleclasses.enums.EnumBattleClassesAttributeType;
 import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
 import mods.battleclasses.gui.BattleClassesGuiHelper;
 import mods.battleclasses.gui.BattleClassesGuiHUDOverlay;
+import mods.battleclasses.gui.BattleClassesGuiKeyHandler;
 import mods.battleclasses.gui.controlls.BattleClassesGuiButtonClassSelector;
 import mods.battleclasses.gui.controlls.BattleClassesGuiTabBarButton;
 import mods.battleclasses.gui.controlls.GuiTabBarButtonBattleInventory;
@@ -351,7 +357,7 @@ public class BattleClassesClientEvents {
 		if(event.button == 0 &&  event.buttonstate == true) {
 			Minecraft mc = Minecraft.getMinecraft();
 			if(mc.currentScreen == null && mc.objectMouseOver != null) {
-				if(BattleClassesUtils.isPlayerInBattlemode(mc.thePlayer) && BattleClassesUtils.getOffhandItemStack(mc.thePlayer) != null) { 
+				if(BattleClassesUtils.isPlayerInBattlemode(mc.thePlayer) /*&& BattleClassesUtils.getOffhandItemStack(mc.thePlayer) != null*/) { 
 					switch(mc.objectMouseOver.typeOfHit) {
 						case ENTITY: {
 							BattleClassesWeaponHitHandler weaponHitHandler = BattleClassesUtils.getPlayerWeaponHandler(mc.thePlayer);
@@ -391,5 +397,4 @@ public class BattleClassesClientEvents {
 			}
 		}
 	}
-		
 }

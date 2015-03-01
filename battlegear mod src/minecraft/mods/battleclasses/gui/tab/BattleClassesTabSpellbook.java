@@ -216,6 +216,17 @@ public class BattleClassesTabSpellbook extends BattleClassesAbstractTab {
         		}
         	}
         	else if(spellbookAbilityNodes.contains(selectedNode)) {
+        		int i = 0;
+        		for(BattleClassesGuiButtonAbilityNode actionbarAbilityNode : actionbarAbilityNodes) {
+            		if(actionbarAbilityNode.isMouseOver(mouseX, mouseY)) {
+            			if(actionbarAbilityNode.ability != selectedNode.ability) {
+            				BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).insertAbilityToActionbarAtIndex(selectedNode.ability, i); 
+            			}
+            			this.onAbilityNodeReleased();
+            			return;
+            		}
+            		++i;
+            	}
         		if(isInsideActionbar(mouseX, mouseY)) {
         			BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).addAbilityToActionbar(selectedNode.ability);
         			this.onAbilityNodeReleased();

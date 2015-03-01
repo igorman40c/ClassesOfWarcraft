@@ -300,6 +300,13 @@ public class BattleClassesSpellBook {
 		}
 	}
 	
+	@SideOnly(Side.CLIENT)
+	public void insertAbilityToActionbarAtIndex(BattleClassesAbstractAbilityActive ability, int index) {
+		if(!this.actionbarAbilities.contains(ability)) {
+			this.actionbarAbilities.add(index, ability);
+		}
+	}
+	
 	public EnumAction getCurrentEnumAction() {
 		BattleClassesAbstractAbilityActive chosenAbility = this.getChosenAbility();
 		if(chosenAbility != null) {

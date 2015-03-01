@@ -34,7 +34,7 @@ public class BattleClassesCombatHooks {
 		
 		//Reseting hurtResistanceTime for ControlledSpeedWeapons
 		ItemStack mainHandItemStack = BattleClassesUtils.getMainhandItemStack(event.entityPlayer);
-		if(mainHandItemStack.getItem() instanceof IControlledSpeedWeapon) {
+		if(BattleClassesUtils.isPlayerInBattlemode(event.entityPlayer) && mainHandItemStack != null && mainHandItemStack.getItem() instanceof IControlledSpeedWeapon) {
 			event.target.hurtResistantTime = 0;
 		}
 	}

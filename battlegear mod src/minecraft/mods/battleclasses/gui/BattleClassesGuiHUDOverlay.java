@@ -36,6 +36,8 @@ import mods.battleclasses.ability.BattleClassesAbilityShieldBlock;
 import mods.battleclasses.ability.BattleClassesAbstractAbilityActive;
 import mods.battleclasses.client.BattleClassesClientTargeting;
 import mods.battleclasses.core.BattleClassesSpellBook;
+import mods.battleclasses.core.BattleClassesWeaponHitHandler;
+import mods.battleclasses.core.CooldownClock;
 import mods.battleclasses.enums.EnumBattleClassesCooldownType;
 import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
 import mods.battleclasses.gui.tab.BattleClassesTabSpellbook;
@@ -101,7 +103,8 @@ public class BattleClassesGuiHUDOverlay extends BattlegearInGameGUI {
                 }
 
                 ItemStack mainhand = mc.thePlayer.getCurrentEquippedItem();
-                               
+                
+                this.drawWeaponCooldowns();
                 BattleClassesClientTargeting.generateTargetingInfo();
             }
         }
@@ -118,7 +121,7 @@ public class BattleClassesGuiHUDOverlay extends BattlegearInGameGUI {
 
         this.mc.renderEngine.bindTexture(resourceLocation);
         if (mc.thePlayer!=null && ((IBattlePlayer) mc.thePlayer).isBattlemode()) {
-            this.drawTexturedModalRect(x + offsetX-1 + (mc.thePlayer.inventory.currentItem - InventoryPlayerBattle.OFFSET) * 20,
+            this.drawTexturedModalRect(x + offsetX-1 + 0 * 20,
                     y - 1, 0, 22, 24, SLOT_H);
         }
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
@@ -127,6 +130,21 @@ public class BattleClassesGuiHUDOverlay extends BattlegearInGameGUI {
             for (int i = 0; i < 1 /*InventoryPlayerBattle.WEAPON_SETS*/; ++i) {
                 int varx = x + i * 20 + 3 + offsetX;
                 this.renderInventorySlot(i + InventoryPlayerBattle.OFFSET+(isMainHand?0:InventoryPlayerBattle.WEAPON_SETS), varx, y+3, frame);
+                
+                /*
+                 * DRAWING HAND COOLDOWNS HERE
+                 */
+                BattleClassesWeaponHitHandler weaponHitHandler = BattleClassesUtils.getPlayerWeaponHandler(this.mc.thePlayer);
+                if(weaponHitHandler != null) {
+                	CooldownClock handClock;
+                	if(isMainHand) {
+                		handClock = weaponHitHandler.mainHandClock;
+                	}
+                	else {
+                		handClock = weaponHitHandler.offHandClock;
+                	}
+                	BattleClassesGuiHelper.INSTANCE.drawCooldown(varx, y+3, BattleClassesUtils.getCooldownPercentage(handClock));
+                }
             }
         }
         RenderHelper.disableStandardItemLighting();
@@ -156,7 +174,9 @@ public class BattleClassesGuiHUDOverlay extends BattlegearInGameGUI {
         BattleClassesGuiHelper.INSTANCE.drawAbilitySelector(actionbarPosX, actionbarPosY);
     }
     
-    
+    public void drawWeaponCooldowns() {
+    	
+    }
     
     protected boolean shouldDrawBossHealthBar() {
     	return (BossStatus.bossName != null && BossStatus.statusBarTime > 0);

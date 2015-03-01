@@ -1,6 +1,7 @@
 package mods.battleclasses.gui;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import mods.battleclasses.BattleClassesUtils;
 import net.minecraft.client.Minecraft;
@@ -12,72 +13,52 @@ import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.InputEvent;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.lwjgl.input.Keyboard;
 
 public class BattleClassesGuiKeyHandler {
 	
-	private final ArrayList<KeyBinding> actionbarKeybinds;
+	private ArrayList<KeyBinding> abilityHotbarKeybinds;
 	public static final BattleClassesGuiKeyHandler INSTANCE = new BattleClassesGuiKeyHandler();
 	
 	public BattleClassesGuiKeyHandler() {
-		//Registering ability actionbar keybinds
-		actionbarKeybinds = new ArrayList<KeyBinding>();
+		abilityHotbarKeybinds = new ArrayList<KeyBinding>();
 		for(int i = 1; i <= 9; ++i) {
-			KeyBinding actionbarKeybind = new KeyBinding("Ability " + i, Keyboard.getKeyIndex(Integer.toString(i)), "bcgui.keycategories.actionbar");
-			actionbarKeybinds.add(actionbarKeybind);
-			ClientRegistry.registerKeyBinding(actionbarKeybind);
+			KeyBinding abilityHotbarKeybind = new KeyBinding("Ability " + i, Keyboard.getKeyIndex(Integer.toString(i)), "bcgui.keycategories.actionbar");
+			abilityHotbarKeybinds.add(abilityHotbarKeybind);
+			ClientRegistry.registerKeyBinding(abilityHotbarKeybind);
 		}
 	}
-	
+			
 	@SubscribeEvent(priority=EventPriority.HIGHEST)
 	public void keyDown(InputEvent.KeyInputEvent event) {
 		Minecraft mc = FMLClientHandler.instance().getClient();
-		if (mc != null && mc.thePlayer != null && mc.theWorld != null && mc.currentScreen == null) {
+		if (mc != null && mc.thePlayer != null && mc.theWorld != null) {
 			if(BattleClassesUtils.isPlayerInBattlemode(mc.thePlayer)) {
 				int actionbarIndexRead = -1;
-				switch(Keyboard.getEventKey()) {
-					case(Keyboard.KEY_1) : {
-						actionbarIndexRead = 1;
+				int i = 1;
+				for(KeyBinding keybinding : abilityHotbarKeybinds) {
+					if(keybinding.getKeyCode() == Keyboard.getEventKey()) {
+						actionbarIndexRead = i;
+						break;
 					}
-						break;
-					case(Keyboard.KEY_2) : {
-						actionbarIndexRead = 2;
-					}
-						break;
-					case(Keyboard.KEY_3) : {
-						actionbarIndexRead = 3;
-					}
-						break;
-					case(Keyboard.KEY_4) : {
-						actionbarIndexRead = 4;
-					}
-						break;
-					case(Keyboard.KEY_5) : {
-						actionbarIndexRead = 5;
-					}
-						break;
-					case(Keyboard.KEY_6) : {
-						actionbarIndexRead = 6;
-					}
-						break;
-					case(Keyboard.KEY_7) : {
-						actionbarIndexRead = 7;
-					}
-						break;
-					case(Keyboard.KEY_8) : {
-						actionbarIndexRead = 8;
-					}
-						break;
-					case(Keyboard.KEY_9) : {
-						actionbarIndexRead = 9;
-					}
-						break;
-					default:
-						break;
+					++i;
 				}
+				
 				if(actionbarIndexRead >= 1 && actionbarIndexRead <= 9) {
 					BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).setChosenAbilityIndex(actionbarIndexRead-1);
 				}
+			}
+			else {
+				for (int j = 0; j < 9; ++j)
+	            {
+	                if (mc.gameSettings.keyBindsHotbar[j].getKeyCode() == Keyboard.getEventKey())
+	                {
+	                	System.out.println("Set current item to index: " + j);
+	                    mc.thePlayer.inventory.currentItem = j;
+	                    //mc.playerController.syncCurrentPlayItem();
+	                }
+	            }
 			}
 		}
 	}

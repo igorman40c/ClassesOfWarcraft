@@ -14,6 +14,7 @@ import mods.battleclasses.core.BattleClassesPlayerHooks;
 import mods.battleclasses.core.BattleClassesSpellBook;
 import mods.battleclasses.core.BattleClassesTalentMatrix;
 import mods.battleclasses.core.BattleClassesWeaponHitHandler;
+import mods.battleclasses.core.CooldownClock;
 import mods.battleclasses.core.ICooldownOwner;
 import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
 import mods.battlegear2.api.core.BattlegearUtils;
@@ -64,7 +65,11 @@ public static Logger battleClassesLogger = LogManager.getLogger("Battle Classes"
 	}
 	
 	public static float getCooldownPercentage(ICooldownOwner coolDownHolder) {
-		return coolDownHolder.getCooldownClock().getCooldownRemaining() / coolDownHolder.getCooldownClock().getLastUsedDuration();
+		return getCooldownPercentage(coolDownHolder.getCooldownClock());
+	}
+	
+	public static float getCooldownPercentage(CooldownClock coolClock) {
+		return coolClock.getCooldownRemaining() / coolClock.getLastUsedDuration();
 	}
 	
 	public static void setEntityPlayerItemInUseInSeconds(EntityPlayer entityPlayer, ItemStack itemStack, float time) {

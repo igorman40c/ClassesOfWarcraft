@@ -64,11 +64,7 @@ public class BattleClassesClientProxy extends BattleClassesCommonProxy {
     public void registerTickHandelers() {
     	super.registerTickHandelers();
         MinecraftForge.EVENT_BUS.register(new BattleClassesClientEvents());
-    	/*
-        super.registerTickHandelers();
-        MinecraftForge.EVENT_BUS.register(new BattleClassesClientEvents());
-        FMLCommonHandler.instance().bus().register(new BattlegearClientTickHandeler());
-        */
+        FMLCommonHandler.instance().bus().register(BattleClassesClientTickHandler.INSTANCE);
     }
     
     @Override
