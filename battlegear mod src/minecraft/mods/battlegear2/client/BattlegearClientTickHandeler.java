@@ -102,7 +102,10 @@ public final class BattlegearClientTickHandeler {
                             player.inventory.currentItem = previousNormal;
                         } else {
                             previousNormal = player.inventory.currentItem;
-                            player.inventory.currentItem = previousBattlemode;
+                            //#ClassesOfWarcraft changes @begin
+                            //player.inventory.currentItem = previousBattlemode;
+                            //@end
+                            player.inventory.currentItem = InventoryPlayerBattle.OFFSET;
                         }
                         mc.playerController.syncCurrentPlayItem();
                         drawDone = true;
@@ -112,6 +115,8 @@ public final class BattlegearClientTickHandeler {
                     inBattle = ((IBattlePlayer) player).isBattlemode();
                 }else {
                     if(inBattle && !((IBattlePlayer) player).isBattlemode()){
+                    	//#ClassesOfWarcraft changes @begin
+                    	/*
                         for (int i = 0; i < InventoryPlayerBattle.WEAPON_SETS; ++i){
                             if (mc.gameSettings.keyBindsHotbar[i].getIsKeyPressed()){
                                 previousBattlemode = InventoryPlayerBattle.OFFSET + i;
@@ -119,6 +124,8 @@ public final class BattlegearClientTickHandeler {
                         }
                         player.inventory.currentItem = previousBattlemode;
                         mc.playerController.syncCurrentPlayItem();
+                        */
+                    	//@end
                     }
                 }
             }
