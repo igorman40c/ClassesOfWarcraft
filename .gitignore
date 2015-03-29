@@ -32,5 +32,6 @@
 
 #Don't ignore some battleclasses folders
 !battleclasses image sources
+!battleclasses sound sources
 
 
