@@ -6,7 +6,7 @@ import java.util.List;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-import mods.battleclasses.ability.BattleClassesAbstractAbilityActive;
+import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
 import mods.battleclasses.client.BattleClassesClientEvents;
 import mods.battleclasses.gui.BattleClassesGuiHelper;
 import mods.battleclasses.gui.tab.BattleClassesTabSpellbook;

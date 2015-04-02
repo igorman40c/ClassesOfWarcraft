@@ -1,4 +1,4 @@
-package mods.battleclasses.ability;
+package mods.battleclasses.ability.passive;
 
 import net.minecraft.util.ResourceLocation;
 import cpw.mods.fml.relauncher.Side;
@@ -12,7 +12,7 @@ public class BattleClassesAbstractTalent extends BattleClassesAbstractAbilityPas
 
 	public BattleClassesAbstractTalent(int parAbilityID, int parTalentLevel) {
 		super(parAbilityID);
-		talentLevel = parTalentLevel;
+		talentTierLevel = parTalentLevel;
 	}
 	
 	@Override
@@ -22,8 +22,8 @@ public class BattleClassesAbstractTalent extends BattleClassesAbstractAbilityPas
 	
 	protected BattleClassesTalentTree parentTree;
 	
-	int talentLevel = 0;
-	int currentState = 0;
+	private int talentTierLevel = 0;
+	private int currentState = 0;
 	
 	/**
 	 * Should only be used by PacketTalentSync while applying talentStateMap
@@ -104,7 +104,7 @@ public class BattleClassesAbstractTalent extends BattleClassesAbstractAbilityPas
 		if(this.isAlreadyLearned()) {
 			return false;
 		}
-		return (this.talentLevel == 0) ||  (this.getPreviousTalentTreeElement().isAlreadyLearned());
+		return (this.talentTierLevel == 0) ||  (this.getPreviousTalentTreeElement().isAlreadyLearned());
 	}
 	
 	public BattleClassesAbstractTalent getPreviousTalentTreeElement() {
@@ -127,7 +127,7 @@ public class BattleClassesAbstractTalent extends BattleClassesAbstractAbilityPas
 				+ "_"
 				+ (this.parentTree.getIndexOfTree())
 				+ "_"
-				+ (this.talentLevel)
+				+ (this.talentTierLevel)
 				+ ".png";
 	}
 

@@ -10,7 +10,7 @@ import io.netty.buffer.ByteBufOutputStream;
 import mods.battleclasses.BattleClassesMod;
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
-import mods.battleclasses.ability.BattleClassesAbstractAbilityActive;
+import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
 import mods.battleclasses.core.BattleClassesPlayerHooks;
 import mods.battlegear2.packet.AbstractMBPacket;
 import net.minecraft.entity.Entity;

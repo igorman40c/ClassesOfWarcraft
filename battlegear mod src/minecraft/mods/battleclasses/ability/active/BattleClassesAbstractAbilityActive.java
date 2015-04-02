@@ -1,4 +1,4 @@
-package mods.battleclasses.ability;
+package mods.battleclasses.ability.active;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -54,7 +54,6 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 	protected EnumBattleClassesAbilitySchool school = EnumBattleClassesAbilitySchool.UNKNOWN;
 	protected EnumBattleClassesAbilityDirectTargetRequirement targetRequirementType = EnumBattleClassesAbilityDirectTargetRequirement.NEEDLESS;
 	protected EnumBattleClassesAbilityIntent intent = EnumBattleClassesAbilityIntent.DUAL;
-	protected EnumBattleClassesAbilityCastingType castingType = EnumBattleClassesAbilityCastingType.CastType_UNKNOWN;
 	
 	//Basic ability attributes
 	public float castTime = 0;
@@ -64,8 +63,6 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 	public float criticalChance = 0;
 	public float haste = 0;
 	
-	protected int channelTickCount = 1;
-	protected boolean channeled = false;
 	public boolean ignoresGlobalCooldown = false;
 	protected boolean ignoresSilence = false;
 	protected boolean requiresMeleeSwing = false;
@@ -75,49 +72,8 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 	public EnumAction getEnumActionForCasting() {
 		return EnumAction.bow;
 	}
-	/**
-	 * Called when player presses Mouse-Right button
-	 */
-	public void onCastStart(ItemStack itemStack, World world, EntityPlayer entityPlayer) {
-		if(!this.isAvailable(entityPlayer, itemStack)) {
-			this.cancelCasting(entityPlayer);
-			return;
-		}
-		
-		Side side = FMLCommonHandler.instance().getEffectiveSide();
-		if(side == Side.SERVER) {
-			if(!this.ignoresGlobalCooldown) {
-				BattleClassesUtils.getPlayerSpellBook(entityPlayer).setGlobalCooldown();
-			}
-		}
-		
-		if(this.isInstant()) {
-			this.requestProceed(entityPlayer, itemStack, 0);
-		}
-		else {
-			this.startCasting(entityPlayer, itemStack);
-		}
-	}
 	
-	public void onCastTick(ItemStack itemStack, EntityPlayer entityPlayer, int tickCount) {
-		if(!this.channeled) {
-			return;
-		}
-		int currentCastTick = tickCount - 72000;
-		if(currentCastTick >= 0) {
-			int ticksPerProceed = this.getCastTimeInTicks() / this.channelTickCount;
-			int currentCastTickInverted = this.getCastTimeInTicks() - currentCastTick;
-			if(currentCastTickInverted > 0 && (currentCastTickInverted % ticksPerProceed) == 0) {
-				//Set To Cooldown on first channel tick
-				if(currentCastTickInverted == ticksPerProceed) {
-					BattleClassesUtils.Log("First Channel tick! Set CD here! CD should set: " + this.getCooldownClock().getDefaultDuration(), LogType.ABILITY);
-					this.getCooldownClock().setCooldownDefault();
-				}
-				BattleClassesUtils.Log("Channeling... Current tick: " + currentCastTickInverted + " Cast time in tick " + this.getCastTimeInTicks(), LogType.ABILITY);
-				this.requestProceed(entityPlayer, itemStack, tickCount);
-			}
-		}
-	}
+	public abstract EnumBattleClassesAbilityCastingType getCastingType();
 	
 	/**
 	 * Helper method to get the owner of this ability
@@ -127,18 +83,28 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 		return this.playerHooks.getOwnerPlayer();
 	}
 	
-	public void onCastRelease(ItemStack itemStack, EntityPlayer entityPlayer, int tickCount) {
-		int remainingCastTick = tickCount - 72000;
-		if(remainingCastTick <= 0) {
-			sendCastingSoundPacket(false);
-			if(this.channeled) {
-				return;
-			}
-			this.requestProceed(entityPlayer, itemStack, tickCount);
-		}
-		else {
+	/**
+	 * Called when player presses Mouse-Right button
+	 */
+	public void onCastStart(ItemStack itemStack, World world, EntityPlayer entityPlayer) {
+		if(!this.isAvailable(entityPlayer, itemStack)) {
 			this.cancelCasting(entityPlayer);
-		}	
+			return;
+		}
+	}
+	
+	/**
+	 * Called while player keeps Mouse-Right button pressed down. Hook method to be overriden.
+	 */
+	public void onCastTick(ItemStack itemStack, EntityPlayer entityPlayer, int tickCount) {
+		
+	}
+
+	/**
+	 * Called when player releases Mouse-Right button
+	 */
+	public void onCastRelease(ItemStack itemStack, EntityPlayer entityPlayer, int tickCount) {
+		sendCastingSoundPacket(false);
 	}
 		
 	public float getAbilityDamageBase() {
@@ -155,11 +121,9 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 		return this.ignoresSilence;
 	}
 	
-	protected void startCasting(EntityPlayer entityPlayer, ItemStack itemStack) {
+	protected void startCastingProcess(EntityPlayer entityPlayer, ItemStack itemStack) {
 		BattleClassesUtils.Log("Casting started!", LogType.ABILITY);
 		BattleClassesUtils.setEntityPlayerItemInUseInSeconds(entityPlayer, itemStack, this.getCastTime());
-		
-		//TODO: Sound/Casting sound STARTPLAY
 		sendCastingSoundPacket(true);
 	}
 	
@@ -171,15 +135,7 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 		return this.school;
 	}
 	
-	public int getChannelTicks() {
-		return this.channelTickCount;
-	}
-	
-	public boolean isChanneled() {
-		return this.channeled;
-	}
-	
-	/**
+		/**
 	 * Called on CastStart to check if the ability is available and ready to use
 	 * @param entityPlayer - the caster player
 	 * @param itemStack - the itemStack containing the held item
@@ -220,6 +176,82 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 		return /*hasRequiredItem &&*/ cooldownFree && hasRequiredAmmo;
 	}
 		
+
+	
+	public boolean isInstant() {
+		return this.getCastTime() == 0;
+	}
+	
+	public int getCastTimeInTicks() {
+		return (int) (this.getCastTime() * 20);
+	}
+	
+	public void cancelCasting(EntityPlayer entityPlayer) {
+		if(!this.ignoresGlobalCooldown) {
+			this.playerHooks.playerClass.spellBook.cancelGlobalCooldown();
+		}
+		entityPlayer.clearItemInUse();
+		sendCastingSoundPacket(false);
+		BattleClassesUtils.Log("Cancelling Casting and GlobalCD", LogType.ABILITY);
+	}
+	
+	public void requestCastingProcessFinish(EntityPlayer entityPlayer, ItemStack itemStack, int tickCount) {
+		Side side = FMLCommonHandler.instance().getEffectiveSide();
+		//Checking CLIENT SIDE
+		if(side == Side.CLIENT && this.requiresRayTracingForTarget()) {
+			
+			//CHECK TARGET REQUIREMENTS
+			//CHECK RANGE REQUIREMENTS
+			EntityLivingBase target = this.getFinalTarget();
+			
+			//TODO
+			if (target != null) {
+				int targetEntityID = target.getEntityId();
+				FMLProxyPacket p = new BattleClassesPacketProcessAbilityWithTarget(entityPlayer, this.abilityID, targetEntityID, tickCount).generatePacket();
+				BattleClassesMod.packetHandler.sendPacketToServer(p);
+			}
+		}
+		//Checking SERVER SIDE
+		else if (side == Side.SERVER && !this.requiresRayTracingForTarget()) {
+			EntityLivingBase targetEntity = null;
+			this.finishCastingWithTarget(targetEntity, tickCount);
+		} 
+		else {
+			System.out.println("ServerSide requestProcession failed. TargetRT: " + this.targetRequirementType);
+		}
+	}
+	
+	public boolean finishCastingWithTarget(EntityLivingBase targetEntity, int tickCount) {
+		boolean performSucceeded = this.performEffects(targetEntity, tickCount);
+		if(performSucceeded) {
+			this.onCastFinished(targetEntity, tickCount);
+		}
+		
+		return performSucceeded;
+	}
+	
+	public abstract boolean performEffects(EntityLivingBase targetEntity, int tickCount);
+		
+	public void onCastFinished(EntityLivingBase targetEntity, int tickCount) {
+		BattleClassesUtils.Log("Casting finished!", LogType.ABILITY);
+	}
+	
+	@SideOnly(Side.CLIENT)
+	public EntityLivingBase getTargetFromExtendedRange() {
+		return BattleClassesClientTargeting.getClientMouseOverTarget(this.range*1.5f);
+	}
+	
+	/**
+	 * Returns the FinalTargetFromRaytracedEntity using a newly traced mouse-over target
+	 * @return
+	 */
+	@SideOnly(Side.CLIENT)
+	public EntityLivingBase getFinalTarget() {
+		EntityLivingBase target = BattleClassesClientTargeting.getClientMouseOverTarget(this.range);
+		EntityLivingBase finalTarget = this.getFinalTargetFromRaytracedEntity(target);
+		return finalTarget;
+	}
+	
 	public boolean requiresRayTracingForTarget() {
 		switch (this.targetRequirementType) {
 		case NEEDLESS:
@@ -296,99 +328,7 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 		}
 		return null;
 	}
-	
-	public boolean isInstant() {
-		return this.getCastTime() == 0;
-	}
-	
-	public int getCastTimeInTicks() {
-		return (int) (this.getCastTime() * 20);
-	}
-	
-	public void cancelCasting(EntityPlayer entityPlayer) {
-		if(!this.ignoresGlobalCooldown) {
-			this.playerHooks.playerClass.spellBook.cancelGlobalCooldown();
-		}
-		entityPlayer.clearItemInUse();
-		sendCastingSoundPacket(false);
-		BattleClassesUtils.Log("Cancelling Casting and GlobalCD", LogType.ABILITY);
-	}
-	
-	public void requestProceed(EntityPlayer entityPlayer, ItemStack itemStack, int tickCount) {
-		Side side = FMLCommonHandler.instance().getEffectiveSide();
-		//Checking CLIENT SIDE
-		if(side == Side.CLIENT && this.requiresRayTracingForTarget()) {
-			
-			//CHECK TARGET REQUIREMENTS
-			//CHECK RANGE REQUIREMENTS
-			EntityLivingBase target = BattleClassesClientTargeting.getFinalTargetOfAbility(this);
-			
-			//TODO
-			if (target != null) {
-				int targetEntityID = target.getEntityId();
-				FMLProxyPacket p = new BattleClassesPacketProcessAbilityWithTarget(entityPlayer, this.abilityID, targetEntityID, tickCount).generatePacket();
-				BattleClassesMod.packetHandler.sendPacketToServer(p);
-			}
-		}
-		//Checking SERVER SIDE
-		else if (side == Side.SERVER && !this.requiresRayTracingForTarget()) {
-			EntityLivingBase targetEntity = null;
-			this.proceedAbility(targetEntity, tickCount);
-		} 
-		else {
-			System.out.println("ServerSide requestProcession failed. TargetRT: " + this.targetRequirementType);
-		}
-	}
-	
-	/**
-	 * Returns the FinalTargetFromRaytracedEntity using a newly traced mouse-over target
-	 * @return
-	 */
-	@SideOnly(Side.CLIENT)
-	public EntityLivingBase getFinalTarget() {
-		EntityLivingBase target = BattleClassesClientTargeting.getClientMouseOverTarget(this.range);
-		EntityLivingBase finalTarget = this.getFinalTargetFromRaytracedEntity(target);
-		return finalTarget;
-	}
-	
-	public boolean proceedAbility(EntityLivingBase targetEntity, int tickCount) {
-		boolean performSucceeded = this.performEffect(targetEntity, tickCount);
-		if(performSucceeded && !this.channeled) {
-			this.onCastFinished(targetEntity, tickCount);
-		}
 		
-		return performSucceeded;
-	}
-	
-	public abstract boolean performEffect(EntityLivingBase targetEntity, int tickCount);
-		
-	public final void onCastFinished(EntityLivingBase targetEntity, int tickCount) {
-		BattleClassesUtils.Log("Casting finished!", LogType.ABILITY);
-		this.getCooldownClock().setCooldownDefault();
-	}
-	
-	//Helper method
-	public void setCastingType(EnumBattleClassesAbilityCastingType parCastType) {
-		this.castingType = parCastType;
-		switch(this.castingType) {
-			case CastType_CASTED: {
-				this.channeled = false;
-			}
-				break;
-			case CastType_CHANNELED: {
-				this.channeled = true;
-			}
-				break;
-			case CastType_INSTANT: {
-				this.channeled = false;
-				this.castTime = 0;
-			}
-				break;
-			default:
-				break;
-		}
-	}
-	
     @SideOnly(Side.CLIENT)
     public boolean hasItemIcon() {
     	return false;
@@ -425,16 +365,14 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
     	float total = (float) this.getCastTimeInTicks();
     	float current = total - (float) (entityPlayer.getItemInUseCount() - 72000);
     	f = current/total;
-    	if(this.channeled) {
-    		f = 1.0F - f;
-    	}
+
     	if(f > 1) {
     		f = 1;
     	}
     	if(f < 0) {
     		f = 0;
     	}
-    	//System.out.println(current + "/" + total + " | F = " + f);
+
     	return f;
     }
     

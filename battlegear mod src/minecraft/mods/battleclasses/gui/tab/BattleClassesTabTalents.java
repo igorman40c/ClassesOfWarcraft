@@ -6,7 +6,7 @@ import java.util.List;
 import mods.battleclasses.BattleClassesMod;
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
-import mods.battleclasses.ability.BattleClassesAbstractTalent;
+import mods.battleclasses.ability.passive.BattleClassesAbstractTalent;
 import mods.battleclasses.core.BattleClassesPlayerClass;
 import mods.battleclasses.core.BattleClassesTalentMatrix;
 import mods.battleclasses.core.BattleClassesTalentTree;

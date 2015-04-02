@@ -2,7 +2,7 @@ package mods.battleclasses.core;
 
 import java.util.ArrayList;
 
-import mods.battleclasses.ability.BattleClassesAbstractTalent;
+import mods.battleclasses.ability.passive.BattleClassesAbstractTalent;
 
 public class BattleClassesTalentTree {
 	

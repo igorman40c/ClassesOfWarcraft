@@ -3,7 +3,7 @@ package mods.battleclasses.packet;
 import io.netty.buffer.ByteBuf;
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
-import mods.battleclasses.ability.BattleClassesAbstractAbilityActive;
+import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
 import mods.battleclasses.core.BattleClassesPlayerHooks;
 import mods.battleclasses.core.BattleClassesWeaponHitHandler;
 import mods.battlegear2.packet.AbstractMBPacket;

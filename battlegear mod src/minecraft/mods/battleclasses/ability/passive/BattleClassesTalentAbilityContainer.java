@@ -1,5 +1,6 @@
-package mods.battleclasses.ability;
+package mods.battleclasses.ability.passive;
 
+import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
 import mods.battleclasses.gui.BattleClassesGuiHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
@@ -18,7 +19,7 @@ public class BattleClassesTalentAbilityContainer extends BattleClassesAbstractTa
 	
 	public void onStateChanged() {
 		super.onStateChanged();
-		if(this.currentState == 0) {
+		if(this.getCurrentState() == 0) {
 			this.playerHooks.playerClass.spellBook.unLearnAbility(containedAbility);
 		}
 		else {

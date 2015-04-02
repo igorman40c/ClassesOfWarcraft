@@ -4,8 +4,8 @@ import io.netty.buffer.ByteBuf;
 import mods.battleclasses.BattleClassesMod;
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
-import mods.battleclasses.ability.BattleClassesAbstractAbilityActive;
-import mods.battleclasses.ability.BattleClassesAbstractTalent;
+import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
+import mods.battleclasses.ability.passive.BattleClassesAbstractTalent;
 import mods.battleclasses.core.BattleClassesPlayerHooks;
 import mods.battleclasses.core.BattleClassesSpellBook;
 import mods.battlegear2.packet.AbstractMBPacket;
@@ -65,7 +65,7 @@ public class BattleClassesPacketProcessAbilityWithTarget extends AbstractMBPacke
             			Entity target = BattleClassesUtils.getEntityByID(targetEntityID, entityPlayer.getEntityWorld());
             			if(target instanceof EntityLivingBase) {
             				EntityLivingBase targetEntity = (EntityLivingBase) target;
-            				activeAbility.proceedAbility(targetEntity, tickCount);
+            				activeAbility.finishCastingWithTarget(targetEntity, tickCount);
             			}
             		}
             	}

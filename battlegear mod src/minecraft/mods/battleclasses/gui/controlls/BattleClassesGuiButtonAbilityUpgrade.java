@@ -1,6 +1,6 @@
 package mods.battleclasses.gui.controlls;
 
-import mods.battleclasses.ability.BattleClassesAbstractAbilityActive;
+import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
 import mods.battleclasses.gui.tab.BattleClassesTabSpellbook;
 import net.minecraft.util.StatCollector;
 

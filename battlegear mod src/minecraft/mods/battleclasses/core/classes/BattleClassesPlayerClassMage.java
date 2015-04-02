@@ -3,13 +3,15 @@ package mods.battleclasses.core.classes;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
-import mods.battleclasses.ability.BattleClassesAbilityShieldBlock;
-import mods.battleclasses.ability.BattleClassesAbilityTest;
-import mods.battleclasses.ability.BattleClassesAbstractAbilityActive;
-import mods.battleclasses.ability.BattleClassesPassiveAbilityAmplifier;
-import mods.battleclasses.ability.BattleClassesTalentAbilityAmplifier;
-import mods.battleclasses.ability.BattleClassesTalentAbilityContainer;
-import mods.battleclasses.ability.BattleClassesTalentTest;
+import mods.battleclasses.ability.active.BattleClassesAbilityActiveChanneled;
+import mods.battleclasses.ability.active.BattleClassesAbilityShieldBlock;
+import mods.battleclasses.ability.active.BattleClassesAbilityTestCasted;
+import mods.battleclasses.ability.active.BattleClassesAbilityTestChanneled;
+import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
+import mods.battleclasses.ability.passive.BattleClassesPassiveAbilityAmplifier;
+import mods.battleclasses.ability.passive.BattleClassesTalentAbilityAmplifier;
+import mods.battleclasses.ability.passive.BattleClassesTalentAbilityContainer;
+import mods.battleclasses.ability.passive.BattleClassesTalentTest;
 import mods.battleclasses.core.BattleClassesPlayerClass;
 import mods.battleclasses.core.BattleClassesPlayerHooks;
 import mods.battleclasses.core.BattleClassesTalentTree;
@@ -24,12 +26,12 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 
 	public LinkedHashMap<Integer, BattleClassesAbstractAbilityActive> getClassAbilities() {
 		LinkedHashMap<Integer, BattleClassesAbstractAbilityActive> abilities = new LinkedHashMap<Integer, BattleClassesAbstractAbilityActive>();
-		abilities.put(100, new BattleClassesAbilityTest(100).setName("mage.arcanemissiles"));
-		abilities.put(101, new BattleClassesAbilityTest(101).setName("mage.blink"));
-		abilities.put(102, new BattleClassesAbilityTest(110).setName("mage.fireball"));
-		abilities.put(110, new BattleClassesAbilityTest(111).setName("mage.scorch"));
-		abilities.put(111, new BattleClassesAbilityTest(120).setName("mage.frostbolt"));
-		abilities.put(112, new BattleClassesAbilityTest(121).setName("mage.frostnova"));
+		abilities.put(100, new ArcaneMissilesTestAbility().setName("mage.arcanemissiles"));
+		abilities.put(101, new BattleClassesAbilityTestCasted(101).setName("mage.blink"));
+		abilities.put(102, new BattleClassesAbilityTestCasted(110).setName("mage.fireball"));
+		abilities.put(110, new BattleClassesAbilityTestCasted(111).setName("mage.scorch"));
+		abilities.put(111, new BattleClassesAbilityTestCasted(120).setName("mage.frostbolt"));
+		abilities.put(112, new BattleClassesAbilityTestCasted(121).setName("mage.frostnova"));
 		//abilities.put(BattleClassesAbilityShieldBlock.SHIELD_BLOCK_ABILITY_ID, new BattleClassesAbilityShieldBlock());
 		//abilities.put(ABILITY_ID_FROSTNOVA, new FrostNovaTestAbility());
 		return abilities;
@@ -86,15 +88,22 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 	//--------------------------------------------------------------------------------------------------------
 	//										CLASS SPECIFIC ABILITIES
 	//--------------------------------------------------------------------------------------------------------
+	public static final int ABILITY_ID_ARCANE_MISSILES = 100;
+	class ArcaneMissilesTestAbility extends BattleClassesAbilityTestChanneled {
+		public ArcaneMissilesTestAbility() {
+			super(ABILITY_ID_ARCANE_MISSILES);
+		}
+	}
+	
 	public static final int ABILITY_ID_FROSTNOVA = 121;
-	class FrostNovaTestAbility extends BattleClassesAbilityTest {
+	class FrostNovaTestAbility extends BattleClassesAbilityTestCasted {
 		public FrostNovaTestAbility() {
 			super(ABILITY_ID_FROSTNOVA);
 		}
 	}
 	
 	public static final int ABILITY_ID_POLYMORPH = 102;
-	class PolymorphTestAbility extends BattleClassesAbilityTest {
+	class PolymorphTestAbility extends BattleClassesAbilityTestCasted {
 		public PolymorphTestAbility() {
 			super(ABILITY_ID_POLYMORPH);
 			this.setName("mage.polymorph");
@@ -102,7 +111,7 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 	}
 	
 	public static final int ABILITY_ID_DRAGONSBREATH = 112;
-	class DragonsBreathTestAbility extends BattleClassesAbilityTest {
+	class DragonsBreathTestAbility extends BattleClassesAbilityTestCasted {
 		public DragonsBreathTestAbility() {
 			super(ABILITY_ID_DRAGONSBREATH);
 			this.setName("mage.dragonsbreath");
@@ -110,7 +119,7 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 	}
 	
 	public static final int ABILITY_ID_ICEBLOCK = 122;
-	class IceBlockTestAbility extends BattleClassesAbilityTest {
+	class IceBlockTestAbility extends BattleClassesAbilityTestCasted {
 		public IceBlockTestAbility() {
 			super(ABILITY_ID_ICEBLOCK);
 			this.setName("mage.iceblock");

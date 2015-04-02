@@ -1,4 +1,4 @@
-package mods.battleclasses.ability;
+package mods.battleclasses.ability.active;
 
 import java.util.Random;
 
@@ -6,6 +6,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
+import mods.battleclasses.enums.EnumBattleClassesAbilityCastingType;
 import mods.battleclasses.enums.EnumBattleClassesAbilityDirectTargetRequirement;
 import mods.battleclasses.enums.EnumBattleClassesAbilityIntent;
 import mods.battleclasses.enums.EnumBattleClassesAbilitySchool;
@@ -40,7 +41,7 @@ public class BattleClassesAbilityShieldBlock extends BattleClassesAbstractAbilit
     }
 	*/
 	@Override
-	public boolean performEffect(EntityLivingBase targetEntity, int tickCount) {
+	public boolean performEffects(EntityLivingBase targetEntity, int tickCount) {
 		BattleClassesUtils.Log("ShieldBlock Performed effect, doing nothing", LogType.ABILITY);
 		return true;
 	}
@@ -61,6 +62,10 @@ public class BattleClassesAbilityShieldBlock extends BattleClassesAbstractAbilit
     
     public String getName() {
 		return this.name + " school:" + school + " intent:" + intent + " target:" + targetRequirementType;
+	}
+	@Override
+	public EnumBattleClassesAbilityCastingType getCastingType() {
+		return EnumBattleClassesAbilityCastingType.CastType_UNKNOWN;
 	}
     
 }

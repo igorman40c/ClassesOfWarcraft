@@ -1,9 +1,10 @@
-package mods.battleclasses.ability;
+package mods.battleclasses.ability.active;
 
 import net.minecraft.entity.player.EntityPlayerMP;
 import cpw.mods.fml.common.network.internal.FMLProxyPacket;
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
+import mods.battleclasses.ability.BattleClassesAbstractAbility;
 import mods.battleclasses.core.BattleClassesPlayerHooks;
 import mods.battleclasses.core.CooldownClock;
 import mods.battleclasses.core.ICooldownOwner;

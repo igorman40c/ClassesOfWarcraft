@@ -1,4 +1,5 @@
-package mods.battleclasses.ability;
+package mods.battleclasses.ability.passive;
+
 
 public class BattleClassesTalentTest extends BattleClassesAbstractTalent {
 

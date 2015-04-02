@@ -1,7 +1,7 @@
 package mods.battleclasses.client;
 
 import mods.battleclasses.BattleClassesUtils;
-import mods.battleclasses.ability.BattleClassesAbstractAbilityActive;
+import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
 import mods.battleclasses.gui.BattleClassesGuiHUDOverlay;
 import mods.battlegear2.Battlegear;
 import net.minecraft.client.Minecraft;

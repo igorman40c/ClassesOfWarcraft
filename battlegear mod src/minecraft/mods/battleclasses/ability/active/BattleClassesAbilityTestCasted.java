@@ -1,4 +1,4 @@
-package mods.battleclasses.ability;
+package mods.battleclasses.ability.active;
 
 import java.util.Random;
 
@@ -12,19 +12,17 @@ import mods.battleclasses.enums.EnumBattleClassesAbilityDirectTargetRequirement;
 import mods.battleclasses.enums.EnumBattleClassesAbilityIntent;
 import mods.battleclasses.enums.EnumBattleClassesAbilitySchool;
 
-public class BattleClassesAbilityTest extends BattleClassesAbstractAbilityActive {
+public class BattleClassesAbilityTestCasted extends BattleClassesAbilityActiveCasted {
 	
 	public static final int TEST_SPELL_ID = 777;
 
-	public BattleClassesAbilityTest() {
+	public BattleClassesAbilityTestCasted() {
 		super(TEST_SPELL_ID);
 		this.castTime = 3;
-		this.channeled = true;
-		this.channelTickCount = 3;
 		initStuff();
 	}
 	
-	public BattleClassesAbilityTest(int id) {
+	public BattleClassesAbilityTestCasted(int id) {
 		super(id);
 		initStuff();
 	}
@@ -41,17 +39,10 @@ public class BattleClassesAbilityTest extends BattleClassesAbstractAbilityActive
 		
 		pick = new Random().nextInt(EnumBattleClassesAbilityIntent.values().length);
 		this.intent = EnumBattleClassesAbilityIntent.values()[pick];
-		
-		if(this.abilityID == 100) {
-			this.channeled = true;
-			this.channelTickCount = 3;
-			this.school = EnumBattleClassesAbilitySchool.SPELL_ARCANE;
-			//this.cooldownClock.setDefaultDuration(300);
-		}
 	}
 
 	@Override
-	public boolean performEffect(EntityLivingBase targetEntity, int tickCount) {
+	public boolean performEffects(EntityLivingBase targetEntity, int tickCount) {
 		BattleClassesUtils.Log("BANG BANG Performed effect", LogType.CORE);
 		this.playReleaseSound();
 		this.playerHooks.getOwnerPlayer().addPotionEffect(new PotionEffect(34, 10*20, 0, false));

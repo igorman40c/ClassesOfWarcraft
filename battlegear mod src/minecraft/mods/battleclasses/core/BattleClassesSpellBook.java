@@ -14,10 +14,10 @@ import net.minecraft.world.World;
 import mods.battleclasses.BattleClassesMod;
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
-import mods.battleclasses.ability.BattleClassesAbilityTest;
 import mods.battleclasses.ability.BattleClassesAbstractAbility;
-import mods.battleclasses.ability.BattleClassesAbstractAbilityActive;
-import mods.battleclasses.ability.BattleClassesAbstractAbilityPassive;
+import mods.battleclasses.ability.active.BattleClassesAbilityTestCasted;
+import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
+import mods.battleclasses.ability.passive.BattleClassesAbstractAbilityPassive;
 import mods.battleclasses.enums.EnumBattleClassesCooldownType;
 import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
 import mods.battleclasses.gui.BattleClassesGuiHUDOverlay;
@@ -42,7 +42,7 @@ public class BattleClassesSpellBook {
 	
 	public BattleClassesSpellBook(BattleClassesPlayerHooks parPlayerHooks) {
 		this.playerHooks = parPlayerHooks;
-		protoSpell = new BattleClassesAbilityTest(100);
+		protoSpell = new BattleClassesAbilityTestCasted(100);
 	}
 	
 	public BattleClassesAbstractAbilityActive protoSpell;
@@ -239,13 +239,18 @@ public class BattleClassesSpellBook {
 		this.chosenAbilityID = parID;
 		cancelCasting();
 	}
-		
-	public void setGlobalCooldown() {
+	
+	public void setGlobalCooldownForCasting(float castingDuration) {
+		float globalCooldownDuration = (GLOBAL_COOLDOWN_DURATION < castingDuration) ? GLOBAL_COOLDOWN_DURATION : castingDuration; 
 		for(BattleClassesAbstractAbilityActive ability : getActiveAbilitiesInArray()) {
 			if(!ability.ignoresGlobalCooldown && !ability.getCooldownClock().isOnCooldown()) {
 				ability.getCooldownClock().setCooldown(GLOBAL_COOLDOWN_DURATION, false, EnumBattleClassesCooldownType.CooldownType_GLOBAL);
 			}
 		}
+	}
+		
+	public void setGlobalCooldown() {
+		this.setGlobalCooldownForCasting(GLOBAL_COOLDOWN_DURATION);
 	}
 	
 	public void cancelGlobalCooldown() {

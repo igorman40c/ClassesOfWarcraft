@@ -9,8 +9,10 @@ import mods.battleclasses.core.BattleClassesPlayerHooks;
 public abstract class BattleClassesAbstractAbility {
 
 	protected int abilityID;
-	protected BattleClassesPlayerHooks playerHooks;
 	protected String name = "";
+	
+	//Mandtory Helper References
+	protected BattleClassesPlayerHooks playerHooks;
 	
 	public int getAbilityID() {
 		return abilityID;
@@ -21,9 +23,9 @@ public abstract class BattleClassesAbstractAbility {
 		return this;
 	}
 	
-	public static final String UNLOCALIZED_PREFIX = "ability.";
+	public static final String UNLOCALIZED_PREFIX_ABILITY = "ability.";
 	public String getUnlocalizedPrefix() {
-		return "ability.";
+		return UNLOCALIZED_PREFIX_ABILITY;
 	}
 	
 	public String getUnlocalizedID() {

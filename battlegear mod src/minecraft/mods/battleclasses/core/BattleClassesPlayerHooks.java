@@ -11,7 +11,7 @@ import cpw.mods.fml.relauncher.Side;
 import mods.battleclasses.BattleClassesMod;
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
-import mods.battleclasses.ability.BattleClassesAbstractAbilityPassive;
+import mods.battleclasses.ability.passive.BattleClassesAbstractAbilityPassive;
 import mods.battleclasses.core.classes.BattleClassesPlayerClassMage;
 import mods.battleclasses.enums.EnumBattleClassesAmplifierApplyType;
 import mods.battleclasses.enums.EnumBattleClassesCooldownType;

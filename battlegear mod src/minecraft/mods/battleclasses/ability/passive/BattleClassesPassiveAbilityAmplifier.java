@@ -1,14 +1,13 @@
-package mods.battleclasses.ability;
+package mods.battleclasses.ability.passive;
 
 import mods.battleclasses.core.BattleClassesAttributes;
 import mods.battleclasses.core.IAmplifyProvider;
 import mods.battleclasses.enums.EnumBattleClassesAmplifierApplyType;
 
-public class BattleClassesTalentAbilityAmplifier extends BattleClassesAbstractTalent implements IAmplifyProvider {
-
-	public BattleClassesTalentAbilityAmplifier(int parAbilityID, int parTalentLevel) {
-		super(parAbilityID, parTalentLevel);
-		// TODO Auto-generated constructor stub
+public class BattleClassesPassiveAbilityAmplifier extends BattleClassesAbstractAbilityPassive implements IAmplifyProvider {
+	
+	public BattleClassesPassiveAbilityAmplifier(int parAbilityID) {
+		super(parAbilityID);
 	}
 	
 	EnumBattleClassesAmplifierApplyType amplifierApplyType = EnumBattleClassesAmplifierApplyType.BASE_ATTRIBUTE_BONUS;
@@ -28,15 +27,5 @@ public class BattleClassesTalentAbilityAmplifier extends BattleClassesAbstractTa
 	public BattleClassesAttributes getAttributes(int targetAbilityID,
 			BattleClassesAttributes totalAttributes) {
 		return this.getAttributes(targetAbilityID);
-	}
-	
-	public void onStateChanged() {
-		super.onStateChanged();
-		if(this.currentState == 0) {
-			this.playerHooks.playerClass.spellBook.unLearnAbility(this);
-		}
-		else {
-			this.playerHooks.playerClass.spellBook.learnAbility(this);
-		}
 	}
 }

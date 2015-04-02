@@ -32,8 +32,9 @@ import org.lwjgl.opengl.GL12;
 import cpw.mods.fml.client.FMLClientHandler;
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
-import mods.battleclasses.ability.BattleClassesAbilityShieldBlock;
-import mods.battleclasses.ability.BattleClassesAbstractAbilityActive;
+import mods.battleclasses.ability.active.BattleClassesAbilityActiveChanneled;
+import mods.battleclasses.ability.active.BattleClassesAbilityShieldBlock;
+import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
 import mods.battleclasses.client.BattleClassesClientTargeting;
 import mods.battleclasses.core.BattleClassesSpellBook;
 import mods.battleclasses.core.BattleClassesWeaponHitHandler;
@@ -305,21 +306,25 @@ public class BattleClassesGuiHUDOverlay extends BattlegearInGameGUI {
     	else if(BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).isCastingInProgress()) {
     		int v = 48;
     		int u = 0;
-    		
     		shouldDisplayBarString = true;
     		float f = 0;
-    		if( BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).getChosenAbility() != null) {
+    		BattleClassesAbstractAbilityActive chosenAbility = BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).getChosenAbility();
+    		if(chosenAbility != null) {
     			barDisplayString = BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).getChosenAbility().getName();
     			f = BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).getChosenAbility().getCastPercentage(mc.thePlayer);
     			v = BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).getChosenAbility().getSchool().getCastBarColoringV();
     			
-    			//DRAWING PROGRESSBAR	
+    			//DRAWING PROGRESSBAR
+    			if(chosenAbility instanceof BattleClassesAbilityActiveChanneled) {
+    				f = 1.0F - f;
+    			}
         		this.renderProgressBar(x, y, u, v, f);
                 
                 //DRAW SPELL ICON ON THE PROGRESSBAR
                 float castBarIconScale = 0.6F;
-                if(BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).getChosenAbility().isChanneled()) {
-    				int channelTicks =  BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).getChosenAbility().getChannelTicks();
+                if(chosenAbility instanceof BattleClassesAbilityActiveChanneled) {
+                	BattleClassesAbilityActiveChanneled channeledAbility = (BattleClassesAbilityActiveChanneled)chosenAbility;
+    				int channelTicks =  channeledAbility.getChannelTicks();
     				for(int i = 0; i < channelTicks; ++i) {
     					this.drawAbilityIconCentered(x + CAST_BAR_WIDTH - ((i+1)*(CAST_BAR_WIDTH/(channelTicks)) ), y + CAST_BAR_HEIGHT/4,
         						castBarIconScale, BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).getChosenAbility().getIconResourceLocation());
