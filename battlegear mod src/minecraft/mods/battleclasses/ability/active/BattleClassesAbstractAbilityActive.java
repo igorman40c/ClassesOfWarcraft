@@ -185,7 +185,7 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 	//SUB-SECTION - Finish Use
 	//----------------------------------------
 	
-	protected void requestUseFinish(EntityPlayer entityPlayer, ItemStack itemStack, int tickCount) {
+	protected void requestUseFinishAndTarget(EntityPlayer entityPlayer, ItemStack itemStack, int tickCount) {
 		Side side = FMLCommonHandler.instance().getEffectiveSide();
 		//Checking CLIENT SIDE
 		if(side == Side.CLIENT && this.requiresRayTracingForTarget()) {
@@ -461,19 +461,43 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 		}
     }
     
-    public void playReleaseSound() {
+    private void playAbilitySound(Entity entityPlayAt, String soundEventName) {
     	Side side = FMLCommonHandler.instance().getEffectiveSide();
 		if(side == Side.SERVER) {
-			String soundEvent = BattleClassesMod.MODID + ":" + this.getUnlocalizedID() + ".release";
-			this.getOwnerPlayer().worldObj.playSoundAtEntity(getOwnerPlayer(), soundEvent, 1F, 1F);
+			String soundEvent = BattleClassesMod.MODID + ":" + this.getUnlocalizedID() + "." + soundEventName;
+			entityPlayAt.worldObj.playSoundAtEntity(entityPlayAt, soundEvent, 1F, 1F);
 		}
     }
     
+    public void playReleaseSound() {
+    	this.playAbilitySound(getOwnerPlayer(), "release");
+    }
+    
+    public void playTickSoundAtEntity(Entity targetEntity) {
+    	this.playAbilitySound(targetEntity, "tick");
+    }
+    
     public void playImpactSoundAtEntity(Entity targetEntity) {
-    	Side side = FMLCommonHandler.instance().getEffectiveSide();
-		if(side == Side.SERVER) {
-			String soundEvent = BattleClassesMod.MODID + ":" + this.getUnlocalizedID() + ".impact";
-			this.getOwnerPlayer().worldObj.playSoundAtEntity(targetEntity, soundEvent, 1F, 1F);
-		}
+    	this.playAbilitySound(targetEntity, "impact");
+    }
+    
+    //----------------------------------------------------------------------------------
+    //							Section - Effect visual
+    //----------------------------------------------------------------------------------
+    
+    public void animateWithParticlesRelease(EntityPlayer owner) {
+    	
+    }
+    
+    public void animateWithParticlesTick(EntityPlayer owner, EntityLivingBase target, boolean critical) {
+    	
+    }
+    
+    public void animateWithParticlesImpact(EntityPlayer owner, EntityLivingBase target, boolean critical) {
+    	
+    }
+    
+    public void animateWithParticlesCarrierTravel(Entity abilityCarrierEntity, int travelTick) {
+    	
     }
 }

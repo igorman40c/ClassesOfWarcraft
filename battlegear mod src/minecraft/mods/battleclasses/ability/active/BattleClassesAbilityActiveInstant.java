@@ -36,7 +36,7 @@ public class BattleClassesAbilityActiveInstant extends BattleClassesAbstractAbil
 	
 	@Override
 	protected void onUseRelease(ItemStack itemStack, EntityPlayer entityPlayer, int tickCount) {
-		this.requestUseFinish(entityPlayer, itemStack, tickCount);	
+		this.requestUseFinishAndTarget(entityPlayer, itemStack, tickCount);	
 	}
 
 	@Override

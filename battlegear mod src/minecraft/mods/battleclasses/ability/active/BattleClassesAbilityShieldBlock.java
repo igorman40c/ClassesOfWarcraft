@@ -63,6 +63,7 @@ public class BattleClassesAbilityShieldBlock extends BattleClassesAbstractAbilit
     public String getName() {
 		return this.unlocalizedName + " school:" + school + " intent:" + intent + " target:" + targetRequirementType;
 	}
+    
 	@Override
 	public EnumBattleClassesAbilityCastingType getCastingType() {
 		return EnumBattleClassesAbilityCastingType.CastType_UNKNOWN;

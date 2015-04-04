@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 
 import net.minecraft.util.StatCollector;
+import mods.battleclasses.enums.EnumBattleClassesAbilitySchool;
 import mods.battleclasses.enums.EnumBattleClassesAttributeType;
 import mods.battleclasses.enums.EnumBattleClassesWeaponHeldType;
 
@@ -92,6 +93,33 @@ public class BattleClassesAttributes {
 		return activeTypes;
 	}
 	
+	public float getValueForAbilitySchool(EnumBattleClassesAbilitySchool school) {
+		switch(school) {
+			case PHYSICAL_MELEE_ENERGY:
+				return this.agility;
+			case PHYSICAL_MELEE_RAGE:
+				return this.strength;
+			case PHYSICAL_RANGED:
+				return this.agility;
+			case SPELL_ARCANE:
+				return this.spellpower_arcane;
+			case SPELL_FIRE:
+				return this.spellpower_arcane;
+			case SPELL_FROST:
+				return this.spellpower_frost;
+			case SPELL_HOLY:
+				return this.spellpower_holy;
+			case SPELL_SHADOW:
+				return this.spellpower_shadow;
+			case UNKNOWN:
+				return 0;
+			default:
+				break;
+		
+		}
+		return 0;
+	}
+	
 	public float getValueByType(EnumBattleClassesAttributeType attributeType) {
 		switch (attributeType) {
 		case AGILITY:{
@@ -135,6 +163,7 @@ public class BattleClassesAttributes {
 		}
 		return 0;
 	}
+	
 	
 	public void setValueByType(EnumBattleClassesAttributeType attributeType, float value) {
 		switch(attributeType) {

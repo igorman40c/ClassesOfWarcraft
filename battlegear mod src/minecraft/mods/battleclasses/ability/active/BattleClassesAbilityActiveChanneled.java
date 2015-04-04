@@ -60,7 +60,7 @@ public class BattleClassesAbilityActiveChanneled extends BattleClassesAbstractAb
 					this.getCooldownClock().setCooldownDefault();
 				}
 				BattleClassesUtils.Log("Channeling... Current tick: " + currentCastTickInverted + " Cast time in tick " + this.getCastTimeInTicks(), LogType.ABILITY);
-				this.requestUseFinish(entityPlayer, itemStack, tickCount);
+				this.requestUseFinishAndTarget(entityPlayer, itemStack, tickCount);
 			}
 		}
 	}

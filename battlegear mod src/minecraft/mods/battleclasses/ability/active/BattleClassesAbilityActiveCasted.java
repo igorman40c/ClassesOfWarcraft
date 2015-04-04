@@ -45,7 +45,7 @@ public class BattleClassesAbilityActiveCasted extends BattleClassesAbstractAbili
 		super.onUseTick(itemStack, entityPlayer, tickCount);
 		int remainingCastTick = tickCount - 72000;
 		if(remainingCastTick <= 0) {
-			this.requestUseFinish(entityPlayer, itemStack, tickCount);
+			this.requestUseFinishAndTarget(entityPlayer, itemStack, tickCount);
 		}
 		else {
 			this.cancelCasting(entityPlayer);

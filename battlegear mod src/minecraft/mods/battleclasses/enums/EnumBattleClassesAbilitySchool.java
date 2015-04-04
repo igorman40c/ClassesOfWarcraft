@@ -40,24 +40,24 @@ public enum EnumBattleClassesAbilitySchool {
 		return 0;
 	}
 	
-	public float getCriticalStrikeBonusBase() {
+	public float getCriticalStrikeBonus() {
 		switch (this) {
 			case PHYSICAL_MELEE_RAGE:
-				return 1.0F;
+				return 1.5F;
 			case PHYSICAL_MELEE_ENERGY:
-				return 1.0F;
+				return 1.5F;
 			case PHYSICAL_RANGED:
-				return 1.0F;
+				return 2F;
 			case SPELL_ARCANE:
-				return 1.0F;
+				return 1.5F;
 			case SPELL_FIRE:
-				return 1.0F;
+				return 2F;
 			case SPELL_FROST:
-				return 1.0F;
+				return 2F;
 			case SPELL_HOLY:
-				return 1.0F;
+				return 1.5F;
 			case SPELL_SHADOW:
-				return 1.0F;
+				return 1.5F;
 			default:
 				break;
 		}
