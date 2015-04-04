@@ -65,7 +65,7 @@ public class BattleClassesPacketProcessAbilityWithTarget extends AbstractMBPacke
             			Entity target = BattleClassesUtils.getEntityByID(targetEntityID, entityPlayer.getEntityWorld());
             			if(target instanceof EntityLivingBase) {
             				EntityLivingBase targetEntity = (EntityLivingBase) target;
-            				activeAbility.finishCastingWithTarget(targetEntity, tickCount);
+            				activeAbility.finishUseWithTarget(targetEntity, tickCount);
             			}
             		}
             	}

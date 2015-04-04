@@ -52,25 +52,25 @@ public class BattleClassesSpellBook {
 		return activeAbilities.get(chosenAbilityID);
 	}
 	
-	public void CastStart(ItemStack itemStack, World world, EntityPlayer entityPlayer) {
+	public void UseStartOnChosenAbility(ItemStack itemStack, World world, EntityPlayer entityPlayer) {
 		if(!this.isAvailable(itemStack, entityPlayer) || this.getChosenAbility() == null) {
 			return;
 		}
-		this.getChosenAbility().onCastStart(itemStack, world, entityPlayer);
+		this.getChosenAbility().startUse(itemStack, world, entityPlayer);
 	}
 	
 	public void CastTick(ItemStack itemStack, EntityPlayer entityPlayer, int tickCount) {
 		if(!this.isAvailable(itemStack, entityPlayer) || this.getChosenAbility() == null) {
 			return;
 		}
-		this.getChosenAbility().onCastTick(itemStack, entityPlayer, tickCount);
+		this.getChosenAbility().tickUse(itemStack, entityPlayer, tickCount);
 	}
 	
 	public void CastRelease(ItemStack itemStack, EntityPlayer entityPlayer, int tickCount) {
 		if(!this.isAvailable(itemStack, entityPlayer) || this.getChosenAbility() == null) {
 			return;
 		}
-		this.getChosenAbility().onCastRelease(itemStack, entityPlayer, tickCount);
+		this.getChosenAbility().releaseUse(itemStack, entityPlayer, tickCount);
 	}
 	
 	public boolean isAvailable(ItemStack itemStack, EntityPlayer entityPlayer) {

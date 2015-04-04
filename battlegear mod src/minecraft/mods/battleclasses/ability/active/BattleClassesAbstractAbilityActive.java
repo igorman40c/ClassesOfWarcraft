@@ -67,7 +67,6 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 	protected boolean ignoresSilence = false;
 	protected boolean requiresMeleeSwing = false;
 	protected int requiredItemLevel = 0;
-	protected String name = "Unknown Ability";
 	
 	public EnumAction getEnumActionForCasting() {
 		return EnumAction.bow;
@@ -83,60 +82,14 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 		return this.playerHooks.getOwnerPlayer();
 	}
 	
+	//----------------------------------------------------------------------------------
+	//							SECTION - Usage Process
+	//----------------------------------------------------------------------------------
+	//----------------------------------------
+	//SUB-SECTION - Start Use
+	//----------------------------------------
 	/**
-	 * Called when player presses Mouse-Right button
-	 */
-	public void onCastStart(ItemStack itemStack, World world, EntityPlayer entityPlayer) {
-		if(!this.isAvailable(entityPlayer, itemStack)) {
-			this.cancelCasting(entityPlayer);
-			return;
-		}
-	}
-	
-	/**
-	 * Called while player keeps Mouse-Right button pressed down. Hook method to be overriden.
-	 */
-	public void onCastTick(ItemStack itemStack, EntityPlayer entityPlayer, int tickCount) {
-		
-	}
-
-	/**
-	 * Called when player releases Mouse-Right button
-	 */
-	public void onCastRelease(ItemStack itemStack, EntityPlayer entityPlayer, int tickCount) {
-		sendCastingSoundPacket(false);
-	}
-		
-	public float getAbilityDamageBase() {
-		//TODO
-		return 0;
-	}
-	
-	public float getAbilityDamageAmplified() {
-		//TODO
-		return 0;
-	}
-	
-	public boolean isIgnoringSilence() {
-		return this.ignoresSilence;
-	}
-	
-	protected void startCastingProcess(EntityPlayer entityPlayer, ItemStack itemStack) {
-		BattleClassesUtils.Log("Casting started!", LogType.ABILITY);
-		BattleClassesUtils.setEntityPlayerItemInUseInSeconds(entityPlayer, itemStack, this.getCastTime());
-		sendCastingSoundPacket(true);
-	}
-	
-	public EnumBattleClassesAbilityDirectTargetRequirement getTargetingType() {
-		return this.targetRequirementType;
-	}
-	
-	public EnumBattleClassesAbilitySchool getSchool() {
-		return this.school;
-	}
-	
-		/**
-	 * Called on CastStart to check if the ability is available and ready to use
+	 * Called on startUse to check if the ability is available and ready to use
 	 * @param entityPlayer - the caster player
 	 * @param itemStack - the itemStack containing the held item
 	 * @return - availability of the ability
@@ -175,15 +128,110 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 		
 		return /*hasRequiredItem &&*/ cooldownFree && hasRequiredAmmo;
 	}
-		
-
 	
-	public boolean isInstant() {
-		return this.getCastTime() == 0;
+	/**
+	 * Called when player presses Mouse-Right button
+	 */
+	public final void startUse(ItemStack itemStack, World world, EntityPlayer entityPlayer) {
+		if(!this.isAvailable(entityPlayer, itemStack)) {
+			this.cancelCasting(entityPlayer);
+			return;
+		}
+		this.onUseStart(itemStack, world, entityPlayer);
 	}
 	
-	public int getCastTimeInTicks() {
-		return (int) (this.getCastTime() * 20);
+	/**
+	 * Hook method called at the end of "startCast"
+	 */
+	protected void onUseStart(ItemStack itemStack, World world, EntityPlayer entityPlayer) {
+		
+	}
+	
+	//----------------------------------------
+	//SUB-SECTION - Tick Use
+	//----------------------------------------
+	/**
+	 * Called while player keeps Mouse-Right button pressed down. Hook method to be overriden.
+	 */
+	public final void tickUse(ItemStack itemStack, EntityPlayer entityPlayer, int tickCount) {
+		this.onUseTick(itemStack, entityPlayer, tickCount);
+	}
+	
+	/**
+	 * Hook method called at the end of "tickUse"
+	 */
+	protected void onUseTick(ItemStack itemStack, EntityPlayer entityPlayer, int tickCount) {
+		
+	}
+	//----------------------------------------
+	//SUB-SECTION - Release Use
+	//----------------------------------------
+	/**
+	 * Called when player releases Mouse-Right button
+	 */
+	public final void releaseUse(ItemStack itemStack, EntityPlayer entityPlayer, int tickCount) {
+		sendCastingSoundPacket(false);
+		this.onUseRelease(itemStack, entityPlayer, tickCount);
+	}
+	
+	/**
+	 * Hook method called at the end of "releaseUse"
+	 */
+	protected void onUseRelease(ItemStack itemStack, EntityPlayer entityPlayer, int tickCount) {
+		
+	}
+	
+	//----------------------------------------
+	//SUB-SECTION - Finish Use
+	//----------------------------------------
+	
+	protected void requestUseFinish(EntityPlayer entityPlayer, ItemStack itemStack, int tickCount) {
+		Side side = FMLCommonHandler.instance().getEffectiveSide();
+		//Checking CLIENT SIDE
+		if(side == Side.CLIENT && this.requiresRayTracingForTarget()) {
+			
+			//TODO
+			//CHECK TARGET REQUIREMENTS
+			//CHECK RANGE REQUIREMENTS
+			EntityLivingBase target = this.getFinalTarget();
+			
+			if (target != null) {
+				int targetEntityID = target.getEntityId();
+				FMLProxyPacket p = new BattleClassesPacketProcessAbilityWithTarget(entityPlayer, this.abilityID, targetEntityID, tickCount).generatePacket();
+				BattleClassesMod.packetHandler.sendPacketToServer(p);
+			}
+		}
+		//Checking SERVER SIDE
+		else if (side == Side.SERVER && !this.requiresRayTracingForTarget()) {
+			EntityLivingBase targetEntity = null;
+			this.finishUseWithTarget(targetEntity, tickCount);
+		} 
+		else {
+			System.out.println("ServerSide requestProcession failed. TargetRT: " + this.targetRequirementType);
+		}
+	}
+	
+	public boolean finishUseWithTarget(EntityLivingBase targetEntity, int tickCount) {
+		boolean performSucceeded = this.performEffects(targetEntity, tickCount);
+		if(performSucceeded) {
+			this.onUseFinished(targetEntity, tickCount);
+		}
+		
+		return performSucceeded;
+	}
+	
+	protected void onUseFinished(EntityLivingBase targetEntity, int tickCount) {
+		BattleClassesUtils.Log("Casting finished!", LogType.ABILITY);
+	}
+	
+	//----------------------------------------------------------------------------------
+	//							SECTION - Casting
+	//----------------------------------------------------------------------------------
+	
+	protected void startCasting(EntityPlayer entityPlayer, ItemStack itemStack) {
+		BattleClassesUtils.Log("Casting started!", LogType.ABILITY);
+		BattleClassesUtils.setEntityPlayerItemInUseInSeconds(entityPlayer, itemStack, this.getCastTime());
+		sendCastingSoundPacket(true);
 	}
 	
 	public void cancelCasting(EntityPlayer entityPlayer) {
@@ -195,46 +243,13 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 		BattleClassesUtils.Log("Cancelling Casting and GlobalCD", LogType.ABILITY);
 	}
 	
-	public void requestCastingProcessFinish(EntityPlayer entityPlayer, ItemStack itemStack, int tickCount) {
-		Side side = FMLCommonHandler.instance().getEffectiveSide();
-		//Checking CLIENT SIDE
-		if(side == Side.CLIENT && this.requiresRayTracingForTarget()) {
-			
-			//CHECK TARGET REQUIREMENTS
-			//CHECK RANGE REQUIREMENTS
-			EntityLivingBase target = this.getFinalTarget();
-			
-			//TODO
-			if (target != null) {
-				int targetEntityID = target.getEntityId();
-				FMLProxyPacket p = new BattleClassesPacketProcessAbilityWithTarget(entityPlayer, this.abilityID, targetEntityID, tickCount).generatePacket();
-				BattleClassesMod.packetHandler.sendPacketToServer(p);
-			}
-		}
-		//Checking SERVER SIDE
-		else if (side == Side.SERVER && !this.requiresRayTracingForTarget()) {
-			EntityLivingBase targetEntity = null;
-			this.finishCastingWithTarget(targetEntity, tickCount);
-		} 
-		else {
-			System.out.println("ServerSide requestProcession failed. TargetRT: " + this.targetRequirementType);
-		}
+	public int getCastTimeInTicks() {
+		return (int) (this.getCastTime() * 20);
 	}
 	
-	public boolean finishCastingWithTarget(EntityLivingBase targetEntity, int tickCount) {
-		boolean performSucceeded = this.performEffects(targetEntity, tickCount);
-		if(performSucceeded) {
-			this.onCastFinished(targetEntity, tickCount);
-		}
-		
-		return performSucceeded;
-	}
-	
-	public abstract boolean performEffects(EntityLivingBase targetEntity, int tickCount);
-		
-	public void onCastFinished(EntityLivingBase targetEntity, int tickCount) {
-		BattleClassesUtils.Log("Casting finished!", LogType.ABILITY);
-	}
+	//----------------------------------------------------------------------------------
+	//							SECTION - Targeting
+	//----------------------------------------------------------------------------------
 	
 	@SideOnly(Side.CLIENT)
 	public EntityLivingBase getTargetFromExtendedRange() {
@@ -252,16 +267,20 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 		return finalTarget;
 	}
 	
+	/**
+	 * Decides if the ability requires a direct raytraced based on the target requirement type 
+	 * @return
+	 */
 	public boolean requiresRayTracingForTarget() {
 		switch (this.targetRequirementType) {
-		case NEEDLESS:
-			return false;
-		case OPTIONAL:
-			return true;
-		case REQUIRED:
-			return true;
-		default:
-			return false;
+			case NEEDLESS:
+				return false;
+			case OPTIONAL:
+				return true;
+			case REQUIRED:
+				return true;
+			default:
+				return false;
 		}
 	}
 	
@@ -328,7 +347,60 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 		}
 		return null;
 	}
+	
+	//----------------------------------------------------------------------------------
+	//							SECTION - Effects & performing
+	//----------------------------------------------------------------------------------
+	
+	protected boolean performEffects(EntityLivingBase targetEntity, int tickCount) {
+		return false;
+	}
+
+	public float getAbilityDamageBase() {
+		//TODO
+		return 0;
+	}
+	
+	public float getAbilityDamageAmplified() {
+		//TODO
+		return 0;
+	}
+	
+	//----------------------------------------------------------------------------------
+	//							SECTION - Getters & helpers
+	//----------------------------------------------------------------------------------
+	
+	public boolean isIgnoringSilence() {
+		return this.ignoresSilence;
+	}
 		
+	public EnumBattleClassesAbilityDirectTargetRequirement getTargetingType() {
+		return this.targetRequirementType;
+	}
+	
+	public EnumBattleClassesAbilitySchool getSchool() {
+		return this.school;
+	}
+	
+	public boolean isInstant() {
+		return this.getCastTime() == 0;
+	}
+	
+	public float getCastTime() {
+    	return this.castTime;
+    }
+	
+	@Override
+    public BattleClassesAbstractAbilityActive setUnlocalizedName(String parName) {
+		super.setUnlocalizedName(parName);
+		abilityIconResourceLocation = BattleClassesGuiHelper.getResourceLocationOfTexture("textures/spells/icons/", this.getUnlocalizedIconName() + ".png");
+		return this;
+	}
+	
+	//----------------------------------------------------------------------------------
+	//							SECTION - Client side stuff
+	//----------------------------------------------------------------------------------
+			
     @SideOnly(Side.CLIENT)
     public boolean hasItemIcon() {
     	return false;
@@ -344,16 +416,9 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
     	return abilityIconResourceLocation;
     }
     
-    @Override
-    public BattleClassesAbstractAbilityActive setName(String parName) {
-		super.setName(parName);
-		abilityIconResourceLocation = BattleClassesGuiHelper.getResourceLocationOfTexture("textures/spells/icons/", this.getUnlocalizedIconName() + ".png");
-		return this;
-	}
-    
     @SideOnly(Side.CLIENT)
     public String getName() {
-    	return name;
+    	return unlocalizedName;
     }
     
     @SideOnly(Side.CLIENT)
@@ -376,9 +441,9 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
     	return f;
     }
     
-    public float getCastTime() {
-    	return this.castTime;
-    }
+    //----------------------------------------------------------------------------------
+    //							SECTION - Sound
+    //----------------------------------------------------------------------------------
 	
     public void sendCastingSoundPacket(boolean start) {
     	Side side = FMLCommonHandler.instance().getEffectiveSide();

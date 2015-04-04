@@ -23,7 +23,7 @@ public class BattleClassesAbilityShieldBlock extends BattleClassesAbstractAbilit
 
 	public BattleClassesAbilityShieldBlock() {
 		super(SHIELD_BLOCK_ABILITY_ID);
-		this.setName("universal.shieldblock");
+		this.setUnlocalizedName("universal.shieldblock");
 		this.ignoresGlobalCooldown = true;
 		this.castTime = 0;
 		this.targetRequirementType = EnumBattleClassesAbilityDirectTargetRequirement.NEEDLESS;
@@ -61,7 +61,7 @@ public class BattleClassesAbilityShieldBlock extends BattleClassesAbstractAbilit
     }
     
     public String getName() {
-		return this.name + " school:" + school + " intent:" + intent + " target:" + targetRequirementType;
+		return this.unlocalizedName + " school:" + school + " intent:" + intent + " target:" + targetRequirementType;
 	}
 	@Override
 	public EnumBattleClassesAbilityCastingType getCastingType() {

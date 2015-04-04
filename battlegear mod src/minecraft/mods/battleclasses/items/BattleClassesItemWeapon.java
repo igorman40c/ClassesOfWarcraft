@@ -54,7 +54,7 @@ public class BattleClassesItemWeapon extends ItemSword implements IBattleClasses
      * Called whenever this item is equipped and the right mouse button is pressed. Args: itemStack, world, entityPlayer
      */
     public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer entityPlayer) {
-    	BattleClassesUtils.getPlayerSpellBook(entityPlayer).CastStart(itemStack, world, entityPlayer);
+    	BattleClassesUtils.getPlayerSpellBook(entityPlayer).UseStartOnChosenAbility(itemStack, world, entityPlayer);
     	return itemStack;
     }
 	

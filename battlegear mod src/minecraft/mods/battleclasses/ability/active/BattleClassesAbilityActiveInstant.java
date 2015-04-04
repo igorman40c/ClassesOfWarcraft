@@ -11,6 +11,12 @@ public class BattleClassesAbilityActiveInstant extends BattleClassesAbstractAbil
 	public BattleClassesAbilityActiveInstant(int parAbilityID) {
 		super(parAbilityID);
 	}
+	
+	@Override
+	public boolean isInstant() {
+		return true;
+	}
+
 
 	@Override
 	public boolean performEffects(EntityLivingBase targetEntity, int tickCount) {
@@ -24,22 +30,18 @@ public class BattleClassesAbilityActiveInstant extends BattleClassesAbstractAbil
 	}
 	
 	@Override
-	public void onCastStart(ItemStack itemStack, World world, EntityPlayer entityPlayer) {
-		super.onCastStart(itemStack, world, entityPlayer);
+	protected void onUseStart(ItemStack itemStack, World world, EntityPlayer entityPlayer) {
+		super.onUseStart(itemStack, world, entityPlayer);
 	}
 	
 	@Override
-	public void onCastRelease(ItemStack itemStack, EntityPlayer entityPlayer, int tickCount) {
-		this.requestCastingProcessFinish(entityPlayer, itemStack, tickCount);	
-	}
-	@Override
-	public boolean isInstant() {
-		return true;
+	protected void onUseRelease(ItemStack itemStack, EntityPlayer entityPlayer, int tickCount) {
+		this.requestUseFinish(entityPlayer, itemStack, tickCount);	
 	}
 
 	@Override
-	public void onCastFinished(EntityLivingBase targetEntity, int tickCount) {
-		super.onCastFinished(targetEntity, tickCount);
+	protected void onUseFinished(EntityLivingBase targetEntity, int tickCount) {
+		super.onUseFinished(targetEntity, tickCount);
 		this.getCooldownClock().setCooldownDefault();
 	}
 }

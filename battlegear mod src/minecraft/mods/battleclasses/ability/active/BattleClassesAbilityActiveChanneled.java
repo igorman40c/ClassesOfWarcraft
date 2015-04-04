@@ -34,9 +34,9 @@ public class BattleClassesAbilityActiveChanneled extends BattleClassesAbstractAb
 	}
 
 	@Override
-	public void onCastStart(ItemStack itemStack, World world, EntityPlayer entityPlayer) {
-		super.onCastStart(itemStack, world, entityPlayer);
-		this.startCastingProcess(entityPlayer, itemStack);
+	protected void onUseStart(ItemStack itemStack, World world, EntityPlayer entityPlayer) {
+		super.onUseStart(itemStack, world, entityPlayer);
+		this.startCasting(entityPlayer, itemStack);
 		
 		Side side = FMLCommonHandler.instance().getEffectiveSide();
 		if(side == Side.SERVER) {
@@ -47,8 +47,8 @@ public class BattleClassesAbilityActiveChanneled extends BattleClassesAbstractAb
 	}
 	
 	@Override
-	public void onCastTick(ItemStack itemStack, EntityPlayer entityPlayer, int tickCount) {
-		super.onCastTick(itemStack, entityPlayer, tickCount);
+	protected void onUseTick(ItemStack itemStack, EntityPlayer entityPlayer, int tickCount) {
+		super.onUseTick(itemStack, entityPlayer, tickCount);
 		int currentCastTick = tickCount - 72000;
 		if(currentCastTick >= 0) {
 			int ticksPerProceed = this.getCastTimeInTicks() / this.channelTickCount;
@@ -60,29 +60,19 @@ public class BattleClassesAbilityActiveChanneled extends BattleClassesAbstractAb
 					this.getCooldownClock().setCooldownDefault();
 				}
 				BattleClassesUtils.Log("Channeling... Current tick: " + currentCastTickInverted + " Cast time in tick " + this.getCastTimeInTicks(), LogType.ABILITY);
-				this.requestCastingProcessFinish(entityPlayer, itemStack, tickCount);
+				this.requestUseFinish(entityPlayer, itemStack, tickCount);
 			}
 		}
 	}
 	
 	@Override
-	public void onCastRelease(ItemStack itemStack, EntityPlayer entityPlayer, int tickCount) {
-		/*
-		super.onCastRelease(itemStack, entityPlayer, tickCount);
-		int remainingCastTick = tickCount - 72000;
-		if(remainingCastTick <= 0) {
-			return;
-		}
-		else {
-			this.cancelCasting(entityPlayer);
-		}
-		*/
+	protected void onUseRelease(ItemStack itemStack, EntityPlayer entityPlayer, int tickCount) {
 		this.cancelCasting(entityPlayer);
 	}
 	
 	@Override
-	public void onCastFinished(EntityLivingBase targetEntity, int tickCount) {
-		super.onCastFinished(targetEntity, tickCount);
+	protected void onUseFinished(EntityLivingBase targetEntity, int tickCount) {
+		super.onUseFinished(targetEntity, tickCount);
 	}
 	
 }

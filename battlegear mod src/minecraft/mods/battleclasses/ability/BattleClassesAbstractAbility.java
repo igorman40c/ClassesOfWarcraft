@@ -9,7 +9,7 @@ import mods.battleclasses.core.BattleClassesPlayerHooks;
 public abstract class BattleClassesAbstractAbility {
 
 	protected int abilityID;
-	protected String name = "";
+	
 	
 	//Mandtory Helper References
 	protected BattleClassesPlayerHooks playerHooks;
@@ -18,34 +18,38 @@ public abstract class BattleClassesAbstractAbility {
 		return abilityID;
 	}
 	
-	public BattleClassesAbstractAbility setName(String parName) {
-		this.name = parName;
-		return this;
-	}
+	
 	
 	public static final String UNLOCALIZED_PREFIX_ABILITY = "ability.";
 	public String getUnlocalizedPrefix() {
 		return UNLOCALIZED_PREFIX_ABILITY;
 	}
 	
-	public String getUnlocalizedID() {
-		return getUnlocalizedPrefix() + this.name;
+	protected String unlocalizedName = "";
+	
+	public BattleClassesAbstractAbility setUnlocalizedName(String parName) {
+		this.unlocalizedName = parName;
+		return this;
 	}
 	
-	public String getUnlocalizedName() {
-		return getUnlocalizedPrefix() + this.name + ".name";
+	public String getUnlocalizedID() {
+		return getUnlocalizedPrefix() + this.unlocalizedName;
+	}
+	
+	public String getUnlocalizedDisplayName() {
+		return getUnlocalizedID() + ".name";
 	}
 	
 	public String getUnlocalizedDescription() {
-		return getUnlocalizedPrefix() + this.name + ".description";
+		return getUnlocalizedID()  + ".description";
 	}
 	
 	public String getUnlocalizedIconName() {
-		return getUnlocalizedPrefix() + this.name + ".icon";
+		return getUnlocalizedID()  + ".icon";
 	}
 	
 	public String getTranslatedName() {
-		return StatCollector.translateToLocal(this.getUnlocalizedName());
+		return StatCollector.translateToLocal(this.getUnlocalizedDisplayName());
 	}
 	
 	public String getTranslatedDescription() {

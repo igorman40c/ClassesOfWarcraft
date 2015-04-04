@@ -26,12 +26,12 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 
 	public LinkedHashMap<Integer, BattleClassesAbstractAbilityActive> getClassAbilities() {
 		LinkedHashMap<Integer, BattleClassesAbstractAbilityActive> abilities = new LinkedHashMap<Integer, BattleClassesAbstractAbilityActive>();
-		abilities.put(100, new ArcaneMissilesTestAbility().setName("mage.arcanemissiles"));
-		abilities.put(101, new BattleClassesAbilityTestCasted(101).setName("mage.blink"));
-		abilities.put(102, new BattleClassesAbilityTestCasted(110).setName("mage.fireball"));
-		abilities.put(110, new BattleClassesAbilityTestCasted(111).setName("mage.scorch"));
-		abilities.put(111, new BattleClassesAbilityTestCasted(120).setName("mage.frostbolt"));
-		abilities.put(112, new BattleClassesAbilityTestCasted(121).setName("mage.frostnova"));
+		abilities.put(100, new ArcaneMissilesTestAbility().setUnlocalizedName("mage.arcanemissiles"));
+		abilities.put(101, new BattleClassesAbilityTestCasted(101).setUnlocalizedName("mage.blink"));
+		abilities.put(102, new BattleClassesAbilityTestCasted(110).setUnlocalizedName("mage.fireball"));
+		abilities.put(110, new BattleClassesAbilityTestCasted(111).setUnlocalizedName("mage.scorch"));
+		abilities.put(111, new BattleClassesAbilityTestCasted(120).setUnlocalizedName("mage.frostbolt"));
+		abilities.put(112, new BattleClassesAbilityTestCasted(121).setUnlocalizedName("mage.frostnova"));
 		//abilities.put(BattleClassesAbilityShieldBlock.SHIELD_BLOCK_ABILITY_ID, new BattleClassesAbilityShieldBlock());
 		//abilities.put(ABILITY_ID_FROSTNOVA, new FrostNovaTestAbility());
 		return abilities;
@@ -106,7 +106,7 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 	class PolymorphTestAbility extends BattleClassesAbilityTestCasted {
 		public PolymorphTestAbility() {
 			super(ABILITY_ID_POLYMORPH);
-			this.setName("mage.polymorph");
+			this.setUnlocalizedName("mage.polymorph");
 		}
 	}
 	
@@ -114,7 +114,7 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 	class DragonsBreathTestAbility extends BattleClassesAbilityTestCasted {
 		public DragonsBreathTestAbility() {
 			super(ABILITY_ID_DRAGONSBREATH);
-			this.setName("mage.dragonsbreath");
+			this.setUnlocalizedName("mage.dragonsbreath");
 		}
 	}
 	
@@ -122,7 +122,7 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 	class IceBlockTestAbility extends BattleClassesAbilityTestCasted {
 		public IceBlockTestAbility() {
 			super(ABILITY_ID_ICEBLOCK);
-			this.setName("mage.iceblock");
+			this.setUnlocalizedName("mage.iceblock");
 		}
 	}
 	

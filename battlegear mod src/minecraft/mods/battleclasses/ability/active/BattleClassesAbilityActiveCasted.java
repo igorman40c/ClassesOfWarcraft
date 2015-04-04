@@ -28,9 +28,9 @@ public class BattleClassesAbilityActiveCasted extends BattleClassesAbstractAbili
 	}
 	
 	@Override
-	public void onCastStart(ItemStack itemStack, World world, EntityPlayer entityPlayer) {
-		super.onCastStart(itemStack, world, entityPlayer);
-		this.startCastingProcess(entityPlayer, itemStack);
+	protected void onUseStart(ItemStack itemStack, World world, EntityPlayer entityPlayer) {
+		super.onUseStart(itemStack, world, entityPlayer);
+		this.startCasting(entityPlayer, itemStack);
 		
 		Side side = FMLCommonHandler.instance().getEffectiveSide();
 		if(side == Side.SERVER) {
@@ -41,11 +41,11 @@ public class BattleClassesAbilityActiveCasted extends BattleClassesAbstractAbili
 	}
 	
 	@Override
-	public void onCastRelease(ItemStack itemStack, EntityPlayer entityPlayer, int tickCount) {
-		super.onCastRelease(itemStack, entityPlayer, tickCount);
+	protected void onUseRelease(ItemStack itemStack, EntityPlayer entityPlayer, int tickCount) {
+		super.onUseTick(itemStack, entityPlayer, tickCount);
 		int remainingCastTick = tickCount - 72000;
 		if(remainingCastTick <= 0) {
-			this.requestCastingProcessFinish(entityPlayer, itemStack, tickCount);
+			this.requestUseFinish(entityPlayer, itemStack, tickCount);
 		}
 		else {
 			this.cancelCasting(entityPlayer);
@@ -53,14 +53,9 @@ public class BattleClassesAbilityActiveCasted extends BattleClassesAbstractAbili
 	}
 	
 	@Override
-	public void onCastFinished(EntityLivingBase targetEntity, int tickCount) {
-		super.onCastFinished(targetEntity, tickCount);
+	protected void onUseFinished(EntityLivingBase targetEntity, int tickCount) {
+		super.onUseFinished(targetEntity, tickCount);
 		this.getCooldownClock().setCooldownDefault();
 		Side side = FMLCommonHandler.instance().getEffectiveSide();
-		if(side == Side.SERVER) {
-			if(!this.ignoresGlobalCooldown) {
-				BattleClassesUtils.getPlayerSpellBook(this.getOwnerPlayer()).setGlobalCooldown();
-			}
-		}
 	}
 }

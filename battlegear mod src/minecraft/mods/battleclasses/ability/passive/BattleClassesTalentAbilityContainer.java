@@ -12,7 +12,7 @@ public class BattleClassesTalentAbilityContainer extends BattleClassesAbstractTa
 	public BattleClassesTalentAbilityContainer(int parAbilityID, int parTalentLevel, BattleClassesAbstractAbilityActive parAbility) {
 		super(parAbilityID, parTalentLevel);
 		containedAbility = parAbility;
-		this.setName("universal.abilitycontainer");
+		this.setUnlocalizedName("universal.abilitycontainer");
 	}
 	
 	BattleClassesAbstractAbilityActive containedAbility;
