@@ -17,8 +17,7 @@ public class BattleClassesAbilityEffectPotion extends BattleClassesAbstractAbili
 	protected float effectDuration;
 	
 	@Override
-	public void performByOwnerOnTarget(EntityPlayer owner,
-			EntityLivingBase target) {
+	public void performByOwnerOnTarget(EntityLivingBase owner, EntityLivingBase target) {
 		target.addPotionEffect(new PotionEffect(potionID, this.durationInTicksForSeconds(), 1, false));
 	}
 	

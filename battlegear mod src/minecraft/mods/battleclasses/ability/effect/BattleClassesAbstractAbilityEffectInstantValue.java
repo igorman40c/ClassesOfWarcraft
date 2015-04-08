@@ -59,7 +59,7 @@ public abstract class BattleClassesAbstractAbilityEffectInstantValue extends Bat
 	}
 	
 	public void performValueEffect(BattleClassesAttributes attributesForParentAbility, float critChance, float partialMultiplier, 
-			EntityPlayer owner, EntityLivingBase target) {
+			EntityLivingBase owner, EntityLivingBase target) {
 		this.prepareToPerform(attributesForParentAbility, critChance, partialMultiplier);
 		this.performByOwnerOnTarget(owner, target);
 		this.resetOutput();

@@ -28,7 +28,7 @@ public class BattleClassesAbilityEffectInstantDual extends BattleClassesAbstract
 	
 	@Override
 	public void performValueEffect(BattleClassesAttributes attributesForParentAbility, float critChance, float partialMultiplier, 
-			EntityPlayer owner, EntityLivingBase target) {
+			EntityLivingBase owner, EntityLivingBase target) {
 		this.prepareToPerform(attributesForParentAbility, critChance, partialMultiplier);
 		this.performByOwnerOnTarget(owner, target);
 		this.resetOutput();
@@ -41,7 +41,7 @@ public class BattleClassesAbilityEffectInstantDual extends BattleClassesAbstract
 	}
 
 	@Override
-	public void performByOwnerOnTarget(EntityPlayer owner, EntityLivingBase target) {
+	public void performByOwnerOnTarget(EntityLivingBase owner, EntityLivingBase target) {
 		this.damageEffect.performByOwnerOnTarget(owner, target);
 		this.healEffect.performByOwnerOnTarget(owner, target);
 	}

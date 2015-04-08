@@ -13,7 +13,7 @@ public abstract class BattleClassesAbstractAbilityEffect {
 		this.parentAbility = ability;
 	}
 	
-	public abstract void performByOwnerOnTarget(EntityPlayer owner, EntityLivingBase target);
+	public abstract void performByOwnerOnTarget(EntityLivingBase owner, EntityLivingBase target);
 	
 	public abstract EnumBattleClassesAbilityIntent getIntent();
 	

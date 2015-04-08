@@ -6,5 +6,5 @@ import mods.battleclasses.core.BattleClassesAttributes;
 
 public interface IValueEffect {
 	public void performValueEffect(BattleClassesAttributes attributesForParentAbility, float critChance, float partialMultiplier, 
-			EntityPlayer owner, EntityLivingBase target);
+			EntityLivingBase owner, EntityLivingBase target);
 }

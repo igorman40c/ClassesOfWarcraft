@@ -41,7 +41,7 @@ public class BattleClassesPotion extends Potion {
 
 	public static final int POTION_TYPES_CAPACITY = 256;
 	public static void registerPotions() {
-		//Increasing size of potionTypes array
+		//Increasing size of potionTypes array\
 		if(Potion.potionTypes.length >= POTION_TYPES_CAPACITY) {
 			System.out.println("Battle Classes mod trying to increase size of Potion.potionTypes array, but it's already modified. Current lenght:" + potionTypes.length);
 		}
@@ -68,4 +68,9 @@ public class BattleClassesPotion extends Potion {
 		testing = (BattleClassesPotion) (new BattleClassesPotion(33, false, 10044730)).setPotionName("bcpotion.testing");
 		judgementOfJustice = (BattleClassesPotion) (new BattleClassesPotion(34, true, 10044730)).setPotionName("bcpotion.judgementOfJustice").func_111184_a(SharedMonsterAttributes.movementSpeed, "7107DE5E-7CE8-4030-940E-514C1F160890", -0.85000000596046448D, 2);
 	}
+	
+	public static Potion staticPotionForID(int id) {
+		return Potion.potionTypes[id];
+	}
+	
 }

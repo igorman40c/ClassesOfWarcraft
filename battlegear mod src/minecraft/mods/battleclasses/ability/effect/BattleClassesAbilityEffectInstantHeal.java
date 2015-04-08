@@ -12,7 +12,7 @@ public class BattleClassesAbilityEffectInstantHeal extends BattleClassesAbstract
 	}
 
 	@Override
-	public void performByOwnerOnTarget(EntityPlayer owner, EntityLivingBase target) {
+	public void performByOwnerOnTarget(EntityLivingBase owner, EntityLivingBase target) {
 		//TODO:
 		//Check if target is friendly
 		//Heal target by outputValue

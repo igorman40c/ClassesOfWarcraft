@@ -12,7 +12,7 @@ public class BattleClassesAbilityEffectInstantDamage extends BattleClassesAbstra
 	}
 
 	@Override
-	public void performByOwnerOnTarget(EntityPlayer owner, EntityLivingBase target) {
+	public void performByOwnerOnTarget(EntityLivingBase owner, EntityLivingBase target) {
 		//TODO:
 		//Reset hurtCD
 		//Check if target is unfriendly
