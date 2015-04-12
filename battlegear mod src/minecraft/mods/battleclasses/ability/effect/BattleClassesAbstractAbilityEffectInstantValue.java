@@ -10,8 +10,8 @@ import net.minecraft.entity.player.EntityPlayer;
 
 public abstract class BattleClassesAbstractAbilityEffectInstantValue extends BattleClassesAbstractAbilityEffect implements IValueEffect {
 	
-	BattleClassesAbstractAbilityEffectInstantValue(BattleClassesAbstractAbilityActive ability) {
-		super(ability);
+	BattleClassesAbstractAbilityEffectInstantValue() {
+		super();
 	}
 
 	/**

@@ -1,5 +1,6 @@
 package mods.battleclasses.ability.active;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -23,6 +24,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import mods.battleclasses.BattleClassesMod;
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
+import mods.battleclasses.ability.effect.BattleClassesAbstractAbilityEffect;
 import mods.battleclasses.client.BattleClassesClientTargeting;
 import mods.battleclasses.core.BattleClassesPlayerHooks;
 import mods.battleclasses.core.ICooldownOwner;
@@ -349,21 +351,23 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 	}
 	
 	//----------------------------------------------------------------------------------
-	//							SECTION - Effects & performing
+	//								SECTION - Effects 
 	//----------------------------------------------------------------------------------
+	
+	protected ArrayList<BattleClassesAbstractAbilityEffect> effects = new ArrayList<BattleClassesAbstractAbilityEffect>();
+
+	public void addEffect(BattleClassesAbstractAbilityEffect effect) {
+		effect.setParentAbility(this);
+		this.effects.add(effect);
+	}
+	
+	public void removeEffect(BattleClassesAbstractAbilityEffect effect) {
+		effect.setParentAbility(null);
+		this.effects.remove(effect);
+	}
 	
 	protected boolean performEffects(EntityLivingBase targetEntity, int tickCount) {
 		return false;
-	}
-
-	public float getAbilityDamageBase() {
-		//TODO
-		return 0;
-	}
-	
-	public float getAbilityDamageAmplified() {
-		//TODO
-		return 0;
 	}
 	
 	//----------------------------------------------------------------------------------

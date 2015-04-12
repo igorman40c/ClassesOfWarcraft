@@ -8,8 +8,8 @@ import net.minecraft.entity.player.EntityPlayer;
 
 public class BattleClassesAbilityEffectInstantDual extends BattleClassesAbstractAbilityEffectInstantValue {
 
-	BattleClassesAbilityEffectInstantDual(BattleClassesAbstractAbilityActive ability) {
-		super(ability);
+	BattleClassesAbilityEffectInstantDual() {
+		super();
 	}
 	
 	@Override

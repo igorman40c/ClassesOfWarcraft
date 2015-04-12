@@ -11,8 +11,8 @@ public class BattleClassesAbilityEffectValueOverTime extends BattleClassesAbilit
 
 	protected BattleClassesAbstractAbilityEffectInstantValue effectInstantValue;
 	
-	BattleClassesAbilityEffectValueOverTime(BattleClassesAbstractAbilityActive ability) {
-		super(ability);
+	BattleClassesAbilityEffectValueOverTime() {
+		super();
 		// TODO Auto-generated constructor stub
 	}
 	

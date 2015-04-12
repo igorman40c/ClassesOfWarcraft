@@ -9,8 +9,8 @@ import net.minecraft.potion.PotionEffect;
 
 public class BattleClassesAbilityEffectPotion extends BattleClassesAbstractAbilityEffect {
 
-	BattleClassesAbilityEffectPotion(BattleClassesAbstractAbilityActive ability) {
-		super(ability);
+	BattleClassesAbilityEffectPotion() {
+		super();
 	}
 	
 	protected int potionID;

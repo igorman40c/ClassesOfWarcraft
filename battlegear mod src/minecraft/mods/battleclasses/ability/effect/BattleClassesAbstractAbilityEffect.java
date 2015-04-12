@@ -9,7 +9,11 @@ public abstract class BattleClassesAbstractAbilityEffect {
 	
 	protected BattleClassesAbstractAbilityActive parentAbility;
 	
-	BattleClassesAbstractAbilityEffect(BattleClassesAbstractAbilityActive ability) {
+	BattleClassesAbstractAbilityEffect() {
+		
+	}
+	
+	public void setParentAbility(BattleClassesAbstractAbilityActive ability) {
 		this.parentAbility = ability;
 	}
 	

@@ -32,7 +32,7 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 		abilities.put(110, new BattleClassesAbilityTestCasted(111).setUnlocalizedName("mage.scorch"));
 		abilities.put(111, new BattleClassesAbilityTestCasted(120).setUnlocalizedName("mage.frostbolt"));
 		abilities.put(112, new BattleClassesAbilityTestCasted(121).setUnlocalizedName("mage.frostnova"));
-		//abilities.put(BattleClassesAbilityShieldBlock.SHIELD_BLOCK_ABILITY_ID, new BattleClassesAbilityShieldBlock());
+		abilities.put(BattleClassesAbilityShieldBlock.SHIELD_BLOCK_ABILITY_ID, new BattleClassesAbilityShieldBlock());
 		//abilities.put(ABILITY_ID_FROSTNOVA, new FrostNovaTestAbility());
 		return abilities;
 	}

@@ -7,8 +7,8 @@ import net.minecraft.entity.player.EntityPlayer;
 
 public class BattleClassesAbilityEffectInstantHeal extends BattleClassesAbstractAbilityEffectInstantValue {
 
-	BattleClassesAbilityEffectInstantHeal(BattleClassesAbstractAbilityActive ability) {
-		super(ability);
+	BattleClassesAbilityEffectInstantHeal() {
+		super();
 	}
 
 	@Override
