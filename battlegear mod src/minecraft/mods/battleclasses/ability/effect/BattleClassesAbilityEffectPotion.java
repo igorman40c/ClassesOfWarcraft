@@ -13,6 +13,12 @@ public class BattleClassesAbilityEffectPotion extends BattleClassesAbstractAbili
 		super();
 	}
 	
+	BattleClassesAbilityEffectPotion(int potionID, float effectDuration) {
+		this();
+		this.potionID = potionID;
+		this.effectDuration = effectDuration;
+	}
+	
 	protected int potionID;
 	protected float effectDuration;
 	

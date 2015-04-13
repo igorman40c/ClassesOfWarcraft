@@ -16,6 +16,11 @@ public class BattleClassesAbilityEffectValueOverTime extends BattleClassesAbilit
 		// TODO Auto-generated constructor stub
 	}
 	
+	BattleClassesAbilityEffectValueOverTime(int potionID, float effectDuration, BattleClassesAbstractAbilityEffectInstantValue effectInstantValue) {
+		super(potionID, effectDuration);
+		this.effectInstantValue = effectInstantValue;
+	}
+	
 	protected int tickCount = 1;
 
 	@Override

@@ -12,6 +12,12 @@ public class BattleClassesAbilityEffectInstantDual extends BattleClassesAbstract
 		super();
 	}
 	
+	BattleClassesAbilityEffectInstantDual(BattleClassesAbilityEffectInstantDamage damageEffect, 
+			BattleClassesAbilityEffectInstantHeal healEffect) {
+		this();
+		this.setDamageAndHealEffects(damageEffect, healEffect);
+	}
+	
 	@Override
 	public EnumBattleClassesAbilityIntent getIntent() {
 		return EnumBattleClassesAbilityIntent.DUAL;

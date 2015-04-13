@@ -13,6 +13,14 @@ public abstract class BattleClassesAbstractAbilityEffectInstantValue extends Bat
 	BattleClassesAbstractAbilityEffectInstantValue() {
 		super();
 	}
+	
+	BattleClassesAbstractAbilityEffectInstantValue(EnumBattleClassesAbilitySchool school, float valueBase, float valueBonusCoefficient, float valueTotalRandomness) {
+		this();
+		this.school = school;
+		this.valueBase = valueBase;
+		this.valueBonusCoefficient = valueBonusCoefficient;
+		this.valueTotalRandomness = valueTotalRandomness;
+	}
 
 	/**
 	 * Permanentaly stores the value that will be used for damaging or healing. 
