@@ -32,7 +32,6 @@ import org.lwjgl.opengl.GL12;
 import cpw.mods.fml.client.FMLClientHandler;
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
-import mods.battleclasses.ability.active.BattleClassesAbilityActiveChanneled;
 import mods.battleclasses.ability.active.BattleClassesAbilityShieldBlock;
 import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
 import mods.battleclasses.client.BattleClassesClientTargeting;
@@ -315,16 +314,15 @@ public class BattleClassesGuiHUDOverlay extends BattlegearInGameGUI {
     			v = BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).getChosenAbility().getSchool().getCastBarColoringV();
     			
     			//DRAWING PROGRESSBAR
-    			if(chosenAbility instanceof BattleClassesAbilityActiveChanneled) {
+    			if(chosenAbility.isChanneled()) {
     				f = 1.0F - f;
     			}
         		this.renderProgressBar(x, y, u, v, f);
                 
                 //DRAW SPELL ICON ON THE PROGRESSBAR
                 float castBarIconScale = 0.6F;
-                if(chosenAbility instanceof BattleClassesAbilityActiveChanneled) {
-                	BattleClassesAbilityActiveChanneled channeledAbility = (BattleClassesAbilityActiveChanneled)chosenAbility;
-    				int channelTicks =  channeledAbility.getChannelTicks();
+                if(chosenAbility.isChanneled()) {
+    				int channelTicks =  chosenAbility.getChannelTicks();
     				for(int i = 0; i < channelTicks; ++i) {
     					this.drawAbilityIconCentered(x + CAST_BAR_WIDTH - ((i+1)*(CAST_BAR_WIDTH/(channelTicks)) ), y + CAST_BAR_HEIGHT/4,
         						castBarIconScale, BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).getChosenAbility().getIconResourceLocation());

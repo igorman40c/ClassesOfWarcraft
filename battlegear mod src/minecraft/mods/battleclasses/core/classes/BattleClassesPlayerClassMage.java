@@ -3,7 +3,6 @@ package mods.battleclasses.core.classes;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
-import mods.battleclasses.ability.active.BattleClassesAbilityActiveChanneled;
 import mods.battleclasses.ability.active.BattleClassesAbilityShieldBlock;
 import mods.battleclasses.ability.active.BattleClassesAbilityTestCasted;
 import mods.battleclasses.ability.active.BattleClassesAbilityTestChanneled;

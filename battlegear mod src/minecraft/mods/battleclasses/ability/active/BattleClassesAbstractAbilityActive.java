@@ -47,6 +47,7 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 
 	public BattleClassesAbstractAbilityActive(int parAbilityID) {
 		super(parAbilityID);
+		this.setCastingType(EnumBattleClassesAbilityCastingType.CastType_INSTANT);
 	}
 	
 	protected IIcon abilityIcon;
@@ -57,11 +58,14 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 	protected EnumBattleClassesAbilityDirectTargetRequirement targetRequirementType = EnumBattleClassesAbilityDirectTargetRequirement.NEEDLESS;
 	protected EnumBattleClassesAbilityIntent intent = EnumBattleClassesAbilityIntent.DUAL;
 	
-	//Basic ability attributes
+	//Use process parameters
+	private AbilityUseProcessor useProcessor;
+	private EnumBattleClassesAbilityCastingType castingType;
+	protected int channelTickCount = 1;
 	public float castTime = 0;
-	public float range = 40;
 	
 	//Supporting modifiers
+	public float range = 40;
 	public float criticalChance = 0;
 	public float haste = 0;
 	
@@ -74,7 +78,14 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 		return EnumAction.bow;
 	}
 	
-	public abstract EnumBattleClassesAbilityCastingType getCastingType();
+	public EnumBattleClassesAbilityCastingType getCastingType() {
+		return this.castingType;
+	}
+	
+	protected void setCastingType(EnumBattleClassesAbilityCastingType castingType) {
+		this.castingType = castingType;
+		this.useProcessor = AbilityUseProcessor.INSTANCE.createUseProcessor(castingType, this);
+	}
 	
 	/**
 	 * Helper method to get the owner of this ability
@@ -139,16 +150,9 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 			this.cancelCasting(entityPlayer);
 			return;
 		}
-		this.onUseStart(itemStack, world, entityPlayer);
+		this.useProcessor.onUseStart(itemStack, world, entityPlayer);
 	}
-	
-	/**
-	 * Hook method called at the end of "startCast"
-	 */
-	protected void onUseStart(ItemStack itemStack, World world, EntityPlayer entityPlayer) {
 		
-	}
-	
 	//----------------------------------------
 	//SUB-SECTION - Tick Use
 	//----------------------------------------
@@ -156,15 +160,9 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 	 * Called while player keeps Mouse-Right button pressed down. Hook method to be overriden.
 	 */
 	public final void tickUse(ItemStack itemStack, EntityPlayer entityPlayer, int tickCount) {
-		this.onUseTick(itemStack, entityPlayer, tickCount);
+		this.useProcessor.onUseTick(itemStack, entityPlayer, tickCount);
 	}
 	
-	/**
-	 * Hook method called at the end of "tickUse"
-	 */
-	protected void onUseTick(ItemStack itemStack, EntityPlayer entityPlayer, int tickCount) {
-		
-	}
 	//----------------------------------------
 	//SUB-SECTION - Release Use
 	//----------------------------------------
@@ -173,16 +171,9 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 	 */
 	public final void releaseUse(ItemStack itemStack, EntityPlayer entityPlayer, int tickCount) {
 		sendCastingSoundPacket(false);
-		this.onUseRelease(itemStack, entityPlayer, tickCount);
+		this.useProcessor.onUseRelease(itemStack, entityPlayer, tickCount);
 	}
-	
-	/**
-	 * Hook method called at the end of "releaseUse"
-	 */
-	protected void onUseRelease(ItemStack itemStack, EntityPlayer entityPlayer, int tickCount) {
 		
-	}
-	
 	//----------------------------------------
 	//SUB-SECTION - Finish Use
 	//----------------------------------------
@@ -214,18 +205,14 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 	}
 	
 	public boolean finishUseWithTarget(EntityLivingBase targetEntity, int tickCount) {
-		boolean performSucceeded = this.performEffects(targetEntity, tickCount);
+		boolean performSucceeded = this.releaseEffects(targetEntity, tickCount);
 		if(performSucceeded) {
-			this.onUseFinished(targetEntity, tickCount);
+			this.useProcessor.onUseFinished(targetEntity, tickCount);
 		}
 		
 		return performSucceeded;
 	}
-	
-	protected void onUseFinished(EntityLivingBase targetEntity, int tickCount) {
-		BattleClassesUtils.Log("Casting finished!", LogType.ABILITY);
-	}
-	
+		
 	//----------------------------------------------------------------------------------
 	//							SECTION - Casting
 	//----------------------------------------------------------------------------------
@@ -366,13 +353,17 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 		this.effects.remove(effect);
 	}
 	
-	protected boolean performEffects(EntityLivingBase targetEntity, int tickCount) {
+	protected boolean releaseEffects(EntityLivingBase targetEntity, int tickCount) {
 		return false;
 	}
 	
 	//----------------------------------------------------------------------------------
 	//							SECTION - Getters & helpers
 	//----------------------------------------------------------------------------------
+		
+	public int getChannelTicks() {
+		return this.channelTickCount;
+	}
 	
 	public boolean isIgnoringSilence() {
 		return this.ignoresSilence;
@@ -388,6 +379,10 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 	
 	public boolean isInstant() {
 		return this.getCastTime() == 0;
+	}
+	
+	public boolean isChanneled() {
+		return this.castingType == EnumBattleClassesAbilityCastingType.CastType_CHANNELED;
 	}
 	
 	public float getCastTime() {

@@ -8,17 +8,17 @@ import net.minecraft.potion.PotionEffect;
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
 import mods.battleclasses.core.BattleClassesPlayerHooks;
+import mods.battleclasses.enums.EnumBattleClassesAbilityCastingType;
 import mods.battleclasses.enums.EnumBattleClassesAbilityDirectTargetRequirement;
 import mods.battleclasses.enums.EnumBattleClassesAbilityIntent;
 import mods.battleclasses.enums.EnumBattleClassesAbilitySchool;
 
-public class BattleClassesAbilityTestCasted extends BattleClassesAbilityActiveCasted {
+public class BattleClassesAbilityTestCasted extends BattleClassesAbstractAbilityActive {
 	
 	public static final int TEST_SPELL_ID = 777;
 
 	public BattleClassesAbilityTestCasted() {
 		super(TEST_SPELL_ID);
-		this.castTime = 3;
 		initStuff();
 	}
 	
@@ -28,6 +28,7 @@ public class BattleClassesAbilityTestCasted extends BattleClassesAbilityActiveCa
 	}
 	
 	public void initStuff() {
+		this.setCastingType(EnumBattleClassesAbilityCastingType.CastType_CASTED);
 		this.castTime = 3;
 		this.getCooldownClock().setDefaultDuration(6.0F);
 		
@@ -42,7 +43,7 @@ public class BattleClassesAbilityTestCasted extends BattleClassesAbilityActiveCa
 	}
 
 	@Override
-	public boolean performEffects(EntityLivingBase targetEntity, int tickCount) {
+	public boolean releaseEffects(EntityLivingBase targetEntity, int tickCount) {
 		BattleClassesUtils.Log("BANG BANG Performed effect", LogType.CORE);
 		this.playReleaseSound();
 		this.playerHooks.getOwnerPlayer().addPotionEffect(new PotionEffect(34, 10*20, 0, false));

@@ -24,6 +24,7 @@ public class BattleClassesAbilityShieldBlock extends BattleClassesAbstractAbilit
 	public BattleClassesAbilityShieldBlock() {
 		super(SHIELD_BLOCK_ABILITY_ID);
 		this.setUnlocalizedName("universal.shieldblock");
+		this.setCastingType(EnumBattleClassesAbilityCastingType.CastType_UNKNOWN);
 		this.ignoresGlobalCooldown = true;
 		this.castTime = 0;
 		this.targetRequirementType = EnumBattleClassesAbilityDirectTargetRequirement.NEEDLESS;
@@ -41,7 +42,7 @@ public class BattleClassesAbilityShieldBlock extends BattleClassesAbstractAbilit
     }
 	*/
 	@Override
-	public boolean performEffects(EntityLivingBase targetEntity, int tickCount) {
+	public boolean releaseEffects(EntityLivingBase targetEntity, int tickCount) {
 		BattleClassesUtils.Log("ShieldBlock Performed effect, doing nothing", LogType.ABILITY);
 		return true;
 	}
