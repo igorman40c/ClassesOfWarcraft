@@ -51,13 +51,18 @@ public abstract class BattleClassesAbstractAbilityEffectInstantValue extends Bat
 	protected float valueTotalRandomness = 0;
 	
 	/**
+	 * A multiplier for the output, used to amplify or dampen the effect by the school of the ability
+	 */
+	protected float valueBalancer = 1F;
+	
+	/**
 	 * Creates a outputValue from the recieved attributes
 	 * @param attributesForParentAbility
 	 * @return
 	 */
 	public float getValueByAttributeBasedPower(BattleClassesAttributes attributesForParentAbility) {
 		float power = attributesForParentAbility.getValueForAbilitySchool(this.school);
-		return this.valueBase + this.valueBonusCoefficient * power * (1-valueTotalRandomness +  this.rand.nextFloat()*valueTotalRandomness*2);
+		return (this.valueBase + this.valueBonusCoefficient * power * (1-valueTotalRandomness +  this.rand.nextFloat()*valueTotalRandomness*2)) * valueBalancer;
 	}
 	
 	public void performValueEffect(BattleClassesAttributes attributesForParentAbility, float critChance, float partialMultiplier, 
@@ -93,4 +98,7 @@ public abstract class BattleClassesAbstractAbilityEffectInstantValue extends Bat
 		return this.outputValue;
 	}
 	
+	void setValueBalancer(float valueBalancer) {
+		this.valueBalancer = valueBalancer;
+	}
 }
