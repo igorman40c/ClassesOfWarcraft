@@ -20,7 +20,7 @@ public class BattleClassesDamageSources {
 		return damageSource;
 	}
 	
-	public static void configureDamageSourceForAbilitySchool(DamageSource damageSource, EnumBattleClassesAbilitySchool abilitySchool) {
+	protected static void configureDamageSourceForAbilitySchool(DamageSource damageSource, EnumBattleClassesAbilitySchool abilitySchool) {
 		switch(abilitySchool) {
 		case PHYSICAL_MELEE_ENERGY:
 			break;

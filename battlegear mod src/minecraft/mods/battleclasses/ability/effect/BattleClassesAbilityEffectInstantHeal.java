@@ -1,5 +1,6 @@
 package mods.battleclasses.ability.effect;
 
+import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
 import mods.battleclasses.enums.EnumBattleClassesAbilityIntent;
 import mods.battleclasses.enums.EnumBattleClassesAbilitySchool;
@@ -20,9 +21,11 @@ public class BattleClassesAbilityEffectInstantHeal extends BattleClassesAbstract
 
 	@Override
 	public void performByOwnerOnTarget(EntityLivingBase owner, EntityLivingBase target) {
-		//TODO:
 		//Check if target is friendly
-		//Heal target by outputValue
+		if(!(owner instanceof EntityPlayer) || BattleClassesUtils.isTargetFriendly((EntityPlayer)owner, target)) {
+			//Heal target by outputValue
+			target.heal(this.getOutputValue());
+		}
 	}
 	
 	@Override

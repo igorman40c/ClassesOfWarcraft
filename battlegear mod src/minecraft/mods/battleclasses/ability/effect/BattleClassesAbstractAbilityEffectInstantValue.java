@@ -89,4 +89,8 @@ public abstract class BattleClassesAbstractAbilityEffectInstantValue extends Bat
 		this.outputCritical = false;
 	}
 	
+	protected float getOutputValue() {
+		return this.outputValue;
+	}
+	
 }

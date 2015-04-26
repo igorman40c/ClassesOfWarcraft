@@ -1,5 +1,6 @@
 package mods.battleclasses.ability.effect;
 
+import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
 import mods.battleclasses.enums.EnumBattleClassesAbilityIntent;
 import mods.battleclasses.enums.EnumBattleClassesAbilitySchool;
@@ -20,13 +21,18 @@ public class BattleClassesAbilityEffectInstantDamage extends BattleClassesAbstra
 		
 	@Override
 	public void performByOwnerOnTarget(EntityLivingBase owner, EntityLivingBase target) {
-		//TODO:
 		//Reset hurtCD
+		int tempHurtCD = target.hurtResistantTime;
+		target.hurtResistantTime = 0;
 		//Check if target is unfriendly
-		//Get DamageSource from school
-		//Set Damage value to outputValue
-		//Attack target
+		if(!(owner instanceof EntityPlayer) || !BattleClassesUtils.isTargetFriendly((EntityPlayer)owner, target)) {
+			//Get DamageSource from school
+			DamageSource damageSource = BattleClassesDamageSources.createEntityDamageSourceForAbilitySchool(owner, this.getAbilitySchool());
+			//Attack target by outputValue
+			target.attackEntityFrom(damageSource, getOutputValue());
+		}
 		//Reset hurtCD
+		target.hurtResistantTime = tempHurtCD;
 	}
 
 	@Override
