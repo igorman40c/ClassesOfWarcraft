@@ -26,6 +26,7 @@ import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
 import mods.battleclasses.ability.effect.BattleClassesAbstractAbilityEffect;
 import mods.battleclasses.client.BattleClassesClientTargeting;
+import mods.battleclasses.core.BattleClassesAttributes;
 import mods.battleclasses.core.BattleClassesPlayerHooks;
 import mods.battleclasses.core.ICooldownOwner;
 import mods.battleclasses.enums.EnumBattleClassesAbilityCastingType;
@@ -205,12 +206,12 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 	}
 	
 	public boolean finishUseWithTarget(EntityLivingBase targetEntity, int tickCount) {
-		boolean performSucceeded = this.releaseEffects(targetEntity, tickCount);
-		if(performSucceeded) {
+		boolean releaseSucceeded = this.releaseEffects(targetEntity, tickCount);
+		if(releaseSucceeded) {
 			this.useProcessor.onUseFinished(targetEntity, tickCount);
 		}
 		
-		return performSucceeded;
+		return releaseSucceeded;
 	}
 		
 	//----------------------------------------------------------------------------------
@@ -353,9 +354,24 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 		this.effects.remove(effect);
 	}
 	
-	protected boolean releaseEffects(EntityLivingBase targetEntity, int tickCount) {
-		return false;
+	public void performEffects(EntityLivingBase targetEntity) {
+		performEffects(targetEntity, 1);
 	}
+	
+	public void performEffects(EntityLivingBase targetEntity, float partialMultiplier) {
+		//TODO
+		BattleClassesAttributes attributesForParentAbility = this.getPlayerHooks().getTotalAttributesForAbility(this.abilityID);
+		float critChance = attributesForParentAbility.crit;
+		BattleClassesAbstractAbilityEffect.performListOfEffects(this.effects, attributesForParentAbility, critChance, partialMultiplier, this.getOwnerPlayer(), targetEntity);
+	}
+	
+	/**
+	 * Called on finished ability use to release the effects
+	 * @param targetEntity - onMouse target of the player (available on server side too)
+	 * @param tickCount - current state of the casting in ticks
+	 * @return boolean value if the release was succesfuly performed or not
+	 */
+	protected abstract boolean releaseEffects(EntityLivingBase targetEntity, int tickCount);
 	
 	//----------------------------------------------------------------------------------
 	//							SECTION - Getters & helpers

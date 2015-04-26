@@ -3,10 +3,13 @@ package mods.battleclasses.core.classes;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
+import mods.battleclasses.ability.active.BattleClassesAbilityActiveDirect;
 import mods.battleclasses.ability.active.BattleClassesAbilityShieldBlock;
 import mods.battleclasses.ability.active.BattleClassesAbilityTestCasted;
 import mods.battleclasses.ability.active.BattleClassesAbilityTestChanneled;
 import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
+import mods.battleclasses.ability.effect.BattleClassesAbstractAbilityEffectInstantValue;
+import mods.battleclasses.ability.effect.EffectFactory;
 import mods.battleclasses.ability.passive.BattleClassesPassiveAbilityAmplifier;
 import mods.battleclasses.ability.passive.BattleClassesTalentAbilityAmplifier;
 import mods.battleclasses.ability.passive.BattleClassesTalentAbilityContainer;
@@ -14,6 +17,8 @@ import mods.battleclasses.ability.passive.BattleClassesTalentTest;
 import mods.battleclasses.core.BattleClassesPlayerClass;
 import mods.battleclasses.core.BattleClassesPlayerHooks;
 import mods.battleclasses.core.BattleClassesTalentTree;
+import mods.battleclasses.enums.EnumBattleClassesAbilityCastingType;
+import mods.battleclasses.enums.EnumBattleClassesAbilitySchool;
 import mods.battleclasses.enums.EnumBattleClassesAttributeType;
 import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
 
@@ -26,11 +31,11 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 	public LinkedHashMap<Integer, BattleClassesAbstractAbilityActive> getClassAbilities() {
 		LinkedHashMap<Integer, BattleClassesAbstractAbilityActive> abilities = new LinkedHashMap<Integer, BattleClassesAbstractAbilityActive>();
 		abilities.put(100, new ArcaneMissilesTestAbility().setUnlocalizedName("mage.arcanemissiles"));
-		abilities.put(101, new BattleClassesAbilityTestCasted(101).setUnlocalizedName("mage.blink"));
-		abilities.put(102, new BattleClassesAbilityTestCasted(110).setUnlocalizedName("mage.fireball"));
-		abilities.put(110, new BattleClassesAbilityTestCasted(111).setUnlocalizedName("mage.scorch"));
-		abilities.put(111, new BattleClassesAbilityTestCasted(120).setUnlocalizedName("mage.frostbolt"));
-		abilities.put(112, new BattleClassesAbilityTestCasted(121).setUnlocalizedName("mage.frostnova"));
+        abilities.put(101, new BattleClassesAbilityTestCasted(101).setUnlocalizedName("mage.blink"));
+		abilities.put(110, new BattleClassesAbilityTestCasted(110).setUnlocalizedName("mage.fireball"));
+		abilities.put(ABILITY_ID_SCORCH, new ScorchTestAbility());
+		abilities.put(121, new BattleClassesAbilityTestCasted(120).setUnlocalizedName("mage.frostbolt"));
+		abilities.put(122, new BattleClassesAbilityTestCasted(121).setUnlocalizedName("mage.frostnova"));
 		abilities.put(BattleClassesAbilityShieldBlock.SHIELD_BLOCK_ABILITY_ID, new BattleClassesAbilityShieldBlock());
 		//abilities.put(ABILITY_ID_FROSTNOVA, new FrostNovaTestAbility());
 		return abilities;
@@ -94,18 +99,26 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 		}
 	}
 	
-	public static final int ABILITY_ID_FROSTNOVA = 121;
-	class FrostNovaTestAbility extends BattleClassesAbilityTestCasted {
-		public FrostNovaTestAbility() {
-			super(ABILITY_ID_FROSTNOVA);
-		}
-	}
-	
 	public static final int ABILITY_ID_POLYMORPH = 102;
 	class PolymorphTestAbility extends BattleClassesAbilityTestCasted {
 		public PolymorphTestAbility() {
 			super(ABILITY_ID_POLYMORPH);
 			this.setUnlocalizedName("mage.polymorph");
+		}
+	}
+	
+	public static final int ABILITY_ID_SCORCH = 111;
+	class ScorchTestAbility extends BattleClassesAbilityActiveDirect {
+		public ScorchTestAbility() {
+			super(ABILITY_ID_SCORCH);
+			this.setUnlocalizedName("mage.scorch");
+			this.setCastingType(EnumBattleClassesAbilityCastingType.CastType_CASTED);
+			this.castTime = 0.5F;
+			this.school = EnumBattleClassesAbilitySchool.SPELL_FIRE;
+			//this.cooldownClock.setDefaultDuration(5F);
+			
+			BattleClassesAbstractAbilityEffectInstantValue effect = EffectFactory.createInstantAbilityEffect(10, 0, EnumBattleClassesAbilitySchool.SPELL_FIRE); 
+			this.addEffect(effect);
 		}
 	}
 	
@@ -125,5 +138,11 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 		}
 	}
 	
+	public static final int ABILITY_ID_FROSTNOVA = 121;
+	class FrostNovaTestAbility extends BattleClassesAbilityTestCasted {
+		public FrostNovaTestAbility() {
+			super(ABILITY_ID_FROSTNOVA);
+		}
+	}
 	
 }
