@@ -3,18 +3,19 @@ package mods.battleclasses.ability.effect;
 import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
 import mods.battleclasses.core.BattleClassesAttributes;
 import mods.battleclasses.enums.EnumBattleClassesAbilityIntent;
+import mods.battleclasses.enums.EnumBattleClassesAbilitySchool;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 
 public class BattleClassesAbilityEffectInstantDual extends BattleClassesAbstractAbilityEffectInstantValue {
 
-	BattleClassesAbilityEffectInstantDual() {
-		super();
+	BattleClassesAbilityEffectInstantDual(EnumBattleClassesAbilitySchool abilitySchool) {
+		super(abilitySchool);
 	}
 	
 	BattleClassesAbilityEffectInstantDual(BattleClassesAbilityEffectInstantDamage damageEffect, 
 			BattleClassesAbilityEffectInstantHeal healEffect) {
-		this();
+		this(damageEffect.getAbilitySchool());
 		this.setDamageAndHealEffects(damageEffect, healEffect);
 	}
 	

@@ -2,6 +2,7 @@ package mods.battleclasses.ability.effect;
 
 import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
 import mods.battleclasses.enums.EnumBattleClassesAbilityIntent;
+import mods.battleclasses.enums.EnumBattleClassesAbilitySchool;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
@@ -9,12 +10,12 @@ import net.minecraft.potion.PotionEffect;
 
 public class BattleClassesAbilityEffectPotion extends BattleClassesAbstractAbilityEffect {
 
-	BattleClassesAbilityEffectPotion() {
-		super();
+	BattleClassesAbilityEffectPotion(EnumBattleClassesAbilitySchool school) {
+		super(school);
 	}
 	
-	BattleClassesAbilityEffectPotion(int potionID, float effectDuration) {
-		this();
+	BattleClassesAbilityEffectPotion(EnumBattleClassesAbilitySchool school, int potionID, float effectDuration) {
+		this(school);
 		this.potionID = potionID;
 		this.effectDuration = effectDuration;
 	}

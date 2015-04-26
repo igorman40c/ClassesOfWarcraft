@@ -5,19 +5,20 @@ import net.minecraft.entity.player.EntityPlayer;
 import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
 import mods.battleclasses.core.BattleClassesAttributes;
 import mods.battleclasses.enums.EnumBattleClassesAbilityIntent;
+import mods.battleclasses.enums.EnumBattleClassesAbilitySchool;
 import mods.battleclasses.potion.BattleClassesPotionEffectValueOverTime;
 
 public class BattleClassesAbilityEffectValueOverTime extends BattleClassesAbilityEffectPotion implements IValueEffect {
 
 	protected BattleClassesAbstractAbilityEffectInstantValue effectInstantValue;
 	
-	BattleClassesAbilityEffectValueOverTime() {
-		super();
+	BattleClassesAbilityEffectValueOverTime(EnumBattleClassesAbilitySchool school) {
+		super(school);
 		// TODO Auto-generated constructor stub
 	}
 	
 	BattleClassesAbilityEffectValueOverTime(int potionID, float effectDuration, BattleClassesAbstractAbilityEffectInstantValue effectInstantValue) {
-		super(potionID, effectDuration);
+		super(effectInstantValue.getAbilitySchool(), potionID, effectDuration);
 		this.effectInstantValue = effectInstantValue;
 	}
 	

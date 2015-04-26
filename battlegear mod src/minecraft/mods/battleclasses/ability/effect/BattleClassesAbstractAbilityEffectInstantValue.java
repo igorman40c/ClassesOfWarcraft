@@ -10,13 +10,12 @@ import net.minecraft.entity.player.EntityPlayer;
 
 public abstract class BattleClassesAbstractAbilityEffectInstantValue extends BattleClassesAbstractAbilityEffect implements IValueEffect {
 	
-	BattleClassesAbstractAbilityEffectInstantValue() {
-		super();
+	BattleClassesAbstractAbilityEffectInstantValue(EnumBattleClassesAbilitySchool school) {
+		super(school);
 	}
 	
 	BattleClassesAbstractAbilityEffectInstantValue(EnumBattleClassesAbilitySchool school, float valueBase, float valueBonusCoefficient, float valueTotalRandomness) {
-		this();
-		this.school = school;
+		this(school);
 		this.valueBase = valueBase;
 		this.valueBonusCoefficient = valueBonusCoefficient;
 		this.valueTotalRandomness = valueTotalRandomness;
@@ -50,11 +49,6 @@ public abstract class BattleClassesAbstractAbilityEffectInstantValue extends Bat
 	 * Example: randomness = 0.1 turns 10 damage into 9~11
 	 */
 	protected float valueTotalRandomness = 0;
-	
-	/**
-	 * School of the effect value. Used to select corresponding power and critical data.
-	 */
-	protected EnumBattleClassesAbilitySchool school;
 	
 	/**
 	 * Creates a outputValue from the recieved attributes
