@@ -9,6 +9,7 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import mods.battleclasses.ability.BattleClassesAbstractAbility;
 import mods.battleclasses.ability.active.BattleClassesAbilityShieldBlock;
+import mods.battleclasses.core.BattleClassesPlayerAttributes;
 import mods.battleclasses.core.BattleClassesPlayerClass;
 import mods.battleclasses.core.BattleClassesPlayerHooks;
 import mods.battleclasses.core.BattleClassesSpellBook;
@@ -134,6 +135,14 @@ public static Logger battleClassesLogger = LogManager.getLogger("Battle Classes"
 		BattleClassesPlayerHooks playerHooks = BattleClassesUtils.getPlayerHooks(entityPlayer);
 		if(playerHooks.playerClass != null) {
 			return playerHooks.playerClass.spellBook;
+		}
+		return null;
+	}
+	
+	public static BattleClassesPlayerAttributes getPlayerAttributes(EntityPlayer entityPlayer) {
+		BattleClassesPlayerHooks playerHooks = BattleClassesUtils.getPlayerHooks(entityPlayer);
+		if(playerHooks.playerClass != null) {
+			return playerHooks.playerAttributes;
 		}
 		return null;
 	}

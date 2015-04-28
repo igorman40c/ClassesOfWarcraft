@@ -88,14 +88,6 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 		this.useProcessor = AbilityUseProcessor.INSTANCE.createUseProcessor(castingType, this);
 	}
 	
-	/**
-	 * Helper method to get the owner of this ability
-	 * @return
-	 */
-	protected EntityPlayer getOwnerPlayer() {
-		return this.playerHooks.getOwnerPlayer();
-	}
-	
 	//----------------------------------------------------------------------------------
 	//							SECTION - Usage Process
 	//----------------------------------------------------------------------------------
@@ -360,7 +352,7 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 	
 	public void performEffects(EntityLivingBase targetEntity, float partialMultiplier) {
 		//TODO
-		BattleClassesAttributes attributesForParentAbility = this.getPlayerHooks().getTotalAttributesForAbility(this.abilityID);
+		BattleClassesAttributes attributesForParentAbility = this.getPlayerAttributes().getTotalAttributesForAbility(this.abilityID);
 		float critChance = attributesForParentAbility.crit;
 		BattleClassesAbstractAbilityEffect.performListOfEffects(this.effects, attributesForParentAbility, critChance, partialMultiplier, this.getOwnerPlayer(), targetEntity);
 	}

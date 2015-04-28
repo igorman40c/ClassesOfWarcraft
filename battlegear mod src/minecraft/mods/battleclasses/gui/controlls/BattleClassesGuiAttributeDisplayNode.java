@@ -120,7 +120,7 @@ public class BattleClassesGuiAttributeDisplayNode extends BattleClassesGuiButton
 			displayedValue = (float) iattributeinstance.getAttributeValue();
 		}
 		else {
-			displayedValue = BattleClassesUtils.getPlayerHooks(mc.thePlayer).getDisplayedAttributes().getValueByType(this.displayedAttributeType);
+			displayedValue = BattleClassesUtils.getPlayerAttributes(mc.thePlayer).getDisplayedAttributes().getValueByType(this.displayedAttributeType);
 		}
 		String valueString;
 		if(this.displayedAttributeType.isDisplayedInPercentage()) {

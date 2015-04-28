@@ -1,9 +1,11 @@
 package mods.battleclasses.ability;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import mods.battleclasses.core.BattleClassesPlayerAttributes;
 import mods.battleclasses.core.BattleClassesPlayerHooks;
 
 public abstract class BattleClassesAbstractAbility {
@@ -13,6 +15,7 @@ public abstract class BattleClassesAbstractAbility {
 	
 	//Mandtory Helper References
 	protected BattleClassesPlayerHooks playerHooks;
+	protected BattleClassesPlayerAttributes playerAttributes;
 	
 	public int getAbilityID() {
 		return abilityID;
@@ -64,6 +67,10 @@ public abstract class BattleClassesAbstractAbility {
 		this.playerHooks = parPlayerHooks;
 	}
 	
+	public void setPlayerAttributes(BattleClassesPlayerAttributes parPlayerAttributes) {
+		this.playerAttributes = parPlayerAttributes;
+	}
+	
 	public void onLearn() {
 		
 	}
@@ -74,9 +81,24 @@ public abstract class BattleClassesAbstractAbility {
 	
 	public BattleClassesPlayerHooks getPlayerHooks() throws NullPointerException {
 		if(playerHooks == null) {
-			throw(new NullPointerException("Ability requires playerHooks to be set"));
+			throw(new NullPointerException("Ability requires PlayerHooks reference to be set"));
 		}
 		return this.playerHooks;
+	}
+	
+	public BattleClassesPlayerAttributes getPlayerAttributes() throws NullPointerException {
+		if(playerAttributes == null) {
+			throw(new NullPointerException("Ability requires PlayerAttributes reference to be set"));
+		}
+		return this.playerAttributes;
+	}
+	
+	/**
+	 * Helper method to get the owner of this ability
+	 * @return
+	 */
+	protected EntityPlayer getOwnerPlayer() {
+		return this.getPlayerHooks().getOwnerPlayer();
 	}
 			
 	@SideOnly(Side.CLIENT)

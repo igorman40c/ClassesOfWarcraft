@@ -110,10 +110,11 @@ public class BattleClassesSpellBook {
 	}
 	
 	public void learnAbility(BattleClassesAbstractAbility ability) {
+		ability.setPlayerHooks(this.playerHooks);
+		ability.setPlayerAttributes(this.playerHooks.playerAttributes);
 		if(ability instanceof BattleClassesAbstractAbilityActive) {
 			BattleClassesAbstractAbilityActive activeAbility = (BattleClassesAbstractAbilityActive) ability;
 			if(!this.activeAbilities.containsValue(activeAbility)) {
-				activeAbility.setPlayerHooks(this.playerHooks);
 				this.activeAbilities.put(activeAbility.getAbilityID(), activeAbility);
 				this.actionbarAbilities.add(activeAbility);
 				activeAbility.onLearn();
@@ -122,7 +123,6 @@ public class BattleClassesSpellBook {
 		else if(ability instanceof BattleClassesAbstractAbilityPassive) {
 			BattleClassesAbstractAbilityPassive passiveAbility = (BattleClassesAbstractAbilityPassive) ability;
 			if(hasAbility(passiveAbility)) {
-				passiveAbility.setPlayerHooks(this.playerHooks);
 				this.passiveAbilities.put(passiveAbility.getAbilityID(), passiveAbility);
 			}
 		}
