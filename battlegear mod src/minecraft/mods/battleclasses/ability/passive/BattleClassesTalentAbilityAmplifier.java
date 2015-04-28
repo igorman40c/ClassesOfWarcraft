@@ -1,10 +1,10 @@
 package mods.battleclasses.ability.passive;
 
 import mods.battleclasses.core.BattleClassesAttributes;
-import mods.battleclasses.core.IAmplifyProvider;
+import mods.battleclasses.core.ICWAttributeModifier;
 import mods.battleclasses.enums.EnumBattleClassesAmplifierApplyType;
 
-public class BattleClassesTalentAbilityAmplifier extends BattleClassesAbstractTalent implements IAmplifyProvider {
+public class BattleClassesTalentAbilityAmplifier extends BattleClassesAbstractTalent implements ICWAttributeModifier {
 
 	public BattleClassesTalentAbilityAmplifier(int parAbilityID, int parTalentLevel) {
 		super(parAbilityID, parTalentLevel);
@@ -20,14 +20,14 @@ public class BattleClassesTalentAbilityAmplifier extends BattleClassesAbstractTa
 	}
 
 	@Override
-	public BattleClassesAttributes getAttributes(int targetAbilityID) {
+	public BattleClassesAttributes applyAttributeModifier(int targetAbilityID) {
 		return attributes;
 	}
 
 	@Override
-	public BattleClassesAttributes getAttributes(int targetAbilityID,
+	public BattleClassesAttributes applyAttributeModifier(int targetAbilityID,
 			BattleClassesAttributes totalAttributes) {
-		return this.getAttributes(targetAbilityID);
+		return this.applyAttributeModifier(targetAbilityID);
 	}
 	
 	public void onStateChanged() {

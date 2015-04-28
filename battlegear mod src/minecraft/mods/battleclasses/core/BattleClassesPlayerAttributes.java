@@ -1,9 +1,11 @@
 package mods.battleclasses.core;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import mods.battleclasses.BattleClassesUtils;
+import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
 import mods.battleclasses.ability.passive.BattleClassesAbstractAbilityPassive;
 import mods.battleclasses.enums.EnumBattleClassesAmplifierApplyType;
 import mods.battleclasses.items.IAttributeProvider;
@@ -18,24 +20,210 @@ public class BattleClassesPlayerAttributes {
 	BattleClassesPlayerAttributes(BattleClassesPlayerHooks playerHooks) {
 		this.parentPlayerHooks = playerHooks;
 	}
-	public EntityPlayer getOwnerPlayer() {
+	protected EntityPlayer getOwnerPlayer() {
 		return this.parentPlayerHooks.getOwnerPlayer();
 	}
 	
 	protected BattleClassesAttributes baseAttributes;
 	protected BattleClassesAttributes displayedAttributes;
-	//AMPLIFIERS
-	/** Should be called every time when there is a change in: Weapon equiped OR Armor worn OR Talent points OR Potion effects OR onPlayerSpawn  */
+	
+	/**
+	 * Updates the stored attribute modifiers, calculates total attributes.
+	 * Than updates the displayed attributes and the player's max health.
+	 * 
+	 * HAS TO BE CALLED ON Change in: Equipment OR Weapon OR Passive abilties OR player spawn
+	 */
 	public void onAttributeSourcesChanged() {
-		refreshBaseAttributes();
-		BattleClassesAttributes totalAttributes = this.getTotalAttributesForAbility(0);
-		
+		this.refreshAttributeModifiers();
+		BattleClassesAttributes totalAttributes = this.getTotalAttributesForAbility(null);
+		displayedAttributes = totalAttributes;
 		//par1EntityLivingBase.setAbsorptionAmount(par1EntityLivingBase.getAbsorptionAmount() - (float)(4 * (par3 + 1)));
-		//SharedMonsterAttributes.maxHealth
 		
 		//Refreshing health based on totalAttributes
+		this.updatePlayerMaxHealth(totalAttributes.health);
+	}
+	
+	/**
+	 * Returns the accumulated common attributes of the player.
+	 * @return
+	 */
+	public BattleClassesAttributes getDisplayedAttributes() {
+		if(this.displayedAttributes == null) {
+			this.onAttributeSourcesChanged();
+		}
+		return this.displayedAttributes;
+	}
+		
+	/**
+	 * Calculates the total attributes for an ability, using the stored attribute modifier arrays. 
+	 * Can be used with null parameter to get the common attributes (for example for displaying attributes data).
+	 * @param modifiedAbility reference to the ability, can be @null
+	 * @return
+	 */
+	public BattleClassesAttributes getTotalAttributesForAbility(BattleClassesAbstractAbilityActive modifiedAbility) {
+		BattleClassesAttributes totalAttributes = new BattleClassesAttributes();
+		totalAttributes.add(this.getDefaultAttributes());
+		for(ICWAttributeModifier attributeModifier : AttributesArray_BASE_ATTRIBUTE_BONUS) {
+			attributeModifier.applyAttributeModifier(modifiedAbility, totalAttributes);
+		}
+		for(ICWAttributeModifier attributeModifier : AttributesArray_BASE_ATTRIBUTE_AMPLIFIER) {
+			attributeModifier.applyAttributeModifier(modifiedAbility, totalAttributes);
+		}
+		for(ICWAttributeModifier attributeModifier : AttributesArray_TOTAL_BASED_ATTRIBUTE_BONUS) {
+			attributeModifier.applyAttributeModifier(modifiedAbility, totalAttributes);
+		}
+		return totalAttributes;
+	}
+	
+	//Stored attribte modifiers, separated by apply type
+	protected ArrayList<ICWAttributeModifier> AttributesArray_BASE_ATTRIBUTE_BONUS = new ArrayList<ICWAttributeModifier>();
+	protected ArrayList<ICWAttributeModifier> AttributesArray_BASE_ATTRIBUTE_AMPLIFIER = new ArrayList<ICWAttributeModifier>();
+	protected ArrayList<ICWAttributeModifier> AttributesArray_TOTAL_BASED_ATTRIBUTE_BONUS = new ArrayList<ICWAttributeModifier>();
+	
+	/**
+	 * Collects all attribute modifers from the player and updates the content stored arrays.
+	 */
+	protected void refreshAttributeModifiers() {
+		List<ICWAttributeModifier> allAttributeModifiers = this.getAttributeModifiersFromPlayer(this.getOwnerPlayer(), this.parentPlayerHooks.playerClass.spellBook);
+		AttributesArray_BASE_ATTRIBUTE_BONUS = new ArrayList<ICWAttributeModifier>();
+		AttributesArray_BASE_ATTRIBUTE_AMPLIFIER = new ArrayList<ICWAttributeModifier>();
+		AttributesArray_TOTAL_BASED_ATTRIBUTE_BONUS = new ArrayList<ICWAttributeModifier>();
+		for(ICWAttributeModifier attributeModifier : allAttributeModifiers) {
+			switch(attributeModifier.getApplyType()) {
+			case BASE_ATTRIBUTE_AMPLIFIER:
+				AttributesArray_BASE_ATTRIBUTE_BONUS.add(attributeModifier);
+				break;
+			case BASE_ATTRIBUTE_BONUS:
+				AttributesArray_BASE_ATTRIBUTE_AMPLIFIER.add(attributeModifier);
+				break;
+			case TOTAL_BASED_ATTRIBUTE_BONUS:
+				AttributesArray_TOTAL_BASED_ATTRIBUTE_BONUS.add(attributeModifier);
+				break;
+			default:
+				break;
+			}
+		}
+	}
+	
+	/**
+	 * Collects all the attribute modifiers from a player
+	 * @param entityPlayer referene to the player
+	 * @param spellBook	spellBook of the player
+	 * @return
+	 */
+	protected List<ICWAttributeModifier> getAttributeModifiersFromPlayer(EntityPlayer entityPlayer, BattleClassesSpellBook spellBook) {
+		List<ICWAttributeModifier> attributeModifierList = new ArrayList<ICWAttributeModifier>();
+		attributeModifierList.addAll(this.getAttributeModifiersFromFullEquipment(entityPlayer));
+		attributeModifierList.addAll(this.getAttributeModifiersFromPassiveAbiltiies(spellBook));
+		attributeModifierList.addAll(this.getAttributeModifiersFromActivePotionEffectsOnPlayer(entityPlayer));
+		return attributeModifierList;
+	}
+	
+	/**
+	 * Collects the attribute modifiers from the item(s) held by a player
+	 * @param entityPlayer the player to check his/her equipment
+	 * @return
+	 */
+	protected List<ICWAttributeModifier> getAttributeModifiersFromItemsHeld(EntityPlayer entityPlayer) {
+		List<ICWAttributeModifier> attributeModifierList = new ArrayList<ICWAttributeModifier>();
+		if(BattleClassesUtils.isPlayerInBattlemode(entityPlayer)) {
+			ItemStack mainHandItemStack = BattleClassesUtils.getMainhandItemStack(getOwnerPlayer());
+			if(mainHandItemStack.getItem() instanceof ICWAttributeModifier) {
+				attributeModifierList.add((ICWAttributeModifier) mainHandItemStack.getItem());
+			}
+			ItemStack offHandItemStack = BattleClassesUtils.getOffhandItemStack(getOwnerPlayer());
+			if(offHandItemStack.getItem() instanceof ICWAttributeModifier) {
+				attributeModifierList.add((ICWAttributeModifier) offHandItemStack.getItem());
+			}
+		}
+		else {
+			if(entityPlayer.getHeldItem() != null && entityPlayer.getHeldItem().getItem() instanceof ICWAttributeModifier) {
+				attributeModifierList.add((ICWAttributeModifier) entityPlayer.getHeldItem().getItem());
+			}
+		}
+		return attributeModifierList;
+	}
+	
+	/**
+	 * Collects the attribute modifiers from the armor pieces worn by a player
+	 * @param entityPlayer the player to check his/her equipment
+	 * @return
+	 */
+	protected List<ICWAttributeModifier> getAttributeModifiersFromArmorWorn(EntityPlayer entityPlayer) {
+		List<ICWAttributeModifier> attributeModifierList = new ArrayList<ICWAttributeModifier>();
+		for(ItemStack armorItemStack : entityPlayer.inventory.armorInventory) {
+			if(armorItemStack.getItem() instanceof ICWAttributeModifier) {
+				attributeModifierList.add((ICWAttributeModifier) armorItemStack.getItem());
+			}
+		}
+		return attributeModifierList;
+	}
+	
+	/**
+	 * Collects the attribute modifiers from the full equipment of a player
+	 * @param entityPlayer the player to check his/her equipment
+	 * @return
+	 */
+	protected List<ICWAttributeModifier> getAttributeModifiersFromFullEquipment(EntityPlayer entityPlayer) {
+		List<ICWAttributeModifier> attributeModifierList = new ArrayList<ICWAttributeModifier>();
+		if(entityPlayer.inventory != null) {
+			//Collecting from armor pieces worn
+			attributeModifierList.addAll(getAttributeModifiersFromArmorWorn(entityPlayer));
+			//Collecting from item(s) held
+			attributeModifierList.addAll(getAttributeModifiersFromItemsHeld(entityPlayer));
+		}
+		return attributeModifierList;
+	}
+	
+	/**
+	 * Collects the attribute modifiers from the passive abilities stored by the given spellbook. 
+	 * @param spellBook
+	 * @return
+	 */
+	protected List<ICWAttributeModifier> getAttributeModifiersFromPassiveAbiltiies(BattleClassesSpellBook spellBook) {
+		List<ICWAttributeModifier> attributeModifierList = new ArrayList<ICWAttributeModifier>();
+		for(BattleClassesAbstractAbilityPassive passiveAbility : spellBook.getPassiveAbilitiesInArray()) {
+			if(passiveAbility instanceof ICWAttributeModifier) {
+				attributeModifierList.add((ICWAttributeModifier) passiveAbility);
+			}
+		}
+		return attributeModifierList;
+	}
+	
+	/**
+	 * Collects the attribute modifiers from the active potion effects of a player
+	 * @param entityPlayer
+	 * @return
+	 */
+	protected List<ICWAttributeModifier> getAttributeModifiersFromActivePotionEffectsOnPlayer(EntityPlayer entityPlayer) {
+		List<ICWAttributeModifier> attributeModifierList = new ArrayList<ICWAttributeModifier>();
+		//TODO;
+		return attributeModifierList;
+	}
+	
+	/**
+	 * Default ammount of maximal health points a player has
+	 */
+	protected static float DEFAULT_PLAYER_HP = 20;
+	/**
+	 * Returns the default attributes of a player
+	 * @return
+	 */
+	protected BattleClassesAttributes getDefaultAttributes() {
+		BattleClassesAttributes baseAttributes = new BattleClassesAttributes();
+		//baseAttributes.stamina = this.getOwnerPlayer().getMaxHealth();
+		//baseAttributes.health = DEFAULT_PLAYER_HP;
+		//baseAttributes.armor = this.getOwnerPlayer().getArm
+		return baseAttributes;
+	}
+	
+	/**
+	 * Updates the maximal health by the given ammount
+	 * @param healthBonus the float value to add to the player's max health
+	 */
+	protected void updatePlayerMaxHealth(float healthBonus) {
 		float relativeHealth = this.getOwnerPlayer().getHealth() / this.getOwnerPlayer().getMaxHealth();
-		AttributeModifier newHealthModifier = new AttributeModifier(UUID.fromString("5D6F0BA2-1186-46AC-B896-BCA001EE0001"), "bcattribute.healthBoost", totalAttributes.health, 0);
+		AttributeModifier newHealthModifier = new AttributeModifier(UUID.fromString("5D6F0BA2-1186-46AC-B896-BCA001EE0001"), "bcattribute.healthBoost", healthBonus, 0);
 		IAttributeInstance iattributeinstance = this.getOwnerPlayer().getAttributeMap().getAttributeInstance(SharedMonsterAttributes.maxHealth);
 		AttributeModifier oldHealthModifier = iattributeinstance.getModifier(UUID.fromString("5D6F0BA2-1186-46AC-B896-BCA001EE0001"));
 		if(oldHealthModifier != null) {
@@ -44,112 +232,5 @@ public class BattleClassesPlayerAttributes {
 		iattributeinstance.applyModifier(newHealthModifier);
 		
 		this.getOwnerPlayer().setHealth(relativeHealth * this.getOwnerPlayer().getMaxHealth());
-	}
-	
-	private ArrayList<IAmplifyProvider> getAmplifiersFromPotionEffects(EnumBattleClassesAmplifierApplyType applyType) {
-		ArrayList<IAmplifyProvider> amplifiers = new ArrayList<IAmplifyProvider>();
-		//TODO
-		return amplifiers;
-	}
-	
-	private ArrayList<IAmplifyProvider> getAmplifiersFromPassiveAbilities(EnumBattleClassesAmplifierApplyType applyType) {
-		ArrayList<IAmplifyProvider> amplifiers = new ArrayList<IAmplifyProvider>();
-		for(BattleClassesAbstractAbilityPassive passiveAbility : this.parentPlayerHooks.playerClass.spellBook.getPassiveAbilitiesInArray()) {
-			if(passiveAbility instanceof IAmplifyProvider) {
-				IAmplifyProvider amplifier = (IAmplifyProvider)passiveAbility;
-				if(amplifier.getApplyType() == applyType) {
-					amplifiers.add(amplifier);
-				}
-			}
-		}
-		return amplifiers;
-	}
-	
-	public static float DEFAULT_PLAYER_HP = 20;
-	
-	public BattleClassesAttributes getDefaultAttributes() {
-		BattleClassesAttributes baseAttributes = new BattleClassesAttributes();
-		//baseAttributes.stamina = this.getOwnerPlayer().getMaxHealth();
-		//baseAttributes.health = DEFAULT_PLAYER_HP;
-		//baseAttributes.armor = this.getOwnerPlayer().getArm
-		return baseAttributes;
-	}
-	
-	public BattleClassesAttributes getItemAttributes() {
-		BattleClassesAttributes itemAttributes = new BattleClassesAttributes();
-		if(this.getOwnerPlayer().inventory != null) {
-			for(ItemStack armorItemStack : this.getOwnerPlayer().inventory.armorInventory) {
-				addAttributesFromItemStack(itemAttributes, armorItemStack, this.getOwnerPlayer());
-			}
-			ItemStack mainHandItemStack = BattleClassesUtils.getMainhandItemStack(getOwnerPlayer());
-			addAttributesFromItemStack(itemAttributes, mainHandItemStack, this.getOwnerPlayer());
-			ItemStack offHandItemStack = BattleClassesUtils.getOffhandItemStack(getOwnerPlayer());
-			addAttributesFromItemStack(itemAttributes, offHandItemStack, this.getOwnerPlayer());
-		}
-		
-		return itemAttributes;
-	}
-	
-	public static void addAttributesFromItemStack(BattleClassesAttributes attributes, ItemStack itemStack, EntityPlayer entityPlayer) {
-		if(itemStack != null && itemStack.getItem() instanceof IAttributeProvider) {
-			if(((IAttributeProvider)itemStack.getItem()).getClassAccessSet() != null && 
-				((IAttributeProvider)itemStack.getItem()).getClassAccessSet().contains(BattleClassesUtils.getPlayerClassEnum(entityPlayer))) {
-				attributes.add(((IAttributeProvider)itemStack.getItem()).getAttributes());
-			}
-		}
-	}
-	
-	private BattleClassesAttributes getBaseAttributeBonuses(int targetAbilityID) {
-		BattleClassesAttributes baseAttributeBonuses = new BattleClassesAttributes();
-		ArrayList<IAmplifyProvider> bonuses = this.getAmplifiersFromPassiveAbilities(EnumBattleClassesAmplifierApplyType.BASE_ATTRIBUTE_BONUS);
-		for(IAmplifyProvider bonus : bonuses) {
-			baseAttributeBonuses.add(bonus.getAttributes(targetAbilityID));
-		}
-		return baseAttributeBonuses;
-	}
-	
-	private BattleClassesAttributes getBaseAttributeAmplifiers(int targetAbilityID) {
-		BattleClassesAttributes baseAttributeAmplifiers = new BattleClassesAttributes(1);
-		ArrayList<IAmplifyProvider> amplifiers = this.getAmplifiersFromPassiveAbilities(EnumBattleClassesAmplifierApplyType.BASE_ATTRIBUTE_AMPLIFIER);
-		for(IAmplifyProvider amplifier : amplifiers) {
-			baseAttributeAmplifiers.multiply(amplifier.getAttributes(targetAbilityID));
-		}
-		return baseAttributeAmplifiers;
-	}
-	
-	private BattleClassesAttributes getTotalBasedAttributeBonuses(int targetAbilityID, BattleClassesAttributes totalAttributes) {
-		BattleClassesAttributes totalAttributeBonuses = new BattleClassesAttributes();
-		ArrayList<IAmplifyProvider> bonuses = this.getAmplifiersFromPassiveAbilities(EnumBattleClassesAmplifierApplyType.TOTAL_BASED_ATTRIBUTE_BONUS);
-		for(IAmplifyProvider bonus : bonuses) {
-			totalAttributeBonuses.add(bonus.getAttributes(targetAbilityID, totalAttributes));
-		}
-		return totalAttributeBonuses;
-	}
-	
-	protected void refreshBaseAttributes() {
-		BattleClassesAttributes attributes = new BattleClassesAttributes();
-		attributes.add(this.getDefaultAttributes());
-		attributes.add(this.getItemAttributes());
-		this.baseAttributes = attributes;
-		this.displayedAttributes = new BattleClassesAttributes();
-		this.displayedAttributes.add(baseAttributes);
-		this.displayedAttributes.add(this.getTotalBasedAttributeBonuses(0, this.displayedAttributes));
-	}
-	
-	public BattleClassesAttributes getDisplayedAttributes() {
-		if(this.displayedAttributes == null) {
-			this.refreshBaseAttributes();
-		}
-		return this.displayedAttributes;
-	}
-	
-	public BattleClassesAttributes getTotalAttributesForAbility(int targetAbilityID) {
-		BattleClassesAttributes totalAttributes = new BattleClassesAttributes();
-		totalAttributes.add(this.baseAttributes);
-		totalAttributes.add(this.getBaseAttributeBonuses(targetAbilityID));
-		totalAttributes.multiply(this.getBaseAttributeAmplifiers(targetAbilityID));
-		totalAttributes.add(this.getTotalBasedAttributeBonuses(targetAbilityID, totalAttributes));
-		
-		return totalAttributes;
 	}
 }

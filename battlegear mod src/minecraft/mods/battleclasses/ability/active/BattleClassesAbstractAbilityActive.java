@@ -352,7 +352,7 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 	
 	public void performEffects(EntityLivingBase targetEntity, float partialMultiplier) {
 		//TODO
-		BattleClassesAttributes attributesForParentAbility = this.getPlayerAttributes().getTotalAttributesForAbility(this.abilityID);
+		BattleClassesAttributes attributesForParentAbility = this.getPlayerAttributes().getTotalAttributesForAbility(this);
 		float critChance = attributesForParentAbility.crit;
 		BattleClassesAbstractAbilityEffect.performListOfEffects(this.effects, attributesForParentAbility, critChance, partialMultiplier, this.getOwnerPlayer(), targetEntity);
 	}
