@@ -10,17 +10,16 @@ import net.minecraft.util.DamageSource;
 
 public class BattleClassesAbilityEffectInstantHeal extends BattleClassesAbstractAbilityEffectInstantValue {
 
-	BattleClassesAbilityEffectInstantHeal(EnumBattleClassesAbilitySchool abilitySchool) {
-		super(abilitySchool);
+	BattleClassesAbilityEffectInstantHeal() {
+		super();
 	}
 	
-	BattleClassesAbilityEffectInstantHeal(EnumBattleClassesAbilitySchool school,
-			float valueBase, float valueBonusCoefficient, float valueTotalRandomness) {
-		super(school, valueBase, valueBonusCoefficient, valueTotalRandomness);
+	BattleClassesAbilityEffectInstantHeal(float valueBase, float valueBonusCoefficient, float valueTotalRandomness) {
+		super(valueBase, valueBonusCoefficient, valueTotalRandomness);
 	}
 
 	@Override
-	public void performByOwnerOnTarget(EntityLivingBase owner, EntityLivingBase target) {
+	protected void performByOwnerOnTarget(EntityLivingBase owner, EntityLivingBase target) {
 		//Check if target is friendly
 		if(!(owner instanceof EntityPlayer) || BattleClassesUtils.isTargetFriendly((EntityPlayer)owner, target)) {
 			//Heal target by outputValue

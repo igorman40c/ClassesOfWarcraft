@@ -10,12 +10,12 @@ import net.minecraft.potion.PotionEffect;
 
 public class BattleClassesAbilityEffectPotion extends BattleClassesAbstractAbilityEffect {
 
-	BattleClassesAbilityEffectPotion(EnumBattleClassesAbilitySchool school) {
-		super(school);
+	BattleClassesAbilityEffectPotion() {
+		super();
 	}
 	
-	BattleClassesAbilityEffectPotion(EnumBattleClassesAbilitySchool school, int potionID, float effectDuration) {
-		this(school);
+	BattleClassesAbilityEffectPotion(int potionID, float effectDuration) {
+		this();
 		this.potionID = potionID;
 		this.effectDuration = effectDuration;
 	}
@@ -24,7 +24,7 @@ public class BattleClassesAbilityEffectPotion extends BattleClassesAbstractAbili
 	protected float effectDuration;
 	
 	@Override
-	public void performByOwnerOnTarget(EntityLivingBase owner, EntityLivingBase target) {
+	protected void performByOwnerOnTarget(EntityLivingBase owner, EntityLivingBase target) {
 		target.addPotionEffect(new PotionEffect(potionID, this.durationInTicksForSeconds(), 1, false));
 	}
 	

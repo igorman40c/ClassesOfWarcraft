@@ -17,7 +17,7 @@ public class EffectFactory {
 	
 	public static BattleClassesAbilityEffectPotion createPotionAbilityEffect(EnumBattleClassesAbilitySchool abilitySchool, int potionID, float durationInSeconds) {
 		
-		BattleClassesAbilityEffectPotion potionCarriedAbilityEffect = new BattleClassesAbilityEffectPotion(abilitySchool, potionID, durationInSeconds);
+		BattleClassesAbilityEffectPotion potionCarriedAbilityEffect = new BattleClassesAbilityEffectPotion(potionID, durationInSeconds);
 		
 		return potionCarriedAbilityEffect;
 	}
@@ -48,7 +48,7 @@ public class EffectFactory {
 		
 		if(virtualDamage > 0) {
 			float valueBonusCoefficient = (virtualDamage - basePortion*virtualDamage) / ATTRIBUTE_POWER_SCALE;
-			damageEffect = new BattleClassesAbilityEffectInstantDamage(school, basePortion*virtualDamage, valueBonusCoefficient, randomness);
+			damageEffect = new BattleClassesAbilityEffectInstantDamage(basePortion*virtualDamage, valueBonusCoefficient, randomness);
 			damageEffect.setValueBalancer(getEffectValueBalancerBySchool(school));
 			if(virtualHealing <= 0) {
 				valueEffect =  damageEffect;
@@ -57,7 +57,7 @@ public class EffectFactory {
 		
 		if(virtualHealing > 0) {
 			float valueBonusCoefficient = (virtualHealing - basePortion*virtualHealing) / ATTRIBUTE_POWER_SCALE;
-			healEffect = new BattleClassesAbilityEffectInstantHeal(school, basePortion*virtualDamage, valueBonusCoefficient, randomness);
+			healEffect = new BattleClassesAbilityEffectInstantHeal(basePortion*virtualDamage, valueBonusCoefficient, randomness);
 			healEffect.setValueBalancer(getEffectValueBalancerBySchool(school));
 			if(virtualDamage <= 0) {
 				valueEffect = healEffect;

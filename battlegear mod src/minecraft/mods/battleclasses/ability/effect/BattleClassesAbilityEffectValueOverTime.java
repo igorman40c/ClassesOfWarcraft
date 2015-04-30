@@ -8,18 +8,25 @@ import mods.battleclasses.enums.EnumBattleClassesAbilityIntent;
 import mods.battleclasses.enums.EnumBattleClassesAbilitySchool;
 import mods.battleclasses.potion.BattleClassesPotionEffectValueOverTime;
 
-public class BattleClassesAbilityEffectValueOverTime extends BattleClassesAbilityEffectPotion implements IValueEffect {
+public class BattleClassesAbilityEffectValueOverTime extends BattleClassesAbilityEffectPotion {
 
 	protected BattleClassesAbstractAbilityEffectInstantValue effectInstantValue;
 	
-	BattleClassesAbilityEffectValueOverTime(EnumBattleClassesAbilitySchool school) {
-		super(school);
+	BattleClassesAbilityEffectValueOverTime() {
+		super();
 		// TODO Auto-generated constructor stub
 	}
 	
 	BattleClassesAbilityEffectValueOverTime(int potionID, float effectDuration, BattleClassesAbstractAbilityEffectInstantValue effectInstantValue) {
-		super(effectInstantValue.getAbilitySchool(), potionID, effectDuration);
+		super(potionID, effectDuration);
 		this.effectInstantValue = effectInstantValue;
+	}
+	
+	public void setParentAbility(BattleClassesAbstractAbilityActive ability) {
+		super.setParentAbility(ability);
+		if(effectInstantValue != null) {
+			effectInstantValue.setParentAbility(ability);
+		}
 	}
 	
 	protected int tickCount = 1;

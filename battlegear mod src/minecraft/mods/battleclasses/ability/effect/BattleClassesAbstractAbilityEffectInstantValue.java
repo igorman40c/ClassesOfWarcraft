@@ -1,5 +1,6 @@
 package mods.battleclasses.ability.effect;
 
+import java.util.List;
 import java.util.Random;
 
 import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
@@ -8,14 +9,14 @@ import mods.battleclasses.enums.EnumBattleClassesAbilitySchool;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 
-public abstract class BattleClassesAbstractAbilityEffectInstantValue extends BattleClassesAbstractAbilityEffect implements IValueEffect {
+public abstract class BattleClassesAbstractAbilityEffectInstantValue extends BattleClassesAbstractAbilityEffect {
 	
-	BattleClassesAbstractAbilityEffectInstantValue(EnumBattleClassesAbilitySchool school) {
-		super(school);
+	BattleClassesAbstractAbilityEffectInstantValue() {
+		super();
 	}
 	
-	BattleClassesAbstractAbilityEffectInstantValue(EnumBattleClassesAbilitySchool school, float valueBase, float valueBonusCoefficient, float valueTotalRandomness) {
-		this(school);
+	BattleClassesAbstractAbilityEffectInstantValue(float valueBase, float valueBonusCoefficient, float valueTotalRandomness) {
+		this();
 		this.valueBase = valueBase;
 		this.valueBonusCoefficient = valueBonusCoefficient;
 		this.valueTotalRandomness = valueTotalRandomness;
@@ -61,28 +62,46 @@ public abstract class BattleClassesAbstractAbilityEffectInstantValue extends Bat
 	 * @return
 	 */
 	public float getValueByAttributeBasedPower(BattleClassesAttributes attributesForParentAbility) {
-		float power = attributesForParentAbility.getValueForAbilitySchool(this.school);
+		float power = attributesForParentAbility.getValueForAbilitySchool(this.getAbilitySchool());
 		return (this.valueBase + this.valueBonusCoefficient * power * (1-valueTotalRandomness +  this.rand.nextFloat()*valueTotalRandomness*2)) * valueBalancer;
 	}
 	
 	public void performValueEffect(BattleClassesAttributes attributesForParentAbility, float critChance, float partialMultiplier, 
 			EntityLivingBase owner, EntityLivingBase target) {
-		this.prepareToPerform(attributesForParentAbility, critChance, partialMultiplier);
+		this.prepareToPerform(attributesForParentAbility, critChance, partialMultiplier, owner, target);
 		this.performByOwnerOnTarget(owner, target);
 		this.resetOutput();
 	}
 	
 	/**
-	 * Must be called before perform effect to prepare the output value;
+	 * Must be called before perform effect to prepare the output value.
 	 * @param attributesForParentAbility
 	 * @param critChance
-	 * @param multiplier
+	 * @param partialMultiplier
+	 * @param owner
+	 * @param target
 	 */
-	protected void prepareToPerform(BattleClassesAttributes attributesForParentAbility, float critChance, float partialMultiplier) {
+	protected void prepareToPerform(BattleClassesAttributes attributesForParentAbility, float critChance, float partialMultiplier,
+			EntityLivingBase owner, EntityLivingBase target) {
+		//Inital output data
 		this.outputValue = this.getValueByAttributeBasedPower(attributesForParentAbility)*partialMultiplier;
-		if(critChance >= rand.nextFloat()) {
-			this.outputValue *= this.school.getCriticalStrikeBonus();
+		float criticalChance = critChance;
+		//Apply output effect modifiers from the caster
+		List<ICWEffectModifier> outputModifiers = this.getOutputEffectModifiersFromEntity(owner);
+		for(ICWEffectModifier effectModifier : outputModifiers) {
+			this.outputValue *= effectModifier.getValueMultiplier();
+			criticalChance += effectModifier.getCriticalChanceBonus();
+		}
+		//Apply input effect modifiers from the target
+		List<ICWEffectModifier> inputModidifiers = this.getInputEffectModifiersFromEntity(target);
+		for(ICWEffectModifier effectModifier : inputModidifiers) {
+			this.outputValue *= effectModifier.getValueMultiplier();
+			criticalChance += effectModifier.getCriticalChanceBonus();
+		}
+		//Setting critical
+		if(criticalChance >= rand.nextFloat()) {
 			this.outputCritical = true;
+			this.outputValue *= this.getAbilitySchool().getCriticalStrikeBonus();
 		}
 	}
 	

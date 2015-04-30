@@ -1,5 +1,6 @@
 package mods.battleclasses.ability.effect;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
@@ -11,26 +12,41 @@ import net.minecraft.entity.player.EntityPlayer;
 
 public abstract class BattleClassesAbstractAbilityEffect {
 	
-	protected BattleClassesAbstractAbilityActive parentAbility;
-	
 	/**
 	 * School of the effect value. Used to select corresponding power and critical data, determine dispellability.
 	 */
-	protected EnumBattleClassesAbilitySchool school;
-	
-	BattleClassesAbstractAbilityEffect(EnumBattleClassesAbilitySchool school) {
-		this.school = school;
+	public EnumBattleClassesAbilitySchool getAbilitySchool() {
+		return this.parentAbility.getSchool();
 	}
 	
+	protected BattleClassesAbstractAbilityActive parentAbility;
 	public void setParentAbility(BattleClassesAbstractAbilityActive ability) {
 		this.parentAbility = ability;
 	}
+	public BattleClassesAbstractAbilityActive getParentAbility() {
+		return this.parentAbility;
+	}
+
 	
-	public EnumBattleClassesAbilitySchool getAbilitySchool() {
-		return this.school;
+	/**
+	 * Main perform method to prepare and perform the effect.
+	 * @param attributesForParentAbility
+	 * @param critChance
+	 * @param partialMultiplier
+	 * @param owner
+	 * @param target
+	 */
+	public void performValueEffect(BattleClassesAttributes attributesForParentAbility, float critChance, float partialMultiplier, 
+			EntityLivingBase owner, EntityLivingBase target) {
+		
 	}
 	
-	public abstract void performByOwnerOnTarget(EntityLivingBase owner, EntityLivingBase target);
+	/**
+	 * Core of the effect perform process.
+	 * @param owner
+	 * @param target
+	 */
+	protected abstract void performByOwnerOnTarget(EntityLivingBase owner, EntityLivingBase target);
 	
 	public abstract EnumBattleClassesAbilityIntent getIntent();
 	
@@ -48,13 +64,29 @@ public abstract class BattleClassesAbstractAbilityEffect {
 			EntityLivingBase owner, EntityLivingBase target) {
 		
 		for(BattleClassesAbstractAbilityEffect effect : effects) {
-			if(effect instanceof IValueEffect) {
-				((IValueEffect) effect).performValueEffect(attributesForParentAbility, critChance, partialMultiplier, owner, target);
-			}
-			else {
-				effect.performByOwnerOnTarget(owner, target);
-			}
+			effect.performValueEffect(attributesForParentAbility, critChance, partialMultiplier, owner, target);
 		}
 	}
 	
+	/**
+	 * Utility method to collect all the input modifiers from an entity those are able to modify this effect.
+	 * @param entity
+	 * @return
+	 */
+	public List<ICWEffectModifier> getInputEffectModifiersFromEntity(EntityLivingBase entity) {
+		List<ICWEffectModifier> effectModifiers = new ArrayList<ICWEffectModifier>();
+		//TODO
+		return effectModifiers;
+	}
+	
+	/**
+	 * Utility method to collect all the output modifiers from an entity those are able to modify this effect.
+	 * @param entity
+	 * @return
+	 */
+	public List<ICWEffectModifier> getOutputEffectModifiersFromEntity(EntityLivingBase entity) {
+		List<ICWEffectModifier> effectModifiers = new ArrayList<ICWEffectModifier>();
+		//TODO
+		return effectModifiers;
+	}
 }

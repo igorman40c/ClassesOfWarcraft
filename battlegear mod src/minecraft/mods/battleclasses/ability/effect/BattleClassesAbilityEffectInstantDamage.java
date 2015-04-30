@@ -10,17 +10,16 @@ import net.minecraft.util.DamageSource;
 
 public class BattleClassesAbilityEffectInstantDamage extends BattleClassesAbstractAbilityEffectInstantValue {
 
-	BattleClassesAbilityEffectInstantDamage(EnumBattleClassesAbilitySchool abilitySchool) {
-		super(abilitySchool);
+	BattleClassesAbilityEffectInstantDamage() {
+		super();
 	}
 	
-	BattleClassesAbilityEffectInstantDamage(EnumBattleClassesAbilitySchool school,
-			float valueBase, float valueBonusCoefficient, float valueTotalRandomness) {
-		super(school, valueBase, valueBonusCoefficient, valueTotalRandomness);
+	BattleClassesAbilityEffectInstantDamage(float valueBase, float valueBonusCoefficient, float valueTotalRandomness) {
+		super(valueBase, valueBonusCoefficient, valueTotalRandomness);
 	}
 		
 	@Override
-	public void performByOwnerOnTarget(EntityLivingBase owner, EntityLivingBase target) {
+	protected void performByOwnerOnTarget(EntityLivingBase owner, EntityLivingBase target) {
 		//Reset hurtCD
 		int tempHurtCD = target.hurtResistantTime;
 		target.hurtResistantTime = 0;

@@ -9,13 +9,13 @@ import net.minecraft.entity.player.EntityPlayer;
 
 public class BattleClassesAbilityEffectInstantDual extends BattleClassesAbstractAbilityEffectInstantValue {
 
-	BattleClassesAbilityEffectInstantDual(EnumBattleClassesAbilitySchool abilitySchool) {
-		super(abilitySchool);
+	BattleClassesAbilityEffectInstantDual() {
+		super();
 	}
 	
 	BattleClassesAbilityEffectInstantDual(BattleClassesAbilityEffectInstantDamage damageEffect, 
 			BattleClassesAbilityEffectInstantHeal healEffect) {
-		this(damageEffect.getAbilitySchool());
+		this();
 		this.setDamageAndHealEffects(damageEffect, healEffect);
 	}
 	
@@ -33,22 +33,33 @@ public class BattleClassesAbilityEffectInstantDual extends BattleClassesAbstract
 		this.healEffect = healEffect;
 	}
 	
+	public void setParentAbility(BattleClassesAbstractAbilityActive ability) {
+		super.setParentAbility(ability);
+		if(damageEffect != null) {
+			damageEffect.setParentAbility(ability);
+		}
+		if(healEffect != null) {
+			healEffect.setParentAbility(ability);
+		}
+	}
+	
 	@Override
 	public void performValueEffect(BattleClassesAttributes attributesForParentAbility, float critChance, float partialMultiplier, 
 			EntityLivingBase owner, EntityLivingBase target) {
-		this.prepareToPerform(attributesForParentAbility, critChance, partialMultiplier);
+		this.prepareToPerform(attributesForParentAbility, critChance, partialMultiplier, owner, target);
 		this.performByOwnerOnTarget(owner, target);
 		this.resetOutput();
 	}
 	
 	@Override
-	public void prepareToPerform(BattleClassesAttributes attributesForParentAbility, float critChance, float partialMultiplier) {
-		this.damageEffect.prepareToPerform(attributesForParentAbility, critChance, partialMultiplier);
-		this.healEffect.prepareToPerform(attributesForParentAbility, critChance, partialMultiplier);
+	protected void prepareToPerform(BattleClassesAttributes attributesForParentAbility, float critChance, float partialMultiplier,
+			EntityLivingBase owner, EntityLivingBase target) {
+		this.damageEffect.prepareToPerform(attributesForParentAbility, critChance, partialMultiplier, owner, target);
+		this.healEffect.prepareToPerform(attributesForParentAbility, critChance, partialMultiplier, owner, target);
 	}
 
 	@Override
-	public void performByOwnerOnTarget(EntityLivingBase owner, EntityLivingBase target) {
+	protected void performByOwnerOnTarget(EntityLivingBase owner, EntityLivingBase target) {
 		this.damageEffect.performByOwnerOnTarget(owner, target);
 		this.healEffect.performByOwnerOnTarget(owner, target);
 	}
