@@ -10,7 +10,7 @@ import mods.battleclasses.ability.active.BattleClassesAbilityTestChanneled;
 import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
 import mods.battleclasses.ability.effect.BattleClassesAbstractAbilityEffectInstantValue;
 import mods.battleclasses.ability.effect.EffectFactory;
-import mods.battleclasses.ability.passive.BattleClassesPassiveAbilityAmplifier;
+import mods.battleclasses.ability.passive.BattleClassesPassiveAbilityAttributeModifier;
 import mods.battleclasses.ability.passive.BattleClassesTalentAbilityAmplifier;
 import mods.battleclasses.ability.passive.BattleClassesTalentAbilityContainer;
 import mods.battleclasses.ability.passive.BattleClassesTalentTest;

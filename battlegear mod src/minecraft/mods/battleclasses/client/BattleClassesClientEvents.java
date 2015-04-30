@@ -42,7 +42,7 @@ import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
 import mods.battleclasses.ability.active.BattleClassesAbilityShieldBlock;
 import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
-import mods.battleclasses.core.BattleClassesAttributes;
+import mods.battleclasses.attributes.BattleClassesAttributes;
 import mods.battleclasses.core.BattleClassesPlayerClass;
 import mods.battleclasses.core.BattleClassesWeaponHitHandler;
 import mods.battleclasses.enums.EnumBattleClassesAttributeType;

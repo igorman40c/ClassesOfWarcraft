@@ -7,6 +7,9 @@ import java.util.UUID;
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
 import mods.battleclasses.ability.passive.BattleClassesAbstractAbilityPassive;
+import mods.battleclasses.attributes.BattleClassesAttributes;
+import mods.battleclasses.attributes.ICWAttributeModifier;
+import mods.battleclasses.attributes.ICWAttributeModifierOwner;
 import mods.battleclasses.enums.EnumBattleClassesAmplifierApplyType;
 import mods.battleclasses.items.IAttributeProvider;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -128,17 +131,17 @@ public class BattleClassesPlayerAttributes {
 		List<ICWAttributeModifier> attributeModifierList = new ArrayList<ICWAttributeModifier>();
 		if(BattleClassesUtils.isPlayerInBattlemode(entityPlayer)) {
 			ItemStack mainHandItemStack = BattleClassesUtils.getMainhandItemStack(getOwnerPlayer());
-			if(mainHandItemStack.getItem() instanceof ICWAttributeModifier) {
-				attributeModifierList.add((ICWAttributeModifier) mainHandItemStack.getItem());
+			if(mainHandItemStack.getItem() instanceof ICWAttributeModifierOwner) {
+				attributeModifierList.addAll(((ICWAttributeModifierOwner) mainHandItemStack.getItem()).getAttributeModifiers());
 			}
 			ItemStack offHandItemStack = BattleClassesUtils.getOffhandItemStack(getOwnerPlayer());
-			if(offHandItemStack.getItem() instanceof ICWAttributeModifier) {
-				attributeModifierList.add((ICWAttributeModifier) offHandItemStack.getItem());
+			if(offHandItemStack.getItem() instanceof ICWAttributeModifierOwner) {
+				attributeModifierList.addAll(((ICWAttributeModifierOwner) offHandItemStack.getItem()).getAttributeModifiers());
 			}
 		}
 		else {
-			if(entityPlayer.getHeldItem() != null && entityPlayer.getHeldItem().getItem() instanceof ICWAttributeModifier) {
-				attributeModifierList.add((ICWAttributeModifier) entityPlayer.getHeldItem().getItem());
+			if(entityPlayer.getHeldItem() != null && entityPlayer.getHeldItem().getItem() instanceof ICWAttributeModifierOwner) {
+				attributeModifierList.addAll(((ICWAttributeModifierOwner) entityPlayer.getHeldItem().getItem()).getAttributeModifiers());
 			}
 		}
 		return attributeModifierList;
@@ -152,8 +155,8 @@ public class BattleClassesPlayerAttributes {
 	protected List<ICWAttributeModifier> getAttributeModifiersFromArmorWorn(EntityPlayer entityPlayer) {
 		List<ICWAttributeModifier> attributeModifierList = new ArrayList<ICWAttributeModifier>();
 		for(ItemStack armorItemStack : entityPlayer.inventory.armorInventory) {
-			if(armorItemStack.getItem() instanceof ICWAttributeModifier) {
-				attributeModifierList.add((ICWAttributeModifier) armorItemStack.getItem());
+			if(armorItemStack.getItem() instanceof ICWAttributeModifierOwner) {
+				attributeModifierList.addAll(((ICWAttributeModifierOwner) armorItemStack.getItem()).getAttributeModifiers());
 			}
 		}
 		return attributeModifierList;
@@ -183,8 +186,8 @@ public class BattleClassesPlayerAttributes {
 	protected List<ICWAttributeModifier> getAttributeModifiersFromPassiveAbiltiies(BattleClassesSpellBook spellBook) {
 		List<ICWAttributeModifier> attributeModifierList = new ArrayList<ICWAttributeModifier>();
 		for(BattleClassesAbstractAbilityPassive passiveAbility : spellBook.getPassiveAbilitiesInArray()) {
-			if(passiveAbility instanceof ICWAttributeModifier) {
-				attributeModifierList.add((ICWAttributeModifier) passiveAbility);
+			if(passiveAbility instanceof ICWAttributeModifierOwner) {
+				attributeModifierList.addAll(((ICWAttributeModifierOwner) passiveAbility).getAttributeModifiers());
 			}
 		}
 		return attributeModifierList;

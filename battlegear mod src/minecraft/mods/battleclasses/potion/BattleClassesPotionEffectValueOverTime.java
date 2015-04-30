@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
 import mods.battleclasses.ability.effect.BattleClassesAbstractAbilityEffectInstantValue;
-import mods.battleclasses.core.BattleClassesAttributes;
+import mods.battleclasses.attributes.BattleClassesAttributes;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;

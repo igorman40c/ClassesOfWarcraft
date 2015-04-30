@@ -3,7 +3,7 @@ package mods.battleclasses.ability.effect;
 import java.util.Random;
 
 import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
-import mods.battleclasses.core.BattleClassesAttributes;
+import mods.battleclasses.attributes.BattleClassesAttributes;
 import mods.battleclasses.enums.EnumBattleClassesAbilitySchool;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;

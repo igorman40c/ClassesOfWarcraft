@@ -10,7 +10,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
 import mods.battleclasses.ability.BattleClassesAbstractAbility;
 import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
-import mods.battleclasses.core.BattleClassesAttributes;
+import mods.battleclasses.attributes.BattleClassesAttributes;
 import mods.battleclasses.gui.BattleClassesGuiHelper;
 
 /**

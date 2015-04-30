@@ -5,7 +5,8 @@ import java.util.EnumSet;
 import com.google.common.collect.Multimap;
 
 import mods.battleclasses.BattleClassesMod;
-import mods.battleclasses.core.BattleClassesAttributes;
+import mods.battleclasses.attributes.BattleClassesAttributes;
+import mods.battleclasses.attributes.FactoryAttributes;
 import mods.battleclasses.enums.EnumBattleClassesArmorSlot;
 import mods.battleclasses.enums.EnumBattleClassesAttributeType;
 import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
@@ -37,7 +38,7 @@ public class BattleClassesItemArmor extends ItemArmor implements IAttributeProvi
 				EnumBattleClassesPlayerClass.HUNTER,
 				EnumBattleClassesPlayerClass.PALADIN,
 				EnumBattleClassesPlayerClass.WARRIOR);
-		storedAttributes = BattleClassesAttributes.createForArmor(itemLevel, EnumSet.of(EnumBattleClassesAttributeType.HEALTH, EnumBattleClassesAttributeType.STRENGTH, EnumBattleClassesAttributeType.SPELLPOWER_FIRE));
+		storedAttributes = FactoryAttributes.createForArmor(itemLevel, EnumSet.of(EnumBattleClassesAttributeType.HEALTH, EnumBattleClassesAttributeType.STRENGTH, EnumBattleClassesAttributeType.SPELLPOWER_FIRE));
 	}
 	
 	public BattleClassesItemArmor(ArmorMaterial material, int armorType, int itemLevel, String name, EnumSet<EnumBattleClassesPlayerClass> classAccess) {

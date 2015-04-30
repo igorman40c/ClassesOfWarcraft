@@ -1,4 +1,4 @@
-package mods.battleclasses.core;
+package mods.battleclasses.attributes;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -221,31 +221,6 @@ public class BattleClassesAttributes {
 		}
 	}
 	
-	public static final float MULTIPLIER_ITEMLEVEL = 2;
-	public static final float MULTIPLIER_HANDHELD = 2;
-	
-	public static float createValueForType(int itemLevel, EnumBattleClassesAttributeType type) {
-		float value = type.getConstantCreateBonus() + itemLevel * MULTIPLIER_ITEMLEVEL / type.getRelativeCreateCost();
-		value = (value > 0) ? value : 0;
-		return value;
-	}
-		
-	public static BattleClassesAttributes createForArmor(int itemLevel, EnumSet<EnumBattleClassesAttributeType> types) {
-		BattleClassesAttributes attributes = new BattleClassesAttributes();
-		for(EnumBattleClassesAttributeType attributeType : types) {
-			attributes.setValueByType(attributeType, createValueForType(itemLevel, attributeType));
-		}
-		return attributes;
-	}
-	
-	public static BattleClassesAttributes createForHandheld(int itemLevel, EnumSet<EnumBattleClassesAttributeType> types, EnumBattleClassesWeaponHeldType heldType) {
-		BattleClassesAttributes attributes = new BattleClassesAttributes();
-		for(EnumBattleClassesAttributeType attributeType : types) {
-			attributes.setValueByType(attributeType, createValueForType(itemLevel, attributeType)*heldType.getAttributeMultiplier()*MULTIPLIER_HANDHELD);
-		}
-		return attributes;
-	}
-	
 	//Helper
 	public String getDisplayStringByType(EnumBattleClassesAttributeType attributeType) {
 		float value = this.getValueByType(attributeType);
@@ -253,11 +228,12 @@ public class BattleClassesAttributes {
 		return valueString + " " + StatCollector.translateToLocal(attributeType.getUnlocalizedName());
 	}
 	
-	public static String fmt(double d)
+	private static String fmt(double d)
 	{
 	    if(d == (long) d)
 	        return String.format("%d",(long)d);
 	    else
 	        return String.format("%s",d);
 	}
+		
 }
