@@ -115,7 +115,7 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 			this.castTime = 0.5F;
 			this.school = EnumBattleClassesAbilitySchool.SPELL_FIRE;
 			//this.cooldownClock.setDefaultDuration(5F);
-			
+			this.range = 10F;
 			BattleClassesAbstractAbilityEffectInstantValue effect = EffectFactory.createInstantAbilityEffect(10, 0, EnumBattleClassesAbilitySchool.SPELL_FIRE); 
 			this.addEffect(effect);
 		}

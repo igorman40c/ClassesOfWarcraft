@@ -479,6 +479,7 @@ public class BattleClassesGuiHUDOverlay extends BattlegearInGameGUI {
 	public static final String HUD_W_WEAPON_AMMO_REQUIRED = "bchud.warning.ammo_required";
 	public static final String HUD_W_ON_COOLDOWN = "bchud.warning.on_cooldown";
 	public static final String HUD_W_ON_CLASS_COOLDOWN = "bchud.warning.on_classcooldown";
+	public static final String HUD_W_TARGET_OUT_OF_RANGE = "bchud.warning.target_out_of_range";
 	public static final String HUD_W_SILENCED = "bchud.warning.silenced";
 	public static final String HUD_W_COMBAT_DISABLED = "bchud.warning.combat_disabled";
 	public static final String HUD_W_WEAPON_WRONG_CLASS = "bchud.warning.weapon_wrong_class";

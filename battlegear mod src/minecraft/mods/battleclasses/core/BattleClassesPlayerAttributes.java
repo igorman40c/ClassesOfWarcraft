@@ -133,11 +133,11 @@ public class BattleClassesPlayerAttributes {
 		List<ICWAttributeModifier> attributeModifierList = new ArrayList<ICWAttributeModifier>();
 		if(BattleClassesUtils.isPlayerInBattlemode(entityPlayer)) {
 			ItemStack mainHandItemStack = BattleClassesUtils.getMainhandItemStack(getOwnerPlayer());
-			if(mainHandItemStack.getItem() instanceof ICWAttributeModifierOwner) {
+			if(mainHandItemStack != null && mainHandItemStack.getItem() instanceof ICWAttributeModifierOwner) {
 				attributeModifierList.addAll(((ICWAttributeModifierOwner) mainHandItemStack.getItem()).getAttributeModifiers());
 			}
 			ItemStack offHandItemStack = BattleClassesUtils.getOffhandItemStack(getOwnerPlayer());
-			if(offHandItemStack.getItem() instanceof ICWAttributeModifierOwner) {
+			if(offHandItemStack != null && offHandItemStack.getItem() instanceof ICWAttributeModifierOwner) {
 				attributeModifierList.addAll(((ICWAttributeModifierOwner) offHandItemStack.getItem()).getAttributeModifiers());
 			}
 		}

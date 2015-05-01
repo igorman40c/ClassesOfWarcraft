@@ -27,6 +27,7 @@ bchud.warning.on_classcooldown=Your class is not ready yet!
 bchud.warning.silenced=You are silenced!
 bchud.warning.combat_disabled=You can't do that now!
 bchud.warning.weapon_wrong_class=That weapon is not for your class!
+bchud.warning.target_out_of_range=Target is out of range!
 bchud.target.healing=Healing
 bchud.target.targeting=Targeting
 bchud.target.target_lost=Target lost!

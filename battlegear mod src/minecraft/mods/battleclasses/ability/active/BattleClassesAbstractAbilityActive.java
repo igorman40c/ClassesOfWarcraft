@@ -174,8 +174,7 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 	protected void requestUseFinishAndTarget(EntityPlayer entityPlayer, ItemStack itemStack, int tickCount) {
 		Side side = FMLCommonHandler.instance().getEffectiveSide();
 		//Checking CLIENT SIDE
-		if(side == Side.CLIENT && this.requiresRayTracingForTarget()) {
-			
+		if(side == Side.CLIENT && this.requiresRayTracingForTarget()) {			
 			//TODO
 			//CHECK TARGET REQUIREMENTS
 			//CHECK RANGE REQUIREMENTS
@@ -185,6 +184,12 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 				int targetEntityID = target.getEntityId();
 				FMLProxyPacket p = new BattleClassesPacketProcessAbilityWithTarget(entityPlayer, this.abilityID, targetEntityID, tickCount).generatePacket();
 				BattleClassesMod.packetHandler.sendPacketToServer(p);
+			}
+			else {
+				EntityLivingBase farTarget = getTargetFromExtendedRange();
+				if(farTarget != null) {
+					BattleClassesGuiHUDOverlay.displayWarning(BattleClassesGuiHUDOverlay.HUD_W_TARGET_OUT_OF_RANGE);
+				}
 			}
 		}
 		//Checking SERVER SIDE
