@@ -11,6 +11,7 @@ import cpw.mods.fml.relauncher.Side;
 import mods.battleclasses.BattleClassesMod;
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
+import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
 import mods.battleclasses.ability.passive.BattleClassesAbstractAbilityPassive;
 import mods.battleclasses.core.classes.BattleClassesPlayerClassMage;
 import mods.battleclasses.enums.EnumBattleClassesAmplifierApplyType;
@@ -31,7 +32,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
 
-public class BattleClassesPlayerHooks implements ICooldownMapHolder {
+public class BattleClassesPlayerHooks implements IMainCooldownMap {
 	
 	protected EntityPlayer ownerPlayer;
 	
@@ -125,6 +126,17 @@ public class BattleClassesPlayerHooks implements ICooldownMapHolder {
 	@Override
 	public EntityPlayer getCooldownCenterOwner() {
 		return this.getOwnerPlayer();
+	}
+	
+	@Override
+	public float getCooldownMultiplierForAbility(BattleClassesAbstractAbilityActive ability) {
+		float cooldownMultiplier = 1F;
+		for(BattleClassesAbstractAbilityPassive passiveAbility : this.playerClass.spellBook.getPassiveAbilitiesInArray()) {
+			if(passiveAbility instanceof ICooldownModifier) {
+				cooldownMultiplier *= ((ICooldownModifier) passiveAbility).getMultiplierForAbility(ability);
+			}
+		}
+		return cooldownMultiplier;
 	}
 	
 	public static final String NBT_TAGNAME_COMPOUNDNAME_KEY = "Name";

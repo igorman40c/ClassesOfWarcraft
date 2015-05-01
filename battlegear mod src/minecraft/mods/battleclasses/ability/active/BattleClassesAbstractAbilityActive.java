@@ -48,6 +48,7 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 
 	public BattleClassesAbstractAbilityActive(int parAbilityID) {
 		super(parAbilityID);
+		this.cooldownClock.setParentAbility(this);
 		this.setCastingType(EnumBattleClassesAbilityCastingType.CastType_INSTANT);
 	}
 	

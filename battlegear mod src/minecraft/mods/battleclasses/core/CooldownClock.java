@@ -3,6 +3,7 @@ package mods.battleclasses.core;
 import mods.battleclasses.BattleClassesMod;
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
+import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
 import mods.battleclasses.enums.EnumBattleClassesCooldownType;
 import mods.battleclasses.packet.BattleClassesPacketCooldownSet;
 import mods.battlegear2.Battlegear;
@@ -15,8 +16,9 @@ public class CooldownClock {
 	public static final float COOLDOWN_INITIALIZER = 3600;
 
 	public final int cooldownID;
-	public ICooldownMapHolder parentCooldownMapper;
+	public IMainCooldownMap parentCooldownMapper;
 	private boolean enabled = true;
+	private BattleClassesAbstractAbilityActive parentActiveAbility;
 	
 	private CooldownClock() {
 		this.cooldownID = 0;
@@ -35,13 +37,13 @@ public class CooldownClock {
 		this.resetClock();
 	}
 	
-	public CooldownClock(int id, ICooldownMapHolder parameterCDcenter) {
+	public CooldownClock(int id, IMainCooldownMap parameterCDcenter) {
 		this.cooldownID = id;
 		this.resetClock();
 		this.registerInCooldownCenter(parameterCDcenter);
 	}
 	
-	public CooldownClock(int id, float duration, EnumBattleClassesCooldownType type, ICooldownMapHolder parameterCDcenter) {
+	public CooldownClock(int id, float duration, EnumBattleClassesCooldownType type, IMainCooldownMap parameterCDcenter) {
 		this.cooldownID = id;
 		this.setDefaultDuration(duration);
 		this.setDefaultType(type);
@@ -53,7 +55,7 @@ public class CooldownClock {
 		setTime = BattleClassesUtils.getCurrentTimeInSeconds() - COOLDOWN_INITIALIZER;
 	}
 	//----------------------------------------
-	public void registerInCooldownCenter(ICooldownMapHolder parameterCDcenter) {
+	public void registerInCooldownCenter(IMainCooldownMap parameterCDcenter) {
 		if(parameterCDcenter == null) {
 			BattleClassesUtils.Log("FATAL ERROR! Trying to register CooldownClock object into NULL ICooldownCenter", LogType.CORE);
 			return;
@@ -145,6 +147,14 @@ public class CooldownClock {
 		}
 		if( duration > this.getCooldownRemaining() || forced) {
 			this.setTime = BattleClassesUtils.getCurrentTimeInSeconds();
+			
+			//Effecting duration with multipliers
+			if(type == EnumBattleClassesCooldownType.CooldownType_ABILITY 
+					&& this.parentActiveAbility != null 
+					&& parentCooldownMapper != null) {
+				duration *= parentCooldownMapper.getCooldownMultiplierForAbility(parentActiveAbility);
+			}
+			
 			this.lastUsedDuration = duration;
 			this.lastUsedType = type;
 			if(this.getOwnerPlayer() instanceof EntityPlayerMP) {
@@ -251,6 +261,10 @@ public class CooldownClock {
 	
 	void setLastUsedDuration(float duration) {
 		this.lastUsedDuration = duration;
+	}
+	
+	public void setParentAbility(BattleClassesAbstractAbilityActive parentActiveAbility) {
+		this.parentActiveAbility = parentActiveAbility;
 	}
 
 }

@@ -2,9 +2,10 @@ package mods.battleclasses.core;
 
 import java.util.HashMap;
 
+import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
 import net.minecraft.entity.player.EntityPlayer;
 
-public interface ICooldownMapHolder {
+public interface IMainCooldownMap {
 	
 	/**
 	 * Returns the HashMap in which CooldownClock objects are being stored
@@ -17,4 +18,7 @@ public interface ICooldownMapHolder {
 	 * @return
 	 */
 	public EntityPlayer getCooldownCenterOwner();
+	
+	public float getCooldownMultiplierForAbility(BattleClassesAbstractAbilityActive ability);
+	
 }
