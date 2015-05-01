@@ -1,5 +1,6 @@
 package mods.battleclasses;
 
+import java.util.Collection;
 import java.util.EnumSet;
 
 import org.apache.logging.log4j.LogManager;
@@ -30,6 +31,8 @@ import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 
@@ -235,6 +238,14 @@ public static Logger battleClassesLogger = LogManager.getLogger("Battle Classes"
 	public static ItemStack getMainhandItemStack(EntityPlayer entityPlayer) {
 		//return BattleClassesUtils.getBattleInventory(entityPlayer).getStackInSlot(0 + InventoryPlayerBattle.OFFSET);
 		return BattleClassesUtils.getBattleInventory(entityPlayer).extraItems[0];
+	}
+	
+	public static Potion getPotionByID(int potionID) {
+		return Potion.potionTypes[potionID];
+	}
+	
+	public static Collection<PotionEffect> getActivePotionEffectsFromEntity(EntityLivingBase entity) {
+		return entity.getActivePotionEffects();
 	}
 	
 }

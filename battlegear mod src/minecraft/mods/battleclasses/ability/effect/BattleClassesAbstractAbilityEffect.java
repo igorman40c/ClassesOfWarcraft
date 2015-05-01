@@ -3,12 +3,17 @@ package mods.battleclasses.ability.effect;
 import java.util.ArrayList;
 import java.util.List;
 
+import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
+import mods.battleclasses.ability.passive.BattleClassesAbstractAbilityPassive;
 import mods.battleclasses.attributes.BattleClassesAttributes;
+import mods.battleclasses.core.BattleClassesSpellBook;
+import mods.battleclasses.core.IStackableModifier;
 import mods.battleclasses.enums.EnumBattleClassesAbilityIntent;
 import mods.battleclasses.enums.EnumBattleClassesAbilitySchool;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.potion.PotionEffect;
 
 public abstract class BattleClassesAbstractAbilityEffect {
 	
@@ -26,8 +31,20 @@ public abstract class BattleClassesAbstractAbilityEffect {
 	public BattleClassesAbstractAbilityActive getParentAbility() {
 		return this.parentAbility;
 	}
-
 	
+	//----------------------------------------------------------------------------------
+	//							SECTION - Modifyable properties
+	//----------------------------------------------------------------------------------
+	
+	public float modifierMultiplier = 1;
+	public float modifierCriticalBonus = 0;
+	
+	public void resetModifiers() {
+		this.modifierMultiplier = 1;
+		this.modifierCriticalBonus = 0;
+	}
+	
+
 	/**
 	 * Main perform method to prepare and perform the effect.
 	 * @param attributesForParentAbility
@@ -69,24 +86,72 @@ public abstract class BattleClassesAbstractAbilityEffect {
 	}
 	
 	/**
-	 * Utility method to collect all the input modifiers from an entity those are able to modify this effect.
+	 * Utility method to collect all the input modifiers from an entity, and modifiy this effect using them.
 	 * @param entity
 	 * @return
 	 */
-	public List<ICWEffectModifier> getInputEffectModifiersFromEntity(EntityLivingBase entity) {
-		List<ICWEffectModifier> effectModifiers = new ArrayList<ICWEffectModifier>();
-		//TODO
-		return effectModifiers;
+	public void applyInputEffectModifiersFromEntity(EntityLivingBase entity) {
+		List<ICWEffectModifier> inputEffectModifiers = getEffectModifiersFromEntity(entity, true);
+		for(ICWEffectModifier effectModifier : inputEffectModifiers) {
+			effectModifier.applyOnEffect(this);
+		}
 	}
 	
 	/**
-	 * Utility method to collect all the output modifiers from an entity those are able to modify this effect.
+	 * Utility method to collect all the output modifiers from an entity, and modifiy this effect using them.
 	 * @param entity
 	 * @return
 	 */
-	public List<ICWEffectModifier> getOutputEffectModifiersFromEntity(EntityLivingBase entity) {
+	public void applyOutputEffectModifiersFromEntity(EntityLivingBase entity) {
+		List<ICWEffectModifier> outputEffectModifiers = getEffectModifiersFromEntity(entity, false);
+		for(ICWEffectModifier effectModifier : outputEffectModifiers) {
+			effectModifier.applyOnEffect(this);
+		}
+	}
+	
+	/**
+	 * Utility method to collect all the modifiers from an entity, also prepares stackable modifiers.
+	 * Collects from potion effects and passive abilities
+	 * @param enity
+	 * @param isInputModifier
+	 * @return
+	 */
+	public static List<ICWEffectModifier> getEffectModifiersFromEntity(EntityLivingBase entity, boolean isInputModifier) {
 		List<ICWEffectModifier> effectModifiers = new ArrayList<ICWEffectModifier>();
-		//TODO
+		for(PotionEffect potionEffect : BattleClassesUtils.getActivePotionEffectsFromEntity(entity)) {
+			if(BattleClassesUtils.getPotionByID(potionEffect.getPotionID()) instanceof ICWEffectModifierOwner) {
+				ICWEffectModifierOwner effectModifierOwner = (ICWEffectModifierOwner) BattleClassesUtils.getPotionByID(potionEffect.getPotionID());
+				for(ICWEffectModifier effectModifier : effectModifierOwner.getEffectModifiers()) {
+					if(effectModifier.isInputModifier() == isInputModifier) {
+						if(effectModifier instanceof IStackableModifier) {
+							((IStackableModifier)effectModifier).setStackCount(potionEffect.getAmplifier());
+						}
+						effectModifiers.add(effectModifier);
+					}
+				}
+			}
+		}
+		if(entity instanceof EntityPlayer) {
+			EntityPlayer entityPlayer = (EntityPlayer) entity;
+			BattleClassesSpellBook spellBook = BattleClassesUtils.getPlayerSpellBook(entityPlayer);
+			if(spellBook != null) {
+				for(BattleClassesAbstractAbilityPassive passiveAbility : spellBook.getPassiveAbilitiesInArray()) {
+					if(passiveAbility instanceof ICWEffectModifierOwner) {
+						ICWEffectModifierOwner effectModifierOwner = (ICWEffectModifierOwner) passiveAbility;
+						for(ICWEffectModifier effectModifier : effectModifierOwner.getEffectModifiers()) {
+							if(effectModifier.isInputModifier() == isInputModifier) {
+								/*
+								if(effectModifier instanceof IStackableModifier) {
+									((IStackableModifier)effectModifier).setStackCount(potionEffect.getAmplifier());
+								}
+								*/
+								effectModifiers.add(effectModifier);
+							}
+						}
+					}
+				}
+			}
+		}
 		return effectModifiers;
 	}
 }

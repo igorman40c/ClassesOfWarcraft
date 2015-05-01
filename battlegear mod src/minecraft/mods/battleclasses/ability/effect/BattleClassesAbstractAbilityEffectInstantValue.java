@@ -71,6 +71,7 @@ public abstract class BattleClassesAbstractAbilityEffectInstantValue extends Bat
 		this.prepareToPerform(attributesForParentAbility, critChance, partialMultiplier, owner, target);
 		this.performByOwnerOnTarget(owner, target);
 		this.resetOutput();
+		this.resetModifiers();
 	}
 	
 	/**
@@ -86,18 +87,13 @@ public abstract class BattleClassesAbstractAbilityEffectInstantValue extends Bat
 		//Inital output data
 		this.outputValue = this.getValueByAttributeBasedPower(attributesForParentAbility)*partialMultiplier;
 		float criticalChance = critChance;
-		//Apply output effect modifiers from the caster
-		List<ICWEffectModifier> outputModifiers = this.getOutputEffectModifiersFromEntity(owner);
-		for(ICWEffectModifier effectModifier : outputModifiers) {
-			this.outputValue *= effectModifier.getValueMultiplier();
-			criticalChance += effectModifier.getCriticalChanceBonus();
-		}
-		//Apply input effect modifiers from the target
-		List<ICWEffectModifier> inputModidifiers = this.getInputEffectModifiersFromEntity(target);
-		for(ICWEffectModifier effectModifier : inputModidifiers) {
-			this.outputValue *= effectModifier.getValueMultiplier();
-			criticalChance += effectModifier.getCriticalChanceBonus();
-		}
+		//Collecting modifications
+		this.applyOutputEffectModifiersFromEntity(owner);
+		this.applyInputEffectModifiersFromEntity(target);
+		//Applying modifications on the output
+		this.outputValue *= this.modifierMultiplier;
+		criticalChance += this.modifierCriticalBonus;
+		
 		//Setting critical
 		if(criticalChance >= rand.nextFloat()) {
 			this.outputCritical = true;

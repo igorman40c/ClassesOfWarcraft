@@ -25,22 +25,20 @@ public class BattleClassesAbilityEffectModifier implements ICWEffectModifier {
 		return input;
 	}
 	
-	@Override
 	public float getValueMultiplier() {
 		return valueMultiplier;
 	}
 
-	@Override
 	public float getCriticalChanceBonus() {
 		return criticalBonus;
 	}
 
 	@Override
-	public boolean canBeAppliedOnEffect(BattleClassesAbstractAbilityEffect effect) {
-		if(applyCriteria != null) {
-			return applyCriteria.isSatisfiedForAbility(effect.getParentAbility());
+	public void applyOnEffect(BattleClassesAbstractAbilityEffect effect) {
+		if(this.applyCriteria == null ||this.applyCriteria.isSatisfiedForAbility(effect.getParentAbility())) {
+			effect.modifierMultiplier += this.getValueMultiplier();
+			effect.modifierCriticalBonus += this.getCriticalChanceBonus();
 		}
-		return true;
 	}
 
 }
