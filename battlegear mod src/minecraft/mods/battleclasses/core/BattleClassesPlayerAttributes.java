@@ -17,6 +17,8 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 
 public class BattleClassesPlayerAttributes {
 	protected BattleClassesPlayerHooks parentPlayerHooks;
@@ -200,7 +202,12 @@ public class BattleClassesPlayerAttributes {
 	 */
 	protected List<ICWAttributeModifier> getAttributeModifiersFromActivePotionEffectsOnPlayer(EntityPlayer entityPlayer) {
 		List<ICWAttributeModifier> attributeModifierList = new ArrayList<ICWAttributeModifier>();
-		//TODO;
+		for(PotionEffect potionEffect : BattleClassesUtils.getActivePotionEffectsFromEntity(entityPlayer)) {
+			Potion potion = BattleClassesUtils.getPotionByID(potionEffect.getPotionID());
+			if(potion instanceof ICWAttributeModifierOwner) {
+				attributeModifierList.addAll(((ICWAttributeModifierOwner) potion).getAttributeModifiers());
+			}
+		}
 		return attributeModifierList;
 	}
 	
