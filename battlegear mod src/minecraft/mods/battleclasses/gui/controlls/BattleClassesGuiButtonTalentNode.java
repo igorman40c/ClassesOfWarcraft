@@ -3,7 +3,7 @@ package mods.battleclasses.gui.controlls;
 import java.util.List;
 
 import mods.battleclasses.BattleClassesMod;
-import mods.battleclasses.ability.passive.BattleClassesAbstractTalent;
+import mods.battleclasses.ability.talent.BattleClassesAbstractTalent;
 import mods.battleclasses.gui.BattleClassesGuiHelper;
 import mods.battleclasses.packet.BattleClassesPacketPlayerClassSnyc;
 import mods.battleclasses.packet.BattleClassesPacketTalentNodeChosen;

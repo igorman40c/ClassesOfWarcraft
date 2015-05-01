@@ -1,12 +1,17 @@
 package mods.battleclasses.items;
 
+import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.List;
 
 import com.google.common.collect.Multimap;
 
 import mods.battleclasses.BattleClassesMod;
+import mods.battleclasses.attributes.BattleClassesAttributeModifierBonus;
 import mods.battleclasses.attributes.BattleClassesAttributes;
 import mods.battleclasses.attributes.FactoryAttributes;
+import mods.battleclasses.attributes.ICWAttributeModifier;
+import mods.battleclasses.attributes.ICWAttributeModifierOwner;
 import mods.battleclasses.enums.EnumBattleClassesArmorSlot;
 import mods.battleclasses.enums.EnumBattleClassesAttributeType;
 import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
@@ -16,7 +21,7 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 
-public class BattleClassesItemArmor extends ItemArmor implements IAttributeProvider {
+public class BattleClassesItemArmor extends ItemArmor implements ICWAttributeModifierOwner {
 
 	/** The EnumArmorMaterial used for this ItemArmor */
     private final ItemArmor.ArmorMaterial material;
@@ -39,6 +44,7 @@ public class BattleClassesItemArmor extends ItemArmor implements IAttributeProvi
 				EnumBattleClassesPlayerClass.PALADIN,
 				EnumBattleClassesPlayerClass.WARRIOR);
 		storedAttributes = FactoryAttributes.createForArmor(itemLevel, EnumSet.of(EnumBattleClassesAttributeType.HEALTH, EnumBattleClassesAttributeType.STRENGTH, EnumBattleClassesAttributeType.SPELLPOWER_FIRE));
+		this.setSingleAttributeModifier(new BattleClassesAttributeModifierBonus(storedAttributes));
 	}
 	
 	public BattleClassesItemArmor(ArmorMaterial material, int armorType, int itemLevel, String name, EnumSet<EnumBattleClassesPlayerClass> classAccess) {
@@ -73,9 +79,23 @@ public class BattleClassesItemArmor extends ItemArmor implements IAttributeProvi
     public EnumSet<EnumBattleClassesPlayerClass> getClassAccessSet() {
     	return this.classAccessSet;
     }
+    
+	List<ICWAttributeModifier> attributeModifiers;
 
 	@Override
-	public BattleClassesAttributes getAttributes() {
-		return storedAttributes;
-	}	
+	public List<ICWAttributeModifier> getAttributeModifiers() {
+		return attributeModifiers;
+	}
+
+	@Override
+	public void setAttributeModifiers(List<ICWAttributeModifier> attributeModifiers) {
+		this.attributeModifiers = attributeModifiers; 
+	}
+	
+	public void setSingleAttributeModifier(ICWAttributeModifier attributeModifier) {
+		this.attributeModifiers = new ArrayList<ICWAttributeModifier>();
+		attributeModifiers.add(attributeModifier);
+	}
+
+
 }

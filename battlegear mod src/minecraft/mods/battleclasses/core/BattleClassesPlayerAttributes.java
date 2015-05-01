@@ -141,11 +141,14 @@ public class BattleClassesPlayerAttributes {
 				attributeModifierList.addAll(((ICWAttributeModifierOwner) offHandItemStack.getItem()).getAttributeModifiers());
 			}
 		}
+		//Only allowing items from the battle equipment
+		/*
 		else {
 			if(entityPlayer.getHeldItem() != null && entityPlayer.getHeldItem().getItem() instanceof ICWAttributeModifierOwner) {
 				attributeModifierList.addAll(((ICWAttributeModifierOwner) entityPlayer.getHeldItem().getItem()).getAttributeModifiers());
 			}
 		}
+		*/
 		return attributeModifierList;
 	}
 	
@@ -157,7 +160,7 @@ public class BattleClassesPlayerAttributes {
 	protected List<ICWAttributeModifier> getAttributeModifiersFromArmorWorn(EntityPlayer entityPlayer) {
 		List<ICWAttributeModifier> attributeModifierList = new ArrayList<ICWAttributeModifier>();
 		for(ItemStack armorItemStack : entityPlayer.inventory.armorInventory) {
-			if(armorItemStack.getItem() instanceof ICWAttributeModifierOwner) {
+			if(armorItemStack != null && armorItemStack.getItem() instanceof ICWAttributeModifierOwner) {
 				attributeModifierList.addAll(((ICWAttributeModifierOwner) armorItemStack.getItem()).getAttributeModifiers());
 			}
 		}

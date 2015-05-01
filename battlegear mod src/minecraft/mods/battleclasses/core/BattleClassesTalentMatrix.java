@@ -7,7 +7,7 @@ import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
 import mods.battleclasses.ability.active.BattleClassesAbilityTestCasted;
 import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
-import mods.battleclasses.ability.passive.BattleClassesAbstractTalent;
+import mods.battleclasses.ability.talent.BattleClassesAbstractTalent;
 import mods.battleclasses.enums.EnumBattleClassesCooldownType;
 import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
 import mods.battleclasses.gui.controlls.BattleClassesGuiButtonTalentNode;

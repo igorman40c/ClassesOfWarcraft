@@ -1,10 +1,11 @@
-package mods.battleclasses.ability.passive;
+package mods.battleclasses.ability.talent;
 
 import net.minecraft.util.ResourceLocation;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
+import mods.battleclasses.ability.passive.BattleClassesAbstractAbilityPassive;
 import mods.battleclasses.core.BattleClassesPlayerHooks;
 import mods.battleclasses.core.BattleClassesTalentTree;
 

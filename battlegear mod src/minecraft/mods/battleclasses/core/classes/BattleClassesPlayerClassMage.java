@@ -11,9 +11,8 @@ import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
 import mods.battleclasses.ability.effect.BattleClassesAbstractAbilityEffectInstantValue;
 import mods.battleclasses.ability.effect.EffectFactory;
 import mods.battleclasses.ability.passive.BattleClassesPassiveAbilityAttributeModifier;
-import mods.battleclasses.ability.passive.BattleClassesTalentAbilityAmplifier;
-import mods.battleclasses.ability.passive.BattleClassesTalentAbilityContainer;
-import mods.battleclasses.ability.passive.BattleClassesTalentTest;
+import mods.battleclasses.ability.talent.BattleClassesTalentAbilityActiveContainer;
+import mods.battleclasses.ability.talent.BattleClassesTalentTest;
 import mods.battleclasses.core.BattleClassesPlayerClass;
 import mods.battleclasses.core.BattleClassesPlayerHooks;
 import mods.battleclasses.core.BattleClassesTalentTree;
@@ -46,19 +45,19 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 		BattleClassesTalentTree talentTree1 = new BattleClassesTalentTree();
 		talentTree1.setName("Arcane");
 //		talentTree1.talentList.add(new BattleClassesTalentAbilityContainer(1100, 0, new BattleClassesPassiveAbilityAmplifier(1100, 0)));
-		talentTree1.talentList.add(new BattleClassesTalentAbilityAmplifier(1100, 0));
+		talentTree1.talentList.add(new BattleClassesTalentTest(1100, 0));
 		talentTree1.talentList.add(new BattleClassesTalentTest(1101, 1));
-		talentTree1.talentList.add(new BattleClassesTalentAbilityContainer(1102, 2, new PolymorphTestAbility()));
+		talentTree1.talentList.add(new BattleClassesTalentAbilityActiveContainer(1102, 2, new PolymorphTestAbility()));
 		BattleClassesTalentTree talentTree2 = new BattleClassesTalentTree();
 		talentTree2.setName("Fire");
 		talentTree2.talentList.add(new BattleClassesTalentTest(1110, 0));
 		talentTree2.talentList.add(new BattleClassesTalentTest(1111, 1));
-		talentTree2.talentList.add(new BattleClassesTalentAbilityContainer(1112, 2, new DragonsBreathTestAbility()));
+		talentTree2.talentList.add(new BattleClassesTalentAbilityActiveContainer(1112, 2, new DragonsBreathTestAbility()));
 		BattleClassesTalentTree talentTree3 = new BattleClassesTalentTree();
 		talentTree3.setName("Frost");
 		talentTree3.talentList.add(new BattleClassesTalentTest(1120, 0));
 		talentTree3.talentList.add(new BattleClassesTalentTest(1121, 1));
-		talentTree3.talentList.add(new BattleClassesTalentAbilityContainer(1122, 2, new IceBlockTestAbility()));
+		talentTree3.talentList.add(new BattleClassesTalentAbilityActiveContainer(1122, 2, new IceBlockTestAbility()));
 		
 		//TODO : Add talents to the talent trees
 		

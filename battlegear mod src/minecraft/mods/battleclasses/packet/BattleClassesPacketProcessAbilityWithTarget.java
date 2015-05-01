@@ -5,7 +5,7 @@ import mods.battleclasses.BattleClassesMod;
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
 import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
-import mods.battleclasses.ability.passive.BattleClassesAbstractTalent;
+import mods.battleclasses.ability.talent.BattleClassesAbstractTalent;
 import mods.battleclasses.core.BattleClassesPlayerHooks;
 import mods.battleclasses.core.BattleClassesSpellBook;
 import mods.battlegear2.packet.AbstractMBPacket;

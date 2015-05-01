@@ -6,7 +6,7 @@ import java.util.Iterator;
 import io.netty.buffer.ByteBuf;
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
-import mods.battleclasses.ability.passive.BattleClassesAbstractTalent;
+import mods.battleclasses.ability.talent.BattleClassesAbstractTalent;
 import mods.battleclasses.core.BattleClassesPlayerHooks;
 import mods.battlegear2.packet.AbstractMBPacket;
 import net.minecraft.entity.player.EntityPlayer;
