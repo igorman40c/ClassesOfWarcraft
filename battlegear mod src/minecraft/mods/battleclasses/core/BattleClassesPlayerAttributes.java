@@ -10,12 +10,14 @@ import mods.battleclasses.ability.passive.BattleClassesAbstractAbilityPassive;
 import mods.battleclasses.attributes.BattleClassesAttributes;
 import mods.battleclasses.attributes.ICWAttributeModifier;
 import mods.battleclasses.attributes.ICWAttributeModifierOwner;
+import mods.battleclasses.attributes.ICWAttributeModifierOwnerClassFocused;
 import mods.battleclasses.enums.EnumBattleClassesAmplifierApplyType;
-import mods.battleclasses.items.IAttributeProvider;
+import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -124,6 +126,19 @@ public class BattleClassesPlayerAttributes {
 		return attributeModifierList;
 	}
 	
+	private void addItemToAttributeModifierList(Item item, List<ICWAttributeModifier> attributeModifierList) {
+		if(item instanceof ICWAttributeModifierOwnerClassFocused) {
+			EnumBattleClassesPlayerClass playerClassEnum = this.parentPlayerHooks.playerClass.getPlayerClass();
+			ICWAttributeModifierOwnerClassFocused classFocusedAttributeOwner = (ICWAttributeModifierOwnerClassFocused)item;
+			if(((ICWAttributeModifierOwnerClassFocused)item).getClassAccessSet().contains(playerClassEnum)) {
+				attributeModifierList.addAll(classFocusedAttributeOwner.getAttributeModifiers());
+			}
+		}
+		else if (item instanceof ICWAttributeModifierOwner) {
+			attributeModifierList.addAll(((ICWAttributeModifierOwner)item).getAttributeModifiers());
+		}
+	}
+	
 	/**
 	 * Collects the attribute modifiers from the item(s) held by a player
 	 * @param entityPlayer the player to check his/her equipment
@@ -133,12 +148,12 @@ public class BattleClassesPlayerAttributes {
 		List<ICWAttributeModifier> attributeModifierList = new ArrayList<ICWAttributeModifier>();
 		if(BattleClassesUtils.isPlayerInBattlemode(entityPlayer)) {
 			ItemStack mainHandItemStack = BattleClassesUtils.getMainhandItemStack(getOwnerPlayer());
-			if(mainHandItemStack != null && mainHandItemStack.getItem() instanceof ICWAttributeModifierOwner) {
-				attributeModifierList.addAll(((ICWAttributeModifierOwner) mainHandItemStack.getItem()).getAttributeModifiers());
+			if(mainHandItemStack != null) {
+				this.addItemToAttributeModifierList(mainHandItemStack.getItem(), attributeModifierList);
 			}
 			ItemStack offHandItemStack = BattleClassesUtils.getOffhandItemStack(getOwnerPlayer());
-			if(offHandItemStack != null && offHandItemStack.getItem() instanceof ICWAttributeModifierOwner) {
-				attributeModifierList.addAll(((ICWAttributeModifierOwner) offHandItemStack.getItem()).getAttributeModifiers());
+			if(offHandItemStack != null) {
+				this.addItemToAttributeModifierList(offHandItemStack.getItem(), attributeModifierList);
 			}
 		}
 		//Only allowing items from the battle equipment
@@ -160,8 +175,8 @@ public class BattleClassesPlayerAttributes {
 	protected List<ICWAttributeModifier> getAttributeModifiersFromArmorWorn(EntityPlayer entityPlayer) {
 		List<ICWAttributeModifier> attributeModifierList = new ArrayList<ICWAttributeModifier>();
 		for(ItemStack armorItemStack : entityPlayer.inventory.armorInventory) {
-			if(armorItemStack != null && armorItemStack.getItem() instanceof ICWAttributeModifierOwner) {
-				attributeModifierList.addAll(((ICWAttributeModifierOwner) armorItemStack.getItem()).getAttributeModifiers());
+			if(armorItemStack != null) {
+				this.addItemToAttributeModifierList(armorItemStack.getItem(), attributeModifierList);
 			}
 		}
 		return attributeModifierList;

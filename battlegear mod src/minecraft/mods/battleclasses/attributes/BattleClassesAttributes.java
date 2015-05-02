@@ -2,6 +2,7 @@ package mods.battleclasses.attributes;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.List;
 
 import net.minecraft.util.StatCollector;
 import mods.battleclasses.enums.EnumBattleClassesAbilitySchool;
@@ -83,7 +84,7 @@ public class BattleClassesAttributes {
 		return this;
 	}
 	
-	public ArrayList<EnumBattleClassesAttributeType> getActiveTypes() {
+	public List<EnumBattleClassesAttributeType> getActiveTypes() {
 		ArrayList<EnumBattleClassesAttributeType> activeTypes = new ArrayList<EnumBattleClassesAttributeType>();
 		for(EnumBattleClassesAttributeType type : EnumBattleClassesAttributeType.values()) {
 			if(this.getValueByType(type) != 0) {

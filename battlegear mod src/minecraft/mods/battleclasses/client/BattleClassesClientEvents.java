@@ -61,7 +61,7 @@ import mods.battleclasses.gui.controlls.GuiTabBarButtonTalentSelector;
 import mods.battleclasses.gui.controlls.GuiTabBarButtonVanillaInventory;
 import mods.battleclasses.gui.tab.BattleClassesTabInventory;
 import mods.battleclasses.gui.tab.BattleClassesTabClassSelector;
-import mods.battleclasses.items.IAttributeProvider;
+import mods.battleclasses.items.IAttributeProviderItem;
 import mods.battleclasses.packet.BattleClassesPacketAttributeChanges;
 import mods.battleclasses.packet.BattleClassesPacketPlayerClassSnyc;
 import mods.battleclasses.packet.BattleClassesPacketPlayerDataSync;
@@ -321,7 +321,7 @@ public class BattleClassesClientEvents {
 	
     @SubscribeEvent
     public void onItemTooltip(ItemTooltipEvent event){
-        if(event.itemStack.getItem() instanceof IAttributeProvider){
+        if(event.itemStack.getItem() instanceof IAttributeProviderItem){
         	/*
             for(String txt:event.toolTip){
                 if(txt.startsWith(EnumChatFormatting.BLUE.toString())){
@@ -330,7 +330,7 @@ public class BattleClassesClientEvents {
                 }
             }
             */
-        	BattleClassesAttributes attributes = ((IAttributeProvider)event.itemStack.getItem()).getAttributes();
+        	BattleClassesAttributes attributes = ((IAttributeProviderItem)event.itemStack.getItem()).getAttributes();
         	for(EnumBattleClassesAttributeType activeAttributeType : attributes.getActiveTypes()) {
         		event.toolTip.add(EnumChatFormatting.BLUE + attributes.getDisplayStringByType(activeAttributeType));
         	}

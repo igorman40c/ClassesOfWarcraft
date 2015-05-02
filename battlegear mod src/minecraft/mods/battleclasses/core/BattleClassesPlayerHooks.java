@@ -18,7 +18,7 @@ import mods.battleclasses.enums.EnumBattleClassesAmplifierApplyType;
 import mods.battleclasses.enums.EnumBattleClassesCooldownType;
 import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
 import mods.battleclasses.gui.tab.BattleClassesTabOverlayAttributes;
-import mods.battleclasses.items.IAttributeProvider;
+import mods.battleclasses.items.IAttributeProviderItem;
 import mods.battleclasses.packet.BattleClassesPacketPlayerClassSnyc;
 import mods.battlegear2.Battlegear;
 import net.minecraft.entity.SharedMonsterAttributes;
