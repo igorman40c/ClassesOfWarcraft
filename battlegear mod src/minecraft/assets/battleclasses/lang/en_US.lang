@@ -61,6 +61,20 @@ bcattribute.armor_penetration.description=Ignores the armor of your enemy.
 bcattribute.weapon_damage.description=Estimated ammount of damage you will deal with your main hand weapon.
 bcattribute.armor.description=Reduces physical damage you recieve.
 
+bceffect.damage.description=causing %1$s damage to an enemy
+bceffect.heal.description=heals a friendly target for %1$s
+bceffect.lastsseconds.description=lasts %1$s seconds
+bceffect.overseconds.description=over %1$s seconds
+
+abilityschool.physical_melee_rage.name=melee
+abilityschool.physical_melee_energy.name=melee
+abilityschool.physical_ranged.name=ranged
+abilityschool.spell_arcane.name=arcane
+abilityschool.spell_fire.name=fire
+abilityschool.spell_frost.name=frost
+abilityschool.spell_holy.name=holy
+abilityschool.spell_shadow.name=shadow
+
 talent.universal.abilityactivecontainer.name=Teaches new ability
 ability.mage.iceblock.name=Ice Block
 ability.mage.iceblock.description=You become encased in a block of ice, protecting you from all physical attacks and spells for 10 sec, but during that time you cannot attack, move or cast spells.

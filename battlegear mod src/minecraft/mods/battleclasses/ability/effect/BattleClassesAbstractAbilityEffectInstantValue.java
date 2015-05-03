@@ -101,6 +101,11 @@ public abstract class BattleClassesAbstractAbilityEffectInstantValue extends Bat
 		}
 	}
 	
+	public float getEstimatedOutput() {
+		//TODO
+		return 0;
+	}
+	
 	/**
 	 * Resets the output variables
 	 */

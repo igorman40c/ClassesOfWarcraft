@@ -1,5 +1,6 @@
 package mods.battleclasses.enums;
 
+import net.minecraft.util.StatCollector;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -99,6 +100,12 @@ public enum EnumBattleClassesAbilitySchool {
 			default:
 				return 48;
 		}
+    }
+    
+    public String getDisplayedName() {
+    	String unlocaizedName = new String("abilityschool." + this.toString() + ".name");
+    	String displayedName = StatCollector.translateToLocal(unlocaizedName);
+    	return displayedName;
     }
 
 }

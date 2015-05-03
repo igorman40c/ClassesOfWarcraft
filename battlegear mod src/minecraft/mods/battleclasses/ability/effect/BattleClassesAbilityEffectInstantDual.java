@@ -69,4 +69,11 @@ public class BattleClassesAbilityEffectInstantDual extends BattleClassesAbstract
 		this.damageEffect.resetOutput();
 		this.healEffect.resetOutput();
 	}
+
+	@Override
+	public String getTranslatedDescription() {
+		String description = new String(this.damageEffect.getTranslatedDescription() + 
+				", or " + this.healEffect.getTranslatedDescription());
+		return description;
+	}
 }

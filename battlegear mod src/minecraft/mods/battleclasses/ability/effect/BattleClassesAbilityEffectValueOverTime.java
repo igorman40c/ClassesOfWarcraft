@@ -2,6 +2,7 @@ package mods.battleclasses.ability.effect;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.StatCollector;
 import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
 import mods.battleclasses.attributes.BattleClassesAttributes;
 import mods.battleclasses.enums.EnumBattleClassesAbilityIntent;
@@ -43,6 +44,14 @@ public class BattleClassesAbilityEffectValueOverTime extends BattleClassesAbilit
 	@Override
 	public EnumBattleClassesAbilityIntent getIntent() {
 		return this.effectInstantValue.getIntent();
+	}
+	
+	@Override
+	public String getTranslatedDescription() {
+		String description = new String(this.effectInstantValue.getTranslatedDescription() + " " + 
+				StatCollector.translateToLocal("bceffect.overseconds.description"));
+		description.replace("%1$s", String.format("%.0f", this.effectDuration));		
+		return description;
 	}
 
 }

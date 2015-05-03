@@ -7,6 +7,7 @@ import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
 import mods.battleclasses.ability.passive.BattleClassesAbstractAbilityPassive;
 import mods.battleclasses.attributes.BattleClassesAttributes;
+import mods.battleclasses.client.IDescriptionProvider;
 import mods.battleclasses.core.BattleClassesSpellBook;
 import mods.battleclasses.core.IStackableModifier;
 import mods.battleclasses.enums.EnumBattleClassesAbilityIntent;
@@ -15,7 +16,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.PotionEffect;
 
-public abstract class BattleClassesAbstractAbilityEffect {
+public abstract class BattleClassesAbstractAbilityEffect implements IDescriptionProvider {
 	
 	/**
 	 * School of the effect value. Used to select corresponding power and critical data, determine dispellability.
