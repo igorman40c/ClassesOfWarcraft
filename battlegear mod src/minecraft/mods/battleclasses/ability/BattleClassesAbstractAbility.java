@@ -1,5 +1,7 @@
 package mods.battleclasses.ability;
 
+import java.util.HashMap;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
@@ -10,8 +12,17 @@ import mods.battleclasses.core.BattleClassesPlayerHooks;
 
 public abstract class BattleClassesAbstractAbility {
 
-	protected int abilityID;
+	/**
+	 * Stores all the active and passive abilities those can be displayed on the UI. (For example in a tooltip).
+	 * Key : abilityID
+	 * Value : Ability Object 
+	 */
+	public static HashMap<Integer, BattleClassesAbstractAbility> registredAbilities = new HashMap<Integer, BattleClassesAbstractAbility>();
+	public static void registerAbility(BattleClassesAbstractAbility ability) {
+		registredAbilities.put(ability.getAbilityID(), ability);
+	}
 	
+	protected int abilityID;
 	
 	//Mandtory Helper References
 	protected BattleClassesPlayerHooks playerHooks;
@@ -20,8 +31,6 @@ public abstract class BattleClassesAbstractAbility {
 	public int getAbilityID() {
 		return abilityID;
 	}
-	
-	
 	
 	public static final String UNLOCALIZED_PREFIX_ABILITY = "ability.";
 	public String getUnlocalizedPrefix() {

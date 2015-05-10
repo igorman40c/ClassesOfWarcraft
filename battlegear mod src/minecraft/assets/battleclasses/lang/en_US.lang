@@ -61,6 +61,12 @@ bcattribute.armor_penetration.description=Ignores the armor of your enemy.
 bcattribute.weapon_damage.description=Estimated ammount of damage you will deal with your main hand weapon.
 bcattribute.armor.description=Reduces physical damage you recieve.
 
+bccriteria.abilityschool.all=abilities and spells
+bccriteria.abilityschool.abilities=abilities
+bccriteria.abilityschool.ability=ability
+bccriteria.abilityschool.spells=spells
+bccriteria.abilityschool.spell=spell
+
 bceffect.modifier.increase=increases
 bceffect.modifier.reduce=reduces
 bceffect.modifier.damage=the damage

@@ -2,7 +2,9 @@ package mods.battleclasses.core.classes;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 
+import mods.battleclasses.ability.BattleClassesAbstractAbility;
 import mods.battleclasses.ability.active.BattleClassesAbilityActiveDirect;
 import mods.battleclasses.ability.active.BattleClassesAbilityShieldBlock;
 import mods.battleclasses.ability.active.BattleClassesAbilityTestCasted;
@@ -22,7 +24,15 @@ import mods.battleclasses.enums.EnumBattleClassesAttributeType;
 import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
 
 public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
-
+	
+	static BattleClassesPlayerClassMage INSTANCE = new BattleClassesPlayerClassMage();
+	static{
+		INSTANCE.registerAllAbilities();
+	}
+	BattleClassesPlayerClassMage() {
+		super(null, EnumBattleClassesPlayerClass.MAGE);
+	}
+	
 	public BattleClassesPlayerClassMage(BattleClassesPlayerHooks parPlayerHooks) {
 		super(parPlayerHooks, EnumBattleClassesPlayerClass.MAGE);
 	}
@@ -87,12 +97,21 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 		return attributes;
 	}
 
+	public void registerAllAbilities() {
+		ArrayList<BattleClassesAbstractAbility> allAbilitiesToRegister = new ArrayList<BattleClassesAbstractAbility>();
+		allAbilitiesToRegister.add(new ArcaneMissilesTestAbility());
+		allAbilitiesToRegister.add(new PolymorphTestAbility());
+		//TODO
+		//...
+
+		super.registerAbilties(allAbilitiesToRegister);
+	}
 	
 	//--------------------------------------------------------------------------------------------------------
 	//										CLASS SPECIFIC ABILITIES
 	//--------------------------------------------------------------------------------------------------------
 	public static final int ABILITY_ID_ARCANE_MISSILES = 100;
-	class ArcaneMissilesTestAbility extends BattleClassesAbilityTestChanneled {
+	class ArcaneMissilesTestAbility extends BattleClassesAbilityTestChanneled {		
 		public ArcaneMissilesTestAbility() {
 			super(ABILITY_ID_ARCANE_MISSILES);
 		}

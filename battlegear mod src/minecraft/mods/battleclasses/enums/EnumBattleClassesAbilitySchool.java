@@ -102,7 +102,32 @@ public enum EnumBattleClassesAbilitySchool {
 		}
     }
     
-    public String getDisplayedName() {
+    public boolean isMagical() {
+    	boolean magical = false;
+    	switch(this) {
+		case SPELL_ARCANE:
+			magical = true;
+			break;
+		case SPELL_FIRE:
+			magical = true;
+			break;
+		case SPELL_FROST:
+			magical = true;
+			break;
+		case SPELL_HOLY:
+			magical = true;
+			break;
+		case SPELL_SHADOW:
+			magical = true;
+			break;
+		default:
+			magical = false;
+			break;
+    	}
+    	return magical;
+    }
+    
+    public String getTranslatedDisplayedName() {
     	String unlocaizedName = new String("abilityschool." + this.toString() + ".name");
     	String displayedName = StatCollector.translateToLocal(unlocaizedName);
     	return displayedName;

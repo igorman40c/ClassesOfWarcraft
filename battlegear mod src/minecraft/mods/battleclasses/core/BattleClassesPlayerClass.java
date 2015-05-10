@@ -1,7 +1,9 @@
 package mods.battleclasses.core;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.IIcon;
@@ -9,6 +11,7 @@ import net.minecraft.util.ResourceLocation;
 import cpw.mods.fml.common.network.internal.FMLProxyPacket;
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
+import mods.battleclasses.ability.BattleClassesAbstractAbility;
 import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
 import mods.battleclasses.enums.EnumBattleClassesAttributeType;
 import mods.battleclasses.enums.EnumBattleClassesCooldownType;
@@ -32,9 +35,7 @@ public class BattleClassesPlayerClass implements ICooldownOwner {
 	protected EnumBattleClassesPlayerClass playerClass;
 	
 	protected CooldownClock cooldownClock;
-	
-	//BattleClassesAbstractAbilityPassive
-	
+		
 	public BattleClassesPlayerClass(BattleClassesPlayerHooks parPlayerHooks, EnumBattleClassesPlayerClass parPlayerClass) {
 		this.playerHooks = parPlayerHooks;
 		this.cooldownClock = new CooldownClock(CLASS_SWITCH_COOLDOWN_HASHCODE, CLASS_SWITCH_COOLDOWN_DURATION, EnumBattleClassesCooldownType.CooldownType_CLASS_SWITCH, parPlayerHooks);
@@ -43,25 +44,7 @@ public class BattleClassesPlayerClass implements ICooldownOwner {
 		
 		this.setPlayerClass(parPlayerClass);
 	}
-	/*
-	public void switchToPlayerClass(EnumBattleClassesPlayerClass parPlayerClass) {
-		this.setPlayerClass(parPlayerClass);
 
-		FMLProxyPacket p = new BattleClassesPacketPlayerClassSnyc(playerHooks.getOwnerPlayer(), playerClass).generatePacket();
-		
-		if(playerHooks.getOwnerPlayer() instanceof EntityPlayerMP) {
-			EntityPlayerMP entityPlayerMP = (EntityPlayerMP) playerHooks.getOwnerPlayer();
-			if(entityPlayerMP != null) {
-				BattleClassesUtils.Log("Sending class switch sync to client: " + entityPlayerMP.getDisplayName(), LogType.PACKET);
-				BattleClassesMod.packetHandler.sendPacketToPlayer(p, entityPlayerMP);
-			}
-		}
-		
-		BattleClassesUtils.Log(playerHooks.getOwnerPlayer().getDisplayName() + " switched to class: " + parPlayerClass.toString(), LogType.CORE);
-		
-		this.setToCooldownForced();
-	}
-	*/
 	protected void setPlayerClass(EnumBattleClassesPlayerClass parPlayerClass) {
 		this.playerClass = parPlayerClass;
 		this.initClassContent();
@@ -163,6 +146,16 @@ public class BattleClassesPlayerClass implements ICooldownOwner {
 		attributes.add(EnumBattleClassesAttributeType.ARMOR_PENETRATION);
 		*/
 		return attributes;
+	}
+	
+	public void registerAllAbilities() {
+		//Hook
+	}
+	
+	protected void registerAbilties(List<BattleClassesAbstractAbility> abilities) {
+		for(BattleClassesAbstractAbility ability : abilities) {
+			BattleClassesAbstractAbility.registerAbility(ability);
+		}
 	}
 	
 	// -------------------- ICooldownOwner implementation --------------------
