@@ -61,10 +61,27 @@ bcattribute.armor_penetration.description=Ignores the armor of your enemy.
 bcattribute.weapon_damage.description=Estimated ammount of damage you will deal with your main hand weapon.
 bcattribute.armor.description=Reduces physical damage you recieve.
 
+bceffect.modifier.increase=increases
+bceffect.modifier.reduce=reduces
+bceffect.modifier.damage=the damage
+bceffect.modifier.heal=the healing
+bceffect.modifier.allabilities=abilities and spells
+bceffect.modifier.value.output=done of your
+bceffect.modifier.value.input=received from
+bceffect.modifier.crit.output=the critical chance of your
+bceffect.modifier.crit.input=the chance to be critically hit by
+bceffect.modifier.bypercentage=by %1$s%
+bceffect.modifier.stacks=stacks up to %1$s times
+
 bceffect.damage.description=causing %1$s damage to an enemy
 bceffect.heal.description=heals a friendly target for %1$s
 bceffect.lastsseconds.description=lasts %1$s seconds
 bceffect.overseconds.description=over %1$s seconds
+
+pcpotion.speedmodifier.increase=increases the movement speed of the %1$s by %2$s
+pcpotion.speedmodifier.decrease=decreases the movement speed of the %1$s by %2$s
+pcpotion.speedmodifier.caster=caster
+pcpotion.speedmodifier.target=target
 
 abilityschool.physical_melee_rage.name=melee
 abilityschool.physical_melee_energy.name=melee

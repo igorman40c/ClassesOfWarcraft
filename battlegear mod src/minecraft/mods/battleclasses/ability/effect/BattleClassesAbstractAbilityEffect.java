@@ -125,7 +125,7 @@ public abstract class BattleClassesAbstractAbilityEffect implements IDescription
 				for(ICWEffectModifier effectModifier : effectModifierOwner.getEffectModifiers()) {
 					if(effectModifier.isInputModifier() == isInputModifier) {
 						if(effectModifier instanceof IStackableModifier) {
-							((IStackableModifier)effectModifier).setStackCount(potionEffect.getAmplifier());
+							((IStackableModifier)effectModifier).updateStackCount(potionEffect.getAmplifier());
 						}
 						effectModifiers.add(effectModifier);
 					}
