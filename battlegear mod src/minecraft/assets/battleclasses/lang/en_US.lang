@@ -79,6 +79,10 @@ bceffect.modifier.crit.input=the chance to be critically hit by
 bceffect.modifier.bypercentage=by %1$s%
 bceffect.modifier.stacks=stacks up to %1$s times
 
+bcattribute.modifier.amplifier=your %1$s by %2$s%
+bcattribute.modifier.bonus=your %1$s by %2$s
+bcattribute.modifier.crossbonus=your %1$s by %2$s% of your total %3$s
+
 bceffect.damage.description=causing %1$s damage to an enemy
 bceffect.heal.description=heals a friendly target for %1$s
 bceffect.lastsseconds.description=lasts %1$s seconds

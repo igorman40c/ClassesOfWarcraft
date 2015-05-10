@@ -1,5 +1,6 @@
 package mods.battleclasses.attributes;
 
+import net.minecraft.util.StatCollector;
 import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
 import mods.battleclasses.ability.criteria.IAbilityCriteria;
 import mods.battleclasses.enums.EnumBattleClassesAmplifierApplyType;
@@ -37,4 +38,16 @@ public class BattleClassesAttributeModifierTotalCrossBonus extends BattleClasses
 		return accumulatedAttributes;
 	}
 	
+	@Override
+	public String getTranslatedDescription() {
+		String description = StatCollector.translateToLocal((this.multiplier > 1) ? 
+				"bceffect.modifier.increase" : "bceffect.modifier.reduce");
+		String amplifierString = StatCollector.translateToLocal("bcattribute.modifier.crossbonus");
+		amplifierString.replace("%1$s", toType.getTranslatedName());
+		amplifierString.replace("%2$s", String.format("%.0f", 100F*this.multiplier));
+		amplifierString.replace("%3$s", fromType.getTranslatedName());
+		description += " " + amplifierString;
+
+		return description;
+	}
 }

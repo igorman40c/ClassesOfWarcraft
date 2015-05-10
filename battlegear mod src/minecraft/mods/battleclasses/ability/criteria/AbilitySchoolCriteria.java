@@ -43,6 +43,7 @@ public class AbilitySchoolCriteria implements IAbilityCriteria {
 				}
 				abilitySchoolsDescription += " " + abilitySchool.getTranslatedDisplayedName();
 				allMagical = allMagical && abilitySchool.isMagical();
+				++i;
 			} 
 			if(allMagical) {
 				abilitySchoolsDescription += " " + StatCollector.translateToLocal("bccriteria.abilityschool.spells");

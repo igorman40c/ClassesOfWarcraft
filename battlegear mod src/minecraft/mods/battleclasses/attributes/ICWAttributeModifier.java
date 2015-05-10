@@ -1,13 +1,14 @@
 package mods.battleclasses.attributes;
 
 import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
+import mods.battleclasses.client.IDescriptionProvider;
 import mods.battleclasses.enums.EnumBattleClassesAmplifierApplyType;
 
 /**
  * Classes of Warcraft attribute modifier interface.
  * @author Zsolt
  */
-public interface ICWAttributeModifier {
+public interface ICWAttributeModifier extends IDescriptionProvider {
 	/**
 	 * Determines the applying order while accumulating the modifiers. 
 	 * Implementating classes with a certain type should act as the name of the enum describes.

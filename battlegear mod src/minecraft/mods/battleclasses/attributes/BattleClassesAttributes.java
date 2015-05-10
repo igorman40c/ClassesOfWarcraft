@@ -94,6 +94,16 @@ public class BattleClassesAttributes {
 		return activeTypes;
 	}
 	
+	public List<EnumBattleClassesAttributeType> getActiveMultiplierTypes() {
+		ArrayList<EnumBattleClassesAttributeType> activeTypes = new ArrayList<EnumBattleClassesAttributeType>();
+		for(EnumBattleClassesAttributeType type : EnumBattleClassesAttributeType.values()) {
+			if(this.getValueByType(type) != 1) {
+				activeTypes.add(type);
+			}
+		}
+		return activeTypes;
+	}
+	
 	public float getValueForAbilitySchool(EnumBattleClassesAbilitySchool school) {
 		switch(school) {
 			case PHYSICAL_MELEE_ENERGY:

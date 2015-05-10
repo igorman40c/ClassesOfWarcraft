@@ -1,5 +1,7 @@
 package mods.battleclasses.enums;
 
+import net.minecraft.util.StatCollector;
+
 public enum EnumBattleClassesAttributeType {
 	//Primary
 	HEALTH,
@@ -126,5 +128,9 @@ public enum EnumBattleClassesAttributeType {
 	
 	public String getUnlocalizedDescription() {
 		return attributeUnlocalizedPre + this.toString().toLowerCase() + ".description";
+	}
+	
+	public String getTranslatedName() {
+		return StatCollector.translateToLocal(this.getUnlocalizedDescription());
 	}
 }

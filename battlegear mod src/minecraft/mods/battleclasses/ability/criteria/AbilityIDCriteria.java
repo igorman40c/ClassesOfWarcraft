@@ -50,6 +50,7 @@ public class AbilityIDCriteria implements IAbilityCriteria {
 			else {
 				abilityList += " ABILITY WITH UNREGISTERED ID: " + abilityID;
 			}
+			++i;
 		}
 		
 		if(allMagical) {
