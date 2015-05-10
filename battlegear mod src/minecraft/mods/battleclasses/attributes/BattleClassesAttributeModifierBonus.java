@@ -29,22 +29,28 @@ public class BattleClassesAttributeModifierBonus extends BattleClassesAbstractAt
 
 	@Override
 	public String getTranslatedDescription() {
-		String multipliersList = "";
+		String description = "";
 		int i = 0;
 		for(EnumBattleClassesAttributeType attributeType : this.attributes.getActiveTypes()) {
 			if(i > 0) {
-				multipliersList += ", ";
+				description += ", ";
 			}
 			float bonusValue = this.attributes.getValueByType(attributeType);
-			multipliersList += StatCollector.translateToLocal((bonusValue > 1) ? 
+			description += StatCollector.translateToLocal((bonusValue > 1) ? 
 					"bceffect.modifier.increase" : "bceffect.modifier.reduce");
 			String amplifierString = StatCollector.translateToLocal("bcattribute.modifier.bonus");
 			amplifierString.replace("%1$s", attributeType.getTranslatedName());
 			amplifierString.replace("%2$s", String.format("%.0f", bonusValue));
-			multipliersList += " " + amplifierString;
+			description += " " + amplifierString;
 			++i;
 		}
-		return multipliersList;
+		
+		if(this.applyCriteria != null) {
+			description+= " " + StatCollector.translateToLocal("bcattribute.modifier.precriteria");
+			description+= " " + this.applyCriteria.getTranslatedDescription();
+		}
+		
+		return description;
 	}
 	
 }

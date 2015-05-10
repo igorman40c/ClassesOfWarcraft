@@ -47,6 +47,11 @@ public class BattleClassesAttributeModifierTotalCrossBonus extends BattleClasses
 		amplifierString.replace("%2$s", String.format("%.0f", 100F*this.multiplier));
 		amplifierString.replace("%3$s", fromType.getTranslatedName());
 		description += " " + amplifierString;
+		
+		if(this.applyCriteria != null) {
+			description+= " " + StatCollector.translateToLocal("bcattribute.modifier.precriteria");
+			description+= " " + this.applyCriteria.getTranslatedDescription();
+		}
 
 		return description;
 	}

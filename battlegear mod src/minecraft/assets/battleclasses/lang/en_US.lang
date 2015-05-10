@@ -82,6 +82,7 @@ bceffect.modifier.stacks=stacks up to %1$s times
 bcattribute.modifier.amplifier=your %1$s by %2$s%
 bcattribute.modifier.bonus=your %1$s by %2$s
 bcattribute.modifier.crossbonus=your %1$s by %2$s% of your total %3$s
+bcattribute.modifier.precriteria=for your
 
 bceffect.damage.description=causing %1$s damage to an enemy
 bceffect.heal.description=heals a friendly target for %1$s

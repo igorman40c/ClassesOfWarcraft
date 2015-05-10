@@ -44,6 +44,11 @@ public class BattleClassesAttributeModifierAmplifier extends BattleClassesAbstra
 			amplifierString.replace("%2$s", String.format("%.0f", 100F*amplifierValue));
 			multipliersList += " " + amplifierString;
 			++i;
+			
+			if(this.applyCriteria != null) {
+				multipliersList+= " " + StatCollector.translateToLocal("bcattribute.modifier.precriteria");
+				multipliersList+= " " + this.applyCriteria.getTranslatedDescription();
+			}
 		}
 		return multipliersList;
 	}
