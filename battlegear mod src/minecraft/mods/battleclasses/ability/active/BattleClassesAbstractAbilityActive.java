@@ -17,6 +17,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.internal.FMLProxyPacket;
@@ -51,7 +52,7 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 	public BattleClassesAbstractAbilityActive(int parAbilityID) {
 		super(parAbilityID);
 		this.cooldownClock.setParentAbility(this);
-		this.setCastingType(EnumBattleClassesAbilityCastingType.CastType_INSTANT);
+		this.setCastingType(EnumBattleClassesAbilityCastingType.INSTANT);
 	}
 	
 	protected IIcon abilityIcon;
@@ -398,7 +399,7 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 	}
 	
 	public boolean isChanneled() {
-		return this.castingType == EnumBattleClassesAbilityCastingType.CastType_CHANNELED;
+		return this.castingType == EnumBattleClassesAbilityCastingType.CHANNELED;
 	}
 	
 	public float getCastTime() {
@@ -520,10 +521,36 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
     //							Section - Tooltip implementation
     //----------------------------------------------------------------------------------
     
+    public List<String> getPropertyLines() {
+    	List<String> text = new ArrayList<String>();
+    	//Cast info
+    	String castInfo = this.getCastingType().getTranslatedAbilityInfo();
+    	if(this.getCastingType() != EnumBattleClassesAbilityCastingType.INSTANT) {
+    		castInfo = castInfo.replace("%1$s", BattleClassesGuiHelper.formatFloatToNice(this.getCastTime()));
+    	}
+    	text.add(castInfo);
+    	//Range info
+    	String rangeInfo = StatCollector.translateToLocal("bcability.info.range");
+    	rangeInfo = rangeInfo.replace("%1$s", BattleClassesGuiHelper.formatFloatToNice(this.range));
+    	text.add(rangeInfo);
+    	//Cooldown info
+    	if(this.cooldownClock.getDefaultDuration() > 0) {
+    		String cdInfo = StatCollector.translateToLocal("bcability.info.cooldown");
+    		cdInfo = cdInfo.replace("%1$s", BattleClassesGuiHelper.formatFloatToNice(this.cooldownClock.getDefaultDuration()));
+    		text.add(cdInfo);
+    	}
+    	 
+    	return text;
+    }
+    
     public List<String> getTooltipText() {
     	List<String> tooltipText = BattleClassesGuiHelper.createHoveringText();
+    	//Title
     	BattleClassesGuiHelper.addTitle(tooltipText, this.getTranslatedName());
-    	
+    	//Info (property) lines. (Casting, range, cd...)
+    	for(String infoString : this.getPropertyLines()) {
+    		BattleClassesGuiHelper.addParagraph(tooltipText, infoString);
+    	}
     	return tooltipText;
     }
 }

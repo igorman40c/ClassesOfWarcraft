@@ -320,4 +320,18 @@ public class BattleClassesGuiHelper extends Gui {
 		}
 		return limitedHoveringText;
 	}
+	
+	public static String formatDoubleToNice(double d) {
+		if(d == (long) d)
+	        return String.format("%d",(long)d);
+	    else
+	        return String.format("%s",d);
+	}
+	
+	public static String formatFloatToNice(float f) {
+		if(f == (int) f)
+	        return String.format("%d",(long)f);
+	    else
+	        return String.format("%s",f);
+	}
 }

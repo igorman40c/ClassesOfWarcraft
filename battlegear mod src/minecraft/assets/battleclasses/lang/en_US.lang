@@ -103,6 +103,12 @@ abilityschool.spell_frost.name=frost
 abilityschool.spell_holy.name=holy
 abilityschool.spell_shadow.name=shadow
 
+bcability.info.casttype.casted=Casted in %1$s sec
+bcability.info.casttype.channeled=Channeled over %1$s sec
+bcability.info.casttype.instant=Instant cast
+bcability.info.range=%1$s blocks range
+bcability.info.cooldown=%1$s sec cooldown
+
 talent.universal.abilityactivecontainer.name=Teaches new ability
 ability.mage.iceblock.name=Ice Block
 ability.mage.iceblock.description=You become encased in a block of ice, protecting you from all physical attacks and spells for 10 sec, but during that time you cannot attack, move or cast spells.

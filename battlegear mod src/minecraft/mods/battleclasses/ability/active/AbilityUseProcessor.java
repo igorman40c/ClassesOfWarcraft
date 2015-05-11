@@ -18,13 +18,13 @@ class AbilityUseProcessor {
 			BattleClassesAbstractAbilityActive ability) {
 		AbilityUseProcessor useProcessor;
 		switch(castingType) {
-		case CastType_CASTED:
+		case CASTED:
 			useProcessor = new AbilityUseProcessorCasted(ability);
 			break;
-		case CastType_CHANNELED:
+		case CHANNELED:
 			useProcessor = new AbilityUseProcessorChanneled(ability);
 			break;
-		case CastType_INSTANT:
+		case INSTANT:
 			useProcessor = new AbilityUseProcessorInstant(ability);
 			break;
 		default:

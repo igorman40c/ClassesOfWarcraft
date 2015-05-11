@@ -1,9 +1,15 @@
 package mods.battleclasses.enums;
 
+import net.minecraft.util.StatCollector;
+
 public enum EnumBattleClassesAbilityCastingType {
-	CastType_CASTED,
-	CastType_CHANNELED,
-	CastType_INSTANT,
+	CASTED,
+	CHANNELED,
+	INSTANT,
 	
-	CastType_UNKNOWN
+	UNKNOWN;
+	
+	public String getTranslatedAbilityInfo() {
+		return StatCollector.translateToLocal("bcability.info.casttype." + this.toString().toLowerCase());
+	}
 }

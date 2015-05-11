@@ -133,7 +133,7 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 		public ScorchTestAbility() {
 			super(ABILITY_ID_SCORCH);
 			this.setUnlocalizedName("mage.scorch");
-			this.setCastingType(EnumBattleClassesAbilityCastingType.CastType_CASTED);
+			this.setCastingType(EnumBattleClassesAbilityCastingType.CASTED);
 			this.castTime = 0.5F;
 			this.school = EnumBattleClassesAbilitySchool.SPELL_FIRE;
 			//this.cooldownClock.setDefaultDuration(5F);

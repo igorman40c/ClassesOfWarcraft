@@ -20,7 +20,7 @@ public class BattleClassesAbilityTestChanneled extends BattleClassesAbstractAbil
 	
 	public void initStuff() {
 		this.castTime = 3;
-		this.setCastingType(EnumBattleClassesAbilityCastingType.CastType_CHANNELED);
+		this.setCastingType(EnumBattleClassesAbilityCastingType.CHANNELED);
 		this.channelTickCount = 3;
 		this.school = EnumBattleClassesAbilitySchool.SPELL_ARCANE;
 		this.getCooldownClock().setDefaultDuration(6.0F);

@@ -28,7 +28,7 @@ public class BattleClassesAbilityTestCasted extends BattleClassesAbstractAbility
 	}
 	
 	public void initStuff() {
-		this.setCastingType(EnumBattleClassesAbilityCastingType.CastType_CASTED);
+		this.setCastingType(EnumBattleClassesAbilityCastingType.CASTED);
 		this.castTime = 3;
 		this.getCooldownClock().setDefaultDuration(6.0F);
 		
