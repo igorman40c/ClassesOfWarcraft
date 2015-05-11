@@ -263,7 +263,13 @@ public class BattleClassesGuiHelper extends Gui {
 		return hoveringText;
 	}
 	
-	public static List<String> getLimitedWidthHoveringText(List<String> hoveringText, int numberOfMaximalCharactersInLine) {
+	public static final int HOVERINGTEXT_DEFAULT_WIDTH = 30;
+	
+	public static List<String> formatHoveringTextWidth(List<String> hoveringText) {
+		return formatHoveringTextWidth(hoveringText, HOVERINGTEXT_DEFAULT_WIDTH);
+	}
+	
+	public static List<String> formatHoveringTextWidth(List<String> hoveringText, int numberOfMaximalCharactersInLine) {
 		List<String> limitedHoveringText = createHoveringText();
 		for(String textLine : hoveringText) {
 			int formatStringCharacters = 2;

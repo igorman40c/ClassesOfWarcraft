@@ -138,7 +138,7 @@ public abstract class BattleClassesGuiTabBarButton extends BattleClassesGuiButto
         }
     }    
     
-	public List<String> getHoveringTextStringList() {
+	public List<String> getTooltipText() {
 		ArrayList<String> stringList = new ArrayList<String>();
     	stringList.add(StatCollector.translateToLocal(this.getUnlocizedName()));
     	return stringList;

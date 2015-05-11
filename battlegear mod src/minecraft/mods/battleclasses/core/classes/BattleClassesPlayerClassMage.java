@@ -14,6 +14,7 @@ import mods.battleclasses.ability.effect.BattleClassesAbstractAbilityEffectInsta
 import mods.battleclasses.ability.effect.EffectFactory;
 import mods.battleclasses.ability.passive.BattleClassesPassiveAbilityAttributeModifier;
 import mods.battleclasses.ability.talent.BattleClassesTalentAbilityActiveContainer;
+import mods.battleclasses.ability.talent.BattleClassesTalentEffectContainer;
 import mods.battleclasses.ability.talent.BattleClassesTalentTest;
 import mods.battleclasses.core.BattleClassesPlayerClass;
 import mods.battleclasses.core.BattleClassesPlayerHooks;
@@ -25,6 +26,7 @@ import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
 
 public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 	
+	/*
 	static BattleClassesPlayerClassMage INSTANCE = new BattleClassesPlayerClassMage();
 	static{
 		INSTANCE.registerAllAbilities();
@@ -32,6 +34,7 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 	BattleClassesPlayerClassMage() {
 		super(null, EnumBattleClassesPlayerClass.MAGE);
 	}
+	*/
 	
 	public BattleClassesPlayerClassMage(BattleClassesPlayerHooks parPlayerHooks) {
 		super(parPlayerHooks, EnumBattleClassesPlayerClass.MAGE);
@@ -43,7 +46,7 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
         abilities.put(101, new BattleClassesAbilityTestCasted(101).setUnlocalizedName("mage.blink"));
 		abilities.put(110, new BattleClassesAbilityTestCasted(110).setUnlocalizedName("mage.fireball"));
 		abilities.put(ABILITY_ID_SCORCH, new ScorchTestAbility());
-		abilities.put(121, new BattleClassesAbilityTestCasted(120).setUnlocalizedName("mage.frostbolt"));
+		abilities.put(ABILITY_ID_FROSTBOLT, new FrostBolt());
 		abilities.put(122, new BattleClassesAbilityTestCasted(121).setUnlocalizedName("mage.frostnova"));
 		abilities.put(BattleClassesAbilityShieldBlock.SHIELD_BLOCK_ABILITY_ID, new BattleClassesAbilityShieldBlock());
 		//abilities.put(ABILITY_ID_FROSTNOVA, new FrostNovaTestAbility());
@@ -108,7 +111,7 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 	}
 	
 	//--------------------------------------------------------------------------------------------------------
-	//										CLASS SPECIFIC ABILITIES
+	//										ACTIVE CLASS ABILITIES
 	//--------------------------------------------------------------------------------------------------------
 	public static final int ABILITY_ID_ARCANE_MISSILES = 100;
 	class ArcaneMissilesTestAbility extends BattleClassesAbilityTestChanneled {		
@@ -148,11 +151,16 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 		}
 	}
 	
-	public static final int ABILITY_ID_ICEBLOCK = 122;
-	class IceBlockTestAbility extends BattleClassesAbilityTestCasted {
-		public IceBlockTestAbility() {
-			super(ABILITY_ID_ICEBLOCK);
-			this.setUnlocalizedName("mage.iceblock");
+	public static final int ABILITY_ID_FROSTBOLT= 120;
+	class FrostBolt extends BattleClassesAbilityTestCasted {
+		public FrostBolt() {
+			super(ABILITY_ID_FROSTBOLT);
+			this.setUnlocalizedName("mage.frostbolt");
+			this.castTime = 1F;
+			this.school = EnumBattleClassesAbilitySchool.SPELL_FROST;
+			this.range = 20F;
+			BattleClassesAbstractAbilityEffectInstantValue effect = EffectFactory.createInstantAbilityEffect(15, 0, EnumBattleClassesAbilitySchool.SPELL_FROST);
+			this.addEffect(effect);
 		}
 	}
 	
@@ -161,6 +169,29 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 		public FrostNovaTestAbility() {
 			super(ABILITY_ID_FROSTNOVA);
 		}
+	}
+	
+	public static final int ABILITY_ID_ICEBLOCK = 122;
+	class IceBlockTestAbility extends BattleClassesAbilityTestCasted {
+		public IceBlockTestAbility() {
+			super(ABILITY_ID_ICEBLOCK);
+			this.setUnlocalizedName("mage.iceblock");
+		}
+	}
+	
+	
+	
+	//--------------------------------------------------------------------------------------------------------
+	//										PASSIVE CLASS ABILITIES
+	//--------------------------------------------------------------------------------------------------------
+	public static final int TALENT_FROST_1 = 1120;
+	class FrostTalentWintersChill extends BattleClassesTalentEffectContainer {
+
+		protected FrostTalentWintersChill() {
+			super(TALENT_FROST_1, 0, ABILITY_ID_FROSTBOLT);
+			// TODO Auto-generated constructor stub
+		}
+		
 	}
 	
 }

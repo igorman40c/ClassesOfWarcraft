@@ -3,6 +3,7 @@ package mods.battleclasses.ability.active;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -27,6 +28,7 @@ import mods.battleclasses.BattleClassesUtils.LogType;
 import mods.battleclasses.ability.effect.BattleClassesAbstractAbilityEffect;
 import mods.battleclasses.attributes.BattleClassesAttributes;
 import mods.battleclasses.client.BattleClassesClientTargeting;
+import mods.battleclasses.client.ITooltipProvider;
 import mods.battleclasses.core.BattleClassesPlayerHooks;
 import mods.battleclasses.core.ICooldownOwner;
 import mods.battleclasses.enums.EnumBattleClassesAbilityCastingType;
@@ -44,7 +46,7 @@ import mods.battleclasses.packet.BattleClassesPacketProcessAbilityWithTarget;
 import mods.battlegear2.Battlegear;
 import mods.battlegear2.api.core.InventoryPlayerBattle;
 
-public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAbstractAbilityCooldownHolder {
+public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAbstractAbilityCooldownHolder implements ITooltipProvider {
 
 	public BattleClassesAbstractAbilityActive(int parAbilityID) {
 		super(parAbilityID);
@@ -512,5 +514,16 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
     
     public void animateWithParticlesCarrierTravel(Entity abilityCarrierEntity, int travelTick) {
     	
+    }
+    
+    //----------------------------------------------------------------------------------
+    //							Section - Tooltip implementation
+    //----------------------------------------------------------------------------------
+    
+    public List<String> getTooltipText() {
+    	List<String> tooltipText = BattleClassesGuiHelper.createHoveringText();
+    	BattleClassesGuiHelper.addTitle(tooltipText, this.getTranslatedName());
+    	
+    	return tooltipText;
     }
 }

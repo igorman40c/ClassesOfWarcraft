@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.lwjgl.opengl.GL11;
 
+import mods.battleclasses.client.ITooltipProvider;
 import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
 import mods.battleclasses.gui.tab.ITooltipDisplayGui;
 import net.minecraft.client.Minecraft;
@@ -19,7 +20,7 @@ import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.ResourceLocation;
 
-public class BattleClassesGuiButton extends GuiButton {
+public class BattleClassesGuiButton extends GuiButton implements ITooltipProvider {
 	
 	public ResourceLocation resource;
 	
@@ -100,7 +101,7 @@ public class BattleClassesGuiButton extends GuiButton {
 		return false;
 	}
 	
-	public List<String> getHoveringTextStringList() {
+	public List<String> getTooltipText() {
 		ArrayList<String> stringList = new ArrayList<String>();
     	stringList.add(this.hoveringTextString);
     	return stringList;
@@ -158,10 +159,10 @@ public class BattleClassesGuiButton extends GuiButton {
         FontRenderer fontrenderer = mc.fontRenderer;
         if( this.field_146123_n && this.showHoveringText) {
         	if(mc.currentScreen instanceof ITooltipDisplayGui) {
-        		((ITooltipDisplayGui)mc.currentScreen).displayTooltip(this.getHoveringTextStringList(), currentMousePosX, currentMousePosY);
+        		((ITooltipDisplayGui)mc.currentScreen).displayTooltip(this.getTooltipText(), currentMousePosX, currentMousePosY);
         	}
         	else {
-        		this.drawHoveringText(getHoveringTextStringList(), currentMousePosX, currentMousePosY, fontrenderer);
+        		this.drawHoveringText(getTooltipText(), currentMousePosX, currentMousePosY, fontrenderer);
         	}
         }
     }

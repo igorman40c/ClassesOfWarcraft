@@ -101,11 +101,11 @@ public class BattleClassesGuiAttributeDisplayNode extends BattleClassesGuiButton
     }
 
     @Override
-    public List<String> getHoveringTextStringList() {
+    public List<String> getTooltipText() {
     	List<String> hoveringText = BattleClassesGuiHelper.createHoveringText();
     	BattleClassesGuiHelper.addTitle(hoveringText, StatCollector.translateToLocal(this.displayedAttributeType.getUnlocalizedName()));
     	BattleClassesGuiHelper.addParagraph(hoveringText, StatCollector.translateToLocal(this.displayedAttributeType.getUnlocalizedDescription()));
-    	hoveringText = BattleClassesGuiHelper.getLimitedWidthHoveringText(hoveringText, 30);
+    	hoveringText = BattleClassesGuiHelper.formatHoveringTextWidth(hoveringText, 30);
     	return hoveringText;
     }
     
