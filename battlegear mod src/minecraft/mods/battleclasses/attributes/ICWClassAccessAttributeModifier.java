@@ -4,6 +4,6 @@ import java.util.EnumSet;
 
 import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
 
-public interface ICWAttributeModifierOwnerClassFocused extends ICWAttributeModifierOwner {
+public interface ICWClassAccessAttributeModifier extends ICWAttributeModifierOwner {
 	public EnumSet<EnumBattleClassesPlayerClass> getClassAccessSet();
 }

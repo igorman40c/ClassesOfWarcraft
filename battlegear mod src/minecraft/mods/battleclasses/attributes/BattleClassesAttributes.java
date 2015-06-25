@@ -233,7 +233,7 @@ public class BattleClassesAttributes {
 	}
 	
 	//Helper
-	public String getDisplayStringByType(EnumBattleClassesAttributeType attributeType) {
+	public String getTranslatedBonusStringByType(EnumBattleClassesAttributeType attributeType) {
 		float value = this.getValueByType(attributeType);
 		String valueString = "+" + fmt(value);
 		return valueString + " " + StatCollector.translateToLocal(attributeType.getUnlocalizedName());

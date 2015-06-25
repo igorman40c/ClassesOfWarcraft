@@ -10,7 +10,7 @@ import mods.battleclasses.ability.passive.BattleClassesAbstractAbilityPassive;
 import mods.battleclasses.attributes.BattleClassesAttributes;
 import mods.battleclasses.attributes.ICWAttributeModifier;
 import mods.battleclasses.attributes.ICWAttributeModifierOwner;
-import mods.battleclasses.attributes.ICWAttributeModifierOwnerClassFocused;
+import mods.battleclasses.attributes.ICWClassAccessAttributeModifier;
 import mods.battleclasses.enums.EnumBattleClassesAmplifierApplyType;
 import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -127,10 +127,10 @@ public class BattleClassesPlayerAttributes {
 	}
 	
 	private void addItemToAttributeModifierList(Item item, List<ICWAttributeModifier> attributeModifierList) {
-		if(item instanceof ICWAttributeModifierOwnerClassFocused) {
+		if(item instanceof ICWClassAccessAttributeModifier) {
 			EnumBattleClassesPlayerClass playerClassEnum = this.parentPlayerHooks.playerClass.getPlayerClass();
-			ICWAttributeModifierOwnerClassFocused classFocusedAttributeOwner = (ICWAttributeModifierOwnerClassFocused)item;
-			if(((ICWAttributeModifierOwnerClassFocused)item).getClassAccessSet().contains(playerClassEnum)) {
+			ICWClassAccessAttributeModifier classFocusedAttributeOwner = (ICWClassAccessAttributeModifier)item;
+			if(((ICWClassAccessAttributeModifier)item).getClassAccessSet().contains(playerClassEnum)) {
 				attributeModifierList.addAll(classFocusedAttributeOwner.getAttributeModifiers());
 			}
 		}

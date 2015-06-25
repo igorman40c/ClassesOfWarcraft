@@ -2,6 +2,7 @@ package mods.battleclasses.client;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 
@@ -330,9 +331,28 @@ public class BattleClassesClientEvents {
                 }
             }
             */
-        	BattleClassesAttributes attributes = ((IAttributeProviderItem)event.itemStack.getItem()).getAttributes();
+        	Minecraft mc = Minecraft.getMinecraft();
+        	//Adding attribute bonuses
+        	IAttributeProviderItem attributeProviderItem = (IAttributeProviderItem)event.itemStack.getItem();
+        	BattleClassesAttributes attributes = (attributeProviderItem).getAttributes();
         	for(EnumBattleClassesAttributeType activeAttributeType : attributes.getActiveTypes()) {
-        		event.toolTip.add(EnumChatFormatting.BLUE + attributes.getDisplayStringByType(activeAttributeType));
+        		event.toolTip.add(EnumChatFormatting.BLUE + attributes.getTranslatedBonusStringByType(activeAttributeType));
+        	}
+        	//Adding class access set-string
+        	EnumSet<EnumBattleClassesPlayerClass> classAccessSet = attributeProviderItem.getClassAccessSet();
+        	if(!(classAccessSet.contains(EnumBattleClassesPlayerClass.NONE)) && classAccessSet.size() > 0) {
+        		//Create class list string
+        		String classAccessString = StatCollector.translateToLocal("bcclasses") + ":";
+        		int i = 0;
+        		for(EnumBattleClassesPlayerClass accessingClass : classAccessSet) {
+        			classAccessString += ((i>0) ? ", " : " ") + accessingClass.getTranslatedName();
+        			++i;
+        		}
+        		//Create color of the line depeding on the player class
+        		EnumChatFormatting classAccessSetDisplayColor = (attributeProviderItem.getClassAccessSet().contains(BattleClassesUtils.getPlayerClassEnum(mc.thePlayer))) 
+            			? EnumChatFormatting.GREEN : EnumChatFormatting.RED;
+        		//Adding line
+        		event.toolTip.add(classAccessSetDisplayColor + classAccessString);
         	}
         	
         }

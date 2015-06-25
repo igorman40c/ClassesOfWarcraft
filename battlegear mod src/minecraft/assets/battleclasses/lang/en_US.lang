@@ -8,6 +8,16 @@ item.battleclasses:armors/testing.chest.name=Chest of testing
 item.battleclasses:armors/testing.legs.name=Legs of testing
 item.battleclasses:armors/testing.boots.name=Boots of testing
 
+bcnone=No class
+bcclasses=Classes
+bcmage=Mage
+bcpriest=Priest
+bcwarlock=Warlock
+bcrogue=Rogue
+bchunter=Hunter
+bcpaladin=Paladin
+bcwarrior=Warrior
+
 bctab.inventory.name=Inventory
 bctab.equipment.name=Battle Equipment
 bctab.spellbook.name=Spellbook

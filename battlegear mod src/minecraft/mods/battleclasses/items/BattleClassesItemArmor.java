@@ -21,7 +21,7 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 
-public class BattleClassesItemArmor extends ItemArmor implements ICWAttributeModifierOwner {
+public class BattleClassesItemArmor extends ItemArmor implements IAttributeProviderItem {
 
 	/** The EnumArmorMaterial used for this ItemArmor */
     private final ItemArmor.ArmorMaterial material;
@@ -37,10 +37,10 @@ public class BattleClassesItemArmor extends ItemArmor implements ICWAttributeMod
 		this.setCreativeTab(BattleClassesItems.TabArmors);
 		classAccessSet = EnumSet.of(
 				EnumBattleClassesPlayerClass.MAGE,
-				EnumBattleClassesPlayerClass.PRIEST,
-				EnumBattleClassesPlayerClass.WARLOCK,
-				EnumBattleClassesPlayerClass.ROGUE,
-				EnumBattleClassesPlayerClass.HUNTER,
+				//EnumBattleClassesPlayerClass.PRIEST,
+				//numBattleClassesPlayerClass.WARLOCK,
+				//EnumBattleClassesPlayerClass.ROGUE,
+				//EnumBattleClassesPlayerClass.HUNTER,
 				EnumBattleClassesPlayerClass.PALADIN,
 				EnumBattleClassesPlayerClass.WARRIOR);
 		storedAttributes = FactoryAttributes.createForArmor(itemLevel, EnumSet.of(EnumBattleClassesAttributeType.HEALTH, EnumBattleClassesAttributeType.STRENGTH, EnumBattleClassesAttributeType.SPELLPOWER_FIRE));
@@ -76,9 +76,11 @@ public class BattleClassesItemArmor extends ItemArmor implements ICWAttributeMod
         return multimap;
     }
     
-    public EnumSet<EnumBattleClassesPlayerClass> getClassAccessSet() {
-    	return this.classAccessSet;
-    }
+    
+    
+    //----------------------------------------------------------------------------------
+  	//						 SECTION - IAttributeProviderItem
+  	//----------------------------------------------------------------------------------
     
 	List<ICWAttributeModifier> attributeModifiers;
 
@@ -96,6 +98,16 @@ public class BattleClassesItemArmor extends ItemArmor implements ICWAttributeMod
 		this.attributeModifiers = new ArrayList<ICWAttributeModifier>();
 		attributeModifiers.add(attributeModifier);
 	}
+
+	@Override
+	public BattleClassesAttributes getAttributes() {
+		return this.storedAttributes;
+	}
+	
+	@Override
+	public EnumSet<EnumBattleClassesPlayerClass> getClassAccessSet() {
+    	return this.classAccessSet;
+    }
 
 
 }
