@@ -5,128 +5,187 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public enum EnumBattleClassesAbilitySchool {
-	PHYSICAL_MELEE_RAGE,
-	PHYSICAL_MELEE_ENERGY,
-	PHYSICAL_RANGED,
+	PHYSICAL_MELEE_RAGE {
+		public float getCriticalStrikeChanceBase() {
+			return 0.10F;
+		}
+		
+		public float getCriticalStrikeBonus() {
+			return 1.5F;
+		}
+				
+		@SideOnly(Side.CLIENT)
+		public int getCastBarColoringV() {
+			return 64;
+		}
+	},
+	PHYSICAL_MELEE_ENERGY {
+		public float getCriticalStrikeChanceBase() {
+			return 0.10F;
+		}
+		
+		public float getCriticalStrikeBonus() {
+			return 1.5F;
+		}
+				
+		@SideOnly(Side.CLIENT)
+		public int getCastBarColoringV() {
+			return 80;
+		}
+	},
+	PHYSICAL_RANGED {
+		public float getCriticalStrikeChanceBase() {
+			return 0.10F;
+		}
+		
+		public float getCriticalStrikeBonus() {
+			return 2F;
+		}
+		
+		public boolean hasCastingSound() {
+			return true;
+		}
+		
+		@SideOnly(Side.CLIENT)
+		public int getCastBarColoringV() {
+			return 96;
+		}
+	},
 	
-	SPELL_ARCANE,
-	SPELL_FIRE,
-	SPELL_FROST,
-	SPELL_HOLY,
-	SPELL_SHADOW,
+	SPELL_ARCANE {
+		public float getCriticalStrikeChanceBase() {
+			return 0.10F;
+		}
+		
+		public float getCriticalStrikeBonus() {
+			return 1.5F;
+		}
+		
+		public boolean isMagical() {
+			return true;
+		}
+		
+		public boolean hasCastingSound() {
+			return true;
+		}
+		
+		@SideOnly(Side.CLIENT)
+		public int getCastBarColoringV() {
+			return 144;
+		}
+	},
+	SPELL_FIRE {
+		public float getCriticalStrikeChanceBase() {
+			return 0.10F;
+		}
+		
+		public float getCriticalStrikeBonus() {
+			return 2F;
+		}
+		
+		public boolean isMagical() {
+			return true;
+		}
+		
+		public boolean hasCastingSound() {
+			return true;
+		}
+		
+		@SideOnly(Side.CLIENT)
+		public int getCastBarColoringV() {
+			return 112;
+		}
+	},
+	SPELL_FROST {
+		public float getCriticalStrikeChanceBase() {
+			return 0.10F;
+		}
+		
+		public float getCriticalStrikeBonus() {
+			return 25F;
+		}
+		
+		public boolean isMagical() {
+			return true;
+		}
+		
+		public boolean hasCastingSound() {
+			return true;
+		}
+		
+		@SideOnly(Side.CLIENT)
+		public int getCastBarColoringV() {
+			return 128;
+		}
+	},
+	SPELL_HOLY {
+		public float getCriticalStrikeChanceBase() {
+			return 0.10F;
+		}
+		
+		public float getCriticalStrikeBonus() {
+			return 1.5F;
+		}
+		
+		public boolean isMagical() {
+			return true;
+		}
+		
+		public boolean hasCastingSound() {
+			return true;
+		}
+		
+		@SideOnly(Side.CLIENT)
+		public int getCastBarColoringV() {
+			return 160;
+		}
+	},
+	SPELL_SHADOW {
+		public float getCriticalStrikeChanceBase() {
+			return 0.10F;
+		}
+		
+		public float getCriticalStrikeBonus() {
+			return 1.5F;
+		}
+		
+		public boolean isMagical() {
+			return true;
+		}
+		
+		public boolean hasCastingSound() {
+			return true;
+		}
+		
+		@SideOnly(Side.CLIENT)
+		public int getCastBarColoringV() {
+			return 176;
+		}
+	},
 	
 	UNKNOWN;
 	
 	public float getCriticalStrikeChanceBase() {
-		switch (this) {
-			case PHYSICAL_MELEE_RAGE:
-				return 0.10F;
-			case PHYSICAL_MELEE_ENERGY:
-				return 0.10F;
-			case PHYSICAL_RANGED:
-				return 0.10F;
-			case SPELL_ARCANE:
-				return 0.10F;
-			case SPELL_FIRE:
-				return 0.10F;
-			case SPELL_FROST:
-				return 0.10F;
-			case SPELL_HOLY:
-				return 0.10F;
-			case SPELL_SHADOW:
-				return 0.10F;
-			default:
-				break;
-		}
-		return 0;
+		return 0.10F;
 	}
 	
 	public float getCriticalStrikeBonus() {
-		switch (this) {
-			case PHYSICAL_MELEE_RAGE:
-				return 1.5F;
-			case PHYSICAL_MELEE_ENERGY:
-				return 1.5F;
-			case PHYSICAL_RANGED:
-				return 2F;
-			case SPELL_ARCANE:
-				return 1.5F;
-			case SPELL_FIRE:
-				return 2F;
-			case SPELL_FROST:
-				return 2F;
-			case SPELL_HOLY:
-				return 1.5F;
-			case SPELL_SHADOW:
-				return 1.5F;
-			default:
-				break;
-		}
-		return 0;
+		return 1.5F;
 	}
 	
+	public boolean isMagical() {
+    	return false;
+    }
+	
 	public boolean hasCastingSound() {
-		switch (this) {
-			case UNKNOWN:
-				return false;
-			case PHYSICAL_MELEE_RAGE:
-				return false;
-			case PHYSICAL_MELEE_ENERGY:
-				return false;
-			default:
-				return true;
-		}
+		return false;
 	}
 	
     @SideOnly(Side.CLIENT)
 	public int getCastBarColoringV() {
-		switch (this) {
-			case PHYSICAL_MELEE_RAGE:
-				return 64;
-			case PHYSICAL_MELEE_ENERGY:
-				return 80;
-			case PHYSICAL_RANGED:
-				return 96;
-			case SPELL_ARCANE:
-				return 144;
-			case SPELL_FIRE:
-				return 112;
-			case SPELL_FROST:
-				return 128;
-			case SPELL_HOLY:
-				return 160;
-			case SPELL_SHADOW:
-				return 176;
-			default:
-				return 48;
-		}
+    	return 48;
     }
-    
-    public boolean isMagical() {
-    	boolean magical = false;
-    	switch(this) {
-		case SPELL_ARCANE:
-			magical = true;
-			break;
-		case SPELL_FIRE:
-			magical = true;
-			break;
-		case SPELL_FROST:
-			magical = true;
-			break;
-		case SPELL_HOLY:
-			magical = true;
-			break;
-		case SPELL_SHADOW:
-			magical = true;
-			break;
-		default:
-			magical = false;
-			break;
-    	}
-    	return magical;
-    }
-    
+        
     public String getTranslatedDisplayedName() {
     	String unlocaizedName = new String("abilityschool." + this.toString() + ".name");
     	String displayedName = StatCollector.translateToLocal(unlocaizedName);

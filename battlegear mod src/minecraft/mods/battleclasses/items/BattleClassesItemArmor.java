@@ -37,10 +37,10 @@ public class BattleClassesItemArmor extends ItemArmor implements IAttributeProvi
 		this.setCreativeTab(BattleClassesItems.TabArmors);
 		classAccessSet = EnumSet.of(
 				EnumBattleClassesPlayerClass.MAGE,
-				//EnumBattleClassesPlayerClass.PRIEST,
-				//numBattleClassesPlayerClass.WARLOCK,
-				//EnumBattleClassesPlayerClass.ROGUE,
-				//EnumBattleClassesPlayerClass.HUNTER,
+				EnumBattleClassesPlayerClass.PRIEST,
+				EnumBattleClassesPlayerClass.WARLOCK,
+				EnumBattleClassesPlayerClass.ROGUE,
+				EnumBattleClassesPlayerClass.HUNTER,
 				EnumBattleClassesPlayerClass.PALADIN,
 				EnumBattleClassesPlayerClass.WARRIOR);
 		storedAttributes = FactoryAttributes.createForArmor(itemLevel, EnumSet.of(EnumBattleClassesAttributeType.HEALTH, EnumBattleClassesAttributeType.STRENGTH, EnumBattleClassesAttributeType.SPELLPOWER_FIRE));

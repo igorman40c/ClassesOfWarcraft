@@ -354,7 +354,10 @@ public class BattleClassesClientEvents {
         		//Adding line
         		event.toolTip.add(classAccessSetDisplayColor + classAccessString);
         	}
-        	
+        	//Limiting width
+        	List<String> limitedWidthTooltoipText = BattleClassesGuiHelper.INSTANCE.formatHoveringTextWidth(event.toolTip, BattleClassesGuiHelper.HOVERINGTEXT_DEFAULT_WIDTH+5);
+        	event.toolTip.clear();
+        	event.toolTip.addAll(limitedWidthTooltoipText);
         }
     }
 	

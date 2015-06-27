@@ -543,6 +543,14 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
     	return text;
     }
     
+    public List<String> getEffectLines() {
+    	List<String> text = new ArrayList<String>();
+    	for(BattleClassesAbstractAbilityEffect effect : this.effects) {
+    		
+    	}
+    	return text;
+    }
+    
     public List<String> getTooltipText() {
     	List<String> tooltipText = BattleClassesGuiHelper.createHoveringText();
     	//Title
