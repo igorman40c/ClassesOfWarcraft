@@ -162,7 +162,6 @@ public enum EnumBattleClassesAbilitySchool {
 			return 176;
 		}
 	},
-	
 	UNKNOWN;
 	
 	public float getCriticalStrikeChanceBase() {
@@ -187,7 +186,7 @@ public enum EnumBattleClassesAbilitySchool {
     }
         
     public String getTranslatedDisplayedName() {
-    	String unlocaizedName = new String("abilityschool." + this.toString() + ".name");
+    	String unlocaizedName = new String("abilityschool." + this.toString().toLowerCase() + ".name");
     	String displayedName = StatCollector.translateToLocal(unlocaizedName);
     	return displayedName;
     }

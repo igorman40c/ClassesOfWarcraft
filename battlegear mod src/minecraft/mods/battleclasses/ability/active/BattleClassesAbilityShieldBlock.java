@@ -6,7 +6,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
-import mods.battleclasses.enums.EnumBattleClassesAbilityCastingType;
 import mods.battleclasses.enums.EnumBattleClassesAbilityDirectTargetRequirement;
 import mods.battleclasses.enums.EnumBattleClassesAbilityIntent;
 import mods.battleclasses.enums.EnumBattleClassesAbilitySchool;

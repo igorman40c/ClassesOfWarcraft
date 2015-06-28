@@ -1,7 +1,8 @@
-package mods.battleclasses.ability.effect;
+package mods.battleclasses.ability.effect.modifier;
 
 import net.minecraft.util.StatCollector;
 import mods.battleclasses.ability.criteria.IAbilityCriteria;
+import mods.battleclasses.ability.effect.BattleClassesAbstractAbilityEffect;
 import mods.battleclasses.client.IDescriptionProvider;
 import mods.battleclasses.core.IStackableModifier;
 
@@ -74,6 +75,6 @@ public abstract class BattleClassesAbstractEffectModifier implements ICWEffectMo
 			return stackingDescription;
 		}
 		
-		return null;
+		return "error generating stacking_description in BattleClassesAbstractEffectModifier";
 	}
 }

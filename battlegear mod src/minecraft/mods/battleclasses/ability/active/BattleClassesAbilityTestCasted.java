@@ -8,7 +8,6 @@ import net.minecraft.potion.PotionEffect;
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
 import mods.battleclasses.core.BattleClassesPlayerHooks;
-import mods.battleclasses.enums.EnumBattleClassesAbilityCastingType;
 import mods.battleclasses.enums.EnumBattleClassesAbilityDirectTargetRequirement;
 import mods.battleclasses.enums.EnumBattleClassesAbilityIntent;
 import mods.battleclasses.enums.EnumBattleClassesAbilitySchool;

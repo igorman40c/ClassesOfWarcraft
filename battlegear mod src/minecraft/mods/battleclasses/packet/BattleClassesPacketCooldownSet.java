@@ -69,7 +69,7 @@ public class BattleClassesPacketCooldownSet extends AbstractMBPacket {
             			cooldownClock.cancelCooldown();
             		}
             		else {
-            			cooldownClock.setCooldown(coolDownDuration, coolDownForced, coolDownType);
+            			cooldownClock.startCooldown(coolDownDuration, coolDownForced, coolDownType);
             		}
             	}
             }

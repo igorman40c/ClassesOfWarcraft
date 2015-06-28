@@ -1,7 +1,8 @@
-package mods.battleclasses.ability.effect;
+package mods.battleclasses.ability.effect.modifier;
 
 import net.minecraft.util.StatCollector;
 import mods.battleclasses.ability.criteria.IAbilityCriteria;
+import mods.battleclasses.ability.effect.BattleClassesAbstractAbilityEffect;
 
 public class BattleClassesEffectCritModifier extends BattleClassesAbstractEffectModifier {
 	

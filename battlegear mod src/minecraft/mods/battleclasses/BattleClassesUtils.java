@@ -30,6 +30,7 @@ import net.minecraft.entity.IEntityOwnable;
 import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -246,6 +247,19 @@ public static Logger battleClassesLogger = LogManager.getLogger("Battle Classes"
 	
 	public static Collection<PotionEffect> getActivePotionEffectsFromEntity(EntityLivingBase entity) {
 		return entity.getActivePotionEffects();
+	}
+	
+	public static boolean playerHasConsumableItems(EntityPlayer entityPlayer, Item item, int count) {
+		int itemsFound = 0;
+		for (int j = 0; j < entityPlayer.inventory.mainInventory.length; ++j) {
+            if (entityPlayer.inventory.mainInventory[j] != null && entityPlayer.inventory.mainInventory[j].getItem() == item) {
+            	itemsFound += entityPlayer.inventory.mainInventory[j].stackSize;
+            	if(itemsFound >= count) {
+            		return true;
+            	}
+            }
+        }
+		return false;
 	}
 	
 }

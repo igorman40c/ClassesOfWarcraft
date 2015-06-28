@@ -1,4 +1,4 @@
-package mods.battleclasses.ability.effect;
+package mods.battleclasses.ability.effect.modifier;
 
 import java.util.List;
 

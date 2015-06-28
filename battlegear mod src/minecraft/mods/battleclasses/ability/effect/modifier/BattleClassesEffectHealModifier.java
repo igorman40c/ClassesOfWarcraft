@@ -1,6 +1,7 @@
-package mods.battleclasses.ability.effect;
+package mods.battleclasses.ability.effect.modifier;
 
 import mods.battleclasses.ability.criteria.IAbilityCriteria;
+import mods.battleclasses.ability.effect.BattleClassesAbstractAbilityEffect;
 import mods.battleclasses.enums.EnumBattleClassesAbilityIntent;
 
 public class BattleClassesEffectHealModifier extends BattleClassesAbstractEffectValueModifier {

@@ -15,6 +15,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
@@ -32,7 +33,7 @@ import mods.battleclasses.client.BattleClassesClientTargeting;
 import mods.battleclasses.client.ITooltipProvider;
 import mods.battleclasses.core.BattleClassesPlayerHooks;
 import mods.battleclasses.core.ICooldownOwner;
-import mods.battleclasses.enums.EnumBattleClassesAbilityCastingType;
+import mods.battleclasses.core.IStackableModifier;
 import mods.battleclasses.enums.EnumBattleClassesAbilityDirectTargetRequirement;
 import mods.battleclasses.enums.EnumBattleClassesAbilityIntent;
 import mods.battleclasses.enums.EnumBattleClassesAbilitySchool;
@@ -62,12 +63,18 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 	protected EnumBattleClassesAbilitySchool school = EnumBattleClassesAbilitySchool.UNKNOWN;
 	protected EnumBattleClassesAbilityDirectTargetRequirement targetRequirementType = EnumBattleClassesAbilityDirectTargetRequirement.NEEDLESS;
 	protected EnumBattleClassesAbilityIntent intent = EnumBattleClassesAbilityIntent.DUAL;
+	protected boolean selfCasted = false;
 	
 	//Use process parameters
-	private AbilityUseProcessor useProcessor;
+	//private AbilityUseProcessor useProcessor;
 	private EnumBattleClassesAbilityCastingType castingType;
 	protected int channelTickCount = 1;
 	public float castTime = 0;
+	
+	//Ammo handling
+	protected boolean requiresAmmoItem = false;
+	protected Item requiredAmmoItem = null;
+	protected int requiredAmmoItemCount = 1;
 	
 	//Supporting modifiers
 	public float range = 40;
@@ -89,7 +96,7 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 	
 	protected void setCastingType(EnumBattleClassesAbilityCastingType castingType) {
 		this.castingType = castingType;
-		this.useProcessor = AbilityUseProcessor.INSTANCE.createUseProcessor(castingType, this);
+		//this.useProcessor = AbilityUseProcessor.INSTANCE.createUseProcessor(castingType, this);
 	}
 	
 	//----------------------------------------------------------------------------------
@@ -131,7 +138,7 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 			return false;
 		}
 		
-		boolean hasRequiredAmmo = true;
+		boolean hasRequiredAmmo = this.hasRequiredItems();
 		if(!hasRequiredAmmo) {
 			BattleClassesGuiHUDOverlay.displayWarning(BattleClassesGuiHUDOverlay.HUD_W_WEAPON_AMMO_REQUIRED);
 		}
@@ -147,7 +154,7 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 			this.cancelCasting(entityPlayer);
 			return;
 		}
-		this.useProcessor.onUseStart(itemStack, world, entityPlayer);
+		this.castingType.onUseStart(this, itemStack, world, entityPlayer);
 	}
 		
 	//----------------------------------------
@@ -157,7 +164,7 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 	 * Called while player keeps Mouse-Right button pressed down. Hook method to be overriden.
 	 */
 	public final void tickUse(ItemStack itemStack, EntityPlayer entityPlayer, int tickCount) {
-		this.useProcessor.onUseTick(itemStack, entityPlayer, tickCount);
+		this.castingType.onUseTick(this, itemStack, entityPlayer, tickCount);
 	}
 	
 	//----------------------------------------
@@ -168,14 +175,14 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 	 */
 	public final void releaseUse(ItemStack itemStack, EntityPlayer entityPlayer, int tickCount) {
 		sendCastingSoundPacket(false);
-		this.useProcessor.onUseRelease(itemStack, entityPlayer, tickCount);
+		this.castingType.onUseRelease(this, itemStack, entityPlayer, tickCount);
 	}
 		
 	//----------------------------------------
 	//SUB-SECTION - Finish Use
 	//----------------------------------------
 	
-	protected void requestUseFinishAndTarget(EntityPlayer entityPlayer, ItemStack itemStack, int tickCount) {
+	protected void requestUseFinishAndTargetSearch(EntityPlayer entityPlayer, ItemStack itemStack, int tickCount) {
 		Side side = FMLCommonHandler.instance().getEffectiveSide();
 		//Checking CLIENT SIDE
 		if(side == Side.CLIENT && this.requiresRayTracingForTarget()) {			
@@ -207,12 +214,18 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 	}
 	
 	public boolean finishUseWithTarget(EntityLivingBase targetEntity, int tickCount) {
-		boolean releaseSucceeded = this.releaseEffects(targetEntity, tickCount);
-		if(releaseSucceeded) {
-			this.useProcessor.onUseFinished(targetEntity, tickCount);
+		boolean hasRequiredAmmo = this.hasRequiredItems();
+		if(hasRequiredAmmo) {
+			boolean releaseSucceeded = this.releaseEffects(targetEntity, tickCount);
+			if(releaseSucceeded) {
+				this.castingType.onUseFinished(this, targetEntity, tickCount);
+			}
+			return releaseSucceeded;
 		}
-		
-		return releaseSucceeded;
+		else {
+			BattleClassesGuiHUDOverlay.displayWarning(BattleClassesGuiHUDOverlay.HUD_W_WEAPON_AMMO_REQUIRED);
+		}
+		return hasRequiredAmmo;
 	}
 		
 	//----------------------------------------------------------------------------------
@@ -238,6 +251,8 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 		return (int) (this.getCastTime() * 20);
 	}
 	
+	
+	
 	//----------------------------------------------------------------------------------
 	//							SECTION - Targeting
 	//----------------------------------------------------------------------------------
@@ -256,6 +271,10 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 		EntityLivingBase target = BattleClassesClientTargeting.getClientMouseOverTarget(this.range);
 		EntityLivingBase finalTarget = this.getFinalTargetFromRaytracedEntity(target);
 		return finalTarget;
+	}
+	
+	public boolean isSelfCasted() {
+		return this.selfCasted;
 	}
 	
 	/**
@@ -339,6 +358,13 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 		return null;
 	}
 	
+	public boolean hasRequiredItems() {
+		if(this.requiresAmmoItem) {
+			return BattleClassesUtils.playerHasConsumableItems(getOwnerPlayer(), requiredAmmoItem, requiredAmmoItemCount);
+		}
+		return true;
+	}
+	
 	//----------------------------------------------------------------------------------
 	//								SECTION - Effects 
 	//----------------------------------------------------------------------------------
@@ -364,6 +390,25 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 		BattleClassesAttributes attributesForParentAbility = this.getPlayerAttributes().getTotalAttributesForAbility(this);
 		float critChance = attributesForParentAbility.crit;
 		BattleClassesAbstractAbilityEffect.performListOfEffects(this.effects, attributesForParentAbility, critChance, partialMultiplier, this.getOwnerPlayer(), targetEntity);
+	}
+	
+	public void consumeResources() {
+		this.startCooldown();
+		this.consumeAmmo();
+	}
+	
+	public void startCooldown() {
+		this.cooldownClock.startDefaultCooldown();
+	}
+	
+	public void consumeAmmo() {
+		this.getOwnerPlayer().inventory.consumeInventoryItem(this.requiredAmmoItem);
+	}
+	
+	public void setAmmoRequirement(Item item, int count) {
+		this.requiresAmmoItem = true;
+		this.requiredAmmoItem = item;
+		this.requiredAmmoItemCount = count;
 	}
 	
 	/**
@@ -545,20 +590,55 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
     
     public List<String> getEffectLines() {
     	List<String> text = new ArrayList<String>();
+    	String effectLine = this.getTranslatedDescription();
     	for(BattleClassesAbstractAbilityEffect effect : this.effects) {
-    		
+    		effectLine += ", " + effect.getTranslatedDescription();
+    		//text.add(effect.getTranslatedDescription());
+    		if(effect instanceof IStackableModifier) {
+    			effectLine += ", " +  ((IStackableModifier)effect).getStackingDescription();
+    		}
+    	}
+    	
+    	effectLine = BattleClassesGuiHelper.capitalizeFirstLetter(effectLine) + ".";
+    	text.add(effectLine);
+    	return text;
+    }
+    
+    public int getRequiredAmmoTotalCount() {
+    	return this.requiredAmmoItemCount * this.getChannelTicks(); 
+    }
+    
+    public List<String> getAmmoLines() {
+    	List<String> text = new ArrayList<String>();
+    	if(this.requiredAmmoItem != null) {
+    		String ammoRequirementLine = StatCollector.translateToLocal("bcability.ammorequirement") + ": " 
+    									+ StatCollector.translateToLocal(this.requiredAmmoItem.getUnlocalizedName() + ".name") 
+    									+ " (x" + getRequiredAmmoTotalCount() + ")";
+    		text.add(ammoRequirementLine);
     	}
     	return text;
     }
     
     public List<String> getTooltipText() {
-    	List<String> tooltipText = BattleClassesGuiHelper.createHoveringText();
+    	List<String> hoveringText = BattleClassesGuiHelper.createHoveringText();
     	//Title
-    	BattleClassesGuiHelper.addTitle(tooltipText, this.getTranslatedName());
+    	BattleClassesGuiHelper.addTitle(hoveringText, this.getTranslatedName());
     	//Info (property) lines. (Casting, range, cd...)
     	for(String infoString : this.getPropertyLines()) {
-    		BattleClassesGuiHelper.addParagraph(tooltipText, infoString);
+    		BattleClassesGuiHelper.addParagraph(hoveringText, infoString);
     	}
-    	return tooltipText;
+    	//Effect lines
+    	for(String effectString : this.getEffectLines()) {
+    		BattleClassesGuiHelper.addParagraphWithColor(hoveringText, effectString, EnumChatFormatting.GOLD);
+    	}
+    	//Ammo lines
+    	if(this.requiresAmmoItem) {
+    		for(String ammoString : this.getAmmoLines()) {
+        		BattleClassesGuiHelper.addParagraphWithColor(hoveringText, ammoString, BattleClassesGuiHelper.getHoveringTextAvailabilityColor(this.hasRequiredItems()));
+        	}
+    	}
+    	//Limiting hovering text witdth
+    	hoveringText = BattleClassesGuiHelper.formatHoveringTextWidth(hoveringText);
+    	return hoveringText;
     }
 }

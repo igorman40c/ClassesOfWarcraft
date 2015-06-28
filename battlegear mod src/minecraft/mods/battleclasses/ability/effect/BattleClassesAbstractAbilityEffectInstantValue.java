@@ -3,6 +3,7 @@ package mods.battleclasses.ability.effect;
 import java.util.List;
 import java.util.Random;
 
+import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
 import mods.battleclasses.attributes.BattleClassesAttributes;
 import mods.battleclasses.enums.EnumBattleClassesAbilitySchool;
@@ -102,7 +103,16 @@ public abstract class BattleClassesAbstractAbilityEffectInstantValue extends Bat
 	}
 	
 	public float getEstimatedOutput() {
-		//TODO
+		if(this.parentAbility != null && this.parentAbility.getOwnerPlayer() != null) {
+			EntityPlayer owner = this.parentAbility.getOwnerPlayer();
+			BattleClassesAttributes attributesForParentAbility = BattleClassesUtils.getPlayerAttributes(owner).getTotalAttributesForAbility(this.parentAbility);
+			float outputValue = this.getValueByAttributeBasedPower(attributesForParentAbility);
+			this.applyOutputEffectModifiersFromEntity(owner);
+			outputValue *= this.modifierMultiplier;
+			this.resetModifiers();
+			
+			return outputValue;
+		}
 		return 0;
 	}
 	

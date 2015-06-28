@@ -3,8 +3,8 @@ package mods.battleclasses.ability.passive;
 import java.util.ArrayList;
 import java.util.List;
 
-import mods.battleclasses.ability.effect.ICWEffectModifier;
-import mods.battleclasses.ability.effect.ICWEffectModifierOwner;
+import mods.battleclasses.ability.effect.modifier.ICWEffectModifier;
+import mods.battleclasses.ability.effect.modifier.ICWEffectModifierOwner;
 
 public class BattleClassesPassiveAbilityEffectModifier extends BattleClassesAbstractAbilityPassive implements ICWEffectModifierOwner  {
 

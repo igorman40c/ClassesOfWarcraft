@@ -244,7 +244,7 @@ public class BattleClassesSpellBook {
 		float globalCooldownDuration = (GLOBAL_COOLDOWN_DURATION < castingDuration) ? GLOBAL_COOLDOWN_DURATION : castingDuration; 
 		for(BattleClassesAbstractAbilityActive ability : getActiveAbilitiesInArray()) {
 			if(!ability.ignoresGlobalCooldown && !ability.getCooldownClock().isOnCooldown()) {
-				ability.getCooldownClock().setCooldown(globalCooldownDuration, false, EnumBattleClassesCooldownType.CooldownType_GLOBAL);
+				ability.getCooldownClock().startCooldown(globalCooldownDuration, false, EnumBattleClassesCooldownType.CooldownType_GLOBAL);
 			}
 		}
 	}

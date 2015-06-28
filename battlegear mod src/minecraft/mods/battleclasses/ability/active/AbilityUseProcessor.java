@@ -2,7 +2,6 @@ package mods.battleclasses.ability.active;
 
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
-import mods.battleclasses.enums.EnumBattleClassesAbilityCastingType;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -85,13 +84,13 @@ class AbilityUseProcessor {
 
 		@Override
 		public void onUseRelease(ItemStack itemStack, EntityPlayer entityPlayer, int tickCount) {
-			this.ability.requestUseFinishAndTarget(entityPlayer, itemStack, tickCount);
+			this.ability.requestUseFinishAndTargetSearch(entityPlayer, itemStack, tickCount);
 			
 		}
 
 		@Override
 		public void onUseFinished(EntityLivingBase targetEntity, int tickCount) {
-			this.ability.getCooldownClock().setCooldownDefault();
+			this.ability.getCooldownClock().startDefaultCooldown();
 		}
 
 	}
@@ -126,7 +125,7 @@ class AbilityUseProcessor {
 		public void onUseRelease(ItemStack itemStack, EntityPlayer entityPlayer, int tickCount) {
 			int remainingCastTick = tickCount - 72000;
 			if(remainingCastTick <= 0) {
-				this.ability.requestUseFinishAndTarget(entityPlayer, itemStack, tickCount);
+				this.ability.requestUseFinishAndTargetSearch(entityPlayer, itemStack, tickCount);
 			}
 			else {
 				this.ability.cancelCasting(entityPlayer);
@@ -135,7 +134,7 @@ class AbilityUseProcessor {
 
 		@Override
 		public void onUseFinished(EntityLivingBase targetEntity, int tickCount) {
-			this.ability.getCooldownClock().setCooldownDefault();
+			this.ability.getCooldownClock().startDefaultCooldown();
 		}
 
 	}
@@ -171,10 +170,10 @@ class AbilityUseProcessor {
 					//Set To Cooldown on first channel tick
 					if(currentCastTickInverted == ticksPerProceed) {
 						BattleClassesUtils.Log("First Channel tick! Set CD here! CD should set: " + this.ability.getCooldownClock().getDefaultDuration(), LogType.ABILITY);
-						this.ability.getCooldownClock().setCooldownDefault();
+						this.ability.getCooldownClock().startDefaultCooldown();
 					}
 					BattleClassesUtils.Log("Channeling... Current tick: " + currentCastTickInverted + " Cast time in tick " + this.ability.getCastTimeInTicks(), LogType.ABILITY);
-					this.ability.requestUseFinishAndTarget(entityPlayer, itemStack, tickCount);
+					this.ability.requestUseFinishAndTargetSearch(entityPlayer, itemStack, tickCount);
 				}
 			}
 		}

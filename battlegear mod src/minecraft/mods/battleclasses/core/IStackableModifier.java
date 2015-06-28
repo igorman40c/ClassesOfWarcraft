@@ -38,4 +38,6 @@ public interface IStackableModifier {
 	 * @param stackCount
 	 */
 	public void resetStackCount();
+	
+	public String getStackingDescription();
 }

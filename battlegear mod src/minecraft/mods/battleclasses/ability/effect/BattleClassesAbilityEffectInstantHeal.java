@@ -44,11 +44,11 @@ public class BattleClassesAbilityEffectInstantHeal extends BattleClassesAbstract
 		else {
 			float estimatedMin = estimatedValue * (1F - this.valueTotalRandomness);
 			float estimatedMax = estimatedValue * (1F + this.valueTotalRandomness);
-			valueString = new String(String.format("%.1f", estimatedMin) + " - " + String.format("%.1f", estimatedMax));
+			valueString = new String(String.format("%.1f", estimatedMin) + "-" + String.format("%.1f", estimatedMax));
 		}
 		
 		String effectOutputString = valueString;
-		description.replace("%1$s", effectOutputString);
+		description = description.replace("%1$s", effectOutputString);
 		return description;
 	}
 

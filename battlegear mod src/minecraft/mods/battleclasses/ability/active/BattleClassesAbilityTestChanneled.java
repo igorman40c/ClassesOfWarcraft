@@ -4,7 +4,6 @@ import java.util.Random;
 
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
-import mods.battleclasses.enums.EnumBattleClassesAbilityCastingType;
 import mods.battleclasses.enums.EnumBattleClassesAbilityDirectTargetRequirement;
 import mods.battleclasses.enums.EnumBattleClassesAbilityIntent;
 import mods.battleclasses.enums.EnumBattleClassesAbilitySchool;

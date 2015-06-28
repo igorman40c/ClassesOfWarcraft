@@ -5,6 +5,8 @@ import java.util.List;
 
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
+import mods.battleclasses.ability.effect.modifier.ICWEffectModifier;
+import mods.battleclasses.ability.effect.modifier.ICWEffectModifierOwner;
 import mods.battleclasses.ability.passive.BattleClassesAbstractAbilityPassive;
 import mods.battleclasses.attributes.BattleClassesAttributes;
 import mods.battleclasses.client.IDescriptionProvider;

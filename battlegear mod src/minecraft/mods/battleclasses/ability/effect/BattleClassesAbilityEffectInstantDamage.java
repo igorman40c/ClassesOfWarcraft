@@ -51,11 +51,11 @@ public class BattleClassesAbilityEffectInstantDamage extends BattleClassesAbstra
 		else {
 			float estimatedMin = estimatedValue * (1F - this.valueTotalRandomness);
 			float estimatedMax = estimatedValue * (1F + this.valueTotalRandomness);
-			valueString = new String(String.format("%.1f", estimatedMin) + " - " + String.format("%.1f", estimatedMax));
+			valueString = new String(String.format("%.1f", estimatedMin) + "-" + String.format("%.1f", estimatedMax));
 		}
 		String abilitySchoolString = this.getAbilitySchool().getTranslatedDisplayedName();
 		String effectOutputString = new String(valueString + " " + abilitySchoolString);
-		description.replace("%1$s", effectOutputString);
+		description = description.replace("%1$s", effectOutputString);
 		return description;
 	}
 

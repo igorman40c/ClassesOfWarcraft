@@ -1,4 +1,6 @@
-package mods.battleclasses.ability.effect;
+package mods.battleclasses.ability.effect.modifier;
+
+import mods.battleclasses.ability.effect.BattleClassesAbstractAbilityEffect;
 
 
 /**
@@ -14,7 +16,7 @@ public interface ICWEffectModifier {
 	public boolean isInputModifier();
 
 	/**
-	 * If the effect can be modified depending on its parent ability, applies the modifications.
+	 * If the effect can be modified depending on its parent ability, returns the modifications ratoi.
 	 * @param effect
 	 * @return
 	 */

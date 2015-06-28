@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import net.minecraft.item.Item;
 import mods.battleclasses.ability.BattleClassesAbstractAbility;
 import mods.battleclasses.ability.active.BattleClassesAbilityActiveDirect;
 import mods.battleclasses.ability.active.BattleClassesAbilityShieldBlock;
 import mods.battleclasses.ability.active.BattleClassesAbilityTestCasted;
 import mods.battleclasses.ability.active.BattleClassesAbilityTestChanneled;
 import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
+import mods.battleclasses.ability.active.EnumBattleClassesAbilityCastingType;
 import mods.battleclasses.ability.effect.BattleClassesAbstractAbilityEffectInstantValue;
 import mods.battleclasses.ability.effect.EffectFactory;
 import mods.battleclasses.ability.passive.BattleClassesPassiveAbilityAttributeModifier;
@@ -19,7 +21,6 @@ import mods.battleclasses.ability.talent.BattleClassesTalentTest;
 import mods.battleclasses.core.BattleClassesPlayerClass;
 import mods.battleclasses.core.BattleClassesPlayerHooks;
 import mods.battleclasses.core.BattleClassesTalentTree;
-import mods.battleclasses.enums.EnumBattleClassesAbilityCastingType;
 import mods.battleclasses.enums.EnumBattleClassesAbilitySchool;
 import mods.battleclasses.enums.EnumBattleClassesAttributeType;
 import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
@@ -117,6 +118,7 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 	class ArcaneMissilesTestAbility extends BattleClassesAbilityTestChanneled {		
 		public ArcaneMissilesTestAbility() {
 			super(ABILITY_ID_ARCANE_MISSILES);
+			this.setAmmoRequirement(Item.getItemById(263), 1);
 		}
 	}
 	
@@ -140,6 +142,7 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 			this.range = 10F;
 			BattleClassesAbstractAbilityEffectInstantValue effect = EffectFactory.createInstantAbilityEffect(10, 0, EnumBattleClassesAbilitySchool.SPELL_FIRE); 
 			this.addEffect(effect);
+			this.setAmmoRequirement(Item.getItemById(264), 1);
 		}
 	}
 	

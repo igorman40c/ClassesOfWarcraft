@@ -124,15 +124,15 @@ public class CooldownClock {
 	/**
 	 * Sets the clock to cooldown using the default values
 	 */
-	public void setCooldownDefault() {
-		this.setCooldown(this.getDefaultDuration(), false, this.getDefaultType());
+	public void startDefaultCooldown() {
+		this.startCooldown(this.getDefaultDuration(), false, this.getDefaultType());
 	}
 	
 	/**
 	 * Sets the clock to forced cooldown using the default values
 	 */
-	public void setCooldownDefaultForced() {
-		this.setCooldown(this.getDefaultDuration(), true, this.getDefaultType());
+	public void startDefaultCooldownForced() {
+		this.startCooldown(this.getDefaultDuration(), true, this.getDefaultType());
 	}
 	
 	/**
@@ -141,7 +141,7 @@ public class CooldownClock {
 	 * @param forced - boolean value which decides to override the previously set cooldown (when duration > getCooldownRemaining()) or not!
 	 * @param type - type of the cooldown
 	 */
-	public void setCooldown(float duration, boolean forced, EnumBattleClassesCooldownType type) {
+	public void startCooldown(float duration, boolean forced, EnumBattleClassesCooldownType type) {
 		if(!enabled) {
 			return;
 		}

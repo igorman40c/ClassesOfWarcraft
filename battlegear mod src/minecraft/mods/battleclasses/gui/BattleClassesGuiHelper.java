@@ -247,8 +247,13 @@ public class BattleClassesGuiHelper extends Gui {
 	}
 	
 	public static List<String> addParagraph(List<String> hoveringText, String paragraphText) {
+		addParagraphWithColor(hoveringText, paragraphText, EnumChatFormatting.WHITE);
+		return hoveringText;
+	}
+	
+	public static List<String> addParagraphWithColor(List<String> hoveringText, String paragraphText, EnumChatFormatting formatColor) {
 		//addLine(hoveringText, paragraphText, EnumChatFormatting.GRAY, true);
-		addLine(hoveringText, paragraphText, EnumChatFormatting.WHITE, true);
+		addLine(hoveringText, paragraphText, formatColor, true);
 		return hoveringText;
 	}
 	
@@ -321,6 +326,10 @@ public class BattleClassesGuiHelper extends Gui {
 		return limitedHoveringText;
 	}
 	
+	public static EnumChatFormatting getHoveringTextAvailabilityColor(boolean statement) {
+		return (statement) ? EnumChatFormatting.GREEN : EnumChatFormatting.RED;
+	}
+	
 	public static String formatDoubleToNice(double d) {
 		if(d == (long) d)
 	        return String.format("%d",(long)d);
@@ -333,5 +342,9 @@ public class BattleClassesGuiHelper extends Gui {
 	        return String.format("%d",(long)f);
 	    else
 	        return String.format("%s",f);
+	}
+	
+	public static String capitalizeFirstLetter(String word) {
+		return word.substring(0, 1).toUpperCase() + word.substring(1);
 	}
 }

@@ -8,6 +8,7 @@ public class BattleClassesPotionMovementModifier extends BattleClassesPotionAbil
 
 	protected float speedModifier = 0;
 	protected boolean appliedOnCaster = false;
+	public boolean momvementModifierAdditional = false;
 	
 	BattleClassesPotionMovementModifier(int id, boolean badEffect, int liquidColorCode, float speedModifier, boolean appliedOnCaster) {
 		super(id, badEffect, liquidColorCode);
@@ -24,10 +25,21 @@ public class BattleClassesPotionMovementModifier extends BattleClassesPotionAbil
 				((this.appliedOnCaster) ? "caster" : "target"));
 		String descriptionString = StatCollector.translateToLocal("pcpotion.speedmodifier" + 
 				((this.speedModifier < 0) ? "decrease" : "increase")); 
+		if(this.isMomvementModifierAdditional()) {
+			descriptionString = StatCollector.translateToLocal("bceffect.additionally") + " " + descriptionString;
+		}
 		descriptionString.replace("%1$s", targetString);
 		descriptionString.replace("%2$s", speedModifierPercentage + "%");
 		
 		return null;
+	}
+	
+	public boolean isMomvementModifierAdditional() {
+		return this.momvementModifierAdditional;
+	}
+	
+	public void setMomvementModifierAdditional(boolean par) {
+		this.momvementModifierAdditional = par;
 	}
 
 }

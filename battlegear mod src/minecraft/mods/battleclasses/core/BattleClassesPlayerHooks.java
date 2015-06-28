@@ -66,7 +66,7 @@ public class BattleClassesPlayerHooks implements IMainCooldownMap {
 		}
 		
 		if(previousClass != EnumBattleClassesPlayerClass.NONE) {
-			playerClass.getCooldownClock().setCooldownDefaultForced();
+			playerClass.getCooldownClock().startDefaultCooldownForced();
 		}
 	}
 	

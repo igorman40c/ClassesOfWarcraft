@@ -102,7 +102,7 @@ public class BattleClassesWeaponHitHandler {
 				cooldownDuration = ((IControlledSpeedWeapon)mainHandItemStack.getItem()).getSpeedInSeconds();
 				this.lastUsedMainHandItemStack = mainHandItemStack;
 			}
-			mainHandClock.setCooldown(cooldownDuration, true, EnumBattleClassesCooldownType.CooldownType_ABILITY);
+			mainHandClock.startCooldown(cooldownDuration, true, EnumBattleClassesCooldownType.CooldownType_ABILITY);
 			
 			
 			///
@@ -111,7 +111,7 @@ public class BattleClassesWeaponHitHandler {
 				if(offHandItemStack.getItem() instanceof IControlledSpeedWeapon) {
 					counterCooldownDuration = ((IControlledSpeedWeapon)offHandItemStack.getItem()).getSpeedInSeconds();
 				}
-				offHandClock.setCooldown(counterCooldownDuration*0.45F, true, EnumBattleClassesCooldownType.CooldownType_ABILITY);
+				offHandClock.startCooldown(counterCooldownDuration*0.45F, true, EnumBattleClassesCooldownType.CooldownType_ABILITY);
 			}
 			///
 		}
@@ -126,7 +126,7 @@ public class BattleClassesWeaponHitHandler {
 			if(offHandItemStack.getItem() instanceof IControlledSpeedWeapon) {
 				cooldownDuration = ((IControlledSpeedWeapon)offHandItemStack.getItem()).getSpeedInSeconds();
 			}
-			offHandClock.setCooldown(cooldownDuration, true, EnumBattleClassesCooldownType.CooldownType_ABILITY);
+			offHandClock.startCooldown(cooldownDuration, true, EnumBattleClassesCooldownType.CooldownType_ABILITY);
 			
 			
 			///
@@ -135,7 +135,7 @@ public class BattleClassesWeaponHitHandler {
 				if(mainHandItemStack.getItem() instanceof IControlledSpeedWeapon) {
 					counterCooldownDuration = ((IControlledSpeedWeapon)mainHandItemStack.getItem()).getSpeedInSeconds();
 				}
-				mainHandClock.setCooldown(counterCooldownDuration*0.45F, true, EnumBattleClassesCooldownType.CooldownType_ABILITY);
+				mainHandClock.startCooldown(counterCooldownDuration*0.45F, true, EnumBattleClassesCooldownType.CooldownType_ABILITY);
 			}
 			///
 		}

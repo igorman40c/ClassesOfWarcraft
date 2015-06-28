@@ -106,7 +106,7 @@ public abstract class BattleClassesAbstractAbility {
 	 * Helper method to get the owner of this ability
 	 * @return
 	 */
-	protected EntityPlayer getOwnerPlayer() {
+	public EntityPlayer getOwnerPlayer() {
 		return this.getPlayerHooks().getOwnerPlayer();
 	}
 			

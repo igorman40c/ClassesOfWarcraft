@@ -349,8 +349,7 @@ public class BattleClassesClientEvents {
         			++i;
         		}
         		//Create color of the line depeding on the player class
-        		EnumChatFormatting classAccessSetDisplayColor = (attributeProviderItem.getClassAccessSet().contains(BattleClassesUtils.getPlayerClassEnum(mc.thePlayer))) 
-            			? EnumChatFormatting.GREEN : EnumChatFormatting.RED;
+        		EnumChatFormatting classAccessSetDisplayColor = BattleClassesGuiHelper.getHoveringTextAvailabilityColor(BattleClassesUtils.getPlayerClassEnum(mc.thePlayer).isEligibleForClassAccessSet(classAccessSet));
         		//Adding line
         		event.toolTip.add(classAccessSetDisplayColor + classAccessString);
         	}
