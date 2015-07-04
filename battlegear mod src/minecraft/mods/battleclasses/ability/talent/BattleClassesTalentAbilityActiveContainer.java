@@ -22,12 +22,7 @@ public class BattleClassesTalentAbilityActiveContainer extends BattleClassesAbst
     public ResourceLocation getIconResourceLocation() {
     	return getContainedAbility().getIconResourceLocation();
     }
-	
-	@SideOnly(Side.CLIENT)
-	public String getAbilityIconName() {
-		return getContainedAbility().getAbilityIconName();
-	}
-	
+		
 	@Override
 	public String getTranslatedName() {
 		return super.getTranslatedName() + ": " + this.getContainedAbility().getTranslatedName();

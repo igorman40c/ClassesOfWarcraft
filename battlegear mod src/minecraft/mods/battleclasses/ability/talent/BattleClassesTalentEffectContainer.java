@@ -43,7 +43,7 @@ public class BattleClassesTalentEffectContainer extends BattleClassesAbstractTal
 	
 	public void onStateChanged() {
 		super.onStateChanged();
-		BattleClassesAbstractAbilityActive targetAbility = BattleClassesUtils.getPlayerSpellBook(this.getOwnerPlayer()).getActiveAbilitiyByID(targetAbilityID);
+		BattleClassesAbstractAbilityActive targetAbility = BattleClassesUtils.getPlayerSpellBook(this.getOwnerPlayer()).getActiveAbilityByID(targetAbilityID);
 		if(targetAbility != null && this.containedEffects != null) {
 			for(BattleClassesAbstractAbilityEffect effect : this.containedEffects) {
 				if(this.getCurrentState() == 0) {

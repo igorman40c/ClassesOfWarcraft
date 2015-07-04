@@ -62,7 +62,7 @@ public class BattleClassesPacketProcessAbilityWithTarget extends AbstractMBPacke
             if(entityPlayer!=null) {
             	BattleClassesPlayerHooks playerHooks = BattleClassesUtils.getPlayerHooks(entityPlayer);
             	if (playerHooks != null) {
-            		BattleClassesAbstractAbilityActive activeAbility = playerHooks.playerClass.spellBook.getActiveAbilitiyByID(abilityID);
+            		BattleClassesAbstractAbilityActive activeAbility = playerHooks.playerClass.spellBook.getActiveAbilityByID(abilityID);
             		if(activeAbility != null) {
             			Entity target = BattleClassesUtils.getEntityByID(targetEntityID, entityPlayer.getEntityWorld());
             			if(target instanceof EntityLivingBase) {

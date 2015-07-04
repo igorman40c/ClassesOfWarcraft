@@ -35,6 +35,7 @@ public class BattleClassesSpellBook {
 	
 	public static final float GLOBAL_COOLDOWN_DURATION = 1.0F;
 	
+	public ArrayList<BattleClassesAbstractAbilityActive> actionbarAbilities = new ArrayList<BattleClassesAbstractAbilityActive>();
 	public LinkedHashMap<String, BattleClassesAbstractAbilityActive> activeAbilities = new LinkedHashMap<String, BattleClassesAbstractAbilityActive>();
 	public LinkedHashMap<String, BattleClassesAbstractAbilityPassive> passiveAbilities = new LinkedHashMap<String, BattleClassesAbstractAbilityPassive>();
 	
@@ -232,7 +233,7 @@ public class BattleClassesSpellBook {
 			//Should be sidesafe
 			BattleClassesMod.packetHandler.sendPacketToServerWithSideCheck(p);
 			
-			BattleClassesGuiHUDOverlay.displayChosenAbilityName(this.getChosenAbility().getName());
+			BattleClassesGuiHUDOverlay.displayChosenAbilityName(this.getChosenAbility().getTranslatedName());
 		}
 	}
 	
@@ -263,7 +264,6 @@ public class BattleClassesSpellBook {
 	}
 	
 	
-	public ArrayList<BattleClassesAbstractAbilityActive> actionbarAbilities = new ArrayList<BattleClassesAbstractAbilityActive>();
     /**
      * Helper method to collect abilities should be drawn on the actionbar
      * @return
@@ -323,11 +323,11 @@ public class BattleClassesSpellBook {
 
 	
 	//Helper
-    public BattleClassesAbstractAbilityActive getActiveAbilitiyByID(String id) {
+    public BattleClassesAbstractAbilityActive getActiveAbilityByID(String id) {
     	return this.activeAbilities.get(id);
     }
     
-    public BattleClassesAbstractAbilityPassive getPassiveAbilitiyByID(String id) {
+    public BattleClassesAbstractAbilityPassive getPassiveAbilityByID(String id) {
     	return this.passiveAbilities.get(id);
     }
 	

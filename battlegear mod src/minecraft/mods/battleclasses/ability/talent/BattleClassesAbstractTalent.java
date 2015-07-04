@@ -1,15 +1,21 @@
 package mods.battleclasses.ability.talent;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.util.ResourceLocation;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
 import mods.battleclasses.ability.passive.BattleClassesAbstractAbilityPassive;
+import mods.battleclasses.client.IDescriptionProvider;
+import mods.battleclasses.client.ITooltipProvider;
 import mods.battleclasses.core.BattleClassesPlayerHooks;
 import mods.battleclasses.core.BattleClassesTalentTree;
+import mods.battleclasses.gui.BattleClassesGuiHelper;
 
-public class BattleClassesAbstractTalent extends BattleClassesAbstractAbilityPassive {
+public class BattleClassesAbstractTalent extends BattleClassesAbstractAbilityPassive implements ITooltipProvider{
 
 	public BattleClassesAbstractTalent(int parTalentLevel) {
 		super();
@@ -73,7 +79,7 @@ public class BattleClassesAbstractTalent extends BattleClassesAbstractAbilityPas
 	
     @SideOnly(Side.CLIENT)    
     public ResourceLocation getIconResourceLocation() {
-    	return new ResourceLocation("battleclasses", getTalentIconPath() + getAbilityIconName());
+    	return new ResourceLocation("battleclasses", getTalentIconPath() + getTalentIconName());
     }
 
 	
@@ -122,7 +128,7 @@ public class BattleClassesAbstractTalent extends BattleClassesAbstractAbilityPas
     }
 	
     @SideOnly(Side.CLIENT)
-	public String getAbilityIconName() {
+	public String getTalentIconName() {
 		return "talent_icon_" 
 				+ (this.playerHooks.playerClass.getPlayerClass().toString()).toLowerCase()
 				+ "_"
@@ -130,6 +136,15 @@ public class BattleClassesAbstractTalent extends BattleClassesAbstractAbilityPas
 				+ "_"
 				+ (this.talentTierLevel)
 				+ ".png";
+	}
+
+	@Override
+	public List<String> getTooltipText() {
+		List<String> text = BattleClassesGuiHelper.createHoveringText();
+    	BattleClassesGuiHelper.addTitle(text, this.getTranslatedName());
+    	BattleClassesGuiHelper.addParagraph(text, this.getTranslatedDescription());
+    	text = BattleClassesGuiHelper.formatHoveringTextWidth(text);
+		return text;
 	}
 
 }

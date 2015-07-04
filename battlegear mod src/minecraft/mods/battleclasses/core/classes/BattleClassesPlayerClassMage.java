@@ -111,24 +111,39 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 	//--------------------------------------------------------------------------------------------------------
 	//										ACTIVE CLASS ABILITIES
 	//--------------------------------------------------------------------------------------------------------
-	public static final int ABILITY_ID_ARCANE_MISSILES = 100;
-	class ArcaneMissilesTestAbility extends BattleClassesAbilityTestChanneled {		
+	public static class ArcaneMissilesTestAbility extends BattleClassesAbilityTestChanneled {
+		
+		public static final ArcaneMissilesTestAbility INSTANCE = new ArcaneMissilesTestAbility();
+		static {
+			BattleClassesAbstractAbility.registerAbility(INSTANCE);
+		}
+		
 		public ArcaneMissilesTestAbility() {
 			super();
 			this.setAmmoRequirement(Item.getItemById(263), 1);
 		}
 	}
 	
-	public static final int ABILITY_ID_POLYMORPH = 102;
-	class PolymorphTestAbility extends BattleClassesAbilityTestCasted {
+	public static class PolymorphTestAbility extends BattleClassesAbilityTestCasted {
+		
+		public static final PolymorphTestAbility INSTANCE = new PolymorphTestAbility();
+		static {
+			BattleClassesAbstractAbility.registerAbility(INSTANCE);
+		}
+		
 		public PolymorphTestAbility() {
 			super();
 			this.setUnlocalizedName("mage.polymorph");
 		}
 	}
 	
-	public static final int ABILITY_ID_SCORCH = 111;
-	class ScorchTestAbility extends BattleClassesAbilityActiveDirect {
+	public static class ScorchTestAbility extends BattleClassesAbilityActiveDirect {
+		
+		public static final ScorchTestAbility INSTANCE = new ScorchTestAbility();
+		static {
+			BattleClassesAbstractAbility.registerAbility(INSTANCE);
+		}
+		
 		public ScorchTestAbility() {
 			super();
 			this.setUnlocalizedName("mage.scorch");
@@ -143,16 +158,26 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 		}
 	}
 	
-	public static final int ABILITY_ID_DRAGONSBREATH = 112;
-	class DragonsBreathTestAbility extends BattleClassesAbilityTestCasted {
+	public static class DragonsBreathTestAbility extends BattleClassesAbilityTestCasted {
+		
+		public static final DragonsBreathTestAbility INSTANCE = new DragonsBreathTestAbility();
+		static {
+			BattleClassesAbstractAbility.registerAbility(INSTANCE);
+		}
+		
 		public DragonsBreathTestAbility() {
 			super();
 			this.setUnlocalizedName("mage.dragonsbreath");
 		}
 	}
 	
-	public static final int ABILITY_ID_FROSTBOLT= 120;
-	class FrostBolt extends BattleClassesAbilityTestCasted {
+	public static class FrostBolt extends BattleClassesAbilityTestCasted {
+		
+		public static final FrostBolt INSTANCE = new FrostBolt();
+		static {
+			BattleClassesAbstractAbility.registerAbility(INSTANCE);
+		}
+		
 		public FrostBolt() {
 			super();
 			this.setUnlocalizedName("mage.frostbolt");
@@ -164,15 +189,25 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 		}
 	}
 	
-	public static final int ABILITY_ID_FROSTNOVA = 121;
-	class FrostNovaTestAbility extends BattleClassesAbilityTestCasted {
+	public static class FrostNovaTestAbility extends BattleClassesAbilityTestCasted {
+		
+		public static final FrostNovaTestAbility INSTANCE = new FrostNovaTestAbility();
+		static {
+			BattleClassesAbstractAbility.registerAbility(INSTANCE);
+		}
+		
 		public FrostNovaTestAbility() {
 			super();
 		}
 	}
 	
-	public static final int ABILITY_ID_ICEBLOCK = 122;
-	class IceBlockTestAbility extends BattleClassesAbilityTestCasted {
+	public static class IceBlockTestAbility extends BattleClassesAbilityTestCasted {
+		
+		public static final IceBlockTestAbility INSTANCE = new IceBlockTestAbility();
+		static {
+			BattleClassesAbstractAbility.registerAbility(INSTANCE);
+		}
+		
 		public IceBlockTestAbility() {
 			super();
 			this.setUnlocalizedName("mage.iceblock");
@@ -184,7 +219,6 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 	//--------------------------------------------------------------------------------------------------------
 	//										PASSIVE CLASS ABILITIES
 	//--------------------------------------------------------------------------------------------------------
-	public static final int TALENT_FROST_1 = 1120;
 	class FrostTalentWintersChill extends BattleClassesTalentEffectContainer {
 
 		protected FrostTalentWintersChill() {

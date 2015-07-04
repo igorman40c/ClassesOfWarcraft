@@ -13,13 +13,13 @@ import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
  */
 public class AbilityIDCriteria implements IAbilityCriteria {
 
-	protected Set<Integer> abilityIDs = new HashSet<Integer>();
+	protected Set<String> abilityIDs = new HashSet<String>();
 	
-	public AbilityIDCriteria(int abilityID) {
+	public AbilityIDCriteria(String abilityID) {
 		this.abilityIDs.add(abilityID);
 	}
 	
-	public AbilityIDCriteria(Set<Integer> abilityIDs) {
+	public AbilityIDCriteria(Set<String> abilityIDs) {
 		this.abilityIDs.addAll(abilityIDs);
 	}
 	
@@ -33,13 +33,13 @@ public class AbilityIDCriteria implements IAbilityCriteria {
 		String abilityList = "";
 		boolean allMagical = true;
 		int i = 0;
-		for(int abilityID : this.abilityIDs) {
+		for(String abilityID : this.abilityIDs) {
 			BattleClassesAbstractAbility ability = BattleClassesAbstractAbility.registredAbilities.get(abilityID);
 			if(i > 0) {
 				abilityList += ",";
 			}
 			if(ability != null) {
-				abilityList += " " + ability.getUnlocalizedDisplayName();
+				abilityList += " " + ability.getTranslatedName();
 				if(ability instanceof BattleClassesAbstractAbilityActive) {
 					allMagical = allMagical && ((BattleClassesAbstractAbilityActive)ability).getSchool().isMagical();
 				}

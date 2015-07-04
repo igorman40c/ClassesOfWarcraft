@@ -3,23 +3,30 @@ package mods.battleclasses.ability;
 import java.util.HashMap;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import mods.battleclasses.client.IDescriptionProvider;
 import mods.battleclasses.core.BattleClassesPlayerAttributes;
 import mods.battleclasses.core.BattleClassesPlayerHooks;
+import mods.battleclasses.gui.BattleClassesGuiHelper;
 
-public abstract class BattleClassesAbstractAbility {
+public abstract class BattleClassesAbstractAbility implements IDescriptionProvider  {
 
 	/**
 	 * Stores all the active and passive abilities those can be displayed on the UI. (For example in a tooltip).
 	 * Key : abilityID
 	 * Value : Ability Object 
 	 */
-	public static HashMap<Integer, BattleClassesAbstractAbility> registredAbilities = new HashMap<Integer, BattleClassesAbstractAbility>();
+	public static HashMap<String, BattleClassesAbstractAbility> registredAbilities = new HashMap<String, BattleClassesAbstractAbility>();
 	public static void registerAbility(BattleClassesAbstractAbility ability) {
-		//registredAbilities.put(ability.getAbilityID(), ability);
+		registredAbilities.put(ability.getAbilityID(), ability);
+	}
+	public static BattleClassesAbstractAbility getRegisteredAbilityByID(String id) {
+		return registredAbilities.get(id);
 	}
 		
 	//Mandtory Helper References
@@ -48,23 +55,23 @@ public abstract class BattleClassesAbstractAbility {
 		return this;
 	}
 	
-	public String getUnlocalizedName() {
+	protected String getUnlocalizedName() {
 		return this.unlocalizedName;
 	}
 	
-	public String getUnlocalizedID() {
+	protected String getUnlocalizedID() {
 		return getUnlocalizedPrefix() + this.unlocalizedName;
 	}
 	
-	public String getUnlocalizedDisplayName() {
+	protected String getUnlocalizedDisplayName() {
 		return getUnlocalizedID() + ".name";
 	}
 	
-	public String getUnlocalizedDescription() {
+	protected String getUnlocalizedDescription() {
 		return getUnlocalizedID()  + ".description";
 	}
 	
-	public String getUnlocalizedIconName() {
+	protected String getUnlocalizedIconName() {
 		return getUnlocalizedID()  + ".icon";
 	}
 	
@@ -118,10 +125,27 @@ public abstract class BattleClassesAbstractAbility {
 	public EntityPlayer getOwnerPlayer() {
 		return this.getPlayerHooks().getOwnerPlayer();
 	}
-			
-	@SideOnly(Side.CLIENT)
-	public String getAbilityIconName() {
-		return "unknown";
-	}
 	
+	//----------------------------------------------------------------------------------
+	//							SECTION - Icon
+	//----------------------------------------------------------------------------------
+	
+	protected IIcon abilityIcon;
+	public ResourceLocation abilityIconResourceLocation;
+			
+    @SideOnly(Side.CLIENT)
+    public boolean hasItemIcon() {
+    	return false;
+    }
+    
+    @SideOnly(Side.CLIENT)
+	public ItemStack getIconItemStack() {
+		return null;
+	}
+    
+    @SideOnly(Side.CLIENT)    
+    public ResourceLocation getIconResourceLocation() {
+    	return BattleClassesGuiHelper.getResourceLocationOfTexture("textures/spells/icons/", this.getUnlocalizedIconName() + ".png");
+    }
+				
 }

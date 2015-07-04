@@ -297,7 +297,7 @@ public class BattleClassesGuiHUDOverlay extends BattlegearInGameGUI {
     		ItemStack offhand = ((InventoryPlayerBattle) mc.thePlayer.inventory).getCurrentOffhandWeapon();
             if(offhand!= null && offhand.getItem() instanceof IShield){
             	shouldDisplayBarString = true;
-            	barDisplayString = BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).getChosenAbility().getName();
+            	barDisplayString = BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).getChosenAbility().getTranslatedName();
             	renderBlockBar(x,y);
             }
     	}
@@ -309,7 +309,7 @@ public class BattleClassesGuiHUDOverlay extends BattlegearInGameGUI {
     		float f = 0;
     		BattleClassesAbstractAbilityActive chosenAbility = BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).getChosenAbility();
     		if(chosenAbility != null) {
-    			barDisplayString = BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).getChosenAbility().getName();
+    			barDisplayString = BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).getChosenAbility().getTranslatedName();
     			f = BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).getChosenAbility().getCastPercentage(mc.thePlayer);
     			v = BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).getChosenAbility().getSchool().getCastBarColoringV();
     			

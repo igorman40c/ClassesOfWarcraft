@@ -56,8 +56,6 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 		this.setCastingType(EnumBattleClassesAbilityCastingType.INSTANT);
 	}
 	
-	protected IIcon abilityIcon;
-	public ResourceLocation abilityIconResourceLocation;
 	
 	//Basic ability parameters
 	protected EnumBattleClassesAbilitySchool school = EnumBattleClassesAbilitySchool.UNKNOWN;
@@ -422,6 +420,13 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 	//----------------------------------------------------------------------------------
 	//							SECTION - Getters & helpers
 	//----------------------------------------------------------------------------------
+	
+    @Override
+    public BattleClassesAbstractAbilityActive setUnlocalizedName(String parName) {
+        super.setUnlocalizedName(parName);
+        return this;
+    }
+
 		
 	public int getChannelTicks() {
 		return this.channelTickCount;
@@ -451,16 +456,12 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
     	return this.castTime;
     }
 	
-	@Override
-    public BattleClassesAbstractAbilityActive setUnlocalizedName(String parName) {
-		super.setUnlocalizedName(parName);
-		abilityIconResourceLocation = BattleClassesGuiHelper.getResourceLocationOfTexture("textures/spells/icons/", this.getUnlocalizedIconName() + ".png");
-		return this;
-	}
-	
 	//----------------------------------------------------------------------------------
 	//							SECTION - Client side stuff
 	//----------------------------------------------------------------------------------
+	
+	protected IIcon abilityIcon;
+	public ResourceLocation abilityIconResourceLocation;
 			
     @SideOnly(Side.CLIENT)
     public boolean hasItemIcon() {
@@ -474,14 +475,9 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
     
     @SideOnly(Side.CLIENT)    
     public ResourceLocation getIconResourceLocation() {
-    	return abilityIconResourceLocation;
+    	return BattleClassesGuiHelper.getResourceLocationOfTexture("textures/spells/icons/", this.getUnlocalizedIconName() + ".png");
     }
-    
-    @SideOnly(Side.CLIENT)
-    public String getName() {
-    	return unlocalizedName;
-    }
-    
+        
     @SideOnly(Side.CLIENT)
     public float getCastPercentage(EntityPlayer entityPlayer) {
     	float f = 0;

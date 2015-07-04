@@ -48,7 +48,8 @@ public class BattleClassesAbilityTestCasted extends BattleClassesAbstractAbility
 		return true;
 	}
 	
-	public String getName() {
+	@Override
+	public String getTranslatedName() {
 		return "Testing school:" + school + " intent:" + intent + " target:" + targetRequirementType;
 	}
 }
