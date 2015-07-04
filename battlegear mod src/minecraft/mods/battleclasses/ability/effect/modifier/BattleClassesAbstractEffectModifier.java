@@ -75,6 +75,7 @@ public abstract class BattleClassesAbstractEffectModifier implements ICWEffectMo
 			return stackingDescription;
 		}
 		
-		return "error generating stacking_description in BattleClassesAbstractEffectModifier";
+		//return "error generating stacking_description in BattleClassesAbstractEffectModifier";
+		return null;
 	}
 }

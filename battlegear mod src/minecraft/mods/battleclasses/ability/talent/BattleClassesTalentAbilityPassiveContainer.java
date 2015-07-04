@@ -6,8 +6,8 @@ import mods.battleclasses.ability.passive.BattleClassesAbstractAbilityPassive;
 
 public class BattleClassesTalentAbilityPassiveContainer extends BattleClassesAbstractTalentAbilityContainer {
 
-	public BattleClassesTalentAbilityPassiveContainer(int parAbilityID, int parTalentLevel, BattleClassesAbstractAbilityPassive parAbility) {
-		super(parAbilityID, parTalentLevel, parAbility);
+	public BattleClassesTalentAbilityPassiveContainer(String name, int parTalentLevel, BattleClassesAbstractAbilityPassive parAbility) {
+		super(name, parTalentLevel, parAbility);
 	}
 	
 	public BattleClassesAbstractAbilityPassive getContainedAbility() {

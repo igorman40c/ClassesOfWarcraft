@@ -58,7 +58,7 @@ public class BattleClassesTabSpellbook extends BattleClassesAbstractTab {
     	actionbarAbilityNodes.clear();
     	if(spellbook != null) {
     		for(BattleClassesAbstractAbilityActive actionbarAbility : spellbook.getActionbarAbilities()) {
-    			BattleClassesGuiButtonAbilityNode actionbarAbilityNode = new BattleClassesGuiButtonAbilityNode(actionbarAbility, 8000+actionbarAbility.getAbilityID());
+    			BattleClassesGuiButtonAbilityNode actionbarAbilityNode = new BattleClassesGuiButtonAbilityNode(actionbarAbility, 8000+actionbarAbility.getAbilityHashCode());
         		actionbarAbilityNodes.add(actionbarAbilityNode);
     			this.buttonList.add(actionbarAbilityNode);
         	}

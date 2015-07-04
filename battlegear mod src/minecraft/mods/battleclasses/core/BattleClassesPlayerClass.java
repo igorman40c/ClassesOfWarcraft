@@ -57,13 +57,13 @@ public class BattleClassesPlayerClass implements ICooldownOwner {
 		//this.setWeaponAccessByClass(this.playerClass);
 	}
 	
-	public LinkedHashMap<Integer, BattleClassesAbstractAbilityActive> getClassAbilities() {
-		LinkedHashMap<Integer, BattleClassesAbstractAbilityActive> abilities = new LinkedHashMap<Integer, BattleClassesAbstractAbilityActive>();
+	public List<BattleClassesAbstractAbilityActive> getClassAbilities() {
+		ArrayList<BattleClassesAbstractAbilityActive> abilities = new ArrayList<BattleClassesAbstractAbilityActive>();
 		//No addition on void class
 		return abilities;
 	}
 	
-	public ArrayList<BattleClassesTalentTree> getClassTalents() {
+	public List<BattleClassesTalentTree> getClassTalents() {
 		ArrayList<BattleClassesTalentTree> talentTrees = new ArrayList<BattleClassesTalentTree>();
 		//No addition on void class
 		return talentTrees;
@@ -161,7 +161,7 @@ public class BattleClassesPlayerClass implements ICooldownOwner {
 	// -------------------- ICooldownOwner implementation --------------------
 	
 	public static final float CLASS_SWITCH_COOLDOWN_DURATION = 3.0F;
-	public static final int CLASS_SWITCH_COOLDOWN_HASHCODE = 1399;
+	public static final String CLASS_SWITCH_COOLDOWN_HASHCODE = "class_switch";
 
 	@Override
 	public CooldownClock getCooldownClock() {

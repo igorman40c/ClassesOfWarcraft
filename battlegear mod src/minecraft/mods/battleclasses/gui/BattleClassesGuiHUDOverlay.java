@@ -293,7 +293,7 @@ public class BattleClassesGuiHUDOverlay extends BattlegearInGameGUI {
 		}
 		//DRAWING BLOCKBAR
 		else if(BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).getChosenAbility() != null &&
-    		BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).getChosenAbility().getAbilityID() == BattleClassesAbilityShieldBlock.SHIELD_BLOCK_ABILITY_ID) {
+    		BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).getChosenAbility().getAbilityID().equals(BattleClassesAbilityShieldBlock.INSTANCE.getAbilityID())) {
     		ItemStack offhand = ((InventoryPlayerBattle) mc.thePlayer.inventory).getCurrentOffhandWeapon();
             if(offhand!= null && offhand.getItem() instanceof IShield){
             	shouldDisplayBarString = true;

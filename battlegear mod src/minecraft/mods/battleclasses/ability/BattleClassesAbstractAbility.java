@@ -19,17 +19,21 @@ public abstract class BattleClassesAbstractAbility {
 	 */
 	public static HashMap<Integer, BattleClassesAbstractAbility> registredAbilities = new HashMap<Integer, BattleClassesAbstractAbility>();
 	public static void registerAbility(BattleClassesAbstractAbility ability) {
-		registredAbilities.put(ability.getAbilityID(), ability);
+		//registredAbilities.put(ability.getAbilityID(), ability);
 	}
-	
-	protected int abilityID;
-	
+		
 	//Mandtory Helper References
 	protected BattleClassesPlayerHooks playerHooks;
 	protected BattleClassesPlayerAttributes playerAttributes;
 	
-	public int getAbilityID() {
-		return abilityID;
+	public String getAbilityID() {
+		return this.getUnlocalizedName();
+	}
+	
+	
+	private int abilityHashCode = 0;
+	public int getAbilityHashCode() {
+		return this.abilityHashCode;
 	}
 	
 	public static final String UNLOCALIZED_PREFIX_ABILITY = "ability.";
@@ -42,6 +46,10 @@ public abstract class BattleClassesAbstractAbility {
 	public BattleClassesAbstractAbility setUnlocalizedName(String parName) {
 		this.unlocalizedName = parName;
 		return this;
+	}
+	
+	public String getUnlocalizedName() {
+		return this.unlocalizedName;
 	}
 	
 	public String getUnlocalizedID() {
@@ -68,8 +76,9 @@ public abstract class BattleClassesAbstractAbility {
 		return StatCollector.translateToLocal(this.getUnlocalizedDescription());
 	}
 	
-	public BattleClassesAbstractAbility(int parAbilityID) {
-		this.abilityID = parAbilityID;
+	public BattleClassesAbstractAbility() {
+		//Init
+		this.abilityHashCode = this.getAbilityID().hashCode();
 	}
 	
 	public void setPlayerHooks(BattleClassesPlayerHooks parPlayerHooks) {

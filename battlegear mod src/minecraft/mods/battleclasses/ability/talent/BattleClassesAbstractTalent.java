@@ -11,8 +11,8 @@ import mods.battleclasses.core.BattleClassesTalentTree;
 
 public class BattleClassesAbstractTalent extends BattleClassesAbstractAbilityPassive {
 
-	public BattleClassesAbstractTalent(int parAbilityID, int parTalentLevel) {
-		super(parAbilityID);
+	public BattleClassesAbstractTalent(int parTalentLevel) {
+		super();
 		talentTierLevel = parTalentLevel;
 	}
 	

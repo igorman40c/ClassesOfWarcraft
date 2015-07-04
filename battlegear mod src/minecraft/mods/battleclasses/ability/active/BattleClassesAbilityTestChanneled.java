@@ -12,8 +12,8 @@ import net.minecraft.potion.PotionEffect;
 
 public class BattleClassesAbilityTestChanneled extends BattleClassesAbstractAbilityActive {
 	
-	public BattleClassesAbilityTestChanneled(int id) {
-		super(id);
+	public BattleClassesAbilityTestChanneled() {
+		super();
 		initStuff();
 	}
 	

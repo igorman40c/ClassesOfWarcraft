@@ -161,7 +161,7 @@ public class BattleClassesClientEvents {
 	@SubscribeEvent
 	public void renderShieldBarEvent(ShieldBar event) {
 		Minecraft mc = Minecraft.getMinecraft();
-		if(BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).hasAbilityByID(BattleClassesAbilityShieldBlock.SHIELD_BLOCK_ABILITY_ID)) {
+		if(BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).hasAbilityByID(BattleClassesAbilityShieldBlock.INSTANCE.getAbilityID())) {
 			event.setCanceled(true);
 		}
 	}

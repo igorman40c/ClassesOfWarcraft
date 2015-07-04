@@ -45,8 +45,8 @@ public class BattleClassesWeaponHitHandler {
 	
 	EnumSet<EnumBattleClassesWieldAccess> accessSet;
 	
-	public static final int WEAPONSKILL_COOLDOWN_HASHCODE_MAINHAND =  1398;
-	public static final int WEAPONSKILL_COOLDOWN_HASHCODE_OFFHAND = 1397;
+	public static final String WEAPONSKILL_COOLDOWN_HASHCODE_MAINHAND =  "weaponskill_mainhand";
+	public static final String WEAPONSKILL_COOLDOWN_HASHCODE_OFFHAND = "weaponskill_offhand";
 	public static final float DEFAULT_WEAPON_COOLDOWN_DURATION = 1F;
 	public CooldownClock mainHandClock;
 	public CooldownClock offHandClock;

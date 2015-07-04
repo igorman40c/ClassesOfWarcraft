@@ -5,9 +5,10 @@ import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
 
 public abstract class BattleClassesAbstractTalentAbilityContainer extends BattleClassesAbstractTalent {
 
-	public BattleClassesAbstractTalentAbilityContainer(int parAbilityID, int parTalentLevel, BattleClassesAbstractAbility parAbility) {
-		super(parAbilityID, parTalentLevel);
+	public BattleClassesAbstractTalentAbilityContainer(String name, int parTalentLevel, BattleClassesAbstractAbility parAbility) {
+		super(parTalentLevel);
 		this.containedAbility = parAbility;
+		this.setUnlocalizedName(name);
 	}
 	
 	BattleClassesAbstractAbility containedAbility;
@@ -21,5 +22,5 @@ public abstract class BattleClassesAbstractTalentAbilityContainer extends Battle
 			this.playerHooks.playerClass.spellBook.learnAbility(containedAbility);
 		}
 	}
-
+	
 }

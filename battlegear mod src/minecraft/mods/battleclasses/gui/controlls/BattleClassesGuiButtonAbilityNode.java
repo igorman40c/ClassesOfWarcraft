@@ -18,7 +18,7 @@ public class BattleClassesGuiButtonAbilityNode extends BattleClassesGuiButton
 {
 	public BattleClassesAbstractAbilityActive ability;
 	public BattleClassesGuiButtonAbilityNode(BattleClassesAbstractAbilityActive parAbility) {
-		super(parAbility.getAbilityID(), BattleClassesTabSpellbook.resource);
+		super(parAbility.getAbilityHashCode(), BattleClassesTabSpellbook.resource);
 		this.ability = parAbility;
 		this.showHoveringText = true;
 		this.setSize(16, 16);

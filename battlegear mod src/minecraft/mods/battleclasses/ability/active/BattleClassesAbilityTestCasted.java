@@ -14,18 +14,17 @@ import mods.battleclasses.enums.EnumBattleClassesAbilitySchool;
 
 public class BattleClassesAbilityTestCasted extends BattleClassesAbstractAbilityActive {
 	
-	public static final int TEST_SPELL_ID = 777;
-
 	public BattleClassesAbilityTestCasted() {
-		super(TEST_SPELL_ID);
+		super();
 		initStuff();
 	}
 	
-	public BattleClassesAbilityTestCasted(int id) {
-		super(id);
+	public BattleClassesAbilityTestCasted(String abilityName) {
+		super();
 		initStuff();
+		this.setUnlocalizedName(abilityName);
 	}
-	
+		
 	public void initStuff() {
 		this.setCastingType(EnumBattleClassesAbilityCastingType.CASTED);
 		this.castTime = 3;

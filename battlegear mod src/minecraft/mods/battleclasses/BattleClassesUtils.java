@@ -217,7 +217,7 @@ public static Logger battleClassesLogger = LogManager.getLogger("Battle Classes"
 		if(spellBook != null) {
 			BattleClassesAbstractAbility chosenAbility = spellBook.getChosenAbility();
 			if(chosenAbility != null) {
-				if(chosenAbility.getAbilityID() == BattleClassesAbilityShieldBlock.SHIELD_BLOCK_ABILITY_ID) {
+				if(chosenAbility.getAbilityID().equals(BattleClassesAbilityShieldBlock.INSTANCE.getAbilityID())) {
 					ItemStack offhand = ((InventoryPlayerBattle)(entityPlayer).inventory).getCurrentOffhandWeapon();
 					if(offhand != null) {
 						return offhand.getItem() instanceof IShield;

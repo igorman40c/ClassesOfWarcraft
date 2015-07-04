@@ -14,9 +14,10 @@ import mods.battlegear2.Battlegear;
 
 public abstract class BattleClassesAbstractAbilityCooldownHolder extends BattleClassesAbstractAbility implements ICooldownOwner {
 	
-	public BattleClassesAbstractAbilityCooldownHolder(int parAbilityID) {
-		super(parAbilityID);
-		this.cooldownClock = new CooldownClock(parAbilityID, defaultCooldownDuration, EnumBattleClassesCooldownType.CooldownType_ABILITY);
+	public BattleClassesAbstractAbilityCooldownHolder() {
+		super();
+		this.cooldownClock = new CooldownClock(this.getAbilityID(), defaultCooldownDuration, EnumBattleClassesCooldownType.CooldownType_ABILITY);
+		this.cooldownClock.setParentAbility(this);
 	}
 	
 	@Override

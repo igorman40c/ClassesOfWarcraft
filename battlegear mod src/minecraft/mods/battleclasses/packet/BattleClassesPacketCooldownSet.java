@@ -15,14 +15,15 @@ import cpw.mods.fml.common.network.ByteBufUtils;
 public class BattleClassesPacketCooldownSet extends AbstractMBPacket {
 
 	public static final String packetName = "BC|CooldownSet";
+	public static final String defaultCDHashCode = "nullcdcode";
 	
 	EnumBattleClassesCooldownType coolDownType = EnumBattleClassesCooldownType.CooldownType_GLOBAL;
 	private boolean coolDownForced = false;
 	private float coolDownDuration = 0;
-	private int coolDownHashCode = -1;
+	private String coolDownHashCode = defaultCDHashCode;
 	private String username;
 	
-	public BattleClassesPacketCooldownSet(EntityPlayer user, int parCoolDownHashCode,
+	public BattleClassesPacketCooldownSet(EntityPlayer user, String parCoolDownHashCode,
 			float parCoolDownDuration, boolean forced, EnumBattleClassesCooldownType type) {
 		this.username = user.getCommandSenderName();
     	this.coolDownHashCode = parCoolDownHashCode;
@@ -44,7 +45,7 @@ public class BattleClassesPacketCooldownSet extends AbstractMBPacket {
 	public void write(ByteBuf out) {
 		out.writeBoolean(coolDownForced);
 		out.writeFloat(coolDownDuration);
-		out.writeInt(coolDownHashCode);
+		ByteBufUtils.writeUTF8String(out, coolDownHashCode);
 		out.writeInt(coolDownType.ordinal());
         ByteBufUtils.writeUTF8String(out, username);
 	}
@@ -54,10 +55,10 @@ public class BattleClassesPacketCooldownSet extends AbstractMBPacket {
 		BattleClassesUtils.Log("Trying to process " + this.getClass() , LogType.PACKET);
 		coolDownForced = in.readBoolean();
 		coolDownDuration = in.readFloat();
-		coolDownHashCode = in.readInt();
+		coolDownHashCode = ByteBufUtils.readUTF8String(in);
 		coolDownType = EnumBattleClassesCooldownType.values()[in.readInt()];
         username = ByteBufUtils.readUTF8String(in);
-        if (username != null && coolDownHashCode != -1) {
+        if (username != null && coolDownHashCode!= null && !coolDownHashCode.equals(defaultCDHashCode)) {
             EntityPlayer entityPlayer = player.worldObj.getPlayerEntityByName(username);
             if(entityPlayer!=null){
 

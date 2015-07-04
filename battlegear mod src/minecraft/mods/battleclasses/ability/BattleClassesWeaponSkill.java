@@ -13,13 +13,13 @@ import mods.battlegear2.Battlegear;
 
 public class BattleClassesWeaponSkill extends BattleClassesAbstractAbilityCooldownHolder {
 
-	public BattleClassesWeaponSkill(int parAbilityID) {
-		super(parAbilityID);
+	public BattleClassesWeaponSkill() {
+		super();
 		// TODO Auto-generated constructor stub
 	}
 	
-	public BattleClassesWeaponSkill(int parAbilityID, BattleClassesPlayerHooks parPlayerHooks, boolean isMainHand) {
-		super(parAbilityID);
+	public BattleClassesWeaponSkill(BattleClassesPlayerHooks parPlayerHooks, boolean isMainHand) {
+		super();
 		this.setPlayerHooks(parPlayerHooks);
 		this.mainHand = isMainHand;
 	}

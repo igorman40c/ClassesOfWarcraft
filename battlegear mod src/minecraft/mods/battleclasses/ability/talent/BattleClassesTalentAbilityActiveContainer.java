@@ -9,9 +9,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class BattleClassesTalentAbilityActiveContainer extends BattleClassesAbstractTalentAbilityContainer {
 
-	public BattleClassesTalentAbilityActiveContainer(int parAbilityID, int parTalentLevel, BattleClassesAbstractAbilityActive parAbility) {
-		super(parAbilityID, parTalentLevel, parAbility);
-		this.setUnlocalizedName("universal.abilityactivecontainer");
+	public BattleClassesTalentAbilityActiveContainer(String name, int parTalentLevel, BattleClassesAbstractAbilityActive parAbility) {
+		super(name, parTalentLevel, parAbility);
+		//this.setUnlocalizedName("universal.abilityactivecontainer");
 	}
 	
 	public BattleClassesAbstractAbilityActive getContainedAbility() {

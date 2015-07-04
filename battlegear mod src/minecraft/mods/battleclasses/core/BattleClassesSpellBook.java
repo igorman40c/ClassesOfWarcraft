@@ -3,6 +3,7 @@ package mods.battleclasses.core;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 import cpw.mods.fml.common.network.internal.FMLProxyPacket;
 import cpw.mods.fml.relauncher.Side;
@@ -34,18 +35,18 @@ public class BattleClassesSpellBook {
 	
 	public static final float GLOBAL_COOLDOWN_DURATION = 1.0F;
 	
-	public LinkedHashMap<Integer, BattleClassesAbstractAbilityActive> activeAbilities = new LinkedHashMap<Integer, BattleClassesAbstractAbilityActive>();
-	public LinkedHashMap<Integer, BattleClassesAbstractAbilityPassive> passiveAbilities = new LinkedHashMap<Integer, BattleClassesAbstractAbilityPassive>();
+	public LinkedHashMap<String, BattleClassesAbstractAbilityActive> activeAbilities = new LinkedHashMap<String, BattleClassesAbstractAbilityActive>();
+	public LinkedHashMap<String, BattleClassesAbstractAbilityPassive> passiveAbilities = new LinkedHashMap<String, BattleClassesAbstractAbilityPassive>();
 	
 	protected int chosenAbilityIndex = 0;
-	protected int chosenAbilityID = 0;
+	protected String chosenAbilityID = "";
 	
 	public BattleClassesSpellBook(BattleClassesPlayerHooks parPlayerHooks) {
 		this.playerHooks = parPlayerHooks;
-		protoSpell = new BattleClassesAbilityTestCasted(100);
+		//protoSpell = new BattleClassesAbilityTestCasted(100);
 	}
 	
-	public BattleClassesAbstractAbilityActive protoSpell;
+	//public BattleClassesAbstractAbilityActive protoSpell;
 	
 	public BattleClassesAbstractAbilityActive getChosenAbility() {
 		//TODO
@@ -165,7 +166,7 @@ public class BattleClassesSpellBook {
 		return false;
 	}
 	
-	public boolean hasAbilityByID(int abilityID) {
+	public boolean hasAbilityByID(String abilityID) {
 		boolean hasActiveAbility = this.activeAbilities.containsKey(abilityID);
 		boolean hasPassiveAbility = this.passiveAbilities.containsKey(abilityID);
 		return hasActiveAbility || hasPassiveAbility;
@@ -179,9 +180,9 @@ public class BattleClassesSpellBook {
 		this.actionbarAbilities.clear();
 	}
 	
-	public void initWithAbilities(LinkedHashMap<Integer, BattleClassesAbstractAbilityActive> parAbilities) {
+	public void initWithAbilities(List<BattleClassesAbstractAbilityActive> parAbilities) {
 		clearSpellBook();
-		for(BattleClassesAbstractAbilityActive ability : parAbilities.values()){
+		for(BattleClassesAbstractAbilityActive ability : parAbilities){
 		    this.learnAbility(ability);
 		}
 		updateChosenAbilityID();
@@ -235,7 +236,7 @@ public class BattleClassesSpellBook {
 		}
 	}
 	
-	public void setChosenAbilityID(int parID) {
+	public void setChosenAbilityID(String parID) {
 		this.chosenAbilityID = parID;
 		cancelCasting();
 	}
@@ -292,7 +293,7 @@ public class BattleClassesSpellBook {
 	public void removeAbilityFromActionbar(BattleClassesAbstractAbilityActive ability) {
 		if(this.actionbarAbilities.contains(ability)) {
 			this.actionbarAbilities.remove(ability);
-			if(this.chosenAbilityID >= this.actionbarAbilities.size() && this.actionbarAbilities.size() > 0) {
+			if(this.chosenAbilityIndex >= this.actionbarAbilities.size() && this.actionbarAbilities.size() > 0) {
 				this.setChosenAbilityIndex(0);
 			}
 		}
@@ -322,11 +323,11 @@ public class BattleClassesSpellBook {
 
 	
 	//Helper
-    public BattleClassesAbstractAbilityActive getActiveAbilitiyByID(int id) {
+    public BattleClassesAbstractAbilityActive getActiveAbilitiyByID(String id) {
     	return this.activeAbilities.get(id);
     }
     
-    public BattleClassesAbstractAbilityPassive getPassiveAbilitiyByID(int id) {
+    public BattleClassesAbstractAbilityPassive getPassiveAbilitiyByID(String id) {
     	return this.passiveAbilities.get(id);
     }
 	

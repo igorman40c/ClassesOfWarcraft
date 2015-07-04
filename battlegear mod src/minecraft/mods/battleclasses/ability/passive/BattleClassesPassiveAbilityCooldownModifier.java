@@ -7,12 +7,12 @@ import mods.battleclasses.core.ICooldownModifier;
 
 public class BattleClassesPassiveAbilityCooldownModifier extends BattleClassesAbstractAbility implements ICooldownModifier {
 
-	protected BattleClassesPassiveAbilityCooldownModifier(int parAbilityID) {
-		super(parAbilityID);
+	protected BattleClassesPassiveAbilityCooldownModifier() {
+		super();
 	}
 	
-	public BattleClassesPassiveAbilityCooldownModifier(int parAbilityID, float cooldownModifier, IAbilityCriteria abilityCriteria) {
-		this(parAbilityID);
+	public BattleClassesPassiveAbilityCooldownModifier(float cooldownModifier, IAbilityCriteria abilityCriteria) {
+		this();
 		this.cooldownModifier = cooldownModifier;
 		this.abilityCriteria = abilityCriteria;
 	}
@@ -21,7 +21,7 @@ public class BattleClassesPassiveAbilityCooldownModifier extends BattleClassesAb
 	protected IAbilityCriteria abilityCriteria;
 
 	@Override
-	public float getMultiplierForAbility(BattleClassesAbstractAbilityActive ability) {
+	public float getMultiplierForAbility(BattleClassesAbstractAbility ability) {
 		if(abilityCriteria.isSatisfiedForAbility(ability)) {
 			return cooldownModifier;
 		}

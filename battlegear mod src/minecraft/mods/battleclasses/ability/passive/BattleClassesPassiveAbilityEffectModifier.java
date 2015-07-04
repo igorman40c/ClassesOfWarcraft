@@ -14,13 +14,13 @@ public class BattleClassesPassiveAbilityEffectModifier extends BattleClassesAbst
 	}
 	*/
 	
-	public BattleClassesPassiveAbilityEffectModifier(int parAbilityID, List<ICWEffectModifier> effectModifiers) {
-		super(parAbilityID);
+	public BattleClassesPassiveAbilityEffectModifier(List<ICWEffectModifier> effectModifiers) {
+		super();
 		this.setEffectModifiers(effectModifiers);
 	}
 	
-	public BattleClassesPassiveAbilityEffectModifier(int parAbilityID, ICWEffectModifier effectModifier) {
-		super(parAbilityID);
+	public BattleClassesPassiveAbilityEffectModifier(ICWEffectModifier effectModifier) {
+		super();
 		this.setSingleEffectModifier(effectModifier);
 	}
 	

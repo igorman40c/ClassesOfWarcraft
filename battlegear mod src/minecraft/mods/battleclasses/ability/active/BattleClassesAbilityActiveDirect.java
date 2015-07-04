@@ -5,8 +5,8 @@ import net.minecraft.entity.EntityLivingBase;
 
 public class BattleClassesAbilityActiveDirect extends BattleClassesAbstractAbilityActive {
 
-	public BattleClassesAbilityActiveDirect(int parAbilityID) {
-		super(parAbilityID);
+	public BattleClassesAbilityActiveDirect() {
+		super();
 		this.targetRequirementType = EnumBattleClassesAbilityDirectTargetRequirement.REQUIRED;
 	}
 

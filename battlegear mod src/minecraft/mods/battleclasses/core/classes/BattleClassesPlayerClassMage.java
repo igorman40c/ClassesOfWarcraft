@@ -41,46 +41,43 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 		super(parPlayerHooks, EnumBattleClassesPlayerClass.MAGE);
 	}
 
-	public LinkedHashMap<Integer, BattleClassesAbstractAbilityActive> getClassAbilities() {
-		LinkedHashMap<Integer, BattleClassesAbstractAbilityActive> abilities = new LinkedHashMap<Integer, BattleClassesAbstractAbilityActive>();
-		abilities.put(100, new ArcaneMissilesTestAbility().setUnlocalizedName("mage.arcanemissiles"));
-        abilities.put(101, new BattleClassesAbilityTestCasted(101).setUnlocalizedName("mage.blink"));
-		abilities.put(110, new BattleClassesAbilityTestCasted(110).setUnlocalizedName("mage.fireball"));
-		abilities.put(ABILITY_ID_SCORCH, new ScorchTestAbility());
-		abilities.put(ABILITY_ID_FROSTBOLT, new FrostBolt());
-		abilities.put(122, new BattleClassesAbilityTestCasted(121).setUnlocalizedName("mage.frostnova"));
-		abilities.put(BattleClassesAbilityShieldBlock.SHIELD_BLOCK_ABILITY_ID, new BattleClassesAbilityShieldBlock());
+	@Override
+	public List<BattleClassesAbstractAbilityActive> getClassAbilities() {
+		List<BattleClassesAbstractAbilityActive> abilities = new ArrayList<BattleClassesAbstractAbilityActive>();
+		abilities.add(new ArcaneMissilesTestAbility().setUnlocalizedName("mage.arcanemissiles"));
+        abilities.add(new BattleClassesAbilityTestCasted("mage.blink"));
+		abilities.add(new BattleClassesAbilityTestCasted("mage.fireball"));
+		abilities.add(new ScorchTestAbility());
+		abilities.add(new FrostBolt());
+		abilities.add(new BattleClassesAbilityTestCasted("mage.frostnova"));
+		abilities.add(new BattleClassesAbilityShieldBlock());
 		//abilities.put(ABILITY_ID_FROSTNOVA, new FrostNovaTestAbility());
 		return abilities;
 	}
 	
-	public ArrayList<BattleClassesTalentTree> getClassTalents() {
+	@Override
+	public List<BattleClassesTalentTree> getClassTalents() {
 		ArrayList<BattleClassesTalentTree> talentTrees = new ArrayList<BattleClassesTalentTree>();
 		BattleClassesTalentTree talentTree1 = new BattleClassesTalentTree();
 		talentTree1.setName("Arcane");
 //		talentTree1.talentList.add(new BattleClassesTalentAbilityContainer(1100, 0, new BattleClassesPassiveAbilityAmplifier(1100, 0)));
-		talentTree1.talentList.add(new BattleClassesTalentTest(1100, 0));
-		talentTree1.talentList.add(new BattleClassesTalentTest(1101, 1));
-		talentTree1.talentList.add(new BattleClassesTalentAbilityActiveContainer(1102, 2, new PolymorphTestAbility()));
+		talentTree1.talentList.add(new BattleClassesTalentTest("arcane0", 0));
+		talentTree1.talentList.add(new BattleClassesTalentTest("arcane1", 1));
+		talentTree1.talentList.add(new BattleClassesTalentAbilityActiveContainer("arcane2", 2, new PolymorphTestAbility()));
 		BattleClassesTalentTree talentTree2 = new BattleClassesTalentTree();
 		talentTree2.setName("Fire");
-		talentTree2.talentList.add(new BattleClassesTalentTest(1110, 0));
-		talentTree2.talentList.add(new BattleClassesTalentTest(1111, 1));
-		talentTree2.talentList.add(new BattleClassesTalentAbilityActiveContainer(1112, 2, new DragonsBreathTestAbility()));
+		talentTree2.talentList.add(new BattleClassesTalentTest("fire0", 0));
+		talentTree2.talentList.add(new BattleClassesTalentTest("fire1", 1));
+		talentTree2.talentList.add(new BattleClassesTalentAbilityActiveContainer("fire2", 2, new DragonsBreathTestAbility()));
 		BattleClassesTalentTree talentTree3 = new BattleClassesTalentTree();
 		talentTree3.setName("Frost");
-		talentTree3.talentList.add(new BattleClassesTalentTest(1120, 0));
-		talentTree3.talentList.add(new BattleClassesTalentTest(1121, 1));
-		talentTree3.talentList.add(new BattleClassesTalentAbilityActiveContainer(1122, 2, new IceBlockTestAbility()));
-		
-		//TODO : Add talents to the talent trees
-		
+		talentTree3.talentList.add(new BattleClassesTalentTest("frost0", 0));
+		talentTree3.talentList.add(new BattleClassesTalentTest("frost1", 1));
+		talentTree3.talentList.add(new BattleClassesTalentAbilityActiveContainer("frost2", 2, new IceBlockTestAbility()));
 		
 		talentTrees.add(talentTree1);
 		talentTrees.add(talentTree2);
 		talentTrees.add(talentTree3);
-		
-		
 		
 		return talentTrees;
 	}
@@ -117,7 +114,7 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 	public static final int ABILITY_ID_ARCANE_MISSILES = 100;
 	class ArcaneMissilesTestAbility extends BattleClassesAbilityTestChanneled {		
 		public ArcaneMissilesTestAbility() {
-			super(ABILITY_ID_ARCANE_MISSILES);
+			super();
 			this.setAmmoRequirement(Item.getItemById(263), 1);
 		}
 	}
@@ -125,7 +122,7 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 	public static final int ABILITY_ID_POLYMORPH = 102;
 	class PolymorphTestAbility extends BattleClassesAbilityTestCasted {
 		public PolymorphTestAbility() {
-			super(ABILITY_ID_POLYMORPH);
+			super();
 			this.setUnlocalizedName("mage.polymorph");
 		}
 	}
@@ -133,7 +130,7 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 	public static final int ABILITY_ID_SCORCH = 111;
 	class ScorchTestAbility extends BattleClassesAbilityActiveDirect {
 		public ScorchTestAbility() {
-			super(ABILITY_ID_SCORCH);
+			super();
 			this.setUnlocalizedName("mage.scorch");
 			this.setCastingType(EnumBattleClassesAbilityCastingType.CASTED);
 			this.castTime = 0.5F;
@@ -142,14 +139,14 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 			this.range = 10F;
 			BattleClassesAbstractAbilityEffectInstantValue effect = EffectFactory.createInstantAbilityEffect(10, 0, EnumBattleClassesAbilitySchool.SPELL_FIRE); 
 			this.addEffect(effect);
-			this.setAmmoRequirement(Item.getItemById(264), 1);
+			this.setAmmoRequirement(Item.getItemById(263), 1);
 		}
 	}
 	
 	public static final int ABILITY_ID_DRAGONSBREATH = 112;
 	class DragonsBreathTestAbility extends BattleClassesAbilityTestCasted {
 		public DragonsBreathTestAbility() {
-			super(ABILITY_ID_DRAGONSBREATH);
+			super();
 			this.setUnlocalizedName("mage.dragonsbreath");
 		}
 	}
@@ -157,7 +154,7 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 	public static final int ABILITY_ID_FROSTBOLT= 120;
 	class FrostBolt extends BattleClassesAbilityTestCasted {
 		public FrostBolt() {
-			super(ABILITY_ID_FROSTBOLT);
+			super();
 			this.setUnlocalizedName("mage.frostbolt");
 			this.castTime = 1F;
 			this.school = EnumBattleClassesAbilitySchool.SPELL_FROST;
@@ -170,14 +167,14 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 	public static final int ABILITY_ID_FROSTNOVA = 121;
 	class FrostNovaTestAbility extends BattleClassesAbilityTestCasted {
 		public FrostNovaTestAbility() {
-			super(ABILITY_ID_FROSTNOVA);
+			super();
 		}
 	}
 	
 	public static final int ABILITY_ID_ICEBLOCK = 122;
 	class IceBlockTestAbility extends BattleClassesAbilityTestCasted {
 		public IceBlockTestAbility() {
-			super(ABILITY_ID_ICEBLOCK);
+			super();
 			this.setUnlocalizedName("mage.iceblock");
 		}
 	}
@@ -191,7 +188,7 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 	class FrostTalentWintersChill extends BattleClassesTalentEffectContainer {
 
 		protected FrostTalentWintersChill() {
-			super(TALENT_FROST_1, 0, ABILITY_ID_FROSTBOLT);
+			super(0, "mage.frostbolt");
 			// TODO Auto-generated constructor stub
 		}
 		

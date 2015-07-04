@@ -16,13 +16,13 @@ public class BattleClassesPassiveAbilityAttributeModifier extends BattleClassesA
 	}
 	*/
 	
-	public BattleClassesPassiveAbilityAttributeModifier(int parAbilityID, List<ICWAttributeModifier> attributeModifiers) {
-		super(parAbilityID);
+	public BattleClassesPassiveAbilityAttributeModifier(List<ICWAttributeModifier> attributeModifiers) {
+		super();
 		this.setAttributeModifiers(attributeModifiers);
 	}
 	
-	public BattleClassesPassiveAbilityAttributeModifier(int parAbilityID, ICWAttributeModifier attributeModifier) {
-		super(parAbilityID);
+	public BattleClassesPassiveAbilityAttributeModifier(ICWAttributeModifier attributeModifier) {
+		super();
 		this.setSingleAttributeModifier(attributeModifier);
 	}
 	

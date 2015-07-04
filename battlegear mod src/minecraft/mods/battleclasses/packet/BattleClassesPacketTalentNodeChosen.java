@@ -17,13 +17,15 @@ import cpw.mods.fml.common.network.internal.FMLProxyPacket;
 public class BattleClassesPacketTalentNodeChosen extends AbstractMBPacket {
 
 	public static final String packetName = "BC|TalentNodeChosen";
-	private int talentID = -1 ;
+	public static final String talentNullID = "talentNullID";
+	
+	private String talentID = talentNullID;
 	private String username;
 	
-	public static final int TALENT_TREE_BUTTON_ID_OFFSET = 10000;
-	public static final int RESET_TALENTS_ID = 0;
+	public static final String TALENT_TREE_BUTTON_ID_OFFSET = "learnTree:";
+	public static final String RESET_TALENTS_ID = "resetTalents";
 	
-	public BattleClassesPacketTalentNodeChosen(EntityPlayer user, int parTalentID) {
+	public BattleClassesPacketTalentNodeChosen(EntityPlayer user, String parTalentID) {
     	this.talentID = parTalentID;
     	this.username = user.getCommandSenderName();
     }
@@ -39,24 +41,24 @@ public class BattleClassesPacketTalentNodeChosen extends AbstractMBPacket {
 
 	@Override
 	public void write(ByteBuf out) {
-		out.writeInt(talentID);
+		ByteBufUtils.writeUTF8String(out, talentID);
         ByteBufUtils.writeUTF8String(out, username);
 	}
 
 	@Override
 	public void process(ByteBuf in, EntityPlayer player) {
 		BattleClassesUtils.Log("Trying to process " + this.getClass() , LogType.PACKET);
-		talentID = in.readInt();
+		talentID = ByteBufUtils.readUTF8String(in);
         username = ByteBufUtils.readUTF8String(in);
-        if (username != null && talentID != -1) {
+        if (username != null && talentID != null && !talentID.equals(talentNullID))  {
             EntityPlayer entityPlayer = player.worldObj.getPlayerEntityByName(username);
             if(entityPlayer!=null){
             	BattleClassesPlayerHooks playerHooks = BattleClassesUtils.getPlayerHooks(entityPlayer);
-            	if(talentID == RESET_TALENTS_ID) {
+            	if(talentID.equals(RESET_TALENTS_ID)) {
             		playerHooks.playerClass.talentMatrix.resetTalentPoints();
             	}
-            	else if(talentID >= TALENT_TREE_BUTTON_ID_OFFSET) {
-            		int treeIndex = talentID - TALENT_TREE_BUTTON_ID_OFFSET;
+            	else if(TALENT_TREE_BUTTON_ID_OFFSET.equals(talentID.substring(0,talentID.length()-1))) {
+            		int treeIndex = Integer.parseInt(talentID.substring(talentID.length()-1));
             		//playerHooks.playerClass.talentMatrix.learnFullTreeAtIndex(treeIndex);
             		playerHooks.playerClass.talentMatrix.talentTrees.get(treeIndex).spendTalentPoints(playerHooks.playerClass.talentMatrix.getTalentPoints());
             	}

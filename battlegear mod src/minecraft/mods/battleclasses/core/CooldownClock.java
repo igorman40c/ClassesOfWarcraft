@@ -3,6 +3,7 @@ package mods.battleclasses.core;
 import mods.battleclasses.BattleClassesMod;
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
+import mods.battleclasses.ability.BattleClassesAbstractAbility;
 import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
 import mods.battleclasses.enums.EnumBattleClassesCooldownType;
 import mods.battleclasses.packet.BattleClassesPacketCooldownSet;
@@ -15,35 +16,35 @@ public class CooldownClock {
 
 	public static final float COOLDOWN_INITIALIZER = 3600;
 
-	public final int cooldownID;
+	public final String cooldownID;
 	public IMainCooldownMap parentCooldownMapper;
 	private boolean enabled = true;
-	private BattleClassesAbstractAbilityActive parentActiveAbility;
+	private BattleClassesAbstractAbility parentActiveAbility;
 	
 	private CooldownClock() {
-		this.cooldownID = 0;
+		this.cooldownID = "";
 		this.resetClock();
 	}
 	
-	public CooldownClock(int id) {
+	public CooldownClock(String id) {
 		this.cooldownID = id;
 		this.resetClock();
 	}
 	
-	public CooldownClock(int id, float duration, EnumBattleClassesCooldownType type) {
+	public CooldownClock(String id, float duration, EnumBattleClassesCooldownType type) {
 		this.cooldownID = id;
 		this.setDefaultDuration(duration);
 		this.setDefaultType(type);
 		this.resetClock();
 	}
 	
-	public CooldownClock(int id, IMainCooldownMap parameterCDcenter) {
+	public CooldownClock(String id, IMainCooldownMap parameterCDcenter) {
 		this.cooldownID = id;
 		this.resetClock();
 		this.registerInCooldownCenter(parameterCDcenter);
 	}
 	
-	public CooldownClock(int id, float duration, EnumBattleClassesCooldownType type, IMainCooldownMap parameterCDcenter) {
+	public CooldownClock(String id, float duration, EnumBattleClassesCooldownType type, IMainCooldownMap parameterCDcenter) {
 		this.cooldownID = id;
 		this.setDefaultDuration(duration);
 		this.setDefaultType(type);
@@ -234,9 +235,13 @@ public class CooldownClock {
 	protected float setTime;
 	protected float lastUsedDuration;
 	protected EnumBattleClassesCooldownType lastUsedType = EnumBattleClassesCooldownType.CooldownType_UNKNOWN;
+	
+	protected String getCooldownID() {
+		return (this.parentActiveAbility!=null) ? this.parentActiveAbility.getAbilityID() : this.cooldownID;
+	}
 
-	protected int getCooldownHashCode() {
-		return this.cooldownID;
+	protected String getCooldownHashCode() {
+		return this.getCooldownID();
 	}
 		
 	protected EntityPlayer getOwnerPlayer() {
@@ -263,7 +268,7 @@ public class CooldownClock {
 		this.lastUsedDuration = duration;
 	}
 	
-	public void setParentAbility(BattleClassesAbstractAbilityActive parentActiveAbility) {
+	public void setParentAbility(BattleClassesAbstractAbility parentActiveAbility) {
 		this.parentActiveAbility = parentActiveAbility;
 	}
 

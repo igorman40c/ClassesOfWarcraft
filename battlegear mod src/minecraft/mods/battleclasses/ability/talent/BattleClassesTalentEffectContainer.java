@@ -10,23 +10,23 @@ import mods.battleclasses.ability.passive.BattleClassesAbstractAbilityPassive;
 
 public class BattleClassesTalentEffectContainer extends BattleClassesAbstractTalent  {
 
-	protected BattleClassesTalentEffectContainer(int parAbilityID, int parTalentLevel, int targetAbilityID) {
-		super(parAbilityID, parTalentLevel);
+	protected BattleClassesTalentEffectContainer(int parTalentLevel, String targetAbilityID) {
+		super(parTalentLevel);
 		this.targetAbilityID = targetAbilityID;
 	}
 
-	public BattleClassesTalentEffectContainer(int parAbilityID, int parTalentLevel, int targetAbilityID, List<BattleClassesAbstractAbilityEffect> containedEffects) {
-		this(targetAbilityID, parTalentLevel, targetAbilityID);
+	public BattleClassesTalentEffectContainer(int parAbilityID, int parTalentLevel, String targetAbilityID, List<BattleClassesAbstractAbilityEffect> containedEffects) {
+		this(parTalentLevel, targetAbilityID);
 		this.setContainedEffects(containedEffects);
 	}
 	
-	public BattleClassesTalentEffectContainer(int parAbilityID, int parTalentLevel, int targetAbilityID, BattleClassesAbstractAbilityEffect effect) {
-		this(targetAbilityID, parTalentLevel, targetAbilityID);
+	public BattleClassesTalentEffectContainer(int parAbilityID, int parTalentLevel, String targetAbilityID, BattleClassesAbstractAbilityEffect effect) {
+		this( parTalentLevel, targetAbilityID);
 		this.setSingleContainedEffect(effect);
 	}
 
 	protected List<BattleClassesAbstractAbilityEffect> containedEffects;
-	protected int targetAbilityID;
+	protected String targetAbilityID;
 	
 	public List<BattleClassesAbstractAbilityEffect> getContainedEffects() {
 		return this.containedEffects;

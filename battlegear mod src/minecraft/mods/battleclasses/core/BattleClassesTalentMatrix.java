@@ -2,6 +2,7 @@ package mods.battleclasses.core;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
@@ -20,13 +21,13 @@ public class BattleClassesTalentMatrix {
 		playerHooks = parPlayerHooks;
 	}
 	
-	public ArrayList<BattleClassesTalentTree> talentTrees = new ArrayList<BattleClassesTalentTree>();
-	public HashMap<Integer, BattleClassesAbstractTalent> talentHashMap = new HashMap<Integer, BattleClassesAbstractTalent>();
+	public List<BattleClassesTalentTree> talentTrees = new ArrayList<BattleClassesTalentTree>();
+	public HashMap<String, BattleClassesAbstractTalent> talentHashMap = new HashMap<String, BattleClassesAbstractTalent>();
 
 	public static final int TALENT_POINTS_TO_SPEND = 3;
 	protected int talentPoints = TALENT_POINTS_TO_SPEND;
 	
-	public void initWithTalentTrees(ArrayList<BattleClassesTalentTree> parTalentTrees) {
+	public void initWithTalentTrees(List<BattleClassesTalentTree> parTalentTrees) {
 		//Setting reverse references on trees and talentAbilities
 		talentTrees = parTalentTrees;
 		for(BattleClassesTalentTree talentTree : talentTrees) {

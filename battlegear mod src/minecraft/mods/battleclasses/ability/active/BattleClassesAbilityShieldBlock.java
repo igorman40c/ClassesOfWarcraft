@@ -6,6 +6,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
+import mods.battleclasses.ability.BattleClassesAbstractAbility;
 import mods.battleclasses.enums.EnumBattleClassesAbilityDirectTargetRequirement;
 import mods.battleclasses.enums.EnumBattleClassesAbilityIntent;
 import mods.battleclasses.enums.EnumBattleClassesAbilitySchool;
@@ -18,10 +19,13 @@ import net.minecraft.util.ResourceLocation;
 
 public class BattleClassesAbilityShieldBlock extends BattleClassesAbstractAbilityActive {
 	
-	public static final int SHIELD_BLOCK_ABILITY_ID = 93;
+	public static final BattleClassesAbilityShieldBlock INSTANCE = new BattleClassesAbilityShieldBlock();
+	static {
+		BattleClassesAbstractAbility.registerAbility(INSTANCE);
+	}
 
 	public BattleClassesAbilityShieldBlock() {
-		super(SHIELD_BLOCK_ABILITY_ID);
+		super();
 		this.setUnlocalizedName("universal.shieldblock");
 		this.setCastingType(EnumBattleClassesAbilityCastingType.UNKNOWN);
 		this.ignoresGlobalCooldown = true;

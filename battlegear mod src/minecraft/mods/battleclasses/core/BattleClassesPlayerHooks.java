@@ -11,6 +11,7 @@ import cpw.mods.fml.relauncher.Side;
 import mods.battleclasses.BattleClassesMod;
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
+import mods.battleclasses.ability.BattleClassesAbstractAbility;
 import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
 import mods.battleclasses.ability.passive.BattleClassesAbstractAbilityPassive;
 import mods.battleclasses.core.classes.BattleClassesPlayerClassMage;
@@ -39,11 +40,11 @@ public class BattleClassesPlayerHooks implements IMainCooldownMap {
 	public BattleClassesPlayerClass playerClass;
 	public BattleClassesPlayerAttributes playerAttributes;
 	public BattleClassesWeaponHitHandler weaponHitHandler;
-	public HashMap<Integer, CooldownClock> mainCooldownMap;
+	public HashMap<String, CooldownClock> mainCooldownMap;
 	
 	public BattleClassesPlayerHooks(EntityPlayer parOwnerPlayer) {
 		this.ownerPlayer = parOwnerPlayer;
-		mainCooldownMap = new HashMap<Integer, CooldownClock>();
+		mainCooldownMap = new HashMap<String, CooldownClock>();
 		
 		playerAttributes = new BattleClassesPlayerAttributes(this);
 		playerClass = new BattleClassesPlayerClass(this, EnumBattleClassesPlayerClass.NONE);
@@ -119,7 +120,7 @@ public class BattleClassesPlayerHooks implements IMainCooldownMap {
 	}
 
 	@Override
-	public HashMap<Integer, CooldownClock> getCooldownMap() {
+	public HashMap<String, CooldownClock> getCooldownMap() {
 		return this.mainCooldownMap;
 	}
 
@@ -129,7 +130,7 @@ public class BattleClassesPlayerHooks implements IMainCooldownMap {
 	}
 	
 	@Override
-	public float getCooldownMultiplierForAbility(BattleClassesAbstractAbilityActive ability) {
+	public float getCooldownMultiplierForAbility(BattleClassesAbstractAbility ability) {
 		float cooldownMultiplier = 1F;
 		for(BattleClassesAbstractAbilityPassive passiveAbility : this.playerClass.spellBook.getPassiveAbilitiesInArray()) {
 			if(passiveAbility instanceof ICooldownModifier) {
@@ -162,16 +163,16 @@ public class BattleClassesPlayerHooks implements IMainCooldownMap {
     	
     	//Saving main CooldownClock map
     	NBTTagList cooldownClocks = new NBTTagList();
-    	ArrayList<Integer> cooldownClockKeys = new ArrayList<Integer>(mainCooldownMap.keySet());
+    	ArrayList<String> cooldownClockKeys = new ArrayList<String>(mainCooldownMap.keySet());
     	for(int i = 0; i < cooldownClockKeys.size(); ++i) {
-    		int cooldownClockKey = cooldownClockKeys.get(i);
+    		String cooldownClockKey = cooldownClockKeys.get(i);
     		CooldownClock cooldownClock = mainCooldownMap.get(cooldownClockKey);
     		
     		NBTTagCompound cooldownClockTagCompound = new NBTTagCompound();
     		cooldownClockTagCompound.setFloat(NBT_TAGNAME_CD_SETTIME, cooldownClock.getSetTime());
     		cooldownClockTagCompound.setFloat(NBT_TAGNAME_CD_LASTDURATION, cooldownClock.getLastUsedDuration());
     		cooldownClockTagCompound.setInteger(NBT_TAGNAME_CD_LASTTYPE, cooldownClock.getLastUsedType().ordinal());
-    		cooldownClockTagCompound.setInteger(NBT_TAGNAME_CD_KEY, cooldownClockKey);
+    		cooldownClockTagCompound.setString(NBT_TAGNAME_CD_KEY, cooldownClockKey);
     		cooldownClocks.appendTag(cooldownClockTagCompound);
     	}
     	tagCompound.setTag(NBT_TAGNAME_CD_MAP, cooldownClocks);
@@ -204,7 +205,7 @@ public class BattleClassesPlayerHooks implements IMainCooldownMap {
     	if(cooldownClocksNBTTagList != null) {
     		for (int i = 0; i < cooldownClocksNBTTagList.tagCount(); ++i) {
                 NBTTagCompound cooldownClockTagCompound = cooldownClocksNBTTagList.getCompoundTagAt(i);
-                CooldownClock cooldownClock = this.mainCooldownMap.get(cooldownClockTagCompound.getInteger(NBT_TAGNAME_CD_KEY));
+                CooldownClock cooldownClock = this.mainCooldownMap.get(cooldownClockTagCompound.getString(NBT_TAGNAME_CD_KEY));
                 if(cooldownClock != null) {
                 	cooldownClock.setSetTime(cooldownClockTagCompound.getFloat(NBT_TAGNAME_CD_SETTIME));
                 	cooldownClock.setLastUsedDuration(cooldownClockTagCompound.getFloat(NBT_TAGNAME_CD_LASTDURATION));

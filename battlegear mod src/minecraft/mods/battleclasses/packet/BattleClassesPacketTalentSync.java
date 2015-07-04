@@ -20,7 +20,7 @@ public class BattleClassesPacketTalentSync extends AbstractMBPacket {
 	private EntityPlayer savedEntityPlayer;
 	private int talentPointsLeft = -1;
 	//Key - talentID, Value - talentState
-	private HashMap<Integer, Integer> talentStateMap;
+	private HashMap<String, Integer> talentStateMap;
 	
 	public BattleClassesPacketTalentSync(EntityPlayer user) {
     	this.username = user.getCommandSenderName();
@@ -44,9 +44,9 @@ public class BattleClassesPacketTalentSync extends AbstractMBPacket {
 		if(savedEntityPlayer != null) {
 			BattleClassesPlayerHooks playerHooks = BattleClassesUtils.getPlayerHooks(savedEntityPlayer);
 			out.writeInt(playerHooks.playerClass.talentMatrix.talentHashMap.size());
-			for (int keyTalentID : playerHooks.playerClass.talentMatrix.talentHashMap.keySet()) {
+			for (String keyTalentID : playerHooks.playerClass.talentMatrix.talentHashMap.keySet()) {
         		BattleClassesAbstractTalent talentAbility = playerHooks.playerClass.talentMatrix.talentHashMap.get(keyTalentID);
-        		out.writeInt(keyTalentID);
+        		ByteBufUtils.writeUTF8String(out, keyTalentID);
         		out.writeInt(talentAbility.getCurrentState());
         	}
 		}
@@ -60,9 +60,9 @@ public class BattleClassesPacketTalentSync extends AbstractMBPacket {
 		username = ByteBufUtils.readUTF8String(in);
 		talentPointsLeft = in.readInt();
 		int mapSize = in.readInt();
-		talentStateMap = new HashMap<Integer, Integer>();
+		talentStateMap = new HashMap<String, Integer>();
 		for(int i = 0; i < mapSize; ++i) {
-			int key = in.readInt();
+			String key = ByteBufUtils.readUTF8String(in);
 			int value = in.readInt();
 			talentStateMap.put(key, value);
 		}
@@ -72,7 +72,7 @@ public class BattleClassesPacketTalentSync extends AbstractMBPacket {
             if(entityPlayer!=null){
             	BattleClassesPlayerHooks playerHooks = BattleClassesUtils.getPlayerHooks(entityPlayer);
             	playerHooks.playerClass.talentMatrix.setTalentPoints(talentPointsLeft);
-            	for (int keyTalentID : talentStateMap.keySet()) {
+            	for (String keyTalentID : talentStateMap.keySet()) {
             		BattleClassesAbstractTalent talentAbility = playerHooks.playerClass.talentMatrix.talentHashMap.get(keyTalentID);
             		if(talentAbility != null) {
             			talentAbility.setCurrentState(talentStateMap.get(keyTalentID));

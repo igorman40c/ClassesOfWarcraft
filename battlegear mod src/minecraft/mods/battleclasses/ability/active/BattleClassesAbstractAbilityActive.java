@@ -50,9 +50,9 @@ import mods.battlegear2.api.core.InventoryPlayerBattle;
 
 public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAbstractAbilityCooldownHolder implements ITooltipProvider {
 
-	public BattleClassesAbstractAbilityActive(int parAbilityID) {
-		super(parAbilityID);
-		this.cooldownClock.setParentAbility(this);
+	public BattleClassesAbstractAbilityActive() {
+		super();
+		
 		this.setCastingType(EnumBattleClassesAbilityCastingType.INSTANT);
 	}
 	
@@ -193,7 +193,7 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 			
 			if (target != null) {
 				int targetEntityID = target.getEntityId();
-				FMLProxyPacket p = new BattleClassesPacketProcessAbilityWithTarget(entityPlayer, this.abilityID, targetEntityID, tickCount).generatePacket();
+				FMLProxyPacket p = new BattleClassesPacketProcessAbilityWithTarget(entityPlayer, this.getAbilityID(), targetEntityID, tickCount).generatePacket();
 				BattleClassesMod.packetHandler.sendPacketToServer(p);
 			}
 			else {
@@ -594,9 +594,11 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
     	for(BattleClassesAbstractAbilityEffect effect : this.effects) {
     		effectLine += ", " + effect.getTranslatedDescription();
     		//text.add(effect.getTranslatedDescription());
+    		/*
     		if(effect instanceof IStackableModifier) {
     			effectLine += ", " +  ((IStackableModifier)effect).getStackingDescription();
     		}
+    		*/
     	}
     	
     	effectLine = BattleClassesGuiHelper.capitalizeFirstLetter(effectLine) + ".";
