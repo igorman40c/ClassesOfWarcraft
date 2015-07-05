@@ -342,12 +342,7 @@ public class BattleClassesClientEvents {
         	EnumSet<EnumBattleClassesPlayerClass> classAccessSet = attributeProviderItem.getClassAccessSet();
         	if(!(classAccessSet.contains(EnumBattleClassesPlayerClass.NONE)) && classAccessSet.size() > 0) {
         		//Create class list string
-        		String classAccessString = StatCollector.translateToLocal("bcclasses") + ":";
-        		int i = 0;
-        		for(EnumBattleClassesPlayerClass accessingClass : classAccessSet) {
-        			classAccessString += ((i>0) ? ", " : " ") + accessingClass.getTranslatedName();
-        			++i;
-        		}
+        		String classAccessString = BattleClassesGuiHelper.createListWithTitle(StatCollector.translateToLocal("bcclasses"), classAccessSet);
         		//Create color of the line depeding on the player class
         		EnumChatFormatting classAccessSetDisplayColor = BattleClassesGuiHelper.getHoveringTextAvailabilityColor(BattleClassesUtils.getPlayerClassEnum(mc.thePlayer).isEligibleForClassAccessSet(classAccessSet));
         		//Adding line

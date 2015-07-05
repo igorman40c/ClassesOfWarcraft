@@ -25,7 +25,7 @@ public class BattleClassesTalentAbilityActiveContainer extends BattleClassesAbst
 		
 	@Override
 	public String getTranslatedName() {
-		return super.getTranslatedName() + ": " + this.getContainedAbility().getTranslatedName();
+		return StatCollector.translateToLocal("talent.universal.abilityactivecontainer.name") + ": " + this.getContainedAbility().getTranslatedName();
 	}
 	
 	@Override

@@ -1,6 +1,8 @@
 package mods.battleclasses.gui;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.EnumSet;
 import java.util.List;
 
 import org.lwjgl.opengl.GL11;
@@ -24,6 +26,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
+import mods.battleclasses.client.INameProvider;
+
 
 public class BattleClassesGuiHelper extends Gui {
 	
@@ -240,14 +245,23 @@ public class BattleClassesGuiHelper extends Gui {
 		return new ArrayList<String>();
 	}
 	
-	public static List<String> addTitle(List<String> hoveringText, String titleText) {
-		addLine(hoveringText, "", EnumChatFormatting.GOLD, false);
-		addLine(hoveringText, titleText, EnumChatFormatting.GOLD, false);
+	public static List<String> addTitle(List<String> hoveringText, String titleText, EnumChatFormatting titleColor) {
+		addLine(hoveringText, "", titleColor, false);
+		addLine(hoveringText, titleText, titleColor, EnumChatFormatting.BOLD, false);
 		return hoveringText;
+	}
+	
+	public static List<String> addTitle(List<String> hoveringText, String titleText) {
+		return addTitle(hoveringText, titleText, EnumChatFormatting.GOLD);
 	}
 	
 	public static List<String> addParagraph(List<String> hoveringText, String paragraphText) {
 		addParagraphWithColor(hoveringText, paragraphText, EnumChatFormatting.WHITE);
+		return hoveringText;
+	}
+	
+	public static List<String> addEmptyParagraph(List<String> hoveringText) {
+		addParagraphWithColor(hoveringText, "", EnumChatFormatting.WHITE);
 		return hoveringText;
 	}
 	
@@ -259,6 +273,17 @@ public class BattleClassesGuiHelper extends Gui {
 	
 	protected static List<String> addLine(List<String> hoveringText, String text, EnumChatFormatting format, boolean insertWithAppend) {
 		String line = new String(format + text);
+		if(insertWithAppend) {
+			hoveringText.add(line);
+		}
+		else {
+			hoveringText.add(0, line);
+		}
+		return hoveringText;
+	}
+	
+	protected static List<String> addLine(List<String> hoveringText, String text, EnumChatFormatting format1, EnumChatFormatting format2, boolean insertWithAppend) {
+		String line = new String(format1 + "" + format2 + text);
 		if(insertWithAppend) {
 			hoveringText.add(line);
 		}
@@ -347,4 +372,26 @@ public class BattleClassesGuiHelper extends Gui {
 	public static String capitalizeFirstLetter(String word) {
 		return word.substring(0, 1).toUpperCase() + word.substring(1);
 	}
+	
+	public static String createListWithTitle(String title, Collection<? extends INameProvider> list) {
+		return createListWithTitle(title, list, true);
+	}
+	
+	public static String createListWithTitle(String title, Collection<? extends INameProvider> list, boolean capitalizeListElements) {
+		//Starting with capitalized title
+		String text = capitalizeFirstLetter(title) + ":";
+		//Adding list elements
+		int i = 0;
+		for(INameProvider nameProvider : list) {
+			String translatedListElement = nameProvider.getTranslatedName();
+			if(capitalizeListElements) {
+				translatedListElement = capitalizeFirstLetter(translatedListElement.toLowerCase());
+			}
+			text += ((i>0) ? ", " : " ") + translatedListElement;
+			++i;
+		}
+		
+		return text;
+	}
+	
 }

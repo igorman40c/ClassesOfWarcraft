@@ -1,6 +1,7 @@
 package mods.battleclasses.gui.controlls;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.lwjgl.opengl.GL11;
 
@@ -29,7 +30,11 @@ public class BattleClassesGuiButtonClassSelector extends BattleClassesGuiButton 
 		super(id, resource);
 		this.playerClass = parPlayerClass;
 		this.showHoveringText = true;
-		this.hoveringTextString = BattleClassesTabClassSelector.getClassDescription(playerClass);
+		
+		this.setOrigin(0, 216);
+		this.setSize(32, 32);
+		this.horizontalOrigin = true;
+		this.drawButtonTexture = false;
 	}
 	
 	public boolean shouldBeDisabled() {
@@ -51,8 +56,13 @@ public class BattleClassesGuiButtonClassSelector extends BattleClassesGuiButton 
             FontRenderer fontrenderer = mc.fontRenderer;
             //Drawing Tab Icon
             mc.getTextureManager().bindTexture(this.playerClass.getIconResourceLocation());
-            int classIconWidth = 16;
-            int classIconHeight = 16;
+            int classIconWidth = 32;
+            int classIconHeight = 32;
+            int hoverState = this.getHoverState(this.field_146123_n);
+            if(hoverState == 0) {
+            	
+            }
+            
             BattleClassesGuiHelper.drawTexturedRectFromCustomSource(this.xPosition + this.width/2 - classIconWidth/2, this.yPosition + this.height/2 -  classIconHeight/2, classIconWidth, classIconHeight, this.zLevel);
             /*this.drawTexturedModelRectFromIcon(this.xPosition + this.width/2 - classIcon.getIconWidth()/2, 
             								this.yPosition + this.height/2 -  classIcon.getIconHeight()/2,
@@ -93,6 +103,11 @@ public class BattleClassesGuiButtonClassSelector extends BattleClassesGuiButton 
 			BattleClassesMod.packetHandler.sendPacketToServer(p);
 		}
 		return press;
+	}
+	
+	@Override
+    public List<String> getTooltipText() {
+    	return this.playerClass.getTooltipText();
 	}
 
 }

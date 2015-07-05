@@ -49,18 +49,32 @@ public class BattleClassesTabClassSelector extends BattleClassesAbstractTab  {
         //Init Buttons
 		for (BattleClassesGuiButtonClassSelector button : BattleClassesTabClassSelector.classButtonList) {
 			this.buttonList.add(button);
-			button.setOrigin(0, 190);
-			button.setSize(22, 22);
 		}
-		BattleClassesTabClassSelector.classButtonList.get(0).setPosition(this.guiLeft + 77,this.guiTop + 28);
-		BattleClassesTabClassSelector.classButtonList.get(1).setPosition(this.guiLeft + 113,this.guiTop + 46);
-		BattleClassesTabClassSelector.classButtonList.get(2).setPosition(this.guiLeft + 122,this.guiTop + 85);
-		BattleClassesTabClassSelector.classButtonList.get(3).setPosition(this.guiLeft + 97,this.guiTop + 116);
-		BattleClassesTabClassSelector.classButtonList.get(4).setPosition(this.guiLeft + 56,this.guiTop + 116);
-		BattleClassesTabClassSelector.classButtonList.get(5).setPosition(this.guiLeft + 31,this.guiTop + 85);
-		BattleClassesTabClassSelector.classButtonList.get(6).setPosition(this.guiLeft + 41,this.guiTop + 46);
-		
+		this.updateClassButtonPositions();
     }
+   
+   	public void updateClassButtonPositions() {
+		int guiCenterV = 166/2;
+		int buttonGapV = 20;
+		int buttonGapH = 10;
+		int buttonSize = 32;
+		//First line
+		int firstLineX = this.guiLeft + guiCenterV - buttonGapV/2 - buttonSize;
+		int firstLineY = this.guiTop + 20 + buttonGapH;
+		BattleClassesTabClassSelector.classButtonList.get(0).setPosition(firstLineX, firstLineY);
+		BattleClassesTabClassSelector.classButtonList.get(1).setPosition(firstLineX + buttonSize*1 + buttonGapV*1, firstLineY);
+		//Second line
+		int secondLineX = this.guiLeft + buttonGapV*1;
+		int secondLineY = firstLineY + buttonGapH + buttonSize;
+		BattleClassesTabClassSelector.classButtonList.get(2).setPosition(secondLineX, secondLineY);
+		BattleClassesTabClassSelector.classButtonList.get(3).setPosition(secondLineX + buttonSize*1 + buttonGapV*1, secondLineY);
+		BattleClassesTabClassSelector.classButtonList.get(4).setPosition(secondLineX + buttonSize*2 + buttonGapV*2, secondLineY);
+		//Third line
+		int thirdLineX = firstLineX;
+		int thirdLineY = secondLineY + buttonGapH + buttonSize;
+		BattleClassesTabClassSelector.classButtonList.get(5).setPosition(thirdLineX, thirdLineY);
+		BattleClassesTabClassSelector.classButtonList.get(6).setPosition(thirdLineX + buttonSize*1 + buttonGapV*1, thirdLineY);
+   	}
 
     /**
      * Draws the screen and all the components in it.
@@ -92,27 +106,4 @@ public class BattleClassesTabClassSelector extends BattleClassesAbstractTab  {
         //Battlegear.packetHandler.sendPacketToServer(new BattlegearGUIPacket(BattleClassesGUIHandler.classSelectorID).generatePacket());
     }
     
-    public static String getClassDescription(EnumBattleClassesPlayerClass playerClass) {
-    	switch (playerClass)  {
-		case HUNTER:
-			return "Hunter";
-		case MAGE:
-			return "Mage";
-		case NONE:
-			return "No Class";
-		case PALADIN:
-			return "Paladin";
-		case PRIEST:
-			return "Priest";
-		case ROGUE:
-			return "Rogue";
-		case WARLOCK:
-			return "Warlock";
-		case WARRIOR:
-			return "Warrior";
-		default:
-			return "Unkown Class Description";
-    	}
-    }
-
 }

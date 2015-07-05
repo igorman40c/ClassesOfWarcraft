@@ -32,9 +32,10 @@ public class BattleClassesGuiButton extends GuiButton implements ITooltipProvide
 	public static final int DEFAULT_HEIGHT = 20;
 	public static final String DEFAULT_NAME = "";
 	
+	public boolean horizontalOrigin = false;
 	public int origin_u = 0;
 	public int origin_v = 0;
-	
+	public boolean drawButtonTexture = true;
 	public boolean showHoveringText = false;
 	public String hoveringTextString = "";
 	
@@ -124,13 +125,21 @@ public class BattleClassesGuiButton extends GuiButton implements ITooltipProvide
             
             //InWindow
             this.field_146123_n = currentMousePosX >= this.xPosition && currentMousePosY >= this.yPosition && currentMousePosX < this.xPosition + this.width && currentMousePosY < this.yPosition + this.height;
-            int k = this.getHoverState(this.field_146123_n);
+            int hoverState = this.getHoverState(this.field_146123_n);
             
             //Bar Button Texture
             GL11.glEnable(GL11.GL_BLEND);
             OpenGlHelper.glBlendFunc(770, 771, 1, 0);
             GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-            this.drawTexturedModalRect(this.xPosition, this.yPosition, this.origin_u, this.origin_v + k*this.height, this.width, this.height);
+            if(drawButtonTexture) {
+            	if(this.horizontalOrigin) {
+                	this.drawTexturedModalRect(this.xPosition, this.yPosition, this.origin_u + hoverState*this.width, this.origin_v, this.width, this.height);
+                }
+                else {
+                	this.drawTexturedModalRect(this.xPosition, this.yPosition, this.origin_u, this.origin_v + hoverState*this.height, this.width, this.height);
+                }
+            }
+            
             
             //Rendering Button display string
             int l = 14737632;
