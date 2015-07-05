@@ -115,7 +115,7 @@ public class BattleClassesAttributes {
 			case SPELL_ARCANE:
 				return this.spellpower_arcane;
 			case SPELL_FIRE:
-				return this.spellpower_arcane;
+				return this.spellpower_fire;
 			case SPELL_FROST:
 				return this.spellpower_frost;
 			case SPELL_HOLY:

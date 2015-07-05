@@ -62,9 +62,14 @@ public abstract class BattleClassesAbstractAbilityEffectInstantValue extends Bat
 	 * @param attributesForParentAbility
 	 * @return
 	 */
-	public float getValueByAttributeBasedPower(BattleClassesAttributes attributesForParentAbility) {
+	public float getRandomizedAttributeBasedValue(BattleClassesAttributes attributesForParentAbility) {
 		float power = attributesForParentAbility.getValueForAbilitySchool(this.getAbilitySchool());
 		return (this.valueBase + this.valueBonusCoefficient * power * (1-valueTotalRandomness +  this.rand.nextFloat()*valueTotalRandomness*2)) * valueBalancer;
+	}
+	
+	protected float getUnrandomizedAttributeBasedValue(BattleClassesAttributes attributesForParentAbility) {
+		float power = attributesForParentAbility.getValueForAbilitySchool(this.getAbilitySchool());
+		return (this.valueBase + this.valueBonusCoefficient * power /* * (1-valueTotalRandomness +  this.rand.nextFloat()*valueTotalRandomness*2)*/ ) * valueBalancer;
 	}
 	
 	public void performValueEffect(BattleClassesAttributes attributesForParentAbility, float critChance, float partialMultiplier, 
@@ -86,7 +91,7 @@ public abstract class BattleClassesAbstractAbilityEffectInstantValue extends Bat
 	protected void prepareToPerform(BattleClassesAttributes attributesForParentAbility, float critChance, float partialMultiplier,
 			EntityLivingBase owner, EntityLivingBase target) {
 		//Inital output data
-		this.outputValue = this.getValueByAttributeBasedPower(attributesForParentAbility)*partialMultiplier;
+		this.outputValue = this.getRandomizedAttributeBasedValue(attributesForParentAbility)*partialMultiplier;
 		float criticalChance = critChance;
 		//Collecting modifications
 		this.applyOutputEffectModifiersFromEntity(owner);
@@ -106,7 +111,7 @@ public abstract class BattleClassesAbstractAbilityEffectInstantValue extends Bat
 		if(this.parentAbility != null && this.parentAbility.getOwnerPlayer() != null) {
 			EntityPlayer owner = this.parentAbility.getOwnerPlayer();
 			BattleClassesAttributes attributesForParentAbility = BattleClassesUtils.getPlayerAttributes(owner).getTotalAttributesForAbility(this.parentAbility);
-			float outputValue = this.getValueByAttributeBasedPower(attributesForParentAbility);
+			float outputValue = this.getUnrandomizedAttributeBasedValue(attributesForParentAbility);
 			this.applyOutputEffectModifiersFromEntity(owner);
 			outputValue *= this.modifierMultiplier;
 			this.resetModifiers();

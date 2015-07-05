@@ -54,7 +54,6 @@ public class BattleClassesTalentEffectContainer extends BattleClassesAbstractTal
 				}
 			}
 		}
-		
 	}
 	
 }
