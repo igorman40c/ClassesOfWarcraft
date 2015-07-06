@@ -1,10 +1,18 @@
 package mods.battleclasses.core;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.List;
 
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.StatCollector;
 import mods.battleclasses.ability.talent.BattleClassesAbstractTalent;
+import mods.battleclasses.client.ITooltipProvider;
+import mods.battleclasses.enums.EnumBattleClassesPlayerEnviroment;
+import mods.battleclasses.enums.EnumBattleClassesPlayerRole;
+import mods.battleclasses.gui.BattleClassesGuiHelper;
 
-public class BattleClassesTalentTree {
+public class BattleClassesTalentTree implements ITooltipProvider {
 	
 	protected BattleClassesTalentMatrix parentTalentMatrix;
 	
@@ -17,10 +25,21 @@ public class BattleClassesTalentTree {
 		}
 	}
 	
+	public BattleClassesTalentTree() {
+		
+	}
+	
+	public BattleClassesTalentTree(String name, EnumBattleClassesPlayerRole role, EnumSet<EnumBattleClassesPlayerEnviroment> enviroments) {
+		this.name = name;
+		this.setRole(role);
+		this.setEnviroments(enviroments);
+	}
+	
 	public String name = "";
 	
-	public void setName(String parName) {
+	public BattleClassesTalentTree setName(String parName) {
 		name = parName;
+		return this;
 	}
 	
 	public BattleClassesTalentMatrix getParentTalentMatrix() {
@@ -69,6 +88,72 @@ public class BattleClassesTalentTree {
 					+ "_" + i + ".png";
 		}
 		return "";
+	}
+	
+	//----------------------------------------------------------------------------------
+	//							SECTION - Tooltip
+	//----------------------------------------------------------------------------------
+	
+	public EnumBattleClassesPlayerRole role = EnumBattleClassesPlayerRole.UNKNOWN;
+	
+	public EnumBattleClassesPlayerRole getRole() {
+		return role;
+	}
+
+	public BattleClassesTalentTree setRole(EnumBattleClassesPlayerRole role) {
+		this.role = role;
+		return this;
+	}
+
+	public EnumSet<EnumBattleClassesPlayerEnviroment> enviroments = EnumSet.noneOf(EnumBattleClassesPlayerEnviroment.class);
+	
+	public EnumSet<EnumBattleClassesPlayerEnviroment> getEnviroments() {
+		return enviroments;
+	}
+
+	public BattleClassesTalentTree setEnviroments(EnumSet<EnumBattleClassesPlayerEnviroment> enviroments) {
+		this.enviroments = enviroments;
+		return this;
+	}
+
+	protected String getUnlocalizedPrefix() {
+		return "bctalenttree";
+	}
+	
+	protected String getUnlocalizedName() {
+		return this.getUnlocalizedPrefix() + "." + this.name + ".name";
+	}
+	
+	protected String getUnlocalizedDescription() {
+		return this.getUnlocalizedPrefix() + "." + this.name + ".description";
+	}
+	
+	public String getTranslatedName() {
+		return StatCollector.translateToLocal(this.getUnlocalizedName());
+	}
+	
+	public String getTranslatedDescription() {
+		return StatCollector.translateToLocal(this.getUnlocalizedDescription());
+	}
+	
+	public String getTranslatedRoleInfo() {
+		return BattleClassesGuiHelper.createListWithTitle(StatCollector.translateToLocal("bcclass.roleinfo"), EnumSet.of(this.role));
+	}
+	
+	public String getTranslatedEnviromentInfo() {
+		return BattleClassesGuiHelper.createListWithTitle(StatCollector.translateToLocal("bcenviroment"), this.getEnviroments());
+	}
+
+	@Override
+	public List<String> getTooltipText() {
+		List<String> hoveringText = BattleClassesGuiHelper.createHoveringText();
+		BattleClassesGuiHelper.addTitle(hoveringText, this.getTranslatedName());
+		BattleClassesGuiHelper.addParagraph(hoveringText, this.getTranslatedDescription());
+		BattleClassesGuiHelper.addEmptyParagraph(hoveringText);
+		BattleClassesGuiHelper.addParagraphWithColor(hoveringText, this.getTranslatedRoleInfo(), EnumChatFormatting.GOLD);
+		BattleClassesGuiHelper.addParagraphWithColor(hoveringText, this.getTranslatedEnviromentInfo(), EnumChatFormatting.GOLD);
+		hoveringText = BattleClassesGuiHelper.formatHoveringTextWidth(hoveringText);
+		return hoveringText;
 	}
 
 }

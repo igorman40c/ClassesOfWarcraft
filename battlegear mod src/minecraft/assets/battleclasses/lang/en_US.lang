@@ -13,6 +13,10 @@ bcarmortype.leather=leather
 bcarmortype.mail=mail
 bcarmortype.plate=plate
 
+bcenviroment=Use
+bcenviroment.pvp=Player vs. Player
+bcenviroment.pve=Dungeoneering
+
 bcrole.healer=healer
 bcrole.damage_dealer=damage dealer
 bcrole.ranged_damage_dealer=ranged damage dealer
@@ -40,6 +44,9 @@ bcclass.rogue.introduction=Rogues often initiate combat with a surprise attack f
 bcclass.hunter.introduction=Hunters battle their foes at a distance, commanding their pets to attack while they nock their arrows and fire their guns. Though their missile weapons are effective at short and long ranges, hunters are also highly mobile. They can evade or restrain their foes to control the arena of battle.
 bcclass.paladin.introduction=Paladins stand directly in front of their enemies, relying on heavy armor and healing in order to survive incoming attacks. Whether with massive shields or crushing two-handed weapons, Paladins are able to keep claws and swords from their weaker fellows - or they use healing magic to ensure that they remain on their feet.
 bcclass.warrior.introduction=Warriors equip themselves carefully for combat and engage their enemies head-on, letting attacks glance off their heavy armor. They use diverse combat tactics and a wide variety of weapon types to protect their more vulnerable allies. Warriors must carefully master their rage - the power behind their strongest attacks - in order to maximize their effectiveness in combat.
+
+
+
 
 #UNUSED ATM STUFF-BEGIN
 bcclass.mage.talentsinfo=Mage talents focus on enhancing individual schools of magic - quick, aggressive Fire spells; efficient, controlling Frost spells and punishing Arcane spells.
@@ -154,6 +161,14 @@ bcability.info.casttype.channeled=Channeled over %1$s sec
 bcability.info.casttype.instant=Instant cast
 bcability.info.range=%1$s blocks range
 bcability.info.cooldown=%1$s sec cooldown
+
+bctalenttree.mage.arcane.name=Arcane
+bctalenttree.mage.fire.name=Fire
+bctalenttree.mage.frost.name=Frost
+
+bctalenttree.mage.arcane.description=Manipulate the arcane, destroying enemies with overwhelming power.
+bctalenttree.mage.fire.description=Ignite enemies with balls of fire and combustive flames.
+bctalenttree.mage.frost.description=Freezes enemies in their tracks and shatters them with Frost magic.
 
 talent.universal.abilityactivecontainer.name=Teaches new ability
 ability.mage.iceblock.name=Ice Block

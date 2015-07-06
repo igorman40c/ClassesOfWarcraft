@@ -8,6 +8,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
+import mods.battleclasses.ability.BattleClassesAbstractAbility;
 import mods.battleclasses.ability.passive.BattleClassesAbstractAbilityPassive;
 import mods.battleclasses.client.IDescriptionProvider;
 import mods.battleclasses.client.ITooltipProvider;
@@ -15,7 +16,7 @@ import mods.battleclasses.core.BattleClassesPlayerHooks;
 import mods.battleclasses.core.BattleClassesTalentTree;
 import mods.battleclasses.gui.BattleClassesGuiHelper;
 
-public class BattleClassesAbstractTalent extends BattleClassesAbstractAbilityPassive implements ITooltipProvider{
+public class BattleClassesAbstractTalent extends BattleClassesAbstractAbility implements ITooltipProvider{
 
 	public BattleClassesAbstractTalent(int parTalentLevel) {
 		super();

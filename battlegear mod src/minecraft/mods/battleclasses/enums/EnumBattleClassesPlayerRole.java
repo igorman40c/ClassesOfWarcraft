@@ -7,7 +7,8 @@ public enum EnumBattleClassesPlayerRole implements INameProvider {
 	HEALER,
 	DAMAGE_DEALER,
 	RANGED_DAMAGE_DEALER,
-	TANK;
+	TANK,
+	UNKNOWN;
 
 	@Override
 	public String getTranslatedName() {

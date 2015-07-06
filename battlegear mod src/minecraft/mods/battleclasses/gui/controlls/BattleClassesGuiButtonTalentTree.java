@@ -1,5 +1,7 @@
 package mods.battleclasses.gui.controlls;
 
+import java.util.List;
+
 import cpw.mods.fml.common.network.internal.FMLProxyPacket;
 import mods.battleclasses.BattleClassesMod;
 import mods.battleclasses.BattleClassesUtils;
@@ -16,14 +18,14 @@ public class BattleClassesGuiButtonTalentTree extends BattleClassesGuiButton {
 		super(id, x, y, 54, 20, "talentTree");
 		this.resource = new ResourceLocation("battleclasses", "textures/gui/InterfaceTalent.png");
 		//TODO
-		//displayTooltip = true;
+		this.showHoveringText = true;
 	}
 
 	public BattleClassesTalentTree talentTree;
 
 	public void setTalentTree(BattleClassesTalentTree parTalentTree) {
 		talentTree = parTalentTree;
-		this.displayString = talentTree.name;
+		this.displayString = talentTree.getTranslatedName();
 		//TODO : Set Title(displayString), description here, etc...
 	}
 	
@@ -37,6 +39,11 @@ public class BattleClassesGuiButtonTalentTree extends BattleClassesGuiButton {
 			BattleClassesMod.packetHandler.sendPacketToServer(p);
 		}
 		return press;
+	}
+	
+	@Override
+	public List<String> getTooltipText() {
+		return this.talentTree.getTooltipText();
 	}
 
 }

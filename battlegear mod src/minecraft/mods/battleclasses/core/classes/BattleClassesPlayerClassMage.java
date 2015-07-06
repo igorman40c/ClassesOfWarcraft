@@ -1,6 +1,7 @@
 package mods.battleclasses.core.classes;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -24,6 +25,8 @@ import mods.battleclasses.core.BattleClassesTalentTree;
 import mods.battleclasses.enums.EnumBattleClassesAbilitySchool;
 import mods.battleclasses.enums.EnumBattleClassesAttributeType;
 import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
+import mods.battleclasses.enums.EnumBattleClassesPlayerEnviroment;
+import mods.battleclasses.enums.EnumBattleClassesPlayerRole;
 
 public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 	
@@ -59,18 +62,18 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 	public List<BattleClassesTalentTree> getClassTalents() {
 		ArrayList<BattleClassesTalentTree> talentTrees = new ArrayList<BattleClassesTalentTree>();
 		BattleClassesTalentTree talentTree1 = new BattleClassesTalentTree();
-		talentTree1.setName("Arcane");
+		talentTree1.setName("mage.arcane").setRole(EnumBattleClassesPlayerRole.RANGED_DAMAGE_DEALER).setEnviroments(EnumSet.of(EnumBattleClassesPlayerEnviroment.PVP));
 //		talentTree1.talentList.add(new BattleClassesTalentAbilityContainer(1100, 0, new BattleClassesPassiveAbilityAmplifier(1100, 0)));
 		talentTree1.talentList.add(new BattleClassesTalentTest("arcane0", 0));
 		talentTree1.talentList.add(new BattleClassesTalentTest("arcane1", 1));
 		talentTree1.talentList.add(new BattleClassesTalentAbilityActiveContainer("arcane2", 2, new PolymorphTestAbility()));
 		BattleClassesTalentTree talentTree2 = new BattleClassesTalentTree();
-		talentTree2.setName("Fire");
+		talentTree2.setName("mage.fire").setRole(EnumBattleClassesPlayerRole.RANGED_DAMAGE_DEALER).setEnviroments(EnumSet.of(EnumBattleClassesPlayerEnviroment.PVE));
 		talentTree2.talentList.add(new BattleClassesTalentTest("fire0", 0));
 		talentTree2.talentList.add(new BattleClassesTalentTest("fire1", 1));
 		talentTree2.talentList.add(new BattleClassesTalentAbilityActiveContainer("fire2", 2, new DragonsBreathTestAbility()));
 		BattleClassesTalentTree talentTree3 = new BattleClassesTalentTree();
-		talentTree3.setName("Frost");
+		talentTree3.setName("mage.frost").setRole(EnumBattleClassesPlayerRole.RANGED_DAMAGE_DEALER).setEnviroments(EnumSet.of(EnumBattleClassesPlayerEnviroment.PVP));
 		talentTree3.talentList.add(new BattleClassesTalentTest("frost0", 0));
 		talentTree3.talentList.add(new BattleClassesTalentTest("frost1", 1));
 		talentTree3.talentList.add(new BattleClassesTalentAbilityActiveContainer("frost2", 2, new IceBlockTestAbility()));
