@@ -621,13 +621,14 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
     	List<String> hoveringText = BattleClassesGuiHelper.createHoveringText();
     	//Title
     	BattleClassesGuiHelper.addTitle(hoveringText, this.getTranslatedName());
-    	//Info (property) lines. (Casting, range, cd...)
-    	for(String infoString : this.getPropertyLines()) {
-    		BattleClassesGuiHelper.addParagraph(hoveringText, infoString);
-    	}
     	//Effect lines
     	for(String effectString : this.getEffectLines()) {
-    		BattleClassesGuiHelper.addParagraphWithColor(hoveringText, effectString, EnumChatFormatting.GOLD);
+    		BattleClassesGuiHelper.addParagraph(hoveringText, effectString);
+    	}
+    	BattleClassesGuiHelper.addEmptyParagraph(hoveringText);
+    	//Info (property) lines. (Casting, range, cd...)
+    	for(String infoString : this.getPropertyLines()) {
+    		BattleClassesGuiHelper.addParagraphWithColor(hoveringText, infoString, EnumChatFormatting.GOLD);
     	}
     	//Ammo lines
     	if(this.requiresAmmoItem) {

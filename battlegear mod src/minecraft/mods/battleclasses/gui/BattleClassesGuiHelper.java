@@ -302,12 +302,12 @@ public class BattleClassesGuiHelper extends Gui {
 	public static List<String> formatHoveringTextWidth(List<String> hoveringText, int numberOfMaximalCharactersInLine) {
 		List<String> limitedHoveringText = createHoveringText();
 		for(String textLine : hoveringText) {
-			int formatStringCharacters = 2;
+			int formatStringCharacterCount = 2;
 			String formatString = "";
-			if(textLine.startsWith("\u00a7")) {
+			while(textLine.startsWith("\u00a7")) {
 				//System.out.println("Checking formatedLine: " + textLine + " Length:" + textLine.length());
-				formatString = textLine.substring(0, formatStringCharacters);
-				textLine = textLine.substring(formatStringCharacters);
+				formatString += textLine.substring(0, formatStringCharacterCount);
+				textLine = textLine.substring(formatStringCharacterCount);
 			}
 			if(textLine.length() > numberOfMaximalCharactersInLine) {
 				while(textLine.length() > numberOfMaximalCharactersInLine) {
