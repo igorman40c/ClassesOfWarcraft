@@ -1,4 +1,4 @@
-﻿#Ignore EVERYTHING
+#Ignore EVERYTHING
 /*
 
 #Don't ignore the battlegear mod src folder
@@ -37,3 +37,5 @@
 #Don't ignore src api folder
 !src/
 
+
+gradle/wrapper/gradle-wrapper.jar
