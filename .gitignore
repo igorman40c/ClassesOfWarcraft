@@ -31,9 +31,9 @@
 !changelog.md
 
 #Don't ignore some battleclasses folders
-!battleclasses image sources
-!battleclasses sound sources
+!battleclasses image sources/
+!battleclasses sound sources/
 
 #Don't ignore src api folder
-!src
+!src/
 
