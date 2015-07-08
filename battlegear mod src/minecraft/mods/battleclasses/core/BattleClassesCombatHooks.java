@@ -4,6 +4,7 @@ import java.util.List;
 
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.items.IControlledSpeedWeapon;
+import mods.battleclasses.items.ISpellBookControllerItem;
 import mods.battlegear2.api.IHandListener;
 import mods.battlegear2.api.PlayerEventChild.OffhandAttackEvent;
 import mods.battlegear2.api.core.BattlegearUtils;
@@ -20,12 +21,13 @@ import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.entity.player.PlayerUseItemEvent;
 import cpw.mods.fml.common.eventhandler.Event;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class BattleClassesCombatHooks {
-	
+		
 	@SubscribeEvent
 	public void onMainhandAttack(AttackEntityEvent event) {
 		//Settings Mainhand weapon CD

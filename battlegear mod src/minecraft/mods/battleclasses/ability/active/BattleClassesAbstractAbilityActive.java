@@ -200,18 +200,18 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 					BattleClassesGuiHUDOverlay.displayWarning(BattleClassesGuiHUDOverlay.HUD_W_TARGET_OUT_OF_RANGE);
 				}
 			}
-		}
+		}	
 		//Checking SERVER SIDE
 		else if (side == Side.SERVER && !this.requiresRayTracingForTarget()) {
 			EntityLivingBase targetEntity = null;
-			this.finishUseWithTarget(targetEntity, tickCount);
+			this.finishCastingWithTarget(targetEntity, tickCount);
 		} 
 		else {
 			System.out.println("ServerSide requestProcession failed. TargetRT: " + this.targetRequirementType);
 		}
 	}
 	
-	public boolean finishUseWithTarget(EntityLivingBase targetEntity, int tickCount) {
+	public boolean finishCastingWithTarget(EntityLivingBase targetEntity, int tickCount) {
 		boolean hasRequiredAmmo = this.hasRequiredItems();
 		if(hasRequiredAmmo) {
 			boolean releaseSucceeded = this.releaseEffects(targetEntity, tickCount);

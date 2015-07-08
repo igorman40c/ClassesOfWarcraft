@@ -7,7 +7,7 @@ import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
 import mods.battleclasses.enums.EnumBattleClassesWeaponHeldType;
 import mods.battlegear2.api.IUsableItem;
 
-public interface IBattleClassesWeapon extends IBattleClassesHandHeld, IControlledSpeedWeapon, IUsableItem {
+public interface IBattleClassesWeapon extends IBattleClassesHandHeld, ISpellBookControllerItem, IControlledSpeedWeapon, IUsableItem {
 	public float getBaseWeaponDamage();
 	public float getBonusReach();
 }

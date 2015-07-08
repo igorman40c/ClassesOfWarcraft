@@ -87,7 +87,7 @@ import mods.battlegear2.utils.EnumBGAnimations;
 public class BattleClassesClientEvents {
 	
 	private final BattleClassesGuiHUDOverlay inGameGUI = new BattleClassesGuiHUDOverlay();
-	
+	public static BattleClassesClientAbilityActivityRegistry activityRegistry = new BattleClassesClientAbilityActivityRegistry();
 	public static BattleClassesGuiTabBarButton lastUsedTabButton = null;
 	public static List<BattleClassesGuiTabBarButton> tabsButtonList = new ArrayList<BattleClassesGuiTabBarButton>();
 	static {
