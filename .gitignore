@@ -34,4 +34,6 @@
 !battleclasses image sources
 !battleclasses sound sources
 
+#Don't ignore src api folder
+!src
 
