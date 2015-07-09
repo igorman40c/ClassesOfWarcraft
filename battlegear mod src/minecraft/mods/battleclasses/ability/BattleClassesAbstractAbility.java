@@ -9,6 +9,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import mods.battleclasses.BattleClassesUtils;
+import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
 import mods.battleclasses.client.IDescriptionProvider;
 import mods.battleclasses.core.BattleClassesPlayerAttributes;
 import mods.battleclasses.core.BattleClassesPlayerHooks;
@@ -27,6 +29,15 @@ public abstract class BattleClassesAbstractAbility implements IDescriptionProvid
 	}
 	public static BattleClassesAbstractAbility getRegisteredAbilityByID(String id) {
 		return registredAbilities.get(id);
+	}
+	
+	public static BattleClassesAbstractAbility getRegisteredActiveAbilityByID(String id) {
+		BattleClassesAbstractAbility ability = registredAbilities.get(id);
+		if(ability instanceof BattleClassesAbstractAbilityActive) {
+			return (BattleClassesAbstractAbilityActive)ability;
+		}
+		BattleClassesUtils.ErrorLog("Couldn't find active ability with ID: " + id);
+		return null;
 	}
 		
 	//Mandtory Helper References

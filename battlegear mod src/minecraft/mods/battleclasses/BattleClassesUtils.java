@@ -61,6 +61,10 @@ public static Logger battleClassesLogger = LogManager.getLogger("Battle Classes"
     	battleClassesLogger.info(logString);
     }
     
+    public static void ErrorLog(String message) {
+    	battleClassesLogger.error(message);
+    }
+    
     public static boolean testMode() {
     	return false;
     }
