@@ -31,7 +31,7 @@ public abstract class BattleClassesAbstractAbility implements IDescriptionProvid
 		return registredAbilities.get(id);
 	}
 	
-	public static BattleClassesAbstractAbility getRegisteredActiveAbilityByID(String id) {
+	public static BattleClassesAbstractAbilityActive getRegisteredActiveAbilityByID(String id) {
 		BattleClassesAbstractAbility ability = registredAbilities.get(id);
 		if(ability instanceof BattleClassesAbstractAbilityActive) {
 			return (BattleClassesAbstractAbilityActive)ability;

@@ -100,6 +100,13 @@ public class BattleClassesClientEvents {
 		//tabsButtonList.add(new GuiTabBarButtonConfig(5, 60, 60, false));
 		//tabsButtonList.add(new GuiTabBarButtonHelp(6, 60, 60, false));
 	}
+	
+	@SubscribeEvent
+	public void onClientTick(TickEvent.ClientTickEvent event) {
+	    if (event.phase == TickEvent.Phase.END) {
+	    	activityRegistry.checkForJunk();
+	    }
+	}
 	/*
 	@SubscribeEvent
 	public void replaceOpenGuiInventory(PlayerOpenContainerEvent event) {

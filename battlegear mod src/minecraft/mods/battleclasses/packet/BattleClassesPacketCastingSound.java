@@ -25,7 +25,7 @@ public class BattleClassesPacketCastingSound extends AbstractMBPacket {
     public BattleClassesPacketCastingSound(EntityPlayer entityPlayer) {
     	this.startSound = false;
     	this.userName = entityPlayer.getCommandSenderName();
-    }
+    } 
     
     public BattleClassesPacketCastingSound(EntityPlayer entityPlayer, String resource, boolean start) {
     	this.startSound = start;

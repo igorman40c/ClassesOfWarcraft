@@ -43,6 +43,9 @@ import mods.battleclasses.gui.BattleClassesGuiHelper;
 import mods.battleclasses.items.BattleClassesItemWeapon;
 import mods.battleclasses.packet.BattleClassesPacketCastingSound;
 import mods.battleclasses.packet.BattleClassesPacketCooldownSet;
+import mods.battleclasses.packet.BattleClassesPacketPlayerCastingDidRelease;
+import mods.battleclasses.packet.BattleClassesPacketPlayerCastingDidStart;
+import mods.battleclasses.packet.BattleClassesPacketPlayerCastingDidStop;
 import mods.battleclasses.packet.BattleClassesPacketPlayerClassSnyc;
 import mods.battleclasses.packet.BattleClassesPacketProcessAbilityWithTarget;
 import mods.battlegear2.Battlegear;
@@ -172,8 +175,9 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 	 * Called when player releases Mouse-Right button
 	 */
 	public final void releaseUse(ItemStack itemStack, EntityPlayer entityPlayer, int tickCount) {
-		sendCastingSoundPacket(false);
+		//sendCastingSoundPacket(false);
 		this.castingType.onUseRelease(this, itemStack, entityPlayer, tickCount);
+		this.castingDidStop();
 	}
 		
 	//----------------------------------------
@@ -233,7 +237,7 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 	protected void startCasting(EntityPlayer entityPlayer, ItemStack itemStack) {
 		BattleClassesUtils.Log("Casting started!", LogType.ABILITY);
 		BattleClassesUtils.setEntityPlayerItemInUseInSeconds(entityPlayer, itemStack, this.getCastTime());
-		sendCastingSoundPacket(true);
+		this.castingDidStart();
 	}
 	
 	public void cancelCasting(EntityPlayer entityPlayer) {
@@ -241,12 +245,49 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 			this.playerHooks.playerClass.spellBook.cancelGlobalCooldown();
 		}
 		entityPlayer.clearItemInUse();
-		sendCastingSoundPacket(false);
+		this.castingDidStop();
 		BattleClassesUtils.Log("Cancelling Casting and GlobalCD", LogType.ABILITY);
 	}
 	
 	public int getCastTimeInTicks() {
 		return (int) (this.getCastTime() * 20);
+	}
+	
+	protected void castingDidStart() {
+		
+		//DEPRECATED
+		//sendCastingSoundPacket(true);
+		
+		Side side = FMLCommonHandler.instance().getEffectiveSide();
+		if(side == Side.SERVER) {
+			float range = 60;
+			FMLProxyPacket packet = new BattleClassesPacketPlayerCastingDidStart(this.getOwnerPlayer(), this.getAbilityID(), this.castTime).generatePacket();
+			BattleClassesMod.packetHandler.sendPacketAround(this.getOwnerPlayer(), range, packet);
+		}
+	}
+	
+	protected void castingDidStop() {
+		
+		//DEPRECATED
+		//sendCastingSoundPacket(false);
+		
+		Side side = FMLCommonHandler.instance().getEffectiveSide();
+		if(side == Side.SERVER) {
+			float range = 100;
+			FMLProxyPacket packet = new BattleClassesPacketPlayerCastingDidStop(this.getOwnerPlayer()).generatePacket();
+			BattleClassesMod.packetHandler.sendPacketAround(this.getOwnerPlayer(), range, packet);			
+		}
+	}
+	
+	protected void castingDidReleaseEffects() {
+		
+		Side side = FMLCommonHandler.instance().getEffectiveSide();
+		if(side == Side.SERVER) {
+			float range = 60;
+			FMLProxyPacket packet = new BattleClassesPacketPlayerCastingDidRelease(this.getOwnerPlayer(), this.getAbilityID()).generatePacket();
+			BattleClassesMod.packetHandler.sendPacketAround(this.getOwnerPlayer(), range, packet);
+			this.playReleaseSound();
+		}
 	}
 	
 	
@@ -280,16 +321,7 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 	 * @return
 	 */
 	public boolean requiresRayTracingForTarget() {
-		switch (this.targetRequirementType) {
-			case NEEDLESS:
-				return false;
-			case OPTIONAL:
-				return true;
-			case REQUIRED:
-				return true;
-			default:
-				return false;
-		}
+		return this.targetRequirementType.requiresRayTracingForTarget();
 	}
 	
 	/**
@@ -388,6 +420,7 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 		BattleClassesAttributes attributesForParentAbility = this.getPlayerAttributes().getTotalAttributesForAbility(this);
 		float critChance = attributesForParentAbility.crit;
 		BattleClassesAbstractAbilityEffect.performListOfEffects(this.effects, attributesForParentAbility, critChance, partialMultiplier, this.getOwnerPlayer(), targetEntity);
+		this.castingDidReleaseEffects();
 	}
 	
 	public void consumeResources() {
@@ -536,6 +569,10 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
     
     public void playImpactSoundAtEntity(Entity targetEntity) {
     	this.playAbilitySound(targetEntity, "impact");
+    }
+    
+    public String getCastingSoundResourceName() {
+    	return "abilityschool." + this.school.toString().toLowerCase() + ".casting";
     }
     
     //----------------------------------------------------------------------------------
