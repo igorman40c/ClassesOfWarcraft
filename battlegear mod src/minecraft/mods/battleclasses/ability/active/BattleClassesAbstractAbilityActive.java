@@ -579,6 +579,10 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
     //							Section - Effect visual
     //----------------------------------------------------------------------------------
     
+    public boolean hasCastingParticleEffect() {
+    	return this.school.hasCastingParticleEffect();
+    }
+    
     public void animateWithParticlesRelease(EntityPlayer owner) {
     	
     }

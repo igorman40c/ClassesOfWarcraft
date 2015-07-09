@@ -9,6 +9,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.ability.BattleClassesAbstractAbility;
 import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
+import mods.battleclasses.client.particle.EntityFXCasting;
 import mods.battleclasses.sound.CastingSound;
 
 /**
@@ -141,14 +142,15 @@ public class BattleClassesClientAbilityActivityRegistry {
 	/**
 	 * Checks for stuck ongoing effects *junks*. Called on ClientTickEvent.END from ClientEvents.
 	 */
-	public void checkForJunk() {
-		if(JUNK_CHECKING) {
-			Iterator it = this.activityMap.entrySet().iterator();
-			while (it.hasNext()) {
-		        Map.Entry<String,CastingActivity> pair = (Map.Entry)it.next();
-		        String playerName = pair.getKey();
-			    CastingActivity castingActivity = pair.getValue();
-			    if(castingActivity.looksLikeJunk()) {
+	public void update() {
+		Iterator it = this.activityMap.entrySet().iterator();
+		while (it.hasNext()) {
+			Map.Entry<String,CastingActivity> pair = (Map.Entry)it.next();
+	        String playerName = pair.getKey();
+		    CastingActivity castingActivity = pair.getValue();
+		    
+		    if(JUNK_CHECKING) {
+				if(castingActivity.looksLikeJunk()) {
 			    	if(JUNK_MARKING) {
 			    		if(!castingActivity.markedAsJunk) {
 			    			castingActivity.markedAsJunk = true;
@@ -161,8 +163,17 @@ public class BattleClassesClientAbilityActivityRegistry {
 			    		this.removeActivity(playerName);
 			    	}
 			    }
-		        it.remove(); // avoids a ConcurrentModificationException
+			}
+		    
+		    if(this.activityMap.get(playerName) != null) {
+		    	EntityPlayer entityPlayer = mc.thePlayer.worldObj.getPlayerEntityByName(playerName);
+		    	BattleClassesAbstractAbilityActive ability = BattleClassesAbstractAbility.getRegisteredActiveAbilityByID(castingActivity.getAbilityID());
+				if(entityPlayer != null && ability.hasCastingParticleEffect()) {
+					EntityFXCasting.spawnCastingParticleFX(entityPlayer, ability);
+				}		    	
 		    }
-		}
+		    
+	        it.remove(); // avoids a ConcurrentModificationException
+	    }
 	}
 }
