@@ -148,10 +148,6 @@ public class BattleClassesPlayerClass implements ICooldownOwner {
 		return attributes;
 	}
 	
-	public void registerAllAbilities() {
-		//Hook
-	}
-	
 	protected void registerAbilties(List<BattleClassesAbstractAbility> abilities) {
 		for(BattleClassesAbstractAbility ability : abilities) {
 			BattleClassesAbstractAbility.registerAbility(ability);

@@ -1,7 +1,9 @@
 package mods.battleclasses.client;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import net.minecraft.client.Minecraft;
@@ -17,14 +19,14 @@ import mods.battleclasses.sound.CastingSound;
  * This maintains the sync of the ability related FX (casting and release sounds and animations) between clients.
  * Stored activity data can be used for render effects and overlays also.
  * 
- * @author Zsolt Moln√°r
+ * @author Zsolt Moln·r
  */
 public class BattleClassesClientAbilityActivityRegistry {
 	
 	/**
 	 * Struct-like class representing an ongoing spellcast. 
 	 * 
-	 * @author Zsolt Moln√°r
+	 * @author Zsolt Moln·r
 	 */
 	class CastingActivity {
 		public String playerCastingName;
@@ -142,28 +144,42 @@ public class BattleClassesClientAbilityActivityRegistry {
 	/**
 	 * Checks for stuck ongoing effects *junks*. Called on ClientTickEvent.END from ClientEvents.
 	 */
+	public void checkForJunk() {
+		if(JUNK_CHECKING) {
+			List<String> junkList = new ArrayList<String>();
+			Iterator it = this.activityMap.entrySet().iterator();
+			while (it.hasNext()) {
+				Map.Entry<String,CastingActivity> pair = (Map.Entry)it.next();
+		        String playerName = pair.getKey();
+		        CastingActivity castingActivity = pair.getValue();
+		        if(castingActivity.looksLikeJunk()) {
+			    	if(JUNK_MARKING) {
+			    		if(!castingActivity.markedAsJunk) {
+			    			castingActivity.markedAsJunk = true;
+			    		}
+			    		else {
+			    			junkList.add(playerName);
+			    		}
+			    	}
+			    	else {
+			    		junkList.add(playerName);
+			    	}
+			    }
+		        //it.remove();
+			}
+			
+			for(String playerName : junkList) {
+				this.removeActivity(playerName);
+			}
+		}
+	}
+	
 	public void update() {
 		Iterator it = this.activityMap.entrySet().iterator();
 		while (it.hasNext()) {
 			Map.Entry<String,CastingActivity> pair = (Map.Entry)it.next();
 	        String playerName = pair.getKey();
 		    CastingActivity castingActivity = pair.getValue();
-		    
-		    if(JUNK_CHECKING) {
-				if(castingActivity.looksLikeJunk()) {
-			    	if(JUNK_MARKING) {
-			    		if(!castingActivity.markedAsJunk) {
-			    			castingActivity.markedAsJunk = true;
-			    		}
-			    		else {
-			    			this.removeActivity(playerName);
-			    		}
-			    	}
-			    	else {
-			    		this.removeActivity(playerName);
-			    	}
-			    }
-			}
 		    
 		    if(this.activityMap.get(playerName) != null) {
 		    	EntityPlayer entityPlayer = mc.thePlayer.worldObj.getPlayerEntityByName(playerName);
@@ -172,8 +188,8 @@ public class BattleClassesClientAbilityActivityRegistry {
 					EntityFXCasting.spawnCastingParticleFX(entityPlayer, ability);
 				}		    	
 		    }
-		    
-	        it.remove(); // avoids a ConcurrentModificationException
 	    }
+		
+		this.checkForJunk();
 	}
 }

@@ -33,6 +33,8 @@ public class EntityFXCasting extends EntityFX {
 		
 	public static void spawnCastingParticleFX(EntityPlayer entityPlayer, BattleClassesAbstractAbilityActive ability) {
 		
+		System.out.println("spawnCastingParticleFX");
+		
 		Vec3 lookVector = entityPlayer.getLookVec();
 		double posX = entityPlayer.posX + lookVector.xCoord;
 		double posY = entityPlayer.posY + lookVector.yCoord;

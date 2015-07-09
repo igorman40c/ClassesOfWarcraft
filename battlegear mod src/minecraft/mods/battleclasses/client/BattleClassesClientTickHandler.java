@@ -5,10 +5,17 @@ import mods.battleclasses.gui.BattleClassesGuiKeyHandler;
 import net.minecraft.client.Minecraft;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
+import cpw.mods.fml.common.gameevent.TickEvent.WorldTickEvent;
 
 public class BattleClassesClientTickHandler {
 
 	public static final BattleClassesClientTickHandler INSTANCE = new BattleClassesClientTickHandler();
+	
+	@SubscribeEvent
+	public void onClientTick(WorldTickEvent event) {
+		BattleClassesClientEvents.activityRegistry.update();
+	}
+
 	/*
 	private boolean previouslyOnBattleMode = false;
 	@SubscribeEvent

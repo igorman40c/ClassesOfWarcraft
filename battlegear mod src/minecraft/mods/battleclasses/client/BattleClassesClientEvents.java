@@ -35,6 +35,8 @@ import net.minecraftforge.event.entity.player.PlayerOpenContainerEvent;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
+import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;
+import cpw.mods.fml.common.gameevent.TickEvent.WorldTickEvent;
 import cpw.mods.fml.common.network.internal.FMLProxyPacket;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -86,6 +88,7 @@ import mods.battlegear2.utils.EnumBGAnimations;
 
 public class BattleClassesClientEvents {
 	
+	public static final BattleClassesClientEvents INSTANCE = new BattleClassesClientEvents(); 
 	private final BattleClassesGuiHUDOverlay inGameGUI = new BattleClassesGuiHUDOverlay();
 	public static BattleClassesClientAbilityActivityRegistry activityRegistry = new BattleClassesClientAbilityActivityRegistry();
 	public static BattleClassesGuiTabBarButton lastUsedTabButton = null;
@@ -100,13 +103,7 @@ public class BattleClassesClientEvents {
 		//tabsButtonList.add(new GuiTabBarButtonConfig(5, 60, 60, false));
 		//tabsButtonList.add(new GuiTabBarButtonHelp(6, 60, 60, false));
 	}
-	
-	@SubscribeEvent
-	public void onClientTick(TickEvent.ClientTickEvent event) {
-	    if (event.phase == TickEvent.Phase.END) {
-	    	activityRegistry.update();
-	    }
-	}
+		
 	/*
 	@SubscribeEvent
 	public void replaceOpenGuiInventory(PlayerOpenContainerEvent event) {
@@ -118,6 +115,7 @@ public class BattleClassesClientEvents {
 		}
 	}
 	*/
+	
 	@SubscribeEvent
 	public void replaceGuiInventory(GuiOpenEvent event) {
 		Minecraft mc = Minecraft.getMinecraft();

@@ -4,7 +4,7 @@ public enum EnumBattleClassesAbilityDirectTargetRequirement {
 	REQUIRED {
 		@Override
 		public boolean requiresRayTracingForTarget() {
-			return false;
+			return true;
 		}
 	},
 	OPTIONAL {
@@ -16,7 +16,7 @@ public enum EnumBattleClassesAbilityDirectTargetRequirement {
 	NEEDLESS {
 		@Override
 		public boolean requiresRayTracingForTarget() {
-			return true;
+			return false;
 		}
 	};
 	

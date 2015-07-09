@@ -10,6 +10,7 @@ import net.minecraft.util.StatCollector;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.battleclasses.BattleClassesUtils;
+import mods.battleclasses.BattleClassesUtils.LogType;
 import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
 import mods.battleclasses.client.IDescriptionProvider;
 import mods.battleclasses.core.BattleClassesPlayerAttributes;
@@ -32,7 +33,7 @@ public abstract class BattleClassesAbstractAbility implements IDescriptionProvid
 	}
 	
 	public static BattleClassesAbstractAbilityActive getRegisteredActiveAbilityByID(String id) {
-		BattleClassesAbstractAbility ability = registredAbilities.get(id);
+		BattleClassesAbstractAbility ability = getRegisteredAbilityByID(id);
 		if(ability instanceof BattleClassesAbstractAbilityActive) {
 			return (BattleClassesAbstractAbilityActive)ability;
 		}

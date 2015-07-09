@@ -29,25 +29,21 @@ import mods.battleclasses.enums.EnumBattleClassesPlayerEnviroment;
 import mods.battleclasses.enums.EnumBattleClassesPlayerRole;
 
 public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
-	
-	/*
-	static BattleClassesPlayerClassMage INSTANCE = new BattleClassesPlayerClassMage();
-	static{
-		INSTANCE.registerAllAbilities();
-	}
-	BattleClassesPlayerClassMage() {
-		super(null, EnumBattleClassesPlayerClass.MAGE);
-	}
-	*/
-	
+		
 	public BattleClassesPlayerClassMage(BattleClassesPlayerHooks parPlayerHooks) {
 		super(parPlayerHooks, EnumBattleClassesPlayerClass.MAGE);
+	}
+	
+	static {
+		BattleClassesAbstractAbility.registerAbility(new BattleClassesAbilityTestCasted("mage.blink"));
+		BattleClassesAbstractAbility.registerAbility(new BattleClassesAbilityTestCasted("mage.fireball"));
+		BattleClassesAbstractAbility.registerAbility(new BattleClassesAbilityTestCasted("mage.frostnova"));
 	}
 
 	@Override
 	public List<BattleClassesAbstractAbilityActive> getClassAbilities() {
 		List<BattleClassesAbstractAbilityActive> abilities = new ArrayList<BattleClassesAbstractAbilityActive>();
-		abilities.add(new ArcaneMissilesTestAbility().setUnlocalizedName("mage.arcanemissiles"));
+		abilities.add(new ArcaneMissilesTestAbility());
         abilities.add(new BattleClassesAbilityTestCasted("mage.blink"));
 		abilities.add(new BattleClassesAbilityTestCasted("mage.fireball"));
 		abilities.add(new ScorchTestAbility());
@@ -100,16 +96,6 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 		attributes.add(EnumBattleClassesAttributeType.HASTE_RATING);
 		return attributes;
 	}
-
-	public void registerAllAbilities() {
-		ArrayList<BattleClassesAbstractAbility> allAbilitiesToRegister = new ArrayList<BattleClassesAbstractAbility>();
-		allAbilitiesToRegister.add(new ArcaneMissilesTestAbility());
-		allAbilitiesToRegister.add(new PolymorphTestAbility());
-		//TODO
-		//...
-
-		super.registerAbilties(allAbilitiesToRegister);
-	}
 	
 	//--------------------------------------------------------------------------------------------------------
 	//										ACTIVE CLASS ABILITIES
@@ -123,7 +109,9 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 		
 		public ArcaneMissilesTestAbility() {
 			super();
+			this.setUnlocalizedName("mage.arcanemissiles");
 			this.setAmmoRequirement(Item.getItemById(263), 1);
+			
 		}
 	}
 	
@@ -201,6 +189,7 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 		
 		public FrostNovaTestAbility() {
 			super();
+			this.setUnlocalizedName("mage.frostnova");
 		}
 	}
 	
