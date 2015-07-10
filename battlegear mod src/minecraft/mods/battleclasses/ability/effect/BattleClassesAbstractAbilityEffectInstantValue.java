@@ -63,12 +63,12 @@ public abstract class BattleClassesAbstractAbilityEffectInstantValue extends Bat
 	 * @return
 	 */
 	public float getRandomizedAttributeBasedValue(BattleClassesAttributes attributesForParentAbility) {
-		float power = attributesForParentAbility.getValueForAbilitySchool(this.getAbilitySchool());
+		float power = this.getAbilitySchool().getPowerValueFromAttributes(attributesForParentAbility);
 		return (this.valueBase + this.valueBonusCoefficient * power * (1-valueTotalRandomness +  this.rand.nextFloat()*valueTotalRandomness*2)) * valueBalancer;
 	}
 	
 	protected float getUnrandomizedAttributeBasedValue(BattleClassesAttributes attributesForParentAbility) {
-		float power = attributesForParentAbility.getValueForAbilitySchool(this.getAbilitySchool());
+		float power = this.getAbilitySchool().getPowerValueFromAttributes(attributesForParentAbility);
 		return (this.valueBase + this.valueBonusCoefficient * power /* * (1-valueTotalRandomness +  this.rand.nextFloat()*valueTotalRandomness*2)*/ ) * valueBalancer;
 	}
 	

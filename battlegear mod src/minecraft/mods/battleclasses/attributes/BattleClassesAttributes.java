@@ -8,6 +8,7 @@ import net.minecraft.util.StatCollector;
 import mods.battleclasses.enums.EnumBattleClassesAbilitySchool;
 import mods.battleclasses.enums.EnumBattleClassesAttributeType;
 import mods.battleclasses.enums.EnumBattleClassesWeaponHeldType;
+import mods.battleclasses.gui.BattleClassesGuiHelper;
 
 public class BattleClassesAttributes {
 
@@ -31,7 +32,7 @@ public class BattleClassesAttributes {
 		
 	}
 	
-	public BattleClassesAttributes(int value) {
+	public BattleClassesAttributes(float value) {
 		//Primary attributes (in points)
 		this.health = value;
 		this.strength = value;
@@ -104,147 +105,19 @@ public class BattleClassesAttributes {
 		return activeTypes;
 	}
 	
-	public float getValueForAbilitySchool(EnumBattleClassesAbilitySchool school) {
-		switch(school) {
-			case PHYSICAL_MELEE_ENERGY:
-				return this.agility;
-			case PHYSICAL_MELEE_RAGE:
-				return this.strength;
-			case PHYSICAL_RANGED:
-				return this.agility;
-			case SPELL_ARCANE:
-				return this.spellpower_arcane;
-			case SPELL_FIRE:
-				return this.spellpower_fire;
-			case SPELL_FROST:
-				return this.spellpower_frost;
-			case SPELL_HOLY:
-				return this.spellpower_holy;
-			case SPELL_SHADOW:
-				return this.spellpower_shadow;
-			case UNKNOWN:
-				return 0;
-			default:
-				break;
-		
-		}
-		return 0;
-	}
-	
 	public float getValueByType(EnumBattleClassesAttributeType attributeType) {
-		switch (attributeType) {
-		case AGILITY:{
-			return this.agility;
-		}
-		case ARMOR_PENETRATION:{
-			return this.armor_pen;
-		}
-		case CRITICAL_RATING:{
-			return this.crit;
-		}
-		case HASTE_RATING:{
-			return this.haste;
-		}
-		case SPELLPOWER_ARCANE:{
-			return this.spellpower_arcane;
-		}
-		case SPELLPOWER_FIRE:{
-			return this.spellpower_fire;
-		}
-		case SPELLPOWER_FROST:{
-			return this.spellpower_frost;
-		}
-		case SPELLPOWER_HOLY:{
-			return this.spellpower_holy;
-		}
-		case SPELLPOWER_SHADOW:{
-			return this.spellpower_shadow;
-		}
-		case HEALTH: {
-			return this.health;
-		}
-		case STRENGTH: {
-			return this.strength;
-		}
-		case WEAPON_DAMAGE: {
-			return this.weapon_damage;
-		}
-		default:
-			break;		
-		}
-		return 0;
+		return attributeType.getValueFromAttributes(this);
 	}
 	
 	
 	public void setValueByType(EnumBattleClassesAttributeType attributeType, float value) {
-		switch(attributeType) {
-		case AGILITY: {
-			this.agility = value;
-		}
-			break;
-		case ARMOR_PENETRATION: {
-			this.armor_pen = value;
-		}
-			break;
-		case CRITICAL_RATING: {
-			this.crit = value;
-		}
-			break;
-		case HASTE_RATING: {
-			this.haste = value;
-		}
-			break;
-		case SPELLPOWER_ARCANE: {
-			this.spellpower_arcane = value;
-		}
-			break;
-		case SPELLPOWER_FIRE: {
-			this.spellpower_fire = value;
-		}
-			break;
-		case SPELLPOWER_FROST: {
-			this.spellpower_frost = value;
-		}
-			break;
-		case SPELLPOWER_HOLY: {
-			this.spellpower_holy = value;
-		}
-			break;
-		case SPELLPOWER_SHADOW: {
-			this.spellpower_shadow = value;
-		}
-			break;
-		case HEALTH: {
-			this.health = value;
-		}
-			break;
-		case STRENGTH: {
-			this.strength = value;
-		}
-			break;
-		case WEAPON_DAMAGE: {
-			this.weapon_damage = value;
-		}
-			break;
-		default:
-			break;
-		
-		}
+		attributeType.setValueForAttributes(this, value);
 	}
 	
 	//Helper
 	public String getTranslatedBonusStringByType(EnumBattleClassesAttributeType attributeType) {
 		float value = this.getValueByType(attributeType);
-		String valueString = "+" + fmt(value);
+		String valueString = "+" + BattleClassesGuiHelper.formatFloatToNice(value);
 		return valueString + " " + StatCollector.translateToLocal(attributeType.getUnlocalizedName());
 	}
-	
-	private static String fmt(double d)
-	{
-	    if(d == (long) d)
-	        return String.format("%d",(long)d);
-	    else
-	        return String.format("%s",d);
-	}
-		
 }

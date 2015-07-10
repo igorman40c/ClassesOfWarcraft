@@ -1,7 +1,9 @@
 package mods.battleclasses.items;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
 
+import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
@@ -82,6 +84,10 @@ public class BattleClassesItems {
 		
 		TabWeapons.tabIconItem = itemTestingStaff;
 		TabArmors.tabIconItem = testingHelmet;
+	}
+	
+	public static BattleClassesItemWeapon createWeapon(String name, int itemLevel, EnumSet<EnumBattleClassesPlayerClass> classes) {
+		return null;
 	}
 	
 }

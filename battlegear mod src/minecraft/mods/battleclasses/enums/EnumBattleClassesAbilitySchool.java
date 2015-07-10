@@ -1,5 +1,6 @@
 package mods.battleclasses.enums;
 
+import mods.battleclasses.attributes.BattleClassesAttributes;
 import mods.battleclasses.client.particle.EntityFXCasting;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.StatCollector;
@@ -20,6 +21,11 @@ public enum EnumBattleClassesAbilitySchool {
 		public int getCastBarColoringV() {
 			return 64;
 		}
+
+		@Override
+		public float getPowerValueFromAttributes(BattleClassesAttributes attributes) {
+			return attributes.strength;
+		}
 	},
 	PHYSICAL_MELEE_ENERGY {
 		public float getCriticalStrikeChanceBase() {
@@ -33,6 +39,11 @@ public enum EnumBattleClassesAbilitySchool {
 		@SideOnly(Side.CLIENT)
 		public int getCastBarColoringV() {
 			return 80;
+		}
+
+		@Override
+		public float getPowerValueFromAttributes(BattleClassesAttributes attributes) {
+			return attributes.agility;
 		}
 	},
 	PHYSICAL_RANGED {
@@ -51,6 +62,11 @@ public enum EnumBattleClassesAbilitySchool {
 		@SideOnly(Side.CLIENT)
 		public int getCastBarColoringV() {
 			return 96;
+		}
+
+		@Override
+		public float getPowerValueFromAttributes(BattleClassesAttributes attributes) {
+			return attributes.agility;
 		}
 	},
 	
@@ -87,6 +103,11 @@ public enum EnumBattleClassesAbilitySchool {
 		public int getCastBarColoringV() {
 			return 144;
 		}
+
+		@Override
+		public float getPowerValueFromAttributes(BattleClassesAttributes attributes) {
+			return attributes.spellpower_arcane;
+		}
 	},
 	SPELL_FIRE {
 		public float getCriticalStrikeChanceBase() {
@@ -120,6 +141,11 @@ public enum EnumBattleClassesAbilitySchool {
 		@SideOnly(Side.CLIENT)
 		public int getCastBarColoringV() {
 			return 112;
+		}
+
+		@Override
+		public float getPowerValueFromAttributes(BattleClassesAttributes attributes) {
+			return attributes.spellpower_fire;
 		}
 	},
 	SPELL_FROST {
@@ -155,6 +181,11 @@ public enum EnumBattleClassesAbilitySchool {
 		public int getCastBarColoringV() {
 			return 128;
 		}
+
+		@Override
+		public float getPowerValueFromAttributes(BattleClassesAttributes attributes) {
+			return attributes.spellpower_frost;
+		}
 	},
 	SPELL_HOLY {
 		public float getCriticalStrikeChanceBase() {
@@ -188,6 +219,11 @@ public enum EnumBattleClassesAbilitySchool {
 		@SideOnly(Side.CLIENT)
 		public int getCastBarColoringV() {
 			return 160;
+		}
+
+		@Override
+		public float getPowerValueFromAttributes(BattleClassesAttributes attributes) {
+			return attributes.spellpower_holy;
 		}
 	},
 	SPELL_SHADOW {
@@ -223,8 +259,18 @@ public enum EnumBattleClassesAbilitySchool {
 		public int getCastBarColoringV() {
 			return 176;
 		}
+
+		@Override
+		public float getPowerValueFromAttributes(BattleClassesAttributes attributes) {
+			return attributes.spellpower_shadow;
+		}
 	},
-	UNKNOWN;
+	UNKNOWN {
+		@Override
+		public float getPowerValueFromAttributes( BattleClassesAttributes attributes) {
+			return 0;
+		}
+	};
 	
 	public float getCriticalStrikeChanceBase() {
 		return 0.10F;
@@ -253,6 +299,8 @@ public enum EnumBattleClassesAbilitySchool {
 	public void spawnParticleFXRelease(EntityPlayer entityPlayer) {
 		//Stub
 	}
+	
+	public abstract float getPowerValueFromAttributes(BattleClassesAttributes attributes);
 	
     @SideOnly(Side.CLIENT)
 	public int getCastBarColoringV() {

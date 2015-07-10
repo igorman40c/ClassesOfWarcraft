@@ -9,7 +9,7 @@ import com.google.common.collect.Multimap;
 import mods.battleclasses.BattleClassesMod;
 import mods.battleclasses.attributes.BattleClassesAttributeModifierBonus;
 import mods.battleclasses.attributes.BattleClassesAttributes;
-import mods.battleclasses.attributes.FactoryAttributes;
+import mods.battleclasses.attributes.AttributesFactory;
 import mods.battleclasses.attributes.ICWAttributeModifier;
 import mods.battleclasses.attributes.ICWAttributeModifierOwner;
 import mods.battleclasses.enums.EnumBattleClassesArmorSlot;
@@ -43,7 +43,7 @@ public class BattleClassesItemArmor extends ItemArmor implements IAttributeProvi
 				EnumBattleClassesPlayerClass.HUNTER,
 				EnumBattleClassesPlayerClass.PALADIN,
 				EnumBattleClassesPlayerClass.WARRIOR);
-		storedAttributes = FactoryAttributes.createForArmor(itemLevel, EnumSet.of(EnumBattleClassesAttributeType.HEALTH, EnumBattleClassesAttributeType.STRENGTH, EnumBattleClassesAttributeType.SPELLPOWER_FIRE));
+		storedAttributes = AttributesFactory.createForArmor(itemLevel, EnumSet.of(EnumBattleClassesAttributeType.HEALTH, EnumBattleClassesAttributeType.STRENGTH, EnumBattleClassesAttributeType.SPELLPOWER_FIRE));
 		this.setSingleAttributeModifier(new BattleClassesAttributeModifierBonus(storedAttributes));
 	}
 	
