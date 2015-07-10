@@ -221,6 +221,7 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 			boolean releaseSucceeded = this.releaseEffects(targetEntity, tickCount);
 			if(releaseSucceeded) {
 				this.castingType.onUseFinished(this, targetEntity, tickCount);
+				this.castingDidReleaseEffects();
 			}
 			return releaseSucceeded;
 		}
@@ -420,7 +421,6 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 		BattleClassesAttributes attributesForParentAbility = this.getPlayerAttributes().getTotalAttributesForAbility(this);
 		float critChance = attributesForParentAbility.crit;
 		BattleClassesAbstractAbilityEffect.performListOfEffects(this.effects, attributesForParentAbility, critChance, partialMultiplier, this.getOwnerPlayer(), targetEntity);
-		this.castingDidReleaseEffects();
 	}
 	
 	public void consumeResources() {
@@ -580,23 +580,23 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
     //----------------------------------------------------------------------------------
     
     public boolean hasCastingParticleEffect() {
-    	return this.school.hasCastingParticleEffect();
+    	return this.school.hasParticleFX();
     }
     
-    public void animateWithParticlesRelease(EntityPlayer owner) {
-    	
+    public void spawnParticleFXCasting(EntityPlayer entityPlayer) {
+    	this.school.spawnParticleFXCasting(entityPlayer);
     }
     
-    public void animateWithParticlesTick(EntityPlayer owner, EntityLivingBase target, boolean critical) {
-    	
+    public void spawnParticleFXRelease(EntityPlayer entityPlayer) {
+    	this.school.spawnParticleFXRelease(entityPlayer);
+    }
+        
+    public void spawnParticleFXImpact(EntityLivingBase target, boolean critical) {
+    	//Packet based clientside only
     }
     
-    public void animateWithParticlesImpact(EntityPlayer owner, EntityLivingBase target, boolean critical) {
-    	
-    }
-    
-    public void animateWithParticlesCarrierTravel(Entity abilityCarrierEntity, int travelTick) {
-    	
+    public void spawnParticleFXCarrierTravel(Entity abilityCarrierEntity, int travelTick) {
+    	//???
     }
     
     //----------------------------------------------------------------------------------

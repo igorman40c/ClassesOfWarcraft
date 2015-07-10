@@ -19,14 +19,14 @@ import mods.battleclasses.sound.CastingSound;
  * This maintains the sync of the ability related FX (casting and release sounds and animations) between clients.
  * Stored activity data can be used for render effects and overlays also.
  * 
- * @author Zsolt Molnár
+ * @author Zsolt Molnï¿½r
  */
 public class BattleClassesClientAbilityActivityRegistry {
 	
 	/**
 	 * Struct-like class representing an ongoing spellcast. 
 	 * 
-	 * @author Zsolt Molnár
+	 * @author Zsolt Molnï¿½r
 	 */
 	class CastingActivity {
 		public String playerCastingName;
@@ -125,10 +125,13 @@ public class BattleClassesClientAbilityActivityRegistry {
 	 * @param abilityID
 	 */
 	public void playAbilityLaunchFX(String playerName, String abilityID) {
+		System.out.println("Should play release FX");
 		EntityPlayer entityPlayer = mc.thePlayer.worldObj.getPlayerEntityByName(playerName);
 		if(entityPlayer != null) {
-			System.out.println("Should Play Release FX");
-			//Stub method, play release/launch animation and sound of ability here
+			BattleClassesAbstractAbilityActive ability = BattleClassesAbstractAbility.getRegisteredActiveAbilityByID(abilityID);
+			if(entityPlayer != null && ability.hasCastingParticleEffect()) {
+				ability.spawnParticleFXRelease(entityPlayer);
+			}
 		}
 	}
 	
@@ -142,7 +145,7 @@ public class BattleClassesClientAbilityActivityRegistry {
 	 */
 	private boolean JUNK_MARKING = false;
 	/**
-	 * Checks for stuck ongoing effects *junks*. Called on ClientTickEvent.END from ClientEvents.
+	 * Checks for stuck ongoing effects *junks*.
 	 */
 	public void checkForJunk() {
 		if(JUNK_CHECKING) {
@@ -165,7 +168,6 @@ public class BattleClassesClientAbilityActivityRegistry {
 			    		junkList.add(playerName);
 			    	}
 			    }
-		        //it.remove();
 			}
 			
 			for(String playerName : junkList) {
@@ -174,6 +176,9 @@ public class BattleClassesClientAbilityActivityRegistry {
 		}
 	}
 	
+	/**
+	 * Spawns casting particle FX and checks for junk. Called on ClientTickEvent.END from ClientEvents.
+	 */
 	public void update() {
 		Iterator it = this.activityMap.entrySet().iterator();
 		while (it.hasNext()) {
@@ -185,7 +190,7 @@ public class BattleClassesClientAbilityActivityRegistry {
 		    	EntityPlayer entityPlayer = mc.thePlayer.worldObj.getPlayerEntityByName(playerName);
 		    	BattleClassesAbstractAbilityActive ability = BattleClassesAbstractAbility.getRegisteredActiveAbilityByID(castingActivity.getAbilityID());
 				if(entityPlayer != null && ability.hasCastingParticleEffect()) {
-					EntityFXCasting.spawnCastingParticleFX(entityPlayer, ability);
+					ability.spawnParticleFXCasting(entityPlayer);
 				}		    	
 		    }
 	    }

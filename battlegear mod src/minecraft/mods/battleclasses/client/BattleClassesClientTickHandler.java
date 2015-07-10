@@ -13,7 +13,9 @@ public class BattleClassesClientTickHandler {
 	
 	@SubscribeEvent
 	public void onClientTick(WorldTickEvent event) {
-		BattleClassesClientEvents.activityRegistry.update();
+		if(event.phase == TickEvent.Phase.END) {
+			BattleClassesClientEvents.activityRegistry.update();
+		}
 	}
 
 	/*

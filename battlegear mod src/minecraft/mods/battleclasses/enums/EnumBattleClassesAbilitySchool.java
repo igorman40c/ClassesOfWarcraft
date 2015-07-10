@@ -71,12 +71,16 @@ public enum EnumBattleClassesAbilitySchool {
 			return true;
 		}
 		
-		public boolean hasCastingParticleEffect() {
+		public boolean hasParticleFX() {
 			return true;
 		}
 		
-		public void spawnCastingParticleFX(EntityPlayer entityPlayer) {
-			EntityFXCasting.spawnCastingParticleFXArcane(entityPlayer);
+		public void spawnParticleFXCasting(EntityPlayer entityPlayer) {
+			EntityFXCasting.spawnParticleFXCastingArcane(entityPlayer);
+		}
+		
+		public void spawnParticleFXRelease(EntityPlayer entityPlayer) {
+			EntityFXCasting.spawnParticleFXReleaseArcane(entityPlayer);
 		}
 		
 		@SideOnly(Side.CLIENT)
@@ -101,12 +105,16 @@ public enum EnumBattleClassesAbilitySchool {
 			return true;
 		}
 		
-		public boolean hasCastingParticleEffect() {
+		public boolean hasParticleFX() {
 			return true;
 		}
 		
-		public void spawnCastingParticleFX(EntityPlayer entityPlayer) {
-			EntityFXCasting.spawnCastingParticleFXFire(entityPlayer);
+		public void spawnParticleFXCasting(EntityPlayer entityPlayer) {
+			EntityFXCasting.spawnParticleFXCastingFire(entityPlayer);
+		}
+		
+		public void spawnParticleFXRelease(EntityPlayer entityPlayer) {
+			EntityFXCasting.spawnParticleFXReleaseFire(entityPlayer);
 		}
 		
 		@SideOnly(Side.CLIENT)
@@ -131,12 +139,16 @@ public enum EnumBattleClassesAbilitySchool {
 			return true;
 		}
 		
-		public boolean hasCastingParticleEffect() {
+		public boolean hasParticleFX() {
 			return true;
 		}
 		
-		public void spawnCastingParticleFX(EntityPlayer entityPlayer) {
-			EntityFXCasting.spawnCastingParticleFXFrost(entityPlayer);
+		public void spawnParticleFXCasting(EntityPlayer entityPlayer) {
+			EntityFXCasting.spawnParticleFXCastingFrost(entityPlayer);
+		}
+		
+		public void spawnParticleFXRelease(EntityPlayer entityPlayer) {
+			EntityFXCasting.spawnParticleFXReleaseFrost(entityPlayer);
 		}
 		
 		@SideOnly(Side.CLIENT)
@@ -161,12 +173,16 @@ public enum EnumBattleClassesAbilitySchool {
 			return true;
 		}
 		
-		public boolean hasCastingParticleEffect() {
+		public boolean hasParticleFX() {
 			return true;
 		}
 		
-		public void spawnCastingParticleFX(EntityPlayer entityPlayer) {
-			EntityFXCasting.spawnCastingParticleFXHoly(entityPlayer);
+		public void spawnParticleFXCasting(EntityPlayer entityPlayer) {
+			EntityFXCasting.spawnParticleFXCastingHoly(entityPlayer);
+		}
+		
+		public void spawnParticleFXRelease(EntityPlayer entityPlayer) {
+			EntityFXCasting.spawnParticleFXReleaseHoly(entityPlayer);
 		}
 		
 		@SideOnly(Side.CLIENT)
@@ -191,12 +207,16 @@ public enum EnumBattleClassesAbilitySchool {
 			return true;
 		}
 		
-		public boolean hasCastingParticleEffect() {
+		public boolean hasParticleFX() {
 			return true;
 		}
 		
-		public void spawnCastingParticleFX(EntityPlayer entityPlayer) {
-			EntityFXCasting.spawnCastingParticleFXShadow(entityPlayer);
+		public void spawnParticleFXCasting(EntityPlayer entityPlayer) {
+			EntityFXCasting.spawnParticleFXCastingShadow(entityPlayer);
+		}
+		
+		public void spawnParticleFXRelease(EntityPlayer entityPlayer) {
+			EntityFXCasting.spawnParticleFXReleaseShadow(entityPlayer);
 		}
 		
 		@SideOnly(Side.CLIENT)
@@ -222,11 +242,15 @@ public enum EnumBattleClassesAbilitySchool {
 		return false;
 	}
 	
-	public boolean hasCastingParticleEffect() {
+	public boolean hasParticleFX() {
 		return false;
 	}
 	
-	public void spawnCastingParticleFX(EntityPlayer entityPlayer) {
+	public void spawnParticleFXCasting(EntityPlayer entityPlayer) {
+		//Stub
+	}
+	
+	public void spawnParticleFXRelease(EntityPlayer entityPlayer) {
 		//Stub
 	}
 	
