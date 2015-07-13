@@ -96,7 +96,7 @@ bcattribute.haste_rating.name=Haste Rating
 bcattribute.critical_rating.name=Critical Chance
 bcattribute.armor_penetration.name=Armor Penetration
 bcattribute.weapon_damage.name=Weapon Damage
-bcattribute.armor.name=Armor
+bcattribute.armor.name=MyArmor
 
 bcattribute.health.description=Increases your maximal health by half a heart per point.
 bcattribute.strength.description=Increases your weapon damage.

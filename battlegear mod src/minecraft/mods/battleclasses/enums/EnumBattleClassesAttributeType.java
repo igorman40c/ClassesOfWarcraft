@@ -1,5 +1,7 @@
 package mods.battleclasses.enums;
 
+import java.util.EnumSet;
+
 import mods.battleclasses.attributes.BattleClassesAttributes;
 import net.minecraft.util.StatCollector;
 
@@ -234,13 +236,29 @@ public enum EnumBattleClassesAttributeType {
 		}
 	};
 	
+	public static final EnumSet<EnumBattleClassesAttributeType> ALL_PRIMARY_TYPES = EnumSet.of(HEALTH, STRENGTH, AGILITY, SPELLPOWER_ARCANE, SPELLPOWER_FIRE, SPELLPOWER_FROST, SPELLPOWER_HOLY, SPELLPOWER_SHADOW);
+	public static final EnumSet<EnumBattleClassesAttributeType> ALL_SECONDARY_TYPES = EnumSet.of(HASTE_RATING, CRITICAL_RATING, ARMOR_PENETRATION);
+	public static final EnumSet<EnumBattleClassesAttributeType> ALL_SPELLPOWER_TYPES = EnumSet.of(SPELLPOWER_ARCANE, SPELLPOWER_FIRE, SPELLPOWER_FROST, SPELLPOWER_HOLY, SPELLPOWER_SHADOW);
+	
+	public static final EnumSet<EnumBattleClassesAttributeType> getPrimaryTypesOfSet(EnumSet<EnumBattleClassesAttributeType> types) {
+		EnumSet<EnumBattleClassesAttributeType> primarySet = types.clone();
+		primarySet.retainAll(ALL_PRIMARY_TYPES);
+		return primarySet;
+	}
+	
+	public static final EnumSet<EnumBattleClassesAttributeType> getSecondaryTypesOfSet(EnumSet<EnumBattleClassesAttributeType> types) {
+		EnumSet<EnumBattleClassesAttributeType> secondarySet = types.clone();
+		secondarySet.retainAll(ALL_SECONDARY_TYPES);
+		return secondarySet;
+	}
+	
 	public abstract float getValueFromAttributes(BattleClassesAttributes attributes);
 	public abstract void setValueForAttributes(BattleClassesAttributes attributes, float value);
 	
 	public boolean isPrimary() {
 		return true;
 	}
-		
+	
 	public int getDisplayIconSquareSize() {
 		return 9;
 	}

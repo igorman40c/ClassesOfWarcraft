@@ -3,6 +3,7 @@ package mods.battleclasses.items;
 import java.util.ArrayList;
 import java.util.EnumSet;
 
+import mods.battleclasses.enums.EnumBattleClassesAttributeType;
 import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
@@ -20,6 +21,9 @@ public class BattleClassesItems {
 	
 	//ARMOR MATERIALS
 	public static ArmorMaterial BC_ARMOR_MATERIAL_PLATE = EnumHelper.addArmorMaterial("BC_PLATE_TYPE", 33, new int[]{3, 8, 6, 3}, 10);
+	public static ArmorMaterial BC_ARMOR_MATERIAL_MAIL = EnumHelper.addArmorMaterial("BC_MAIL_TYPE", 33, new int[]{2, 6, 5, 2}, 10);
+	public static ArmorMaterial BC_ARMOR_MATERIAL_LEATHER = EnumHelper.addArmorMaterial("BC_LEATHER_TYPE", 33, new int[]{1, 4, 3, 2}, 10);
+	public static ArmorMaterial BC_ARMOR_MATERIAL_CLOTH = EnumHelper.addArmorMaterial("BC_CLOTH_TYPE", 33, new int[]{1, 2, 1, 1}, 10);
 	
 	//MISC ITEMS
     public static final BattleClassesItemGem itemGem = new BattleClassesItemGem();
@@ -35,10 +39,14 @@ public class BattleClassesItems {
     public static final BattleClassesItemWeaponTwoHanded itemBroadSword = new BattleClassesItemWeaponTwoHanded(ToolMaterial.EMERALD, "BroadSwordDiamond");
     
     //ARMOR ITEMS
-    public static BattleClassesItemArmor testingHelmet = new BattleClassesItemArmor(BC_ARMOR_MATERIAL_PLATE, 0, 1, "testing");
-    public static BattleClassesItemArmor testingChestplate = new BattleClassesItemArmor(BC_ARMOR_MATERIAL_PLATE, 1, 1, "testing");
-    public static BattleClassesItemArmor testingLeggings = new BattleClassesItemArmor(BC_ARMOR_MATERIAL_PLATE, 2, 1, "testing");
-    public static BattleClassesItemArmor testingBoots = new BattleClassesItemArmor(BC_ARMOR_MATERIAL_PLATE, 3, 1, "testing");
+    public static BattleClassesItemArmor testingHelmet = new BattleClassesItemArmor(BC_ARMOR_MATERIAL_PLATE, 0, "testing", EnumSet.of(EnumBattleClassesPlayerClass.MAGE)).setItemLevelAndAttributeTypes(1, 
+    			EnumSet.of(EnumBattleClassesAttributeType.HEALTH, EnumBattleClassesAttributeType.STRENGTH, EnumBattleClassesAttributeType.SPELLPOWER_FIRE));
+    public static BattleClassesItemArmor testingChestplate = new BattleClassesItemArmor(BC_ARMOR_MATERIAL_PLATE, 1, "testing", EnumSet.of(EnumBattleClassesPlayerClass.MAGE)).setItemLevelAndAttributeTypes(1, 
+				EnumSet.of(EnumBattleClassesAttributeType.HEALTH, EnumBattleClassesAttributeType.STRENGTH, EnumBattleClassesAttributeType.SPELLPOWER_HOLY));
+    public static BattleClassesItemArmor testingLeggings = new BattleClassesItemArmor(BC_ARMOR_MATERIAL_PLATE, 2, "testing", EnumSet.of(EnumBattleClassesPlayerClass.MAGE)).setItemLevelAndAttributeTypes(1, 
+				EnumSet.of(EnumBattleClassesAttributeType.HEALTH, EnumBattleClassesAttributeType.STRENGTH, EnumBattleClassesAttributeType.CRITICAL_RATING));
+    public static BattleClassesItemArmor testingBoots = new BattleClassesItemArmor(BC_ARMOR_MATERIAL_PLATE, 3, "testing", EnumSet.of(EnumBattleClassesPlayerClass.MAGE)).setItemLevelAndAttributeTypes(1, 
+				EnumSet.of(EnumBattleClassesAttributeType.STRENGTH, EnumBattleClassesAttributeType.HASTE_RATING, EnumBattleClassesAttributeType.CRITICAL_RATING));
 
     
 	public static void registerItems() {
