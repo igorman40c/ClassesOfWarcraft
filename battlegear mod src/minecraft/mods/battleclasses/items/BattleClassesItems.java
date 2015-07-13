@@ -46,7 +46,7 @@ public class BattleClassesItems {
     public static BattleClassesItemArmor testingLeggings = new BattleClassesItemArmor(BC_ARMOR_MATERIAL_PLATE, 2, "testing", EnumSet.of(EnumBattleClassesPlayerClass.MAGE)).setItemLevelAndAttributeTypes(1, 
 				EnumSet.of(EnumBattleClassesAttributeType.HEALTH, EnumBattleClassesAttributeType.STRENGTH, EnumBattleClassesAttributeType.CRITICAL_RATING));
     public static BattleClassesItemArmor testingBoots = new BattleClassesItemArmor(BC_ARMOR_MATERIAL_PLATE, 3, "testing", EnumSet.of(EnumBattleClassesPlayerClass.MAGE)).setItemLevelAndAttributeTypes(1, 
-				EnumSet.of(EnumBattleClassesAttributeType.STRENGTH, EnumBattleClassesAttributeType.HASTE_RATING, EnumBattleClassesAttributeType.CRITICAL_RATING));
+				EnumSet.of(EnumBattleClassesAttributeType.STRENGTH, EnumBattleClassesAttributeType.ARMOR_PENETRATION, EnumBattleClassesAttributeType.CRITICAL_RATING));
 
     
 	public static void registerItems() {

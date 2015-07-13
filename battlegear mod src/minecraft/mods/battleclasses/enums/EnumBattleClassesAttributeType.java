@@ -3,6 +3,8 @@ package mods.battleclasses.enums;
 import java.util.EnumSet;
 
 import mods.battleclasses.attributes.BattleClassesAttributes;
+import mods.battleclasses.gui.BattleClassesGuiHelper;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 
 public enum EnumBattleClassesAttributeType {
@@ -220,19 +222,19 @@ public enum EnumBattleClassesAttributeType {
 	},
 	
 	//Vanilla attributes
-	ARMOR {
+	VANILLA_ARMOR {
 		public int getDisplayIconV()  {
 			return 16;
 		}
 
 		@Override
 		public float getValueFromAttributes(BattleClassesAttributes attributes) {
-			return attributes.armor_pen;
+			return 0;
 		}
 
 		@Override
 		public void setValueForAttributes(BattleClassesAttributes attributes, float value) {
-			attributes.armor_pen = value;
+			//stub
 		}
 	};
 	
@@ -241,14 +243,18 @@ public enum EnumBattleClassesAttributeType {
 	public static final EnumSet<EnumBattleClassesAttributeType> ALL_SPELLPOWER_TYPES = EnumSet.of(SPELLPOWER_ARCANE, SPELLPOWER_FIRE, SPELLPOWER_FROST, SPELLPOWER_HOLY, SPELLPOWER_SHADOW);
 	
 	public static final EnumSet<EnumBattleClassesAttributeType> getPrimaryTypesOfSet(EnumSet<EnumBattleClassesAttributeType> types) {
+		System.out.println("getPrimaryTypesOfSet tpyes:" + types);
 		EnumSet<EnumBattleClassesAttributeType> primarySet = types.clone();
 		primarySet.retainAll(ALL_PRIMARY_TYPES);
+		System.out.println("getPrimaryTypesOfSet primarySet:" + primarySet);
 		return primarySet;
 	}
 	
 	public static final EnumSet<EnumBattleClassesAttributeType> getSecondaryTypesOfSet(EnumSet<EnumBattleClassesAttributeType> types) {
+		System.out.println("getSecondaryTypesOfSet tpyes:" + types);
 		EnumSet<EnumBattleClassesAttributeType> secondarySet = types.clone();
 		secondarySet.retainAll(ALL_SECONDARY_TYPES);
+		System.out.println("getSecondaryTypesOfSet secondarySet:" + secondarySet);
 		return secondarySet;
 	}
 	
@@ -259,12 +265,21 @@ public enum EnumBattleClassesAttributeType {
 		return true;
 	}
 	
+	public EnumChatFormatting getBonusLineColor() {
+		if(this.isPrimary()){
+			return EnumChatFormatting.BLUE;
+		}
+		else {
+			return EnumChatFormatting.DARK_AQUA;
+		}
+	}
+	
 	public int getDisplayIconSquareSize() {
 		return 9;
 	}
 			
 	public boolean isDisplayedInPercentage() {
-		return false;
+		return !isPrimary();
 	}
 	
 	/**
@@ -297,5 +312,11 @@ public enum EnumBattleClassesAttributeType {
 	
 	public String getTranslatedDescription() {
 		return StatCollector.translateToLocal(this.getUnlocalizedDescription());
+	}
+	
+	public String getTranslatedBonusLine(float value) {
+		String displayedValue = (this.isDisplayedInPercentage()) ? BattleClassesGuiHelper.formatFloatToPercentage(value) : BattleClassesGuiHelper.formatFloatToNice(value);
+  		String valueString = "+" + displayedValue;
+		return valueString + " " + this.getTranslatedName();
 	}
 }

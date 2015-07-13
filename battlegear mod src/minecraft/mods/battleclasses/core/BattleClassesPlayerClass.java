@@ -119,7 +119,7 @@ public class BattleClassesPlayerClass implements ICooldownOwner {
 	public ArrayList<EnumBattleClassesAttributeType> getDefaultAttributesToDisplay() {
 		ArrayList<EnumBattleClassesAttributeType> attributes = new ArrayList<EnumBattleClassesAttributeType>();
 		attributes.add(EnumBattleClassesAttributeType.HEALTH);
-		attributes.add(EnumBattleClassesAttributeType.ARMOR);
+		attributes.add(EnumBattleClassesAttributeType.VANILLA_ARMOR);
 		return attributes;
 	}
 	

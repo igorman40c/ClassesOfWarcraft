@@ -112,7 +112,7 @@ public class BattleClassesGuiAttributeDisplayNode extends BattleClassesGuiButton
 	public String getDisplayString() {
 		Minecraft mc = Minecraft.getMinecraft();
 		float displayedValue = 0;
-		if(this.displayedAttributeType == EnumBattleClassesAttributeType.ARMOR) {
+		if(this.displayedAttributeType == EnumBattleClassesAttributeType.VANILLA_ARMOR) {
 			displayedValue = ForgeHooks.getTotalArmorValue(mc.thePlayer);
 		}
 		else if(this.displayedAttributeType == EnumBattleClassesAttributeType.HEALTH) {

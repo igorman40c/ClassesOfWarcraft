@@ -369,6 +369,10 @@ public class BattleClassesGuiHelper extends Gui {
 	        return String.format("%s",f);
 	}
 	
+	public static String formatFloatToPercentage(float f) {
+		return formatFloatToNice(100F*f) + "%";
+	}
+	
 	public static String capitalizeFirstLetter(String word) {
 		return word.substring(0, 1).toUpperCase() + word.substring(1);
 	}

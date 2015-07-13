@@ -341,7 +341,7 @@ public class BattleClassesClientEvents {
         	IAttributeProviderItem attributeProviderItem = (IAttributeProviderItem)event.itemStack.getItem();
         	BattleClassesAttributes attributes = (attributeProviderItem).getAttributes();
         	for(EnumBattleClassesAttributeType activeAttributeType : attributes.getActiveTypes()) {
-        		event.toolTip.add(EnumChatFormatting.BLUE + attributes.getTranslatedBonusStringByType(activeAttributeType));
+        		event.toolTip.add(activeAttributeType.getBonusLineColor() + activeAttributeType.getTranslatedBonusLine(activeAttributeType.getValueFromAttributes(attributes)));
         	}
         	//Adding class access set-string
         	EnumSet<EnumBattleClassesPlayerClass> classAccessSet = attributeProviderItem.getClassAccessSet();
