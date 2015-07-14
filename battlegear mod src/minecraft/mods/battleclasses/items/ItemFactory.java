@@ -23,11 +23,17 @@ public class ItemFactory {
 	public static void registerItem(Item item) {
 		GameRegistry.registerItem(item, item.getUnlocalizedName());
 	}
+	
+	public static void registerItems(Item[] items) {
+		for(int i = 0; i < items.length; ++i) {
+			registerItem(items[i]);
+		}
+	}
 
 	public static BattleClassesItemArmor[] createArmorSet(EnumSet<EnumBattleClassesPlayerClass> classes, ArmorMaterial material, String MODID, String name, int itemLevel, EnumSet<EnumBattleClassesAttributeType> types) {
 		BattleClassesItemArmor[] armorSet = new BattleClassesItemArmor[4];
 		for(int i = 0; i < 4; ++i) {
-			int armorType = i; //Slot tpye integer
+			int armorType = i; //Slot tpye integer 
 			armorSet[i] = createArmorItem(classes, material, armorType, MODID, name, itemLevel, types);
 		}
 		return armorSet;

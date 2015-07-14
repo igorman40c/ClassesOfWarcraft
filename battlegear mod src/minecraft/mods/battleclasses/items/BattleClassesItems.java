@@ -40,17 +40,6 @@ public class BattleClassesItems {
     public static final BattleClassesItemWeaponTwoHanded itemBroadSword = new BattleClassesItemWeaponTwoHanded(ToolMaterial.EMERALD, "BroadSwordDiamond");
     
     //ARMOR ITEMS
-    /*
-    public static BattleClassesItemArmor testingHelmet = new BattleClassesItemArmor(BC_ARMOR_MATERIAL_PLATE, 0, "testing", EnumSet.of(EnumBattleClassesPlayerClass.MAGE)).setItemLevelAndAttributeTypes(1, 
-    			EnumSet.of(EnumBattleClassesAttributeType.HEALTH, EnumBattleClassesAttributeType.STRENGTH, EnumBattleClassesAttributeType.SPELLPOWER_FIRE));
-    public static BattleClassesItemArmor testingChestplate = new BattleClassesItemArmor(BC_ARMOR_MATERIAL_PLATE, 1, "testing", EnumSet.of(EnumBattleClassesPlayerClass.MAGE)).setItemLevelAndAttributeTypes(1, 
-				EnumSet.of(EnumBattleClassesAttributeType.HEALTH, EnumBattleClassesAttributeType.STRENGTH, EnumBattleClassesAttributeType.SPELLPOWER_HOLY));
-    public static BattleClassesItemArmor testingLeggings = new BattleClassesItemArmor(BC_ARMOR_MATERIAL_PLATE, 2, "testing", EnumSet.of(EnumBattleClassesPlayerClass.MAGE)).setItemLevelAndAttributeTypes(1, 
-				EnumSet.of(EnumBattleClassesAttributeType.HEALTH, EnumBattleClassesAttributeType.STRENGTH, EnumBattleClassesAttributeType.CRITICAL_RATING));
-    public static BattleClassesItemArmor testingBoots = new BattleClassesItemArmor(BC_ARMOR_MATERIAL_PLATE, 3, "testing", EnumSet.of(EnumBattleClassesPlayerClass.MAGE)).setItemLevelAndAttributeTypes(1, 
-				EnumSet.of(EnumBattleClassesAttributeType.STRENGTH, EnumBattleClassesAttributeType.ARMOR_PENETRATION, EnumBattleClassesAttributeType.CRITICAL_RATING));
-	*/
-
     public static BattleClassesItemArmor[] testingSet;
     
 	public static void registerItems() {
@@ -67,26 +56,7 @@ public class BattleClassesItems {
 		
 		testingSet = ItemFactory.createArmorSet(EnumSet.of(EnumBattleClassesPlayerClass.MAGE), ItemFactory.BC_ARMOR_MATERIAL_CLOTH, BattleClassesMod.MODID, "testing", 1, 
 				EnumSet.of(EnumBattleClassesAttributeType.HEALTH, EnumBattleClassesAttributeType.SPELLPOWER_FIRE, EnumBattleClassesAttributeType.CRITICAL_RATING ));
-		for(int i = 0; i < testingSet.length; ++i) {
-			ItemFactory.registerItem(testingSet[i]);
-		}
-		
-		/*
-		GameRegistry.registerItem(testingHelmet, testingHelmet.getUnlocalizedName());
-		GameRegistry.registerItem(testingChestplate, testingChestplate.getUnlocalizedName());
-		GameRegistry.registerItem(testingLeggings, testingLeggings.getUnlocalizedName());
-		GameRegistry.registerItem(testingBoots, testingBoots.getUnlocalizedName());
-		*/
-		
-
-		/*
-		item.metaitem_white.name=Metaitem 0 (White)
-		item.metaitem_black.name=Metaitem 1 (Black)
-		item.metaitem_red.name=Metaitem 2 (Red)
-		item.metaitem_green.name=Metaitem 3 (Green)
-		item.metaitem_yellow.name=Metaitem 4 (Yellow)
-		item.metaitem_blue.name=Metaitem 5 (Blue)
-		*/
+		ItemFactory.registerItems(testingSet);
 		
 		LanguageRegistry.addName(new ItemStack(itemBroadSword), "Broadsword of testing and debugging");
 		LanguageRegistry.addName(new ItemStack(itemTestingStaff), "Staff of testing and debugging");
