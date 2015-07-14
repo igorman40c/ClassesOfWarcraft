@@ -3,6 +3,7 @@ package mods.battleclasses.items;
 import java.util.ArrayList;
 import java.util.EnumSet;
 
+import mods.battleclasses.BattleClassesMod;
 import mods.battleclasses.enums.EnumBattleClassesAttributeType;
 import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
 import net.minecraft.creativetab.CreativeTabs;
@@ -20,10 +21,10 @@ public class BattleClassesItems {
 	public static final BattleClassesCreativeTabs TabArmors = new BattleClassesCreativeTabs("bcarmor");
 	
 	//ARMOR MATERIALS
-	public static ArmorMaterial BC_ARMOR_MATERIAL_PLATE = EnumHelper.addArmorMaterial("BC_PLATE_TYPE", 33, new int[]{3, 8, 6, 3}, 10);
-	public static ArmorMaterial BC_ARMOR_MATERIAL_MAIL = EnumHelper.addArmorMaterial("BC_MAIL_TYPE", 33, new int[]{2, 6, 5, 2}, 10);
-	public static ArmorMaterial BC_ARMOR_MATERIAL_LEATHER = EnumHelper.addArmorMaterial("BC_LEATHER_TYPE", 33, new int[]{1, 4, 3, 2}, 10);
-	public static ArmorMaterial BC_ARMOR_MATERIAL_CLOTH = EnumHelper.addArmorMaterial("BC_CLOTH_TYPE", 33, new int[]{1, 2, 1, 1}, 10);
+	public static final ArmorMaterial BC_ARMOR_MATERIAL_PLATE = EnumHelper.addArmorMaterial("BC_PLATE_TYPE", 33, new int[]{3, 8, 6, 3}, 10);
+	public static final ArmorMaterial BC_ARMOR_MATERIAL_MAIL = EnumHelper.addArmorMaterial("BC_MAIL_TYPE", 33, new int[]{2, 6, 5, 2}, 10);
+	public static final ArmorMaterial BC_ARMOR_MATERIAL_LEATHER = EnumHelper.addArmorMaterial("BC_LEATHER_TYPE", 33, new int[]{1, 4, 3, 2}, 10);
+	public static final ArmorMaterial BC_ARMOR_MATERIAL_CLOTH = EnumHelper.addArmorMaterial("BC_CLOTH_TYPE", 33, new int[]{1, 2, 1, 1}, 10);
 	
 	//MISC ITEMS
     public static final BattleClassesItemGem itemGem = new BattleClassesItemGem();
@@ -39,6 +40,7 @@ public class BattleClassesItems {
     public static final BattleClassesItemWeaponTwoHanded itemBroadSword = new BattleClassesItemWeaponTwoHanded(ToolMaterial.EMERALD, "BroadSwordDiamond");
     
     //ARMOR ITEMS
+    /*
     public static BattleClassesItemArmor testingHelmet = new BattleClassesItemArmor(BC_ARMOR_MATERIAL_PLATE, 0, "testing", EnumSet.of(EnumBattleClassesPlayerClass.MAGE)).setItemLevelAndAttributeTypes(1, 
     			EnumSet.of(EnumBattleClassesAttributeType.HEALTH, EnumBattleClassesAttributeType.STRENGTH, EnumBattleClassesAttributeType.SPELLPOWER_FIRE));
     public static BattleClassesItemArmor testingChestplate = new BattleClassesItemArmor(BC_ARMOR_MATERIAL_PLATE, 1, "testing", EnumSet.of(EnumBattleClassesPlayerClass.MAGE)).setItemLevelAndAttributeTypes(1, 
@@ -47,9 +49,12 @@ public class BattleClassesItems {
 				EnumSet.of(EnumBattleClassesAttributeType.HEALTH, EnumBattleClassesAttributeType.STRENGTH, EnumBattleClassesAttributeType.CRITICAL_RATING));
     public static BattleClassesItemArmor testingBoots = new BattleClassesItemArmor(BC_ARMOR_MATERIAL_PLATE, 3, "testing", EnumSet.of(EnumBattleClassesPlayerClass.MAGE)).setItemLevelAndAttributeTypes(1, 
 				EnumSet.of(EnumBattleClassesAttributeType.STRENGTH, EnumBattleClassesAttributeType.ARMOR_PENETRATION, EnumBattleClassesAttributeType.CRITICAL_RATING));
+	*/
 
+    public static BattleClassesItemArmor[] testingSet;
     
 	public static void registerItems() {
+		
 		GameRegistry.registerItem(itemGem, "gemItem");
 		GameRegistry.registerItem(itemTestingStaff, itemTestingStaff.getUnlocalizedName());
 		GameRegistry.registerItem(itemTestingGreatStaffWooden, itemTestingGreatStaffWooden.getUnlocalizedName());
@@ -59,10 +64,20 @@ public class BattleClassesItems {
 		GameRegistry.registerItem(itemLongBowBirch, itemLongBowBirch.getUnlocalizedName());
 		GameRegistry.registerItem(itemBroadSword, itemBroadSword.getUnlocalizedName());
 		
+		
+		testingSet = ItemFactory.createArmorSet(EnumSet.of(EnumBattleClassesPlayerClass.MAGE), ItemFactory.BC_ARMOR_MATERIAL_CLOTH, BattleClassesMod.MODID, "testing", 1, 
+				EnumSet.of(EnumBattleClassesAttributeType.HEALTH, EnumBattleClassesAttributeType.SPELLPOWER_FIRE, EnumBattleClassesAttributeType.CRITICAL_RATING ));
+		for(int i = 0; i < testingSet.length; ++i) {
+			ItemFactory.registerItem(testingSet[i]);
+		}
+		
+		/*
 		GameRegistry.registerItem(testingHelmet, testingHelmet.getUnlocalizedName());
 		GameRegistry.registerItem(testingChestplate, testingChestplate.getUnlocalizedName());
 		GameRegistry.registerItem(testingLeggings, testingLeggings.getUnlocalizedName());
 		GameRegistry.registerItem(testingBoots, testingBoots.getUnlocalizedName());
+		*/
+		
 
 		/*
 		item.metaitem_white.name=Metaitem 0 (White)
@@ -91,7 +106,7 @@ public class BattleClassesItems {
 		LanguageRegistry.addName(new ItemStack(itemGem, 1, 6), "Talasite");
 		
 		TabWeapons.tabIconItem = itemTestingStaff;
-		TabArmors.tabIconItem = testingHelmet;
+		TabArmors.tabIconItem = testingSet[0];
 	}
 	
 	public static BattleClassesItemWeapon createWeapon(String name, int itemLevel, EnumSet<EnumBattleClassesPlayerClass> classes) {

@@ -29,14 +29,19 @@ public class BattleClassesItemArmor extends ItemArmor implements IAttributeProvi
 	protected String armorTexture;
 	protected EnumSet<EnumBattleClassesPlayerClass> classAccessSet;
 	protected BattleClassesAttributes storedAttributes;
-	public BattleClassesItemArmor(ArmorMaterial material, int armorType, String name) {
+	
+	protected String armorSetName = "";
+	protected String armorSetMODID = "";
+	
+	public BattleClassesItemArmor(ArmorMaterial material, int armorType, String MODID, String name) {
 		//super(material, renderIndex, armorType);
 		super(material, 1, armorType);
 		this.material = material;
-		this.setName(name);
+		this.setName(MODID, name);
 		this.setCreativeTab(BattleClassesItems.TabArmors);
 		
 		//TEST DATA
+		/*
 		classAccessSet = EnumSet.of(
 				EnumBattleClassesPlayerClass.MAGE,
 				EnumBattleClassesPlayerClass.PRIEST,
@@ -45,38 +50,42 @@ public class BattleClassesItemArmor extends ItemArmor implements IAttributeProvi
 				EnumBattleClassesPlayerClass.HUNTER,
 				EnumBattleClassesPlayerClass.PALADIN,
 				EnumBattleClassesPlayerClass.WARRIOR);
-		storedAttributes = AttributesFactory.createForArmor(itemLevel, EnumSet.of(/*EnumBattleClassesAttributeType.HEALTH,*/ EnumBattleClassesAttributeType.STRENGTH, EnumBattleClassesAttributeType.SPELLPOWER_FIRE));
+		storedAttributes = AttributesFactory.createForArmor(itemLevel, EnumSet.of(EnumBattleClassesAttributeType.HEALTH, EnumBattleClassesAttributeType.STRENGTH, EnumBattleClassesAttributeType.SPELLPOWER_FIRE));
 		this.setSingleAttributeModifier(new BattleClassesAttributeModifierBonus(storedAttributes));
+		*/
 	}
 	
-	public BattleClassesItemArmor(ArmorMaterial material, int armorType, String name, EnumSet<EnumBattleClassesPlayerClass> classAccess) {
-		this(material, armorType, name);
-		this.classAccessSet = classAccess;
+	public BattleClassesItemArmor(EnumSet<EnumBattleClassesPlayerClass> classAccessSet, ArmorMaterial material, int armorType, String MODID, String name) {
+		this(material, armorType, MODID, name);
+		this.classAccessSet = classAccessSet;
 	}
 	
-	public BattleClassesItemArmor(ArmorMaterial material, int armorType, String name, EnumSet<EnumBattleClassesPlayerClass> classAccess, int itemLevel, EnumSet<EnumBattleClassesAttributeType> types) {
-		this(material, armorType, name, classAccess);
+	public BattleClassesItemArmor(EnumSet<EnumBattleClassesPlayerClass> classAccessSet, ArmorMaterial material, int armorType, String MODID, String name, int itemLevel, EnumSet<EnumBattleClassesAttributeType> types) {
+		this(classAccessSet, material, armorType, MODID, name);
 		this.setItemLevelAndAttributeTypes(itemLevel, types);
 	}
 	
 	public BattleClassesItemArmor setItemLevelAndAttributeTypes(int itemLevel, EnumSet<EnumBattleClassesAttributeType> types) {
 		this.itemLevel = itemLevel;
 		this.storedAttributes = AttributesFactory.createForArmor(itemLevel, types);
+		this.setSingleAttributeModifier(new BattleClassesAttributeModifierBonus(storedAttributes));
 		return this;
 	}
 	
-	public BattleClassesItemArmor setName(String parName) {
+	public BattleClassesItemArmor setName(String MODID, String parName) {
 		String slotName = (EnumBattleClassesArmorSlot.values()[this.armorType]).toString().toLowerCase();
-		this.setUnlocalizedName(BattleClassesMod.MODID +":armors/" + parName + "." + slotName);
-    	this.setTextureName(BattleClassesMod.MODID +":armors/" + parName + "." + slotName);
+		this.setUnlocalizedName(MODID +":armors/" + parName + "." + slotName);
+    	this.setTextureName(MODID +":armors/" + parName + "." + slotName);
     	this.armorTexture = parName;
+    	this.armorSetName= parName;
+    	this.armorSetMODID = MODID;
 		return this;
 	}
 	
 	@Override
 	public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type)
 	{
-	    return BattleClassesMod.MODID + ":textures/armor/" + this.armorTexture + "_" + (this.armorType == 2 ? "2" : "1") + ".png";
+	    return armorSetMODID + ":textures/armor/" + this.armorTexture + "_" + (this.armorType == 2 ? "2" : "1") + ".png";
 	}
 	
     /**
