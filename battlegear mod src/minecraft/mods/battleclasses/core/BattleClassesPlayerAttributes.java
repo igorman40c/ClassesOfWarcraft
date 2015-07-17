@@ -32,7 +32,7 @@ public class BattleClassesPlayerAttributes {
 	}
 	
 	protected BattleClassesAttributes baseAttributes;
-	protected BattleClassesAttributes displayedAttributes;
+	protected BattleClassesAttributes savedTotalAttributes;
 	
 	/**
 	 * Updates the stored attribute modifiers, calculates total attributes.
@@ -43,7 +43,7 @@ public class BattleClassesPlayerAttributes {
 	public void onAttributeSourcesChanged() {
 		this.refreshAttributeModifiers();
 		BattleClassesAttributes totalAttributes = this.getTotalAttributesForAbility(null);
-		displayedAttributes = totalAttributes;
+		savedTotalAttributes = totalAttributes;
 		//par1EntityLivingBase.setAbsorptionAmount(par1EntityLivingBase.getAbsorptionAmount() - (float)(4 * (par3 + 1)));
 		
 		//Refreshing health based on totalAttributes
@@ -54,11 +54,15 @@ public class BattleClassesPlayerAttributes {
 	 * Returns the accumulated common attributes of the player.
 	 * @return
 	 */
-	public BattleClassesAttributes getDisplayedAttributes() {
-		if(this.displayedAttributes == null) {
+	public BattleClassesAttributes getTotalAttributes() {
+		if(this.savedTotalAttributes == null) {
 			this.onAttributeSourcesChanged();
 		}
-		return this.displayedAttributes;
+		return this.savedTotalAttributes;
+	}
+	
+	public BattleClassesAttributes getDisplayedAttributes() {
+		return this.getTotalAttributes();
 	}
 		
 	/**

@@ -22,19 +22,12 @@ import net.minecraftforge.event.entity.player.ArrowNockEvent;
 
 public class BattleClassesItemTestingStaff extends BattleClassesItemWeapon {
 	
-	public BattleClassesItemTestingStaff(ToolMaterial toolMaterial) {
-		super(toolMaterial);
+	public BattleClassesItemTestingStaff() {
+		super();
 		// TODO Auto-generated constructor stub
 		
         this.setName("WoodenStaff");
-		classAccessSet = EnumSet.of(
-				EnumBattleClassesPlayerClass.MAGE,
-				EnumBattleClassesPlayerClass.PRIEST,
-				EnumBattleClassesPlayerClass.WARLOCK,
-				EnumBattleClassesPlayerClass.ROGUE,
-				EnumBattleClassesPlayerClass.HUNTER,
-				EnumBattleClassesPlayerClass.PALADIN,
-				EnumBattleClassesPlayerClass.WARRIOR);
+		classAccessSet = EnumSet.of(EnumBattleClassesPlayerClass.MAGE);
 		this.weaponSpeed = 2F;
 	}
 }

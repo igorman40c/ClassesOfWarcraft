@@ -30,14 +30,14 @@ public class BattleClassesItems {
     public static final BattleClassesItemGem itemGem = new BattleClassesItemGem();
     
     //WEAPON ITEMS
-    public static final BattleClassesItemTestingStaff itemTestingStaff = new BattleClassesItemTestingStaff(ToolMaterial.WOOD);
+    public static final BattleClassesItemTestingStaff itemTestingStaff = new BattleClassesItemTestingStaff();
     public static ArrayList<IHighDetailWeapon> TwoHandedWeaponList = new ArrayList<IHighDetailWeapon>(); 
-    public static final BattleClassesItemWeaponTwoHanded itemTestingGreatStaffWooden = new BattleClassesItemWeaponTwoHanded(ToolMaterial.EMERALD, "StaffWood", 0.45F, true);
-    public static final BattleClassesItemLongBow itemLongBowWooden = new BattleClassesItemLongBow(ToolMaterial.EMERALD, "LongBowWooden", 4);
-    public static final BattleClassesItemLongBow itemLongBowComposite = new BattleClassesItemLongBow(ToolMaterial.EMERALD, "LongBowComposite", 4);
-    public static final BattleClassesItemLongBow itemLongBowMechanic = new BattleClassesItemLongBow(ToolMaterial.EMERALD, "LongBowMechanic", 4);
-    public static final BattleClassesItemLongBow itemLongBowBirch = new BattleClassesItemLongBow(ToolMaterial.EMERALD, "LongBowBirch", 4);
-    public static final BattleClassesItemWeaponTwoHanded itemBroadSword = new BattleClassesItemWeaponTwoHanded(ToolMaterial.EMERALD, "BroadSwordDiamond");
+    public static final BattleClassesItemWeaponTwoHanded itemTestingGreatStaffWooden = new BattleClassesItemWeaponTwoHanded("StaffWood", 0.45F, true);
+    public static final BattleClassesItemLongBow itemLongBowWooden = new BattleClassesItemLongBow("LongBowWooden", 4);
+    public static final BattleClassesItemLongBow itemLongBowComposite = new BattleClassesItemLongBow("LongBowComposite", 4);
+    public static final BattleClassesItemLongBow itemLongBowMechanic = new BattleClassesItemLongBow("LongBowMechanic", 4);
+    public static final BattleClassesItemLongBow itemLongBowBirch = new BattleClassesItemLongBow("LongBowBirch", 4);
+    public static final BattleClassesItemWeaponTwoHanded itemBroadSword = new BattleClassesItemWeaponTwoHanded("BroadSwordDiamond");
     
     //ARMOR ITEMS
     public static BattleClassesItemArmor[] testingSet;

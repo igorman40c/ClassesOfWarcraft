@@ -7,7 +7,7 @@ import java.util.List;
 import net.minecraft.util.StatCollector;
 import mods.battleclasses.enums.EnumBattleClassesAbilitySchool;
 import mods.battleclasses.enums.EnumBattleClassesAttributeType;
-import mods.battleclasses.enums.EnumBattleClassesWeaponHeldType;
+import mods.battleclasses.enums.EnumBattleClassesHandHeldType;
 import mods.battleclasses.gui.BattleClassesGuiHelper;
 
 public class BattleClassesAttributes {

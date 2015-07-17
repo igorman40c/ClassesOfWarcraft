@@ -8,12 +8,17 @@ item.battleclasses:armors/testing.chest.name=Chest of testing
 item.battleclasses:armors/testing.legs.name=Legs of testing
 item.battleclasses:armors/testing.boots.name=Boots of testing
 
-bcarmortype.cloth=cloth
-bcarmortype.leather=leather
-bcarmortype.mail=mail
-bcarmortype.plate=plate
+bchandheld.one_handed=One Handed
+bchandheld.main_handed=Main hand
+bchandheld.two_handed=Two Handed
+bchandheld.off_handed=Off hand
 
-bcenviroment=Use
+bcarmortype.cloth=Cloth
+bcarmortype.leather=Leather
+bcarmortype.mail=Mail
+bcarmortype.plate=Plate
+
+bcenviroment=Usage
 bcenviroment.pvp=Player vs. Player
 bcenviroment.pve=Dungeoneering
 
@@ -58,7 +63,6 @@ bcclass.paladin.talentsinfo=Paladin talents increase their ability to heal the w
 bcclass.warrior.talentsinfo=Warrior talents can improve their already considerable defenses with a shield, increase their deadliness with two-handed weapons, or bolster their savagery while dual-wielding.
 #UNUSED ATM STUFF-END
 
-
 bctab.inventory.name=Inventory
 bctab.equipment.name=Battle Equipment
 bctab.spellbook.name=Spellbook
@@ -84,6 +88,7 @@ bchud.target.targeting=Targeting
 bchud.target.target_lost=Target lost!
 bchud.target.self=Self
 
+
 bcattribute.health.name=Health
 bcattribute.strength.name=Strength
 bcattribute.agility.name=Agility
@@ -95,8 +100,12 @@ bcattribute.spellpower_shadow.name=Shadow Spellpower
 bcattribute.haste_rating.name=Haste Rating
 bcattribute.critical_rating.name=Critical Chance
 bcattribute.armor_penetration.name=Armor Penetration
-bcattribute.weapon_damage.name=Weapon Damage
+bcattribute.weapon_damage.name=Attack Damage
 bcattribute.vanilla_armor.name=Armor
+bcattribute.itemLevel=Item Level
+bcattribute.weaponSpeed=Speed
+bcattribute.weaponSpeed.s=s
+bcattribute.weaponReach=Reach
 
 bcattribute.health.description=Increases your maximal health by half a heart per point.
 bcattribute.strength.description=Increases your weapon damage.

@@ -4,10 +4,10 @@ import java.util.EnumSet;
 
 import mods.battleclasses.enums.EnumBattleClassesItemRarity;
 import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
-import mods.battleclasses.enums.EnumBattleClassesWeaponHeldType;
+import mods.battleclasses.enums.EnumBattleClassesHandHeldType;
 import mods.battlegear2.api.IUsableItem;
 
-public interface IBattleClassesWeapon extends IBattleClassesHandHeld, ISpellBookControllerItem, IControlledSpeedWeapon, IUsableItem {
-	public float getBaseWeaponDamage();
+public interface IBattleClassesWeapon extends ISpellBookControllerItem, IControlledSpeedWeapon, IUsableItem {
+	public float getWeaponDamage();
 	public float getBonusReach();
 }

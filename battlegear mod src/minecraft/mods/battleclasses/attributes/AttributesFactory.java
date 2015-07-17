@@ -3,7 +3,7 @@ package mods.battleclasses.attributes;
 import java.util.EnumSet;
 
 import mods.battleclasses.enums.EnumBattleClassesAttributeType;
-import mods.battleclasses.enums.EnumBattleClassesWeaponHeldType;
+import mods.battleclasses.enums.EnumBattleClassesHandHeldType;
 import net.minecraft.util.StatCollector;
 
 /**
@@ -32,8 +32,12 @@ public class AttributesFactory {
 	 * @param types
 	 * @return
 	 */
-	public static BattleClassesAttributes createForHandheld(int itemLevel, EnumBattleClassesWeaponHeldType heldType, EnumSet<EnumBattleClassesAttributeType> types) {
-		return createAttributes(itemLevel, PRIMARY_SECONDARY_DEFAULT_BALANCE, getHandHeldAttributeMultiplier(heldType) ,types);
+	public static BattleClassesAttributes createForHandheld(int itemLevel, EnumBattleClassesHandHeldType heldType, EnumSet<EnumBattleClassesAttributeType> types, float weaponSpeed, WeaponDamageCreationMode weaponDamageMode) {
+		//Set primary and secondary attributes
+		BattleClassesAttributes attributes = createAttributes(itemLevel, PRIMARY_SECONDARY_DEFAULT_BALANCE, getHandHeldAttributeMultiplier(heldType) ,types);
+		//Set weapon damage
+		attributes.setValueByType(EnumBattleClassesAttributeType.WEAPON_DAMAGE, createWeaponDamageValue(itemLevel, heldType, weaponSpeed, weaponDamageMode));
+		return attributes;
 	}
 	
 	/**
@@ -96,9 +100,9 @@ public class AttributesFactory {
 	 * @param heldType
 	 * @return
 	 */
-	public static float createWeaponDamageValue(int itemLevel, EnumBattleClassesWeaponHeldType heldType) {
+	public static float createWeaponDamageValue(int itemLevel, EnumBattleClassesHandHeldType heldType, float weaponSpeed, WeaponDamageCreationMode mode) {
 		//TODO
-		return 7;
+		return 9.9F;
 	}
 		
 	protected static float createPrimaryAttributeValueForType(int itemLevel, float contextMultiplier, EnumBattleClassesAttributeType type) {
@@ -158,7 +162,7 @@ public class AttributesFactory {
 	}
 	
 	protected static final float ATTRIBUTE_VALUE_DEFAULT_CONTEXT = 1F;
-	protected static float getHandHeldAttributeMultiplier(EnumBattleClassesWeaponHeldType heldType) {
+	protected static float getHandHeldAttributeMultiplier(EnumBattleClassesHandHeldType heldType) {
 		float mutltiplier;
 		switch(heldType) {
 			case MAIN_HANDED: {
@@ -179,4 +183,23 @@ public class AttributesFactory {
 		}
 		return mutltiplier;
 	}	
+	
+	public enum WeaponDamageCreationMode {
+		/**
+		 * Should be used for items those unable to deal melee damage. 
+		 * For example: Held in offhands, bows, shields etc...
+		 */
+		ZERO,
+		/**
+		 * Should be used for non melee-combat purpose weapons.
+		 * For example: Staves, spellblades, maces, etc... 
+		 */
+		COSMETIC,
+		/**
+		 * Should be used for melee-combat purpose weapons.
+		 * For example: Swords, Axes, 2H-swords/hammers etc...
+		 */
+		REAL
+	}
+	
 }

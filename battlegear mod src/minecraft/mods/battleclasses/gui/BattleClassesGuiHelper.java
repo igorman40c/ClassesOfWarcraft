@@ -14,6 +14,7 @@ import mods.battleclasses.BattleClassesMod;
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.ability.BattleClassesAbstractAbility;
 import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
+import mods.battleclasses.enums.EnumBattleClassesAttributeType;
 import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
 import mods.battlegear2.api.core.IBattlePlayer;
 import net.minecraft.client.Minecraft;
@@ -396,6 +397,17 @@ public class BattleClassesGuiHelper extends Gui {
 		}
 		
 		return text;
+	}
+	
+	
+	public static String getTranslatedBonusLine(float value, EnumBattleClassesAttributeType attributeType) { 
+		return getTranslatedBonusLine(value, attributeType.getTranslatedName(), attributeType.isDisplayedInPercentage());
+	}
+	
+	public static String getTranslatedBonusLine(float value, String translatedName, boolean displayedInPercentage) {
+		String displayedValue = (displayedInPercentage) ? BattleClassesGuiHelper.formatFloatToPercentage(value) : BattleClassesGuiHelper.formatFloatToNice(value);
+  		String valueString = "+" + displayedValue;
+		return valueString + " " + translatedName;
 	}
 	
 }

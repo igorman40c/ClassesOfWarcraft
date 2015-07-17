@@ -328,21 +328,29 @@ public class BattleClassesClientEvents {
     @SubscribeEvent
     public void onItemTooltip(ItemTooltipEvent event){
         if(event.itemStack.getItem() instanceof IAttributeProviderItem){
-        	/*
-            for(String txt:event.toolTip){
-                if(txt.startsWith(EnumChatFormatting.BLUE.toString())){
-                    if(txt.contains(StatCollector.translateToLocal("attribute.name."+ ItemWeapon.armourPenetrate.getAttributeUnlocalizedName())) || txt.contains(StatCollector.translateToLocal("attribute.name."+ ItemWeapon.attackSpeed.getAttributeUnlocalizedName())) || txt.contains(StatCollector.translateToLocal("attribute.name."+ ItemWeapon.extendedReach.getAttributeUnlocalizedName())))
-                        event.toolTip.set(event.toolTip.indexOf(txt), EnumChatFormatting.DARK_GREEN + EnumChatFormatting.getTextWithoutFormattingCodes(txt));
-                }
-            }
-            */
         	Minecraft mc = Minecraft.getMinecraft();
-        	//Adding attribute bonuses
         	IAttributeProviderItem attributeProviderItem = (IAttributeProviderItem)event.itemStack.getItem();
         	BattleClassesAttributes attributes = (attributeProviderItem).getAttributes();
-        	for(EnumBattleClassesAttributeType activeAttributeType : attributes.getActiveTypes()) {
-        		event.toolTip.add(activeAttributeType.getBonusLineColor() + activeAttributeType.getTranslatedBonusLine(activeAttributeType.getValueFromAttributes(attributes)));
+        	
+        	//Removing everything other than the first line
+        	String firstLine = event.toolTip.get(0);
+        	event.toolTip.clear();
+        	event.toolTip.add(firstLine);
+        	/*
+        	for(int i = 1; i < event.toolTip.size(); ++i) {
+        		event.toolTip.remove(i);
         	}
+        	*/
+        	
+        	//Add item specific info
+        	event.toolTip.addAll(attributeProviderItem.getTooltipText());
+        	
+        	//Adding attribute bonuses
+        	for(EnumBattleClassesAttributeType activeAttributeType : attributes.getActiveTypes()) {
+        		float value = activeAttributeType.getValueFromAttributes(attributes);
+        		event.toolTip.add(activeAttributeType.getBonusLineColor() + BattleClassesGuiHelper.getTranslatedBonusLine(value, activeAttributeType)); 
+        	}
+        	
         	//Adding class access set-string
         	EnumSet<EnumBattleClassesPlayerClass> classAccessSet = attributeProviderItem.getClassAccessSet();
         	if(!(classAccessSet.contains(EnumBattleClassesPlayerClass.NONE)) && classAccessSet.size() > 0) {
@@ -353,10 +361,14 @@ public class BattleClassesClientEvents {
         		//Adding line
         		event.toolTip.add(classAccessSetDisplayColor + classAccessString);
         	}
+        	
+        	//Item level line
+        	event.toolTip.add(EnumChatFormatting.GOLD + StatCollector.translateToLocal("bcattribute.itemLevel") + ": " +  attributeProviderItem.getItemLevel());
+        	
         	//Limiting width
-        	List<String> limitedWidthTooltoipText = BattleClassesGuiHelper.INSTANCE.formatHoveringTextWidth(event.toolTip, BattleClassesGuiHelper.HOVERINGTEXT_DEFAULT_WIDTH+5);
+        	List<String> limitedWidthTooltipText = BattleClassesGuiHelper.INSTANCE.formatHoveringTextWidth(event.toolTip, BattleClassesGuiHelper.HOVERINGTEXT_DEFAULT_WIDTH+5);
         	event.toolTip.clear();
-        	event.toolTip.addAll(limitedWidthTooltoipText);
+        	event.toolTip.addAll(limitedWidthTooltipText);
         }
     }
 	

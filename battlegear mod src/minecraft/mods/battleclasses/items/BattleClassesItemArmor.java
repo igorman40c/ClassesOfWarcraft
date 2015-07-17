@@ -12,24 +12,24 @@ import mods.battleclasses.attributes.BattleClassesAttributes;
 import mods.battleclasses.attributes.AttributesFactory;
 import mods.battleclasses.attributes.ICWAttributeModifier;
 import mods.battleclasses.attributes.ICWAttributeModifierOwner;
+import mods.battleclasses.client.ITooltipProvider;
 import mods.battleclasses.enums.EnumBattleClassesArmorSlot;
 import mods.battleclasses.enums.EnumBattleClassesAttributeType;
 import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
+import mods.battleclasses.gui.BattleClassesGuiHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 
 public class BattleClassesItemArmor extends ItemArmor implements IAttributeProviderItem {
 
-	/** The EnumArmorMaterial used for this ItemArmor */
-    private final ItemArmor.ArmorMaterial material;
-	protected int itemLevel = 0;
+	/** Copy reference of superclass field, only used to calculate armorValue */
+    private final ItemArmor.ArmorMaterial material;    
 	protected String armorTexture;
-	protected EnumSet<EnumBattleClassesPlayerClass> classAccessSet;
-	protected BattleClassesAttributes storedAttributes;
-	
+
 	protected String armorSetName = "";
 	protected String armorSetMODID = "";
 	
@@ -67,6 +67,7 @@ public class BattleClassesItemArmor extends ItemArmor implements IAttributeProvi
 	
 	public BattleClassesItemArmor setItemLevelAndAttributeTypes(int itemLevel, EnumSet<EnumBattleClassesAttributeType> types) {
 		this.itemLevel = itemLevel;
+		this.setMaxDamage(this.armorType);
 		this.storedAttributes = AttributesFactory.createForArmor(itemLevel, types);
 		this.setSingleAttributeModifier(new BattleClassesAttributeModifierBonus(storedAttributes));
 		return this;
@@ -98,14 +99,41 @@ public class BattleClassesItemArmor extends ItemArmor implements IAttributeProvi
         return multimap;
     }
     
+    public int getArmorValue() { 
+    	return this.damageReduceAmount;
+    }
+    
+    @Override
+    public int getItemEnchantability() {
+    	int bonusPerItemLevel = 2;
+    	int enchantabilityBaseItemLevel = 3;
+    	int enchantabilityBaseValue = ArmorMaterial.IRON.getEnchantability();
+    	int enchantability = enchantabilityBaseValue + bonusPerItemLevel*(this.getItemLevel() - enchantabilityBaseItemLevel);
+    	return enchantability;
+    }
+    
+    /** Holds the 'base' maxDamage that each armorType have. */
+    private static final int[] maxDamageArray = new int[] {11, 16, 15, 13};
+    /**
+     * Returns the durability for a armor slot of for this type.
+     */
+    public int getDurability(int slotType) {
+    	int bonusPerItemLevel = 5;
+    	int maxDamageFactorBaseValue = 5;
+    	int maxDamageFactor = maxDamageFactorBaseValue + this.getItemLevel() * bonusPerItemLevel;
+        return maxDamageArray[slotType] * maxDamageFactor;
+    }
     
     
     //----------------------------------------------------------------------------------
   	//						 SECTION - IAttributeProviderItem
   	//----------------------------------------------------------------------------------
     
-	List<ICWAttributeModifier> attributeModifiers;
-
+    protected int itemLevel = 0;
+	protected EnumSet<EnumBattleClassesPlayerClass> classAccessSet = EnumSet.of(EnumBattleClassesPlayerClass.NONE);//EnumSet.noneOf(EnumBattleClassesPlayerClass.class);
+	protected BattleClassesAttributes storedAttributes = new BattleClassesAttributes();
+	protected List<ICWAttributeModifier> attributeModifiers;
+	
 	@Override
 	public List<ICWAttributeModifier> getAttributeModifiers() {
 		return attributeModifiers;
@@ -130,6 +158,19 @@ public class BattleClassesItemArmor extends ItemArmor implements IAttributeProvi
 	public EnumSet<EnumBattleClassesPlayerClass> getClassAccessSet() {
     	return this.classAccessSet;
     }
+
+	@Override
+	public int getItemLevel() {
+		return this.itemLevel;
+	}
+
+	@Override
+	public List<String> getTooltipText() {
+		List<String> text = new ArrayList<String>();
+		text.add(StatCollector.translateToLocal(this.getArmorMaterial().toString().toLowerCase())); 
+		text.add(BattleClassesGuiHelper.getTranslatedBonusLine(this.getArmorValue(), EnumBattleClassesAttributeType.VANILLA_ARMOR));
+		return text;
+	}
 
 
 }

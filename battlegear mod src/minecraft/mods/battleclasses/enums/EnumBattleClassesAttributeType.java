@@ -314,9 +314,4 @@ public enum EnumBattleClassesAttributeType {
 		return StatCollector.translateToLocal(this.getUnlocalizedDescription());
 	}
 	
-	public String getTranslatedBonusLine(float value) {
-		String displayedValue = (this.isDisplayedInPercentage()) ? BattleClassesGuiHelper.formatFloatToPercentage(value) : BattleClassesGuiHelper.formatFloatToNice(value);
-  		String valueString = "+" + displayedValue;
-		return valueString + " " + this.getTranslatedName();
-	}
 }

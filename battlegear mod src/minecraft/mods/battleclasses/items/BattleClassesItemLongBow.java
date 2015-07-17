@@ -18,8 +18,8 @@ public class BattleClassesItemLongBow extends BattleClassesItemWeaponTwoHanded i
 	public ArrayList<IIcon> pullIcons = new ArrayList<IIcon>();
 	public static final String PULLSTRING = "_pull_";
 	
-	public BattleClassesItemLongBow(ToolMaterial toolMaterial, String textureName, int pullFramesCount) {
-		super(toolMaterial, textureName);
+	public BattleClassesItemLongBow(String textureName, int pullFramesCount) {
+		super(textureName);
 		this.pullFramesToRegister = pullFramesCount;
 		
 		this.inverSheat = false;

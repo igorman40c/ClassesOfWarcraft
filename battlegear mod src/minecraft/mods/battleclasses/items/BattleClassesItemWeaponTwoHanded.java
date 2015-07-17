@@ -4,12 +4,12 @@ import java.util.EnumSet;
 
 import net.minecraft.item.ItemStack;
 import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
-import mods.battleclasses.enums.EnumBattleClassesWeaponHeldType;
+import mods.battleclasses.enums.EnumBattleClassesHandHeldType;
 
 public class BattleClassesItemWeaponTwoHanded extends BattleClassesItemWeapon implements IHighDetailWeapon {
 
-	public BattleClassesItemWeaponTwoHanded(ToolMaterial toolMaterial, String textureName) {
-		super(toolMaterial);
+	public BattleClassesItemWeaponTwoHanded(String textureName) {
+		super();
 		
 		this.setName(textureName);
 		classAccessSet = EnumSet.of(
@@ -21,11 +21,11 @@ public class BattleClassesItemWeaponTwoHanded extends BattleClassesItemWeapon im
 				EnumBattleClassesPlayerClass.PALADIN,
 				EnumBattleClassesPlayerClass.WARRIOR);
 		BattleClassesItems.TwoHandedWeaponList.add(this);
-		this.heldType = EnumBattleClassesWeaponHeldType.TWO_HANDED;
+		this.handHeldType = EnumBattleClassesHandHeldType.TWO_HANDED;
 	}
 	
-	public BattleClassesItemWeaponTwoHanded(ToolMaterial toolMaterial, String textureName, float parAnchor, boolean parInvertSheat) {
-		this(toolMaterial,textureName);
+	public BattleClassesItemWeaponTwoHanded(String textureName, float parAnchor, boolean parInvertSheat) {
+		this(textureName);
 		this.anchor = parAnchor;
 		this.inverSheat = parInvertSheat;
 	}
