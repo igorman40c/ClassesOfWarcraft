@@ -5,7 +5,8 @@ import mods.battleclasses.client.INameProvider;
 
 public enum EnumBattleClassesPlayerEnviroment implements INameProvider {
 	PVE,
-	PVP;
+	PVP,
+	UNIVERSAL;
 	
 	public String getUnlocalizedPrefix() {
 		return "bcenviroment";

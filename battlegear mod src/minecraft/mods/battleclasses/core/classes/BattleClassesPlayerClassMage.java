@@ -91,7 +91,7 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 	
 	public ArrayList<EnumBattleClassesAttributeType> getSecondaryAttributesToDisplay() {
 		ArrayList<EnumBattleClassesAttributeType> attributes = new ArrayList<EnumBattleClassesAttributeType>();
-		attributes.add(EnumBattleClassesAttributeType.WEAPON_DAMAGE);
+		attributes.add(EnumBattleClassesAttributeType.MELEE_ATTACK_DAMAGE);
 		attributes.add(EnumBattleClassesAttributeType.CRITICAL_RATING);
 		attributes.add(EnumBattleClassesAttributeType.HASTE_RATING);
 		return attributes;

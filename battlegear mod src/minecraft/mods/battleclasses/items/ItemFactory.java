@@ -3,6 +3,7 @@ package mods.battleclasses.items;
 import java.util.EnumSet;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import mods.battleclasses.enums.EnumBattleClassesArmorType;
 import mods.battleclasses.enums.EnumBattleClassesAttributeType;
 import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
 import net.minecraft.item.Item;
@@ -15,10 +16,10 @@ import net.minecraftforge.common.util.EnumHelper;
  */
 public class ItemFactory {
 	
-	public static final ArmorMaterial BC_ARMOR_MATERIAL_CLOTH = EnumHelper.addArmorMaterial("bcarmortype.cloth", 33, new int[]{1, 2, 1, 1}, 10);
-	public static final ArmorMaterial BC_ARMOR_MATERIAL_LEATHER = EnumHelper.addArmorMaterial("bcarmortype.leather", 33, new int[]{1, 4, 3, 2}, 10);
-	public static final ArmorMaterial BC_ARMOR_MATERIAL_MAIL = EnumHelper.addArmorMaterial("bcarmortype.mail", 33, new int[]{2, 6, 5, 2}, 10);
-	public static final ArmorMaterial BC_ARMOR_MATERIAL_PLATE = EnumHelper.addArmorMaterial("bcarmortype.plate", 33, new int[]{3, 8, 6, 3}, 10);
+	public static final ArmorMaterial ARMOR_MATERIAL_CLOTH = EnumHelper.addArmorMaterial(EnumBattleClassesArmorType.CLOTH.getUnlocalizedName(), 33, new int[]{1, 2, 1, 1}, 10);
+	public static final ArmorMaterial ARMOR_MATERIAL_LEATHER = EnumHelper.addArmorMaterial(EnumBattleClassesArmorType.LEATHER.getUnlocalizedName(), 33, new int[]{1, 4, 3, 2}, 10);
+	public static final ArmorMaterial ARMOR_MATERIAL_MAIL = EnumHelper.addArmorMaterial(EnumBattleClassesArmorType.MAIL.getUnlocalizedName(), 33, new int[]{2, 6, 5, 2}, 10);
+	public static final ArmorMaterial ARMOR_MATERIAL_PLATE = EnumHelper.addArmorMaterial(EnumBattleClassesArmorType.PLATE.getUnlocalizedName(), 33, new int[]{3, 8, 6, 3}, 10);
 	
 	public static void registerItem(Item item) {
 		GameRegistry.registerItem(item, item.getUnlocalizedName());

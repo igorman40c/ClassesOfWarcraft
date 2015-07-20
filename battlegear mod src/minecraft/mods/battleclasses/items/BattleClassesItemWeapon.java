@@ -81,7 +81,7 @@ public class BattleClassesItemWeapon extends BattleClassesItemHandheld implement
     
 	@Override
 	public float getWeaponDamage() {
-		return this.storedAttributes.getValueByType(EnumBattleClassesAttributeType.WEAPON_DAMAGE);
+		return this.storedAttributes.getValueByType(EnumBattleClassesAttributeType.MELEE_ATTACK_DAMAGE);
 	}
 
 	@Override
@@ -103,7 +103,7 @@ public class BattleClassesItemWeapon extends BattleClassesItemHandheld implement
 		
 		float weaponDamage = this.getWeaponDamage();
 		if(weaponDamage > 0) {
-			text.add(BattleClassesGuiHelper.getTranslatedBonusLine(weaponDamage, EnumBattleClassesAttributeType.WEAPON_DAMAGE));
+			text.add(BattleClassesGuiHelper.getTranslatedBonusLine(weaponDamage, EnumBattleClassesAttributeType.MELEE_ATTACK_DAMAGE));
 		}
 		float bonusReach = this.getBonusReach();
 		if(bonusReach > 0) {

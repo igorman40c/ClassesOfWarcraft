@@ -36,7 +36,7 @@ public class AttributesFactory {
 		//Set primary and secondary attributes
 		BattleClassesAttributes attributes = createAttributes(itemLevel, PRIMARY_SECONDARY_DEFAULT_BALANCE, getHandHeldAttributeMultiplier(heldType) ,types);
 		//Set weapon damage
-		attributes.setValueByType(EnumBattleClassesAttributeType.WEAPON_DAMAGE, createWeaponDamageValue(itemLevel, heldType, weaponSpeed, weaponDamageMode));
+		attributes.setValueByType(EnumBattleClassesAttributeType.MELEE_ATTACK_DAMAGE, createWeaponDamageValue(itemLevel, heldType, weaponSpeed, weaponDamageMode));
 		return attributes;
 	}
 	

@@ -21,6 +21,7 @@ bcarmortype.plate=Plate
 bcenviroment=Usage
 bcenviroment.pvp=Player vs. Player
 bcenviroment.pve=Dungeoneering
+bcenviroment.universal=Universal
 
 bcrole.healer=healer
 bcrole.damage_dealer=damage dealer
@@ -100,7 +101,8 @@ bcattribute.spellpower_shadow.name=Shadow Spellpower
 bcattribute.haste_rating.name=Haste Rating
 bcattribute.critical_rating.name=Critical Chance
 bcattribute.armor_penetration.name=Armor Penetration
-bcattribute.weapon_damage.name=Attack Damage
+bcattribute.melee_attack_damage.name=Attack Damage
+bcattribute.ranged_attack_damage.name=Ranged Attack Damage
 bcattribute.vanilla_armor.name=Armor
 bcattribute.itemLevel=Item Level
 bcattribute.weaponSpeed=Speed
@@ -118,7 +120,8 @@ bcattribute.spellpower_shadow.description=Increases the power of your shadow sch
 bcattribute.haste_rating.description=Increases the speed that your spells and abilities cast. Also increases speed of your weapons.
 bcattribute.critical_rating.description=Increases the chance of your abilities to deal a critical effect.
 bcattribute.armor_penetration.description=Ignores the armor of your enemy.
-bcattribute.weapon_damage.description=Estimated ammount of damage you will deal with your main hand weapon.
+bcattribute.melee_attack_damage.description=Estimated ammount of damage you will deal with your main hand weapon.
+bcattribute.ranged_attack_damage.description=Estimated ammount of damage you will deal with your ranged weapon.
 bcattribute.vanilla_armor.description=Reduces physical damage you recieve.
 
 bccriteria.abilityschool.all=abilities and spells

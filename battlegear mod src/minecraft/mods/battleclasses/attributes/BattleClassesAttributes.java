@@ -26,7 +26,8 @@ public class BattleClassesAttributes {
 	public float haste = 0;
 	public float crit = 0;
 	public float armor_pen = 0;
-	public float weapon_damage = 0;
+	public float melee_attack_damage = 0;
+	public float ranged_attack_damage = 0;
 		
 	public BattleClassesAttributes() {
 		
@@ -46,7 +47,8 @@ public class BattleClassesAttributes {
 		this.haste = value;
 		this.crit = value;
 		this.armor_pen = value;
-		this.weapon_damage = value;
+		this.melee_attack_damage = value;
+		this.ranged_attack_damage = value;
 	}
 	
 	public BattleClassesAttributes add(BattleClassesAttributes attributes) {
@@ -63,7 +65,8 @@ public class BattleClassesAttributes {
 		this.haste += attributes.haste;
 		this.crit += attributes.crit;
 		this.armor_pen += attributes.armor_pen;
-		this.weapon_damage += attributes.weapon_damage;
+		this.melee_attack_damage += attributes.melee_attack_damage;
+		this.ranged_attack_damage += attributes.ranged_attack_damage;
 		return this;
 	}
 	
@@ -81,7 +84,8 @@ public class BattleClassesAttributes {
 		this.haste *= attributes.haste;
 		this.crit *= attributes.crit;
 		this.armor_pen *= attributes.armor_pen;
-		this.weapon_damage *= attributes.weapon_damage;
+		this.melee_attack_damage *= attributes.melee_attack_damage;
+		this.ranged_attack_damage *= attributes.ranged_attack_damage;
 		return this;
 	}
 	

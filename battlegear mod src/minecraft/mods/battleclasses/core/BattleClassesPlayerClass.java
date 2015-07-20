@@ -125,7 +125,7 @@ public class BattleClassesPlayerClass implements ICooldownOwner {
 	
 	public ArrayList<EnumBattleClassesAttributeType> getPrimaryAttributesToDisplay() {
 		ArrayList<EnumBattleClassesAttributeType> attributes = new ArrayList<EnumBattleClassesAttributeType>();
-		/*
+		
 		attributes.add(EnumBattleClassesAttributeType.STRENGTH);
 		attributes.add(EnumBattleClassesAttributeType.AGILITY);
 		attributes.add(EnumBattleClassesAttributeType.SPELLPOWER_ARCANE);
@@ -133,18 +133,19 @@ public class BattleClassesPlayerClass implements ICooldownOwner {
 		attributes.add(EnumBattleClassesAttributeType.SPELLPOWER_FROST);
 		attributes.add(EnumBattleClassesAttributeType.SPELLPOWER_HOLY);
 		attributes.add(EnumBattleClassesAttributeType.SPELLPOWER_SHADOW);
-		*/
+		
 		return attributes;
 	}
 	
 	public ArrayList<EnumBattleClassesAttributeType> getSecondaryAttributesToDisplay() {
 		ArrayList<EnumBattleClassesAttributeType> attributes = new ArrayList<EnumBattleClassesAttributeType>();
-		/*
-		attributes.add(EnumBattleClassesAttributeType.WEAPON_DAMAGE);
+		
+		attributes.add(EnumBattleClassesAttributeType.MELEE_ATTACK_DAMAGE);
+		attributes.add(EnumBattleClassesAttributeType.RANGED_ATTACK_DAMAGE);
 		attributes.add(EnumBattleClassesAttributeType.CRITICAL_RATING);
 		attributes.add(EnumBattleClassesAttributeType.HASTE_RATING);
 		attributes.add(EnumBattleClassesAttributeType.ARMOR_PENETRATION);
-		*/
+		
 		return attributes;
 	}
 	

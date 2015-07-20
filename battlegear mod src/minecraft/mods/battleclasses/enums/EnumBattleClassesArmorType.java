@@ -8,10 +8,15 @@ public enum EnumBattleClassesArmorType implements INameProvider {
 	LEATHER,
 	MAIL,
 	PLATE;
+	
+	protected static final String unlocalizedPrefix = "bcarmortype."; 
+	
+	public String getUnlocalizedName() {
+		return unlocalizedPrefix + this.toString().toLowerCase();
+	}
 
-	@Override
 	public String getTranslatedName() {
-		return StatCollector.translateToLocal("bcarmortype." + this.toString().toLowerCase());
+		return StatCollector.translateToLocal(this.getUnlocalizedName());
 	}
 	
 }

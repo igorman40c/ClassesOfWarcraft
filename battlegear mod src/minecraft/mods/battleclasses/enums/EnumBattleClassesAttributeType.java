@@ -129,6 +129,36 @@ public enum EnumBattleClassesAttributeType {
 			attributes.spellpower_shadow = value;
 		}
 	},
+	MELEE_ATTACK_DAMAGE {
+		public int getDisplayIconV()  {
+			return 144;
+		}
+
+		@Override
+		public float getValueFromAttributes(BattleClassesAttributes attributes) {
+			return attributes.melee_attack_damage;
+		}
+
+		@Override
+		public void setValueForAttributes(BattleClassesAttributes attributes, float value) {
+			attributes.melee_attack_damage = value;
+		}
+	},
+	RANGED_ATTACK_DAMAGE {
+		public int getDisplayIconV()  {
+			return 208;
+		}
+
+		@Override
+		public float getValueFromAttributes(BattleClassesAttributes attributes) {
+			return attributes.ranged_attack_damage;
+		}
+
+		@Override
+		public void setValueForAttributes(BattleClassesAttributes attributes, float value) {
+			attributes.ranged_attack_damage = value;
+		}
+	},
 	//Secondary
 	HASTE_RATING {
 		public int getDisplayIconV()  {
@@ -203,21 +233,6 @@ public enum EnumBattleClassesAttributeType {
 		@Override
 		public boolean isPrimary() {
 			return false;
-		}
-	},
-	WEAPON_DAMAGE {
-		public int getDisplayIconV()  {
-			return 144;
-		}
-
-		@Override
-		public float getValueFromAttributes(BattleClassesAttributes attributes) {
-			return attributes.weapon_damage;
-		}
-
-		@Override
-		public void setValueForAttributes(BattleClassesAttributes attributes, float value) {
-			attributes.weapon_damage = value;
 		}
 	},
 	

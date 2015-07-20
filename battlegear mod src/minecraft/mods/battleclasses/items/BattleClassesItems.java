@@ -54,7 +54,7 @@ public class BattleClassesItems {
 		GameRegistry.registerItem(itemBroadSword, itemBroadSword.getUnlocalizedName());
 		
 		
-		testingSet = ItemFactory.createArmorSet(EnumSet.of(EnumBattleClassesPlayerClass.MAGE), ItemFactory.BC_ARMOR_MATERIAL_CLOTH, BattleClassesMod.MODID, "testing", 1, 
+		testingSet = ItemFactory.createArmorSet(EnumSet.of(EnumBattleClassesPlayerClass.MAGE), ItemFactory.ARMOR_MATERIAL_CLOTH, BattleClassesMod.MODID, "testing", 1, 
 				EnumSet.of(EnumBattleClassesAttributeType.HEALTH, EnumBattleClassesAttributeType.SPELLPOWER_FIRE, EnumBattleClassesAttributeType.CRITICAL_RATING ));
 		ItemFactory.registerItems(testingSet);
 		
