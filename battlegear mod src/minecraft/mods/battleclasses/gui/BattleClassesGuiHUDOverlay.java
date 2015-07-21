@@ -403,6 +403,7 @@ public class BattleClassesGuiHUDOverlay extends BattlegearInGameGUI {
     	}
     }
 	
+    /*
     public void drawCooldown(int posX, int posY, float f) {
     	if(f > 0) {
     		int frameIndex = BattleClassesGuiHelper.cooldownIcons.length-1;
@@ -427,6 +428,7 @@ public class BattleClassesGuiHUDOverlay extends BattlegearInGameGUI {
 	        GL11.glPopMatrix();
       	}
 	}
+	*/
     
 	 // 3.  You'll need to write your own version of the Gui.drawTexturedModalRect() method
 	//  This method can go into your own Gui class:

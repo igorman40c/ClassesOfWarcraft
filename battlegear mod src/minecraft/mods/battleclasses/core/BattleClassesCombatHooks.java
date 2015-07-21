@@ -32,7 +32,7 @@ public class BattleClassesCombatHooks {
 	@SubscribeEvent
 	public void onMainhandAttack(AttackEntityEvent event) {
 		BattleClassesWeaponHitHandler weaponHitHandler = BattleClassesUtils.getPlayerWeaponHandler(event.entityPlayer);
-		if(weaponHitHandler.isOffhandAttackInProgress()) {
+		if(!weaponHitHandler.isOffhandAttackInProgress()) {
 			event.setCanceled(true);
 			weaponHitHandler.attackWithMainHand((EntityLivingBase) event.target);
 		}
@@ -48,12 +48,14 @@ public class BattleClassesCombatHooks {
 
 	@SubscribeEvent
 	public void onOffhandAttack(OffhandAttackEvent event) {
-		System.out.println("Settings offhandCD");
+//		System.out.println("Settings offhandCD");
+		/*
 		BattleClassesWeaponHitHandler weaponHitHandler = BattleClassesUtils.getPlayerWeaponHandler(event.entityPlayer);
 		if(weaponHitHandler.isOffhandAttackInProgress()) {
 			event.setCanceled(true);
 			weaponHitHandler.attackWithOffHand((EntityLivingBase) event.getTarget());
 		}
+		*/
 	}
 			
 	/**

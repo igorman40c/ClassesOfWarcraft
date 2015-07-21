@@ -6,6 +6,9 @@ import java.util.List;
 
 import cpw.mods.fml.relauncher.Side;
 import mods.battleclasses.BattleClassesUtils;
+import mods.battleclasses.attributes.AttributesFactory;
+import mods.battleclasses.attributes.BattleClassesAttributeModifierBonus;
+import mods.battleclasses.attributes.AttributesFactory.WeaponDamageCreationMode;
 import mods.battleclasses.enums.EnumBattleClassesAttributeType;
 import mods.battleclasses.enums.EnumBattleClassesItemRarity;
 import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
@@ -45,6 +48,14 @@ public class BattleClassesItemWeapon extends BattleClassesItemHandheld implement
     	this.setUnlocalizedName("battleclasses:"+"weapons/" + parName);
     	this.setTextureName("battleclasses:"+"weapons/" + parName);
     }
+    
+    public BattleClassesItemWeapon setItemLevelAndAttributeTypes(int itemLevel, EnumSet<EnumBattleClassesAttributeType> types, EnumBattleClassesHandHeldType handHeldType, float weaponSpeed, WeaponDamageCreationMode weaponDamageMode) {
+    	super.setItemLevelAndAttributeTypes(itemLevel, types, handHeldType);
+		this.weaponSpeed = weaponSpeed;
+		this.storedAttributes = AttributesFactory.createForHandheld(itemLevel, this.handHeldType, types, weaponSpeed, weaponDamageMode);
+		this.setSingleAttributeModifier(new BattleClassesAttributeModifierBonus(storedAttributes));
+		return this;
+	}
     
     /**
      * returns the action that specifies what animation to play when the items is being used

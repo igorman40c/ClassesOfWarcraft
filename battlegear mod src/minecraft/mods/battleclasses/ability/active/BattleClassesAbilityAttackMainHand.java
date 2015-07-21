@@ -75,7 +75,6 @@ public class BattleClassesAbilityAttackMainHand extends BattleClassesAbilityActi
 		float hasteMultiplier = BattleClassesUtils.getPlayerAttributes(ownerPlayer).getHasteMultiplierFromTotalAttributes();
 		duration *= contextMultiplier;
 		duration *= hasteMultiplier;
-		
 		this.cooldownClock.startCooldown(duration, false, this.cooldownClock.getDefaultType());
 	}
 

@@ -73,7 +73,7 @@ public class BattleClassesWeaponHitHandler {
 			//True Server side
 		}
 		EntityInteractEvent interactEvent = new EntityInteractEvent(entityPlayer, entityTarget);
-		
+		System.out.println("processOffhandAttack");
 		if (!this.offHandAttackAbility.isOnCooldown() && ((IBattlePlayer) entityPlayer).isBattlemode()) {
             ItemStack offhandItem = BattleClassesUtils.getOffhandItemStack(entityPlayer); 
             ItemStack mainHandItem = entityPlayer.getCurrentEquippedItem();
@@ -86,7 +86,8 @@ public class BattleClassesWeaponHitHandler {
                     offhandAttackInProgress = true;
                     
                 	BattlemodeHookContainerClass.sendOffSwingEvent(interactEvent, mainHandItem, offhandItem);
-                    ((IBattlePlayer) entityPlayer).attackTargetEntityWithCurrentOffItem(entityTarget);
+                	this.attackWithOffHand((EntityLivingBase) entityTarget);
+//                    ((IBattlePlayer) entityPlayer).attackTargetEntityWithCurrentOffItem(entityTarget);
                     
                     offhandAttackInProgress = false;
                     

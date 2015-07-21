@@ -391,12 +391,14 @@ public class BattleClassesClientEvents {
 						case ENTITY: {
 							BattleClassesWeaponHitHandler weaponHitHandler = BattleClassesUtils.getPlayerWeaponHandler(mc.thePlayer);
 							if(!weaponHitHandler.mainHandAttackAbility.isOnCooldown()) {
+								System.out.println("MAIN");
 								//Can use mainhand
 								offhandNext = true;
 								return;
 							}
 							else {
 								event.setCanceled(true);
+								System.out.println("OFF");
 								if(!weaponHitHandler.offHandAttackAbility.isOnCooldown()) {
 									//Can use offhand
 									weaponHitHandler.processOffhandAttack(mc.thePlayer, mc.objectMouseOver.entityHit);

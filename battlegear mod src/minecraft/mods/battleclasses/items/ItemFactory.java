@@ -49,9 +49,8 @@ public class ItemFactory {
 	public static BattleClassesItemWeapon createWeapon(EnumSet<EnumBattleClassesPlayerClass> classes, EnumBattleClassesHandHeldType handHeldType, String MODID, String name, int itemLevel, EnumSet<EnumBattleClassesAttributeType> types, float weaponSpeed, WeaponDamageCreationMode weaponDamageMode) {
 		BattleClassesItemWeapon weapon = new BattleClassesItemWeapon();
 		weapon.setName(MODID, name);
-		weapon.setHandHeldType(handHeldType);
 		weapon.setClassAccess(classes);
-		weapon.setItemLevelAndAttributeTypes(itemLevel, types, weaponSpeed, weaponDamageMode);
+		weapon.setItemLevelAndAttributeTypes(itemLevel, types, handHeldType, weaponSpeed, weaponDamageMode);
 		return weapon;
 	}
 	

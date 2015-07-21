@@ -102,7 +102,7 @@ public class AttributesFactory {
 	 */
 	public static float createWeaponDamageValue(int itemLevel, EnumBattleClassesHandHeldType heldType, float weaponSpeed, WeaponDamageCreationMode mode) {
 		//TODO
-		return 9.9F;
+		return 11.3F;
 	}
 		
 	protected static float createPrimaryAttributeValueForType(int itemLevel, float contextMultiplier, EnumBattleClassesAttributeType type) {
