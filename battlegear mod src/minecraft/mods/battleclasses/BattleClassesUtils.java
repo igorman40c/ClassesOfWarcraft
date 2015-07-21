@@ -245,6 +245,17 @@ public static Logger battleClassesLogger = LogManager.getLogger("Battle Classes"
 		return BattleClassesUtils.getBattleInventory(entityPlayer).extraItems[0];
 	}
 	
+	public static ItemStack getMainhandItemHeld(EntityPlayer entityPlayer) {
+		return entityPlayer.getHeldItem();
+	}
+	
+	public static ItemStack getOffhandItemHeld(EntityPlayer entityPlayer) {
+		if(isPlayerInBattlemode(entityPlayer)) {
+			return getOffhandItemStack(entityPlayer);
+		}
+		return null;
+	}
+	
 	public static Potion getPotionByID(int potionID) {
 		return Potion.potionTypes[potionID];
 	}

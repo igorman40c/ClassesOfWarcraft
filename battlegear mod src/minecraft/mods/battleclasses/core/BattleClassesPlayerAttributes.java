@@ -58,7 +58,7 @@ public class BattleClassesPlayerAttributes {
 		if(this.savedTotalAttributes == null) {
 			this.onAttributeSourcesChanged();
 		}
-		return this.savedTotalAttributes;
+		return this.savedTotalAttributes.copy();
 	}
 	
 	public BattleClassesAttributes getDisplayedAttributes() {
@@ -84,6 +84,14 @@ public class BattleClassesPlayerAttributes {
 			attributeModifier.applyAttributeModifier(modifiedAbility, totalAttributes);
 		}
 		return totalAttributes;
+	}
+	
+	public float getHasteMultiplierFromAttributes(BattleClassesAttributes attributes) {
+		return 1F / (1F + attributes.haste);
+	}
+	
+	public float getHasteMultiplierFromTotalAttributes() {
+		return getHasteMultiplierFromAttributes(this.getTotalAttributes());
 	}
 	
 	//Stored attribte modifiers, separated by apply type
@@ -133,9 +141,9 @@ public class BattleClassesPlayerAttributes {
 	private void addItemToAttributeModifierList(Item item, List<ICWAttributeModifier> attributeModifierList) {
 		if(item instanceof ICWClassAccessAttributeModifier) {
 			EnumBattleClassesPlayerClass playerClassEnum = this.parentPlayerHooks.playerClass.getPlayerClass();
-			ICWClassAccessAttributeModifier classFocusedAttributeOwner = (ICWClassAccessAttributeModifier)item;
-			if(((ICWClassAccessAttributeModifier)item).getClassAccessSet().contains(playerClassEnum)) {
-				attributeModifierList.addAll(classFocusedAttributeOwner.getAttributeModifiers());
+			ICWClassAccessAttributeModifier classRestrictedAttributeOwnerItem = (ICWClassAccessAttributeModifier)item;
+			if(playerClassEnum.isEligibleForClassAccessSet(classRestrictedAttributeOwnerItem.getClassAccessSet())) {
+				attributeModifierList.addAll(classRestrictedAttributeOwnerItem.getAttributeModifiers());
 			}
 		}
 		else if (item instanceof ICWAttributeModifierOwner) {
@@ -150,6 +158,7 @@ public class BattleClassesPlayerAttributes {
 	 */
 	protected List<ICWAttributeModifier> getAttributeModifiersFromItemsHeld(EntityPlayer entityPlayer) {
 		List<ICWAttributeModifier> attributeModifierList = new ArrayList<ICWAttributeModifier>();
+		/*
 		if(BattleClassesUtils.isPlayerInBattlemode(entityPlayer)) {
 			ItemStack mainHandItemStack = BattleClassesUtils.getMainhandItemStack(getOwnerPlayer());
 			if(mainHandItemStack != null) {
@@ -160,14 +169,22 @@ public class BattleClassesPlayerAttributes {
 				this.addItemToAttributeModifierList(offHandItemStack.getItem(), attributeModifierList);
 			}
 		}
-		//Only allowing items from the battle equipment
-		/*
 		else {
-			if(entityPlayer.getHeldItem() != null && entityPlayer.getHeldItem().getItem() instanceof ICWAttributeModifierOwner) {
-				attributeModifierList.addAll(((ICWAttributeModifierOwner) entityPlayer.getHeldItem().getItem()).getAttributeModifiers());
+			if(entityPlayer.getHeldItem() != null && entityPlayer.getHeldItem().getItem() != null) {
+				this.addItemToAttributeModifierList(entityPlayer.getHeldItem().getItem(), attributeModifierList);
 			}
 		}
 		*/
+		
+		ItemStack mainHandItemStackHeld = BattleClassesUtils.getMainhandItemHeld(getOwnerPlayer());
+		if(mainHandItemStackHeld != null) {
+			this.addItemToAttributeModifierList(mainHandItemStackHeld.getItem(), attributeModifierList);
+		}
+		ItemStack offHandItemStackHeld = BattleClassesUtils.getOffhandItemHeld(getOwnerPlayer());
+		if(offHandItemStackHeld != null) {
+			this.addItemToAttributeModifierList(offHandItemStackHeld.getItem(), attributeModifierList);
+		}
+		
 		return attributeModifierList;
 	}
 	

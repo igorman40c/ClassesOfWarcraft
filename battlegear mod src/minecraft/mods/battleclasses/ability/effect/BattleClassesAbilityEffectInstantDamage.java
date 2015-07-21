@@ -18,6 +18,11 @@ public class BattleClassesAbilityEffectInstantDamage extends BattleClassesAbstra
 	BattleClassesAbilityEffectInstantDamage(float valueBase, float valueBonusCoefficient, float valueTotalRandomness) {
 		super(valueBase, valueBonusCoefficient, valueTotalRandomness);
 	}
+	
+	public static BattleClassesAbilityEffectInstantDamage createWeaponAttackEffect() {
+		BattleClassesAbilityEffectInstantDamage damageEffect = new BattleClassesAbilityEffectInstantDamage(0,1,0);
+		return damageEffect;
+	}
 		
 	@Override
 	protected void performByOwnerOnTarget(EntityLivingBase owner, EntityLivingBase target) {

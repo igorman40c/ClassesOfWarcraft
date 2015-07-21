@@ -75,9 +75,9 @@ public class EffectFactory {
 	private static float getBasePortionBySchool(EnumBattleClassesAbilitySchool school) {
 		float basePortion = 0.2F;
 		switch(school) {
-		case PHYSICAL_MELEE_ENERGY:
-			break;
-		case PHYSICAL_MELEE_RAGE:
+//		case PHYSICAL_MELEE_ENERGY:
+//			break;
+		case PHYSICAL_MELEE:
 			break;
 		case PHYSICAL_RANGED:
 			break;
@@ -102,11 +102,11 @@ public class EffectFactory {
 	private static float getEffectValueRandomnessBySchool(EnumBattleClassesAbilitySchool school) {
 		float randomness = 0.1F;
 		switch(school) {
-		case PHYSICAL_MELEE_ENERGY:
-			randomness = 0.15F;
-			break;
-		case PHYSICAL_MELEE_RAGE:
-			randomness = 0.05F;
+//		case PHYSICAL_MELEE_ENERGY:
+//			randomness = 0.15F;
+//			break;
+		case PHYSICAL_MELEE:
+			randomness = 0.10F;
 			break;
 		case PHYSICAL_RANGED:
 			randomness = 0.10F;
@@ -138,10 +138,10 @@ public class EffectFactory {
 	private static float getEffectValueBalancerBySchool(EnumBattleClassesAbilitySchool school) {
 		float relativeBalancer = 1F;
 		switch(school) {
-		case PHYSICAL_MELEE_ENERGY:
-			relativeBalancer = 1.2F;
-			break;
-		case PHYSICAL_MELEE_RAGE:
+//		case PHYSICAL_MELEE_ENERGY:
+//			relativeBalancer = 1.2F;
+//			break;
+		case PHYSICAL_MELEE:
 			relativeBalancer = 1.2F;
 			break;
 		case PHYSICAL_RANGED:

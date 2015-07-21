@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 
 import mods.battleclasses.BattleClassesMod;
+import mods.battleclasses.attributes.AttributesFactory.WeaponDamageCreationMode;
 import mods.battleclasses.enums.EnumBattleClassesAttributeType;
+import mods.battleclasses.enums.EnumBattleClassesHandHeldType;
 import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
@@ -30,7 +32,7 @@ public class BattleClassesItems {
     public static final BattleClassesItemGem itemGem = new BattleClassesItemGem();
     
     //WEAPON ITEMS
-    public static final BattleClassesItemTestingStaff itemTestingStaff = new BattleClassesItemTestingStaff();
+//    public static final BattleClassesItemTestingStaff itemTestingStaff = new BattleClassesItemTestingStaff();
     public static ArrayList<IHighDetailWeapon> TwoHandedWeaponList = new ArrayList<IHighDetailWeapon>(); 
     public static final BattleClassesItemWeaponTwoHanded itemTestingGreatStaffWooden = new BattleClassesItemWeaponTwoHanded("StaffWood", 0.45F, true);
     public static final BattleClassesItemLongBow itemLongBowWooden = new BattleClassesItemLongBow("LongBowWooden", 4);
@@ -39,13 +41,14 @@ public class BattleClassesItems {
     public static final BattleClassesItemLongBow itemLongBowBirch = new BattleClassesItemLongBow("LongBowBirch", 4);
     public static final BattleClassesItemWeaponTwoHanded itemBroadSword = new BattleClassesItemWeaponTwoHanded("BroadSwordDiamond");
     
-    //ARMOR ITEMS
+    //TESTING STUFF ITEMS
     public static BattleClassesItemArmor[] testingSet;
+    public static BattleClassesItemWeapon testingStaff;
     
 	public static void registerItems() {
 		
 		GameRegistry.registerItem(itemGem, "gemItem");
-		GameRegistry.registerItem(itemTestingStaff, itemTestingStaff.getUnlocalizedName());
+//		GameRegistry.registerItem(itemTestingStaff, itemTestingStaff.getUnlocalizedName());
 		GameRegistry.registerItem(itemTestingGreatStaffWooden, itemTestingGreatStaffWooden.getUnlocalizedName());
 		GameRegistry.registerItem(itemLongBowWooden, itemLongBowWooden.getUnlocalizedName());
 		GameRegistry.registerItem(itemLongBowComposite, itemLongBowComposite.getUnlocalizedName());
@@ -54,12 +57,16 @@ public class BattleClassesItems {
 		GameRegistry.registerItem(itemBroadSword, itemBroadSword.getUnlocalizedName());
 		
 		
+		testingStaff = ItemFactory.createWeapon(EnumSet.of(EnumBattleClassesPlayerClass.MAGE), EnumBattleClassesHandHeldType.ONE_HANDED, BattleClassesMod.MODID, "WoodenStaff", 1, 
+				EnumSet.of(EnumBattleClassesAttributeType.SPELLPOWER_FIRE, EnumBattleClassesAttributeType.CRITICAL_RATING), 
+				2F, WeaponDamageCreationMode.REAL);
+		ItemFactory.registerItem(testingStaff);
 		testingSet = ItemFactory.createArmorSet(EnumSet.of(EnumBattleClassesPlayerClass.MAGE), ItemFactory.ARMOR_MATERIAL_CLOTH, BattleClassesMod.MODID, "testing", 1, 
 				EnumSet.of(EnumBattleClassesAttributeType.HEALTH, EnumBattleClassesAttributeType.SPELLPOWER_FIRE, EnumBattleClassesAttributeType.CRITICAL_RATING ));
 		ItemFactory.registerItems(testingSet);
 		
 		LanguageRegistry.addName(new ItemStack(itemBroadSword), "Broadsword of testing and debugging");
-		LanguageRegistry.addName(new ItemStack(itemTestingStaff), "Staff of testing and debugging");
+//		LanguageRegistry.addName(new ItemStack(itemTestingStaff), "Staff of testing and debugging");
 		LanguageRegistry.addName(new ItemStack(itemTestingGreatStaffWooden), "Staff of testing and debugging");
 			
 		LanguageRegistry.addName(new ItemStack(itemLongBowWooden), "Longbow");
@@ -75,7 +82,7 @@ public class BattleClassesItems {
 		LanguageRegistry.addName(new ItemStack(itemGem, 1, 5), "Topaz");
 		LanguageRegistry.addName(new ItemStack(itemGem, 1, 6), "Talasite");
 		
-		TabWeapons.tabIconItem = itemTestingStaff;
+		TabWeapons.tabIconItem = testingStaff;
 		TabArmors.tabIconItem = testingSet[0];
 	}
 	

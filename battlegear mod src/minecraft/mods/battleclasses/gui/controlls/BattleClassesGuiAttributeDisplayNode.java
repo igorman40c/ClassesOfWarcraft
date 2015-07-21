@@ -6,6 +6,8 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 import mods.battleclasses.BattleClassesUtils;
+import mods.battleclasses.attributes.BattleClassesAttributes;
+import mods.battleclasses.core.BattleClassesWeaponHitHandler;
 import mods.battleclasses.enums.EnumBattleClassesAttributeType;
 import mods.battleclasses.gui.BattleClassesGuiHelper;
 import net.minecraft.client.Minecraft;
@@ -119,13 +121,24 @@ public class BattleClassesGuiAttributeDisplayNode extends BattleClassesGuiButton
 			IAttributeInstance iattributeinstance = mc.thePlayer.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.maxHealth);
 			displayedValue = (float) iattributeinstance.getAttributeValue();
 		}
+		else if(this.displayedAttributeType == EnumBattleClassesAttributeType.MELEE_ATTACK_DAMAGE) {
+			BattleClassesWeaponHitHandler weaponHitHandler = BattleClassesUtils.getPlayerWeaponHandler(mc.thePlayer);
+			BattleClassesAttributes mainHandAttributes = BattleClassesUtils.getPlayerAttributes(mc.thePlayer).getDisplayedAttributes();
+			weaponHitHandler.mainHandAttackAbility.setWeaponDamageOnAttributes(mainHandAttributes);
+			BattleClassesAttributes offHandAttributes = BattleClassesUtils.getPlayerAttributes(mc.thePlayer).getDisplayedAttributes();
+			weaponHitHandler.offHandAttackAbility.setWeaponDamageOnAttributes(offHandAttributes);
+
+			String valueString = String.format("%.0f / %.0f", mainHandAttributes.melee_attack_damage, offHandAttributes.melee_attack_damage);
+			return valueString;
+		}
 		else {
 			displayedValue = BattleClassesUtils.getPlayerAttributes(mc.thePlayer).getDisplayedAttributes().getValueByType(this.displayedAttributeType);
 		}
 		String valueString;
 		if(this.displayedAttributeType.isDisplayedInPercentage()) {
+			displayedValue *= 100F;
 			if(displayedValue % 10 > 0) {
-				valueString = String.format("%.2f", displayedValue);
+				valueString = String.format("%.1f", displayedValue);
 			}
 			else {
 				valueString = String.format("%.0f", displayedValue);

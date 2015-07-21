@@ -12,6 +12,7 @@ import mods.battlegear2.api.core.IBattlePlayer;
 import mods.battlegear2.api.core.InventoryPlayerBattle;
 import mods.battlegear2.api.heraldry.IFlagHolder;
 import mods.battlegear2.api.heraldry.IHeraldryItem;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -30,21 +31,29 @@ public class BattleClassesCombatHooks {
 		
 	@SubscribeEvent
 	public void onMainhandAttack(AttackEntityEvent event) {
-		//Settings Mainhand weapon CD
 		BattleClassesWeaponHitHandler weaponHitHandler = BattleClassesUtils.getPlayerWeaponHandler(event.entityPlayer);
-		weaponHitHandler.setMainhandToCooldown(event.entityPlayer);
+		if(weaponHitHandler.isOffhandAttackInProgress()) {
+			event.setCanceled(true);
+			weaponHitHandler.attackWithMainHand((EntityLivingBase) event.target);
+		}
 		
 		//Reseting hurtResistanceTime for ControlledSpeedWeapons
+		/*
 		ItemStack mainHandItemStack = BattleClassesUtils.getMainhandItemStack(event.entityPlayer);
 		if(BattleClassesUtils.isPlayerInBattlemode(event.entityPlayer) && mainHandItemStack != null && mainHandItemStack.getItem() instanceof IControlledSpeedWeapon) {
 			event.target.hurtResistantTime = 0;
 		}
+		*/
 	}
 
 	@SubscribeEvent
 	public void onOffhandAttack(OffhandAttackEvent event) {
 		System.out.println("Settings offhandCD");
-		BattleClassesUtils.getPlayerWeaponHandler(event.entityPlayer).setOffhandToCooldown(event.entityPlayer);
+		BattleClassesWeaponHitHandler weaponHitHandler = BattleClassesUtils.getPlayerWeaponHandler(event.entityPlayer);
+		if(weaponHitHandler.isOffhandAttackInProgress()) {
+			event.setCanceled(true);
+			weaponHitHandler.attackWithOffHand((EntityLivingBase) event.getTarget());
+		}
 	}
 			
 	/**

@@ -3,8 +3,10 @@ package mods.battleclasses.items;
 import java.util.EnumSet;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import mods.battleclasses.attributes.AttributesFactory.WeaponDamageCreationMode;
 import mods.battleclasses.enums.EnumBattleClassesArmorType;
 import mods.battleclasses.enums.EnumBattleClassesAttributeType;
+import mods.battleclasses.enums.EnumBattleClassesHandHeldType;
 import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
@@ -44,9 +46,13 @@ public class ItemFactory {
 		return new BattleClassesItemArmor(classes, material, armorType, MODID, name, itemLevel, types);
 	}
 	
-	public static BattleClassesItemWeapon createWeapon() {
-		//TODO
-		return null;
+	public static BattleClassesItemWeapon createWeapon(EnumSet<EnumBattleClassesPlayerClass> classes, EnumBattleClassesHandHeldType handHeldType, String MODID, String name, int itemLevel, EnumSet<EnumBattleClassesAttributeType> types, float weaponSpeed, WeaponDamageCreationMode weaponDamageMode) {
+		BattleClassesItemWeapon weapon = new BattleClassesItemWeapon();
+		weapon.setName(MODID, name);
+		weapon.setHandHeldType(handHeldType);
+		weapon.setClassAccess(classes);
+		weapon.setItemLevelAndAttributeTypes(itemLevel, types, weaponSpeed, weaponDamageMode);
+		return weapon;
 	}
 	
 	public static Item createShield() {

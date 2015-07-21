@@ -432,6 +432,10 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 		this.cooldownClock.startDefaultCooldown();
 	}
 	
+	public boolean isOnCooldown() {
+		return this.cooldownClock.isOnCooldown();
+	}
+	
 	public void consumeAmmo() {
 		this.getOwnerPlayer().inventory.consumeInventoryItem(this.requiredAmmoItem);
 	}

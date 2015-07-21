@@ -112,8 +112,7 @@ public class BattleClassesSpellBook {
 	}
 	
 	public void learnAbility(BattleClassesAbstractAbility ability) {
-		ability.setPlayerHooks(this.playerHooks);
-		ability.setPlayerAttributes(this.playerHooks.playerAttributes);
+		ability.setContextReferences(this.playerHooks, this.playerHooks.playerAttributes);
 		if(ability instanceof BattleClassesAbstractAbilityActive) {
 			BattleClassesAbstractAbilityActive activeAbility = (BattleClassesAbstractAbilityActive) ability;
 			if(!this.activeAbilities.containsValue(activeAbility)) {

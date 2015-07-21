@@ -29,12 +29,15 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 public class BattleClassesItemWeapon extends BattleClassesItemHandheld implements IBattleClassesWeapon {
 	
 //	protected final ToolMaterial material;
-	protected EnumSet<EnumBattleClassesPlayerClass> classAccessSet;
 	protected String name;
 	protected float weaponSpeed = 0;
 	
     public BattleClassesItemWeapon() {
     	super();
+	}
+    
+    public String getTextureFolderName() {
+		return "weapons";
 	}
     
     protected void setName(String parName) {

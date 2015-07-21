@@ -22,9 +22,9 @@ public class BattleClassesDamageSources {
 	
 	protected static void configureDamageSourceForAbilitySchool(DamageSource damageSource, EnumBattleClassesAbilitySchool abilitySchool) {
 		switch(abilitySchool) {
-		case PHYSICAL_MELEE_ENERGY:
-			break;
-		case PHYSICAL_MELEE_RAGE:
+//		case PHYSICAL_MELEE_ENERGY:
+//			break;
+		case PHYSICAL_MELEE:
 			break;
 		case PHYSICAL_RANGED:
 			damageSource.setProjectile();

@@ -20,6 +20,8 @@ import cpw.mods.fml.common.network.internal.FMLProxyPacket;
 import mods.battleclasses.BattleClassesMod;
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.ability.BattleClassesWeaponSkill;
+import mods.battleclasses.ability.active.BattleClassesAbilityAttackMainHand;
+import mods.battleclasses.ability.active.BattleClassesAbilityAttackOffHand;
 import mods.battleclasses.enums.EnumBattleClassesCooldownType;
 import mods.battleclasses.enums.EnumBattleClassesWieldAccess;
 import mods.battleclasses.items.IControlledSpeedWeapon;
@@ -45,17 +47,18 @@ public class BattleClassesWeaponHitHandler {
 	
 	EnumSet<EnumBattleClassesWieldAccess> accessSet;
 	
-	public static final String WEAPONSKILL_COOLDOWN_HASHCODE_MAINHAND =  "weaponskill_mainhand";
-	public static final String WEAPONSKILL_COOLDOWN_HASHCODE_OFFHAND = "weaponskill_offhand";
-	public static final float DEFAULT_WEAPON_COOLDOWN_DURATION = 1F;
-	public CooldownClock mainHandClock;
-	public CooldownClock offHandClock;
 	protected ItemStack lastUsedMainHandItemStack;
+	protected boolean offhandAttackInProgress = false;
+	
+	public static final BattleClassesAbilityAttackMainHand mainHandAttackAbility = new BattleClassesAbilityAttackMainHand();
+	public static final BattleClassesAbilityAttackOffHand offHandAttackAbility = new BattleClassesAbilityAttackOffHand();
 	
 	public BattleClassesWeaponHitHandler(BattleClassesPlayerHooks parPlayerHooks) {
 		this.playerHooks = parPlayerHooks;
-		mainHandClock = new CooldownClock(WEAPONSKILL_COOLDOWN_HASHCODE_MAINHAND, parPlayerHooks);
-		offHandClock = new CooldownClock(WEAPONSKILL_COOLDOWN_HASHCODE_OFFHAND, parPlayerHooks);
+		mainHandAttackAbility.setContextReferences(parPlayerHooks, parPlayerHooks.playerAttributes);
+		mainHandAttackAbility.onLearn();
+		offHandAttackAbility.setContextReferences(parPlayerHooks, parPlayerHooks.playerAttributes);
+		offHandAttackAbility.onLearn();
 	}
 
 	 
@@ -71,71 +74,72 @@ public class BattleClassesWeaponHitHandler {
 		}
 		EntityInteractEvent interactEvent = new EntityInteractEvent(entityPlayer, entityTarget);
 		
-		if (!this.offHandClock.isOnCooldown() && ((IBattlePlayer) entityPlayer).isBattlemode()) {
+		if (!this.offHandAttackAbility.isOnCooldown() && ((IBattlePlayer) entityPlayer).isBattlemode()) {
             ItemStack offhandItem = BattleClassesUtils.getOffhandItemStack(entityPlayer); 
             ItemStack mainHandItem = entityPlayer.getCurrentEquippedItem();
             PlayerEventChild.OffhandAttackEvent offAttackEvent = new PlayerEventChild.OffhandAttackEvent(interactEvent, mainHandItem, offhandItem);
             if(!MinecraftForge.EVENT_BUS.post(offAttackEvent)){
                 if (offAttackEvent.shouldAttack) {
-                	this.mainHandClock.setEnabled(false);
-                    this.offHandClock.setEnabled(false);
+//                	this.mainHandClock.setEnabled(false);
+//                    this.offHandClock.setEnabled(false);
+                    
+                    offhandAttackInProgress = true;
+                    
                 	BattlemodeHookContainerClass.sendOffSwingEvent(interactEvent, mainHandItem, offhandItem);
                     ((IBattlePlayer) entityPlayer).attackTargetEntityWithCurrentOffItem(entityTarget);
-                    this.mainHandClock.setEnabled(true);
-                    this.offHandClock.setEnabled(true);
+                    
+                    offhandAttackInProgress = false;
+                    
+//                    this.mainHandClock.setEnabled(true);
+//                    this.offHandClock.setEnabled(true);
                 }
             }
         }
+	}
+	
+	public boolean isOffhandAttackInProgress() {
+		return this.offhandAttackInProgress;
 	}
 		
 	public void initAccessSet() {
 		accessSet.clear();
 	}
+	
+	public void attackWithMainHand(EntityLivingBase entityTarget) {
+		this.mainHandAttackAbility.performEffects(entityTarget);
+		this.setMainhandToCooldown();
+	}
+	
+	public void attackWithOffHand(EntityLivingBase entityTarget) {
+		this.offHandAttackAbility.performEffects(entityTarget);
+		this.setOffhandToCooldown();
+	}
 		
-	public void setMainhandToCooldown(EntityPlayer entityPlayer) {
+	public void setMainhandToCooldown() {
 		System.out.println("Settings mainhandCD");
-		ItemStack mainHandItemStack = BattleClassesUtils.getMainhandItemStack(entityPlayer);
-		ItemStack offHandItemStack = BattleClassesUtils.getOffhandItemStack(entityPlayer);
+		EntityPlayer ownerPlayer = this.playerHooks.getOwnerPlayer();
+		ItemStack mainHandItemStack = BattleClassesUtils.getMainhandItemHeld(ownerPlayer);
+		ItemStack offHandItemStack = BattleClassesUtils.getOffhandItemHeld(ownerPlayer);
 		if(mainHandItemStack != null) {
-			float cooldownDuration = DEFAULT_WEAPON_COOLDOWN_DURATION;
-			if(mainHandItemStack.getItem() instanceof IControlledSpeedWeapon) {
-				cooldownDuration = ((IControlledSpeedWeapon)mainHandItemStack.getItem()).getSpeedInSeconds();
-				this.lastUsedMainHandItemStack = mainHandItemStack;
-			}
-			mainHandClock.startCooldown(cooldownDuration, true, EnumBattleClassesCooldownType.CooldownType_ABILITY);
-			
-			
+			this.mainHandAttackAbility.startCooldown();
 			///
 			if(offHandItemStack != null) {
-				float counterCooldownDuration = DEFAULT_WEAPON_COOLDOWN_DURATION;
-				if(offHandItemStack.getItem() instanceof IControlledSpeedWeapon) {
-					counterCooldownDuration = ((IControlledSpeedWeapon)offHandItemStack.getItem()).getSpeedInSeconds();
-				}
-				offHandClock.startCooldown(counterCooldownDuration*0.45F, true, EnumBattleClassesCooldownType.CooldownType_ABILITY);
+				this.offHandAttackAbility.startCooldown(0.45F);
 			}
 			///
 		}
 	}
 	
-	public void setOffhandToCooldown(EntityPlayer entityPlayer) {
+	public void setOffhandToCooldown() {
 		System.out.println("Settings OffhandCD");
-		ItemStack mainHandItemStack = BattleClassesUtils.getMainhandItemStack(entityPlayer);
-		ItemStack offHandItemStack = BattleClassesUtils.getOffhandItemStack(entityPlayer);
+		EntityPlayer ownerPlayer = this.playerHooks.getOwnerPlayer();
+		ItemStack mainHandItemStack = BattleClassesUtils.getMainhandItemHeld(ownerPlayer);
+		ItemStack offHandItemStack = BattleClassesUtils.getOffhandItemHeld(ownerPlayer);
 		if(offHandItemStack != null) {
-			float cooldownDuration = DEFAULT_WEAPON_COOLDOWN_DURATION;
-			if(offHandItemStack.getItem() instanceof IControlledSpeedWeapon) {
-				cooldownDuration = ((IControlledSpeedWeapon)offHandItemStack.getItem()).getSpeedInSeconds();
-			}
-			offHandClock.startCooldown(cooldownDuration, true, EnumBattleClassesCooldownType.CooldownType_ABILITY);
-			
-			
+			this.offHandAttackAbility.startCooldown();
 			///
 			if(mainHandItemStack != null) {
-				float counterCooldownDuration = DEFAULT_WEAPON_COOLDOWN_DURATION;
-				if(mainHandItemStack.getItem() instanceof IControlledSpeedWeapon) {
-					counterCooldownDuration = ((IControlledSpeedWeapon)mainHandItemStack.getItem()).getSpeedInSeconds();
-				}
-				mainHandClock.startCooldown(counterCooldownDuration*0.45F, true, EnumBattleClassesCooldownType.CooldownType_ABILITY);
+				this.mainHandAttackAbility.startCooldown(0.45F);
 			}
 			///
 		}

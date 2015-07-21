@@ -118,10 +118,20 @@ public class BattleClassesAttributes {
 		attributeType.setValueForAttributes(this, value);
 	}
 	
+	public void addValueByType(EnumBattleClassesAttributeType attributeType, float value) {
+		attributeType.setValueForAttributes(this, getValueByType(attributeType) + value);
+	}
+	
 	//Helper
 	public String getTranslatedBonusStringByType(EnumBattleClassesAttributeType attributeType) {
 		float value = this.getValueByType(attributeType);
 		String valueString = "+" + BattleClassesGuiHelper.formatFloatToNice(value);
 		return valueString + " " + StatCollector.translateToLocal(attributeType.getUnlocalizedName());
+	}
+
+	public BattleClassesAttributes copy() {
+		BattleClassesAttributes attributesCopy = new BattleClassesAttributes();
+		attributesCopy.add(this);
+		return attributesCopy;
 	}
 }

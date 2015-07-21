@@ -220,6 +220,10 @@ bctalenttree.warrior.protection.description=A stalwart protector who uses a shie
 
 talent.universal.abilityactivecontainer.name=Teaches new ability
 
+ability.universal.shieldblock=Shield block
+ability.universal.attack.mainhand=Attack main-hand
+ability.universal.attack.offhand=Attack off-hand
+
 ability.mage.iceblock.name=Ice Block
 ability.mage.iceblock.description=You become encased in a block of ice, protecting you from all physical attacks and spells for 10 sec, but during that time you cannot attack, move or cast spells.
 ability.mage.scorch.name=Scorch

@@ -40,10 +40,6 @@ public abstract class BattleClassesAbstractAbility implements IDescriptionProvid
 		BattleClassesUtils.ErrorLog("Couldn't find active ability with ID: " + id);
 		return null;
 	}
-		
-	//Mandtory Helper References
-	protected BattleClassesPlayerHooks playerHooks;
-	protected BattleClassesPlayerAttributes playerAttributes;
 	
 	public String getAbilityID() {
 		return this.getUnlocalizedName();
@@ -100,11 +96,23 @@ public abstract class BattleClassesAbstractAbility implements IDescriptionProvid
 		this.abilityHashCode = this.getAbilityID().hashCode();
 	}
 	
-	public void setPlayerHooks(BattleClassesPlayerHooks parPlayerHooks) {
+	//----------------------------------------------------------------------------------
+	//							SECTION - Parent references
+	//----------------------------------------------------------------------------------
+	
+	protected BattleClassesPlayerHooks playerHooks;
+	protected BattleClassesPlayerAttributes playerAttributes;
+	
+	public void setContextReferences(BattleClassesPlayerHooks playerHooks, BattleClassesPlayerAttributes playerAttributes) {
+		this.setPlayerAttributes(playerAttributes);
+		this.setPlayerHooks(playerHooks);
+	}
+	
+	protected void setPlayerHooks(BattleClassesPlayerHooks parPlayerHooks) {
 		this.playerHooks = parPlayerHooks;
 	}
 	
-	public void setPlayerAttributes(BattleClassesPlayerAttributes parPlayerAttributes) {
+	protected void setPlayerAttributes(BattleClassesPlayerAttributes parPlayerAttributes) {
 		this.playerAttributes = parPlayerAttributes;
 	}
 	

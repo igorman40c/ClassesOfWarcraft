@@ -138,10 +138,10 @@ public class BattleClassesGuiHUDOverlay extends BattlegearInGameGUI {
                 if(weaponHitHandler != null) {
                 	CooldownClock handClock;
                 	if(isMainHand) {
-                		handClock = weaponHitHandler.mainHandClock;
+                		handClock = weaponHitHandler.mainHandAttackAbility.getCooldownClock();
                 	}
                 	else {
-                		handClock = weaponHitHandler.offHandClock;
+                		handClock = weaponHitHandler.offHandAttackAbility.getCooldownClock();
                 	}
                 	BattleClassesGuiHelper.INSTANCE.drawCooldown(varx, y+3, BattleClassesUtils.getCooldownPercentage(handClock));
                 }

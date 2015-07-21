@@ -19,12 +19,7 @@ public abstract class BattleClassesAbstractAbilityCooldownHolder extends BattleC
 		this.cooldownClock = new CooldownClock(this.getAbilityID(), defaultCooldownDuration, EnumBattleClassesCooldownType.CooldownType_ABILITY);
 		this.cooldownClock.setParentAbility(this);
 	}
-	
-	@Override
-	public void setPlayerHooks(BattleClassesPlayerHooks parPlayerHooks) {
-		this.playerHooks = parPlayerHooks;
-	}	
-	
+		
 	public void onLearn() {
 		this.cooldownClock.registerInCooldownCenter(this.getPlayerHooks());
 	}
