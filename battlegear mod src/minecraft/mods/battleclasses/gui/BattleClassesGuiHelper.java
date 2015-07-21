@@ -370,6 +370,13 @@ public class BattleClassesGuiHelper extends Gui {
 	        return String.format("%s",f);
 	}
 	
+	public static String formatFloatToNiceTenths(float f) {
+		if(f % 10 > 0)
+			return String.format("%.1f", f);
+		else 
+			return String.format("%.0f", f);
+	}
+	
 	public static String formatFloatToPercentage(float f) {
 		return formatFloatToNice(100F*f) + "%";
 	}

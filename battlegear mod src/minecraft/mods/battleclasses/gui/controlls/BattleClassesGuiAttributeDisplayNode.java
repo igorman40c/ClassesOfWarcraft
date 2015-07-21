@@ -125,10 +125,13 @@ public class BattleClassesGuiAttributeDisplayNode extends BattleClassesGuiButton
 			BattleClassesWeaponHitHandler weaponHitHandler = BattleClassesUtils.getPlayerWeaponHandler(mc.thePlayer);
 			BattleClassesAttributes mainHandAttributes = BattleClassesUtils.getPlayerAttributes(mc.thePlayer).getDisplayedAttributes();
 			weaponHitHandler.mainHandAttackAbility.setWeaponDamageOnAttributes(mainHandAttributes);
-			BattleClassesAttributes offHandAttributes = BattleClassesUtils.getPlayerAttributes(mc.thePlayer).getDisplayedAttributes();
-			weaponHitHandler.offHandAttackAbility.setWeaponDamageOnAttributes(offHandAttributes);
-
-			String valueString = String.format("%.0f / %.0f", mainHandAttributes.melee_attack_damage, offHandAttributes.melee_attack_damage);
+			String valueString = BattleClassesGuiHelper.formatFloatToNiceTenths(mainHandAttributes.melee_attack_damage);
+			if(BattleClassesUtils.getOffhandItemHeld(mc.thePlayer) != null && BattleClassesUtils.getOffhandItemHeld(mc.thePlayer).getItem() != null) {
+				BattleClassesAttributes offHandAttributes = BattleClassesUtils.getPlayerAttributes(mc.thePlayer).getDisplayedAttributes();
+				weaponHitHandler.offHandAttackAbility.setWeaponDamageOnAttributes(offHandAttributes);
+				valueString += " / " + BattleClassesGuiHelper.formatFloatToNiceTenths(offHandAttributes.melee_attack_damage);
+			}
+			
 			return valueString;
 		}
 		else {
@@ -136,13 +139,7 @@ public class BattleClassesGuiAttributeDisplayNode extends BattleClassesGuiButton
 		}
 		String valueString;
 		if(this.displayedAttributeType.isDisplayedInPercentage()) {
-			displayedValue *= 100F;
-			if(displayedValue % 10 > 0) {
-				valueString = String.format("%.1f", displayedValue);
-			}
-			else {
-				valueString = String.format("%.0f", displayedValue);
-			}
+			valueString = BattleClassesGuiHelper.formatFloatToNiceTenths(displayedValue * 100F);
 			valueString += " %";
 		}
 		else {

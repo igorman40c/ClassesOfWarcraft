@@ -120,7 +120,7 @@ bcattribute.spellpower_shadow.description=Increases the power of your shadow sch
 bcattribute.haste_rating.description=Increases the speed that your spells and abilities cast. Also increases speed of your weapons.
 bcattribute.critical_rating.description=Increases the chance of your abilities to deal a critical effect.
 bcattribute.armor_penetration.description=Ignores the armor of your enemy.
-bcattribute.melee_attack_damage.description=Estimated ammount of damage you will deal with your main hand weapon.
+bcattribute.melee_attack_damage.description=Estimated ammount of damage you will deal with your currently held weapons (main-hand/off-hand).
 bcattribute.ranged_attack_damage.description=Estimated ammount of damage you will deal with your ranged weapon.
 bcattribute.vanilla_armor.description=Reduces physical damage you recieve.
 
