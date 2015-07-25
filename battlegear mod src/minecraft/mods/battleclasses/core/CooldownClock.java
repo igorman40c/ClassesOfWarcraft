@@ -158,6 +158,7 @@ public class CooldownClock {
 			
 			this.lastUsedDuration = duration;
 			this.lastUsedType = type;
+			System.out.println("Did set cd of: " + this.getCooldownID() + ", setTime: " + this.setTime);
 			if(this.getOwnerPlayer() instanceof EntityPlayerMP) {
 				EntityPlayerMP entityPlayerMP = (EntityPlayerMP) this.getOwnerPlayer();
 				if(entityPlayerMP != null) {

@@ -36,7 +36,7 @@ public class BattleClassesGuiHelper extends Gui {
 	public static BattleClassesGuiHelper INSTANCE = new BattleClassesGuiHelper(); 
 	public static final RenderItem itemRenderer = new RenderItem();
 	public static final int COOLDOWN_FRAMES = 16;
-	public static final int COOLDOWN_ICON_SIZE = 32;
+	public static final int COOLDOWN_ICON_SIZE = 16;
 	public static IIcon cooldownIcons[];
 	
 	public static Minecraft mc = Minecraft.getMinecraft();
@@ -57,22 +57,22 @@ public class BattleClassesGuiHelper extends Gui {
 	}
 	
 	public static ResourceLocation getCooldownIconResourceLocation(int cooldownFrameIndex) {
-		return new ResourceLocation("battleclasses", "textures/sharedicons/cooldown/cooldown_" + cooldownFrameIndex + ".png");
+		cooldownFrameIndex += 1;
+		return getResourceLocationOfTexture("textures/sharedicons/cooldown/", "cooldown_" + cooldownFrameIndex + ".png");
 	}
 	
-	/*
+	
 	public static void drawCooldown(int posX, int posY, float f) {
     	if(f > 0) {
-    		int frameIndex = BattleClassesGuiHelper.cooldownIcons.length-1;
+    		int frameIndex = COOLDOWN_FRAMES-1;
     		if(f < 1) {
-    			frameIndex = (int) (((float) BattleClassesGuiHelper.cooldownIcons.length)*f);
+    			frameIndex = (int) (((float) COOLDOWN_FRAMES)*f);
     		}
-    	    
-			GL11.glPushMatrix();
+    		
+    		GL11.glPushMatrix();
 			GL11.glEnable(GL11.GL_BLEND);
 		    GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		    //GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-		    GL11.glDisable(GL11.GL_LIGHTING);
+		    GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 		    GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.5F);
 		    
 		    mc.getTextureManager().bindTexture(getCooldownIconResourceLocation(frameIndex));
@@ -84,8 +84,8 @@ public class BattleClassesGuiHelper extends Gui {
 	        GL11.glPopMatrix();
       	}
 	}
-	*/
 	
+	/*
     public void drawCooldown(int posX, int posY, float f) {
     	if(f > 0) {
     		int frameIndex = BattleClassesGuiHelper.cooldownIcons.length-1;
@@ -110,6 +110,7 @@ public class BattleClassesGuiHelper extends Gui {
 	        GL11.glPopMatrix();
       	}
 	}
+	*/
 	
 	public static final int ABILITY_ACTIONBAR_NODE_WIDTH = 20;
     public static final int ABILITY_ACTIONBAR_HEIGHT = 22;
