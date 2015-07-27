@@ -161,10 +161,10 @@ public class CooldownClock {
 			
 			this.lastUsedDuration = duration;
 			this.lastUsedType = type;
-			
+			/*
 			System.out.println(String.format("Did set cd of: %s, setTime: %f", this.getCooldownID(), this.setTime));
-			System.out.println(String.format("Sys.getTime: %f, Sys.getTimerResolution: %f", Sys.getTime(), Sys.getTimerResolution()));
-			
+			System.out.println(String.format("Sys.getTime: %d, Sys.getTimerResolution: %d", Sys.getTime(), Sys.getTimerResolution()));
+			*/
 			if(this.getOwnerPlayer() instanceof EntityPlayerMP) {
 				EntityPlayerMP entityPlayerMP = (EntityPlayerMP) this.getOwnerPlayer();
 				if(entityPlayerMP != null) {

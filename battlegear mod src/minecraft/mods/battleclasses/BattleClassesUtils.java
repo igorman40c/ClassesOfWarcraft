@@ -70,13 +70,16 @@ public static Logger battleClassesLogger = LogManager.getLogger("Battle Classes"
     }
 	
 	public static double getCurrentTimeInSeconds() {
-		return ((double) Minecraft.getSystemTime()) / 1000;
+		return ((double) Minecraft.getSystemTime()) / 1000L;
 	}
 	
+	/*
 	private long getTime() {
         return (System.nanoTime() / 1000000);
         //return (Sys.getTime() * 1000) / Sys.getTimerResolution();
     }
+    
+    */
 	
 	public static float getCooldownPercentage(ICooldownOwner coolDownHolder) {
 		return getCooldownPercentage(coolDownHolder.getCooldownClock());
