@@ -33,6 +33,7 @@ public class BattleClassesPacketHandler {
 		map.put(BattleClassesPacketTalentSync.packetName, new BattleClassesPacketTalentSync());
 		map.put(BattleClassesPacketGuiTabSwitch.packetName, new BattleClassesPacketGuiTabSwitch());
 		map.put(BattleClassesPacketProcessAbilityWithTarget.packetName, new BattleClassesPacketProcessAbilityWithTarget());
+		map.put(BattleClassesPacketProcessOffhandAttack.packetName, new BattleClassesPacketProcessOffhandAttack());
 		map.put(BattleClassesPacketPlayerDataSync.packetName, new BattleClassesPacketPlayerDataSync());
 		map.put(BattleClassesPacketAttributeChanges.packetName, new BattleClassesPacketAttributeChanges());
 		map.put(BattleClassesPacketCastingSound.packetName, new BattleClassesPacketCastingSound());

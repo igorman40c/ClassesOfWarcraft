@@ -24,7 +24,7 @@ public enum EnumBattleClassesAbilitySchool {
 
 		@Override
 		public float getPowerValueFromAttributes(BattleClassesAttributes attributes) {
-			return attributes.strength;
+			return attributes.melee_attack_damage;
 		}
 	},
 	/*
@@ -68,7 +68,7 @@ public enum EnumBattleClassesAbilitySchool {
 
 		@Override
 		public float getPowerValueFromAttributes(BattleClassesAttributes attributes) {
-			return attributes.agility;
+			return attributes.ranged_attack_damage;
 		}
 	},
 	

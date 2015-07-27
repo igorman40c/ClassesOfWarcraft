@@ -38,6 +38,8 @@ public class BattleClassesAbilityAttackMainHand extends BattleClassesAbilityActi
 		BattleClassesAttributes attributesForParentAbility = this.getPlayerAttributes().getTotalAttributesForAbility(this);
 		float critChance = attributesForParentAbility.crit;
 		
+		System.out.println(this.getClass() + " PERFORM");
+		
 		this.setWeaponDamageOnAttributes(attributesForParentAbility);
 		
 		BattleClassesAbstractAbilityEffect.performListOfEffects(this.effects, attributesForParentAbility, critChance, partialMultiplier, this.getOwnerPlayer(), targetEntity);

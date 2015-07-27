@@ -32,11 +32,14 @@ public class BattleClassesCombatHooks {
 	@SubscribeEvent
 	public void onMainhandAttack(AttackEntityEvent event) {
 		BattleClassesWeaponHitHandler weaponHitHandler = BattleClassesUtils.getPlayerWeaponHandler(event.entityPlayer);
+		System.out.println("onMainhandAttack @Begin");
 		if(!weaponHitHandler.isOffhandAttackInProgress()) {
+			System.out.println("Cancellign AttackEntityEvent");
 			event.setCanceled(true);
 			weaponHitHandler.attackWithMainHand((EntityLivingBase) event.target);
 		}
 		
+		System.out.println("onMainhandAttack @End");
 		//Reseting hurtResistanceTime for ControlledSpeedWeapons
 		/*
 		ItemStack mainHandItemStack = BattleClassesUtils.getMainhandItemStack(event.entityPlayer);

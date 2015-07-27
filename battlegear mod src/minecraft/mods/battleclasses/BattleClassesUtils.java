@@ -78,7 +78,6 @@ public static Logger battleClassesLogger = LogManager.getLogger("Battle Classes"
         return (System.nanoTime() / 1000000);
         //return (Sys.getTime() * 1000) / Sys.getTimerResolution();
     }
-    
     */
 	
 	public static float getCooldownPercentage(ICooldownOwner coolDownHolder) {
