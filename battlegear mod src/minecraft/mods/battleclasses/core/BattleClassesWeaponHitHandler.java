@@ -48,7 +48,7 @@ public class BattleClassesWeaponHitHandler {
 	EnumSet<EnumBattleClassesWieldAccess> accessSet;
 	
 	protected ItemStack lastUsedMainHandItemStack;
-	protected boolean offhandAttackInProgress = false;
+	public boolean offhandAttackInProgress = false;
 	
 	public static final BattleClassesAbilityAttackMainHand mainHandAttackAbility = new BattleClassesAbilityAttackMainHand();
 	public static final BattleClassesAbilityAttackOffHand offHandAttackAbility = new BattleClassesAbilityAttackOffHand();
@@ -86,8 +86,8 @@ public class BattleClassesWeaponHitHandler {
                     offhandAttackInProgress = true;
                     
                 	BattlemodeHookContainerClass.sendOffSwingEvent(interactEvent, mainHandItem, offhandItem);
-                	this.attackWithOffHand((EntityLivingBase) entityTarget);
-//                    ((IBattlePlayer) entityPlayer).attackTargetEntityWithCurrentOffItem(entityTarget);
+//                	this.attackWithOffHand((EntityLivingBase) entityTarget);
+                    ((IBattlePlayer) entityPlayer).attackTargetEntityWithCurrentOffItem(entityTarget);
                     
                     offhandAttackInProgress = false;
                     

@@ -62,6 +62,10 @@ public class BattleClassesAbilityAttackMainHand extends BattleClassesAbilityActi
 		return BattleClassesUtils.getMainhandItemHeld(this.getOwnerPlayer());
 	}
 	
+	public ItemStack getCounterHeldItemstack() {
+		return BattleClassesUtils.getOffhandItemHeld(this.getOwnerPlayer());
+	}
+	
 	public static final float DEFAULT_WEAPON_COOLDOWN_DURATION = 1F;
 	public void startCooldown(float contextMultiplier) {
 		EntityPlayer ownerPlayer = this.getOwnerPlayer();
