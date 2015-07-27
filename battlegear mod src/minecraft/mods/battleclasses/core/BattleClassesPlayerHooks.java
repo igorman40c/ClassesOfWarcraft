@@ -169,7 +169,7 @@ public class BattleClassesPlayerHooks implements IMainCooldownMap {
     		CooldownClock cooldownClock = mainCooldownMap.get(cooldownClockKey);
     		
     		NBTTagCompound cooldownClockTagCompound = new NBTTagCompound();
-    		cooldownClockTagCompound.setFloat(NBT_TAGNAME_CD_SETTIME, cooldownClock.getSetTime());
+    		cooldownClockTagCompound.setDouble(NBT_TAGNAME_CD_SETTIME, cooldownClock.getSetTime());
     		cooldownClockTagCompound.setFloat(NBT_TAGNAME_CD_LASTDURATION, cooldownClock.getLastUsedDuration());
     		cooldownClockTagCompound.setInteger(NBT_TAGNAME_CD_LASTTYPE, cooldownClock.getLastUsedType().ordinal());
     		cooldownClockTagCompound.setString(NBT_TAGNAME_CD_KEY, cooldownClockKey);
@@ -207,7 +207,7 @@ public class BattleClassesPlayerHooks implements IMainCooldownMap {
                 NBTTagCompound cooldownClockTagCompound = cooldownClocksNBTTagList.getCompoundTagAt(i);
                 CooldownClock cooldownClock = this.mainCooldownMap.get(cooldownClockTagCompound.getString(NBT_TAGNAME_CD_KEY));
                 if(cooldownClock != null) {
-                	cooldownClock.setSetTime(cooldownClockTagCompound.getFloat(NBT_TAGNAME_CD_SETTIME));
+                	cooldownClock.setSetTime(cooldownClockTagCompound.getDouble(NBT_TAGNAME_CD_SETTIME));
                 	cooldownClock.setLastUsedDuration(cooldownClockTagCompound.getFloat(NBT_TAGNAME_CD_LASTDURATION));
                 	EnumBattleClassesCooldownType cooldownType = EnumBattleClassesCooldownType.values()[cooldownClockTagCompound.getInteger(NBT_TAGNAME_CD_LASTTYPE)];
                 	cooldownClock.setLastUsedType(cooldownType);

@@ -10,6 +10,9 @@ import mods.battleclasses.packet.BattleClassesPacketCooldownSet;
 import mods.battlegear2.Battlegear;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+
+import org.lwjgl.Sys;
+
 import cpw.mods.fml.common.network.internal.FMLProxyPacket;
 
 public class CooldownClock {
@@ -58,16 +61,16 @@ public class CooldownClock {
 	//----------------------------------------
 	public void registerInCooldownCenter(IMainCooldownMap parameterCDcenter) {
 		if(parameterCDcenter == null) {
-			BattleClassesUtils.Log("FATAL ERROR! Trying to register CooldownClock object into NULL ICooldownCenter", LogType.CORE);
+			BattleClassesUtils.ErrorLog("FATAL ERROR! Trying to register CooldownClock object into NULL ICooldownCenter");
 			return;
 		}
 		if(parameterCDcenter.getCooldownMap().get(this.getCooldownHashCode()) != null) {
 			if(parameterCDcenter.getCooldownMap().get(this.getCooldownHashCode()) != this) {
-				BattleClassesUtils.Log("FATAL ERROR! ID of CooldownClock already registred for a different CooldownClock!", LogType.CORE);
+				BattleClassesUtils.ErrorLog("FATAL ERROR! ID of CooldownClock already registred for a different CooldownClock!");
 				return;
 			}
 			else {
-				BattleClassesUtils.Log("WARNING! Trying to register CooldownClock which is already registred!", LogType.CORE);
+				BattleClassesUtils.ErrorLog("WARNING! Trying to register CooldownClock which is already registred!");
 				return;
 			}
 		}
@@ -77,11 +80,11 @@ public class CooldownClock {
 	
 	public void unregisterFromCooldownCenter() {
 		if(this.parentCooldownMapper == null) {
-			BattleClassesUtils.Log("FATAL ERROR! Trying to unregister CooldownClock object from NULL ICooldownCenter!", LogType.CORE);
+			BattleClassesUtils.ErrorLog("FATAL ERROR! Trying to unregister CooldownClock object from NULL ICooldownCenter!");
 			return;
 		}
 		if(this.parentCooldownMapper.getCooldownMap().get(this.getCooldownHashCode()) == null) {
-			BattleClassesUtils.Log("FATAL ERROR! Trying to unregister unregistred CooldownClock!", LogType.CORE);
+			BattleClassesUtils.ErrorLog("FATAL ERROR! Trying to unregister unregistred CooldownClock!");
 			return;
 		}
 		this.parentCooldownMapper.getCooldownMap().remove(this.getCooldownHashCode());
@@ -158,7 +161,10 @@ public class CooldownClock {
 			
 			this.lastUsedDuration = duration;
 			this.lastUsedType = type;
-			System.out.println("Did set cd of: " + this.getCooldownID() + ", setTime: " + this.setTime);
+			
+			System.out.println(String.format("Did set cd of: %s, setTime: %f", this.getCooldownID(), this.setTime));
+			System.out.println(String.format("Sys.getTime: %f, Sys.getTimerResolution: %f", Sys.getTime(), Sys.getTimerResolution()));
+			
 			if(this.getOwnerPlayer() instanceof EntityPlayerMP) {
 				EntityPlayerMP entityPlayerMP = (EntityPlayerMP) this.getOwnerPlayer();
 				if(entityPlayerMP != null) {
@@ -199,8 +205,8 @@ public class CooldownClock {
 	 * Return the remaining time of the currently ongoing cooldown of this clock in seconds
 	 * @return - (float) time remaining in seconds
 	 */
-	public float getCooldownRemaining() {
-		float timeRemaining = getSetTime() + getLastUsedDuration() - BattleClassesUtils.getCurrentTimeInSeconds();
+	public double getCooldownRemaining() {
+		double timeRemaining = getSetTime() + getLastUsedDuration() - BattleClassesUtils.getCurrentTimeInSeconds();
 		if(timeRemaining < 0 ) {
 			timeRemaining = 0;
 		}
@@ -227,13 +233,13 @@ public class CooldownClock {
 		this.enabled = parBool;
 	}
 	
-	public float getSetTime() {
+	public double getSetTime() {
 		return setTime;
 	}
 
 	//----------------------------------------
 	/** Stores the point in time, in which the last cooldown has been set on this clock*/
-	protected float setTime;
+	protected double setTime;
 	protected float lastUsedDuration;
 	protected EnumBattleClassesCooldownType lastUsedType = EnumBattleClassesCooldownType.CooldownType_UNKNOWN;
 	
@@ -253,7 +259,7 @@ public class CooldownClock {
 	 * Helper method for deserialization to apply cooldown data.
 	 * @param t
 	 */
-	void setSetTime(float t) {
+	void setSetTime(double t) {
 		if(BattleClassesUtils.getCurrentTimeInSeconds() < t) {
 			this.resetClock();
 			return;

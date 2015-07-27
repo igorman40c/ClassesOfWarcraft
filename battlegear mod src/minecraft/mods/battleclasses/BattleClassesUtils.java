@@ -69,16 +69,21 @@ public static Logger battleClassesLogger = LogManager.getLogger("Battle Classes"
     	return false;
     }
 	
-	public static float getCurrentTimeInSeconds() {
-		return ((float) Minecraft.getSystemTime()) / 1000;
+	public static double getCurrentTimeInSeconds() {
+		return ((double) Minecraft.getSystemTime()) / 1000;
 	}
+	
+	private long getTime() {
+        return (System.nanoTime() / 1000000);
+        //return (Sys.getTime() * 1000) / Sys.getTimerResolution();
+    }
 	
 	public static float getCooldownPercentage(ICooldownOwner coolDownHolder) {
 		return getCooldownPercentage(coolDownHolder.getCooldownClock());
 	}
 	
 	public static float getCooldownPercentage(CooldownClock coolClock) {
-		return coolClock.getCooldownRemaining() / coolClock.getLastUsedDuration();
+		return (float) (coolClock.getCooldownRemaining() / coolClock.getLastUsedDuration());
 	}
 	
 	public static void setEntityPlayerItemInUseInSeconds(EntityPlayer entityPlayer, ItemStack itemStack, float time) {
