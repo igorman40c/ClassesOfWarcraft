@@ -85,7 +85,7 @@ public static Logger battleClassesLogger = LogManager.getLogger("Battle Classes"
 	}
 	
 	public static float getCooldownPercentage(CooldownClock coolClock) {
-		return (float) (coolClock.getCooldownRemaining() / coolClock.getLastUsedDuration());
+		return (float) (coolClock.getRemainingDuration() / coolClock.getLastUsedDuration());
 	}
 	
 	public static void setEntityPlayerItemInUseInSeconds(EntityPlayer entityPlayer, ItemStack itemStack, float time) {

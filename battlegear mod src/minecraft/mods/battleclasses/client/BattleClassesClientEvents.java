@@ -409,7 +409,6 @@ public class BattleClassesClientEvents {
 						}
 							break;
 						case MISS: {
-							System.out.println("Alter hands");
 							if(offhandNext) {
 								event.setCanceled(true);
 								((IBattlePlayer) mc.thePlayer).swingOffItem();

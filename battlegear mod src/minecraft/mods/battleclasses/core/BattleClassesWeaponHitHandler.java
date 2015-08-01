@@ -2,6 +2,7 @@ package mods.battleclasses.core;
 
 import java.util.EnumSet;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -73,28 +74,36 @@ public class BattleClassesWeaponHitHandler {
 			//True Server side
 		}
 		EntityInteractEvent interactEvent = new EntityInteractEvent(entityPlayer, entityTarget);
-		System.out.println("processOffhandAttack");
+		System.out.println("Try processOffhandAttack");
 		if (!this.offHandAttackAbility.isOnCooldown() && ((IBattlePlayer) entityPlayer).isBattlemode()) {
             ItemStack offhandItem = BattleClassesUtils.getOffhandItemStack(entityPlayer); 
             ItemStack mainHandItem = entityPlayer.getCurrentEquippedItem();
+            
+            System.out.println("processOffhandAttack @begin");
+            
+            if(entityPlayer.worldObj.isRemote) {
+    			//True Client side
+        		//BattlemodeHookContainerClass.sendOffSwingEvent(interactEvent, mainHandItem, offhandItem);
+        		Minecraft mc = Minecraft.getMinecraft();
+        		((IBattlePlayer) mc.thePlayer).swingOffItem();
+	            Battlegear.proxy.sendAnimationPacket(EnumBGAnimations.OffHandSwing, mc.thePlayer);
+        		return;
+    		}
+    		else {
+    			//True Server side
+    		}
+            
             PlayerEventChild.OffhandAttackEvent offAttackEvent = new PlayerEventChild.OffhandAttackEvent(interactEvent, mainHandItem, offhandItem);
+            offhandAttackInProgress = true;
             if(!MinecraftForge.EVENT_BUS.post(offAttackEvent)){
                 if (offAttackEvent.shouldAttack) {
-//                	this.mainHandClock.setEnabled(false);
-//                    this.offHandClock.setEnabled(false);
-                    
-                    offhandAttackInProgress = true;
-                    
-                	BattlemodeHookContainerClass.sendOffSwingEvent(interactEvent, mainHandItem, offhandItem);
-//                	this.attackWithOffHand((EntityLivingBase) entityTarget);
-                    ((IBattlePlayer) entityPlayer).attackTargetEntityWithCurrentOffItem(entityTarget);
-                    
-                    offhandAttackInProgress = false;
-                    
-//                    this.mainHandClock.setEnabled(true);
-//                    this.offHandClock.setEnabled(true);
+
+                	//this.attackWithOffHand((EntityLivingBase) entityTarget);
+        			((IBattlePlayer) entityPlayer).attackTargetEntityWithCurrentOffItem(entityTarget);
                 }
             }
+            offhandAttackInProgress = false;
+            System.out.println("processOffhandAttack @end");
         }
 	}
 	
@@ -109,11 +118,18 @@ public class BattleClassesWeaponHitHandler {
 	public void attackWithMainHand(EntityLivingBase entityTarget) {
 		this.mainHandAttackAbility.performEffects(entityTarget);
 		this.setMainhandToCooldown();
+		
+		
+		System.out.println("Mainhand CD remaining: " + mainHandAttackAbility.getCooldownClock().getRemainingDuration());
+		System.out.println("Offhand CD remaining: " + offHandAttackAbility.getCooldownClock().getRemainingDuration());
 	}
 	
 	public void attackWithOffHand(EntityLivingBase entityTarget) {
 		this.offHandAttackAbility.performEffects(entityTarget);
 		this.setOffhandToCooldown();
+		
+		System.out.println("Mainhand CD remaining: " + mainHandAttackAbility.getCooldownClock().getRemainingDuration());
+		System.out.println("Offhand CD remaining: " + offHandAttackAbility.getCooldownClock().getRemainingDuration());
 	}
 		
 	public void setMainhandToCooldown() {
@@ -121,6 +137,7 @@ public class BattleClassesWeaponHitHandler {
 		EntityPlayer ownerPlayer = this.playerHooks.getOwnerPlayer();
 		ItemStack mainHandItemStack = BattleClassesUtils.getMainhandItemHeld(ownerPlayer);
 		ItemStack offHandItemStack = BattleClassesUtils.getOffhandItemHeld(ownerPlayer);
+		/*
 		if(mainHandItemStack != null) {
 			this.mainHandAttackAbility.startCooldown();
 			///
@@ -129,6 +146,9 @@ public class BattleClassesWeaponHitHandler {
 			}
 			///
 		}
+		*/
+		this.mainHandAttackAbility.startCooldown();
+		this.offHandAttackAbility.startCooldown(0.45F);
 	}
 	
 	public void setOffhandToCooldown() {
@@ -136,6 +156,7 @@ public class BattleClassesWeaponHitHandler {
 		EntityPlayer ownerPlayer = this.playerHooks.getOwnerPlayer();
 		ItemStack mainHandItemStack = BattleClassesUtils.getMainhandItemHeld(ownerPlayer);
 		ItemStack offHandItemStack = BattleClassesUtils.getOffhandItemHeld(ownerPlayer);
+		/*
 		if(offHandItemStack != null) {
 			this.offHandAttackAbility.startCooldown();
 			///
@@ -144,6 +165,9 @@ public class BattleClassesWeaponHitHandler {
 			}
 			///
 		}
+		*/
+		this.offHandAttackAbility.startCooldown();
+		this.mainHandAttackAbility.startCooldown(0.45F);
 	}
 	
 }

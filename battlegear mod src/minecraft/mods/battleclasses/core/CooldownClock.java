@@ -149,7 +149,7 @@ public class CooldownClock {
 		if(!enabled) {
 			return;
 		}
-		if( duration > this.getCooldownRemaining() || forced) {
+		if( duration > this.getRemainingDuration() || forced) {
 			this.setTime = BattleClassesUtils.getCurrentTimeInSeconds();
 			
 			//Effecting duration with multipliers
@@ -198,14 +198,14 @@ public class CooldownClock {
 	 * @return - (boolean) value of (getCooldownRemaining() > 0) 
 	 */
 	public boolean isOnCooldown() {
-		return getCooldownRemaining() > 0;
+		return getRemainingDuration() > 0;
 	}
 	
 	/**
 	 * Return the remaining time of the currently ongoing cooldown of this clock in seconds
 	 * @return - (float) time remaining in seconds
 	 */
-	public double getCooldownRemaining() {
+	public double getRemainingDuration() {
 		double timeRemaining = getSetTime() + getLastUsedDuration() - BattleClassesUtils.getCurrentTimeInSeconds();
 		if(timeRemaining < 0 ) {
 			timeRemaining = 0;
