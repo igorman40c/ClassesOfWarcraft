@@ -46,6 +46,7 @@ import mods.battleclasses.BattleClassesUtils.LogType;
 import mods.battleclasses.ability.active.BattleClassesAbilityShieldBlock;
 import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
 import mods.battleclasses.attributes.BattleClassesAttributes;
+import mods.battleclasses.core.BattleClassesPlayerAttributes;
 import mods.battleclasses.core.BattleClassesPlayerClass;
 import mods.battleclasses.core.BattleClassesWeaponHitHandler;
 import mods.battleclasses.enums.EnumBattleClassesAttributeType;
@@ -174,46 +175,61 @@ public class BattleClassesClientEvents {
 	private ItemStack savedMainhandItemStack;
 	private ItemStack savedOffhandItemStack;
 	private ItemStack[] savedArmorItemStacks = new ItemStack[4];
+	private boolean lastBattleMode = false;
 	@SubscribeEvent
-	public void updateEquipment(LivingUpdateEvent event) {
+	public void updateCachedTotalAttributes(LivingUpdateEvent event) {
+		if(!BattleClassesPlayerAttributes.totalAttributesCaching) {
+			return;
+		}
+		
 		Minecraft mc = Minecraft.getMinecraft();
+		boolean shouldUpdateTotalAttributes = false;
+		
+		/*
+		if(this.lastBattleMode != BattleClassesUtils.isPlayerInBattlemode(mc.thePlayer)) {
+			shouldUpdateTotalAttributes = true;
+		}
+		*/
 		if(event.entity == mc.thePlayer && mc.thePlayer.inventory.inventoryChanged) {
 			
 			//Checking for equipment change
-			boolean shouldUpdateEquipment = false;
+			
 			String reason = "";
-			if(!ItemStack.areItemStacksEqual(BattleClassesUtils.getMainhandItemStack(mc.thePlayer),savedMainhandItemStack)) {
-				shouldUpdateEquipment = true;
+			if(!ItemStack.areItemStacksEqual(BattleClassesUtils.getMainhandBattleSlot(mc.thePlayer),savedMainhandItemStack)) {
+				shouldUpdateTotalAttributes = true;
 				reason = "reason: Mainhand item";
 			}
-			if(!shouldUpdateEquipment && !ItemStack.areItemStacksEqual(BattleClassesUtils.getOffhandItemStack(mc.thePlayer),savedOffhandItemStack)) {
-				shouldUpdateEquipment = true;
+			if(!shouldUpdateTotalAttributes && !ItemStack.areItemStacksEqual(BattleClassesUtils.getOffhandBattleSlot(mc.thePlayer),savedOffhandItemStack)) {
+				shouldUpdateTotalAttributes = true;
 				reason = "reason: Offhand";
 			}
-			if(!shouldUpdateEquipment && savedArmorItemStacks != null) {
+			if(!shouldUpdateTotalAttributes && savedArmorItemStacks != null) {
 				for(int i = 0; i < savedArmorItemStacks.length; ++i) {
 					if(!ItemStack.areItemStacksEqual(savedArmorItemStacks[i],mc.thePlayer.inventory.armorInventory[i])) {
-						shouldUpdateEquipment = true;
+						shouldUpdateTotalAttributes = true;
 						reason = "reason: Armor at: " +i;
 						break;
 					}
 				}
 			}
 			
-			if(shouldUpdateEquipment) {
+			if(shouldUpdateTotalAttributes) {
 				//Updating attribute sources
 				System.out.println("Equipment Changed! " + reason);
-				FMLProxyPacket p = new BattleClassesPacketAttributeChanges().generatePacket();
-				BattleClassesMod.packetHandler.sendPacketToServer(p);
-				BattleClassesUtils.getPlayerHooks(mc.thePlayer).onAttributeSourcesChanged();
 				//Saving current equipment
-				savedMainhandItemStack = BattleClassesUtils.getMainhandItemStack(mc.thePlayer);
-				savedOffhandItemStack = BattleClassesUtils.getOffhandItemStack(mc.thePlayer);
+				savedMainhandItemStack = BattleClassesUtils.getMainhandBattleSlot(mc.thePlayer);
+				savedOffhandItemStack = BattleClassesUtils.getOffhandBattleSlot(mc.thePlayer);
 				savedArmorItemStacks = new ItemStack[4];
 				for(int i = 0; i < mc.thePlayer.inventory.armorInventory.length; ++i) {
 					savedArmorItemStacks[i] = mc.thePlayer.inventory.armorInventory[i];
 				}
 			}
+		}
+		
+		if(shouldUpdateTotalAttributes) {
+			FMLProxyPacket p = new BattleClassesPacketAttributeChanges().generatePacket();
+			BattleClassesMod.packetHandler.sendPacketToServer(p);
+			BattleClassesUtils.getPlayerHooks(mc.thePlayer).onAttributeSourcesChanged();
 		}
 	}
 	

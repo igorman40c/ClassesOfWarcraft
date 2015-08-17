@@ -76,7 +76,7 @@ public class BattleClassesWeaponHitHandler {
 		EntityInteractEvent interactEvent = new EntityInteractEvent(entityPlayer, entityTarget);
 		System.out.println("Try processOffhandAttack");
 		if (!this.offHandAttackAbility.isOnCooldown() && ((IBattlePlayer) entityPlayer).isBattlemode()) {
-            ItemStack offhandItem = BattleClassesUtils.getOffhandItemStack(entityPlayer); 
+            ItemStack offhandItem = BattleClassesUtils.getOffhandBattleSlot(entityPlayer); 
             ItemStack mainHandItem = entityPlayer.getCurrentEquippedItem();
             
             System.out.println("processOffhandAttack @begin");
@@ -135,8 +135,8 @@ public class BattleClassesWeaponHitHandler {
 	public void setMainhandToCooldown() {
 		System.out.println("Settings mainhandCD");
 		EntityPlayer ownerPlayer = this.playerHooks.getOwnerPlayer();
-		ItemStack mainHandItemStack = BattleClassesUtils.getMainhandItemHeld(ownerPlayer);
-		ItemStack offHandItemStack = BattleClassesUtils.getOffhandItemHeld(ownerPlayer);
+		ItemStack mainHandItemStack = BattleClassesUtils.getMainhandBattleSlot(ownerPlayer);
+		ItemStack offHandItemStack = BattleClassesUtils.getOffhandBattleSlot(ownerPlayer);
 		/*
 		if(mainHandItemStack != null) {
 			this.mainHandAttackAbility.startCooldown();
@@ -154,8 +154,8 @@ public class BattleClassesWeaponHitHandler {
 	public void setOffhandToCooldown() {
 		System.out.println("Settings OffhandCD");
 		EntityPlayer ownerPlayer = this.playerHooks.getOwnerPlayer();
-		ItemStack mainHandItemStack = BattleClassesUtils.getMainhandItemHeld(ownerPlayer);
-		ItemStack offHandItemStack = BattleClassesUtils.getOffhandItemHeld(ownerPlayer);
+		ItemStack mainHandItemStack = BattleClassesUtils.getMainhandBattleSlot(ownerPlayer);
+		ItemStack offHandItemStack = BattleClassesUtils.getOffhandBattleSlot(ownerPlayer);
 		/*
 		if(offHandItemStack != null) {
 			this.offHandAttackAbility.startCooldown();

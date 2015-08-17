@@ -46,10 +46,9 @@ public class BattleClassesAbilityAttackMainHand extends BattleClassesAbilityActi
 	}
 	
 	public void setWeaponDamageOnAttributes(BattleClassesAttributes attributes) {
-		EntityPlayer ownerPlayer = this.getOwnerPlayer();		
-		ItemStack offHandItemHeld = BattleClassesUtils.getOffhandItemHeld(ownerPlayer);
-		if(offHandItemHeld != null && offHandItemHeld.getItem() instanceof IBattleClassesWeapon) {
-			attributes.addValueByType(EnumBattleClassesAttributeType.MELEE_ATTACK_DAMAGE, (-1F)*((IBattleClassesWeapon)offHandItemHeld.getItem()).getWeaponDamage());
+		ItemStack counterHeldItemStack = this.getCounterHeldItemstack();
+		if(counterHeldItemStack != null && counterHeldItemStack.getItem() instanceof IBattleClassesWeapon) {
+			attributes.addValueByType(EnumBattleClassesAttributeType.MELEE_ATTACK_DAMAGE, (-1F)*((IBattleClassesWeapon)counterHeldItemStack.getItem()).getWeaponDamage());
 		}
 	}
 	
@@ -59,11 +58,11 @@ public class BattleClassesAbilityAttackMainHand extends BattleClassesAbilityActi
 	}
 	
 	public ItemStack getCorrespondingHeldItemstack() {
-		return BattleClassesUtils.getMainhandItemHeld(this.getOwnerPlayer());
+		return BattleClassesUtils.getMainhandBattleSlot(this.getOwnerPlayer());
 	}
 	
 	public ItemStack getCounterHeldItemstack() {
-		return BattleClassesUtils.getOffhandItemHeld(this.getOwnerPlayer());
+		return BattleClassesUtils.getOffhandBattleSlot(this.getOwnerPlayer());
 	}
 	
 	public static final float DEFAULT_WEAPON_COOLDOWN_DURATION = 1F;

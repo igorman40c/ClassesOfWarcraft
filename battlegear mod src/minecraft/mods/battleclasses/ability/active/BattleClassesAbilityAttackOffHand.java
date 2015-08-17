@@ -21,17 +21,13 @@ public class BattleClassesAbilityAttackOffHand extends BattleClassesAbilityAttac
 		super();
 		this.setUnlocalizedName("universal.attack.offhand");
 	}
-	
-	public void setWeaponDamageOnAttributes(BattleClassesAttributes attributes) {
-		EntityPlayer ownerPlayer = this.getOwnerPlayer();
-		ItemStack mainHandItemHeld = BattleClassesUtils.getMainhandItemHeld(ownerPlayer);
-		if(mainHandItemHeld != null && mainHandItemHeld.getItem() instanceof IBattleClassesWeapon) {
-			attributes.addValueByType(EnumBattleClassesAttributeType.MELEE_ATTACK_DAMAGE, (-1F)*((IBattleClassesWeapon)mainHandItemHeld.getItem()).getWeaponDamage());
-		}
+		
+	public ItemStack getCorrespondingHeldItemstack() {
+		return BattleClassesUtils.getOffhandBattleSlot(this.getOwnerPlayer());
 	}
 	
-	public ItemStack getCorrespondingHeldItemstack() {
-		return BattleClassesUtils.getOffhandItemHeld(this.getOwnerPlayer());
+	public ItemStack getCounterHeldItemstack() {
+		return BattleClassesUtils.getMainhandBattleSlot(this.getOwnerPlayer());
 	}
 	
 }

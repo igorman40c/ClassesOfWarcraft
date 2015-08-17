@@ -31,6 +31,8 @@ public class BattleClassesPlayerAttributes {
 		return this.parentPlayerHooks.getOwnerPlayer();
 	}
 	
+	public static final boolean totalAttributesCaching = true;
+	
 	protected BattleClassesAttributes baseAttributes;
 	protected BattleClassesAttributes savedTotalAttributes;
 	
@@ -55,10 +57,15 @@ public class BattleClassesPlayerAttributes {
 	 * @return
 	 */
 	public BattleClassesAttributes getTotalAttributes() {
-		if(this.savedTotalAttributes == null) {
-			this.onAttributeSourcesChanged();
+		if(totalAttributesCaching) {
+			if(this.savedTotalAttributes == null) {
+				this.onAttributeSourcesChanged();
+			}
+			return this.savedTotalAttributes.copy();
 		}
-		return this.savedTotalAttributes.copy();
+		else {
+			return this.getTotalAttributesForAbility(null);
+		}
 	}
 	
 	public BattleClassesAttributes getDisplayedAttributes() {
@@ -176,11 +183,11 @@ public class BattleClassesPlayerAttributes {
 		}
 		*/
 		
-		ItemStack mainHandItemStackHeld = BattleClassesUtils.getMainhandItemHeld(getOwnerPlayer());
+		ItemStack mainHandItemStackHeld = BattleClassesUtils.getMainhandBattleSlot(getOwnerPlayer());
 		if(mainHandItemStackHeld != null) {
 			this.addItemToAttributeModifierList(mainHandItemStackHeld.getItem(), attributeModifierList);
 		}
-		ItemStack offHandItemStackHeld = BattleClassesUtils.getOffhandItemHeld(getOwnerPlayer());
+		ItemStack offHandItemStackHeld = BattleClassesUtils.getOffhandBattleSlot(getOwnerPlayer());
 		if(offHandItemStackHeld != null) {
 			this.addItemToAttributeModifierList(offHandItemStackHeld.getItem(), attributeModifierList);
 		}

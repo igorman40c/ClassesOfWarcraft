@@ -242,26 +242,32 @@ public static Logger battleClassesLogger = LogManager.getLogger("Battle Classes"
 		return true;
 	}
 	
-	public static ItemStack getOffhandItemStack(EntityPlayer entityPlayer) {
-		//return BattleClassesUtils.getBattleInventory(entityPlayer).getStackInSlot(0 + InventoryPlayerBattle.OFFSET+(InventoryPlayerBattle.WEAPON_SETS));
-		return BattleClassesUtils.getBattleInventory(entityPlayer).extraItems[1];
-	}
 	
-	public static ItemStack getMainhandItemStack(EntityPlayer entityPlayer) {
+	public static ItemStack getMainhandBattleSlot(EntityPlayer entityPlayer) {
 		//return BattleClassesUtils.getBattleInventory(entityPlayer).getStackInSlot(0 + InventoryPlayerBattle.OFFSET);
 		return BattleClassesUtils.getBattleInventory(entityPlayer).extraItems[0];
 	}
 	
+	public static ItemStack getOffhandBattleSlot(EntityPlayer entityPlayer) {
+		//return BattleClassesUtils.getBattleInventory(entityPlayer).getStackInSlot(0 + InventoryPlayerBattle.OFFSET+(InventoryPlayerBattle.WEAPON_SETS));
+		return BattleClassesUtils.getBattleInventory(entityPlayer).extraItems[1];
+	}
+	
 	public static ItemStack getMainhandItemHeld(EntityPlayer entityPlayer) {
-		return entityPlayer.getHeldItem();
+		if(isPlayerInBattlemode(entityPlayer)) {
+			return getMainhandBattleSlot(entityPlayer);
+		}
+		//return entityPlayer.getHeldItem();
+		return null;
 	}
 	
 	public static ItemStack getOffhandItemHeld(EntityPlayer entityPlayer) {
 		if(isPlayerInBattlemode(entityPlayer)) {
-			return getOffhandItemStack(entityPlayer);
+			return getOffhandBattleSlot(entityPlayer);
 		}
 		return null;
 	}
+
 	
 	public static Potion getPotionByID(int potionID) {
 		return Potion.potionTypes[potionID];

@@ -126,7 +126,7 @@ public class BattleClassesGuiAttributeDisplayNode extends BattleClassesGuiButton
 			BattleClassesAttributes mainHandAttributes = BattleClassesUtils.getPlayerAttributes(mc.thePlayer).getDisplayedAttributes();
 			weaponHitHandler.mainHandAttackAbility.setWeaponDamageOnAttributes(mainHandAttributes);
 			String valueString = BattleClassesGuiHelper.formatFloatToNiceTenths(mainHandAttributes.melee_attack_damage);
-			if(BattleClassesUtils.getOffhandItemHeld(mc.thePlayer) != null && BattleClassesUtils.getOffhandItemHeld(mc.thePlayer).getItem() != null) {
+			if(BattleClassesUtils.getOffhandBattleSlot(mc.thePlayer) != null && BattleClassesUtils.getOffhandBattleSlot(mc.thePlayer).getItem() != null) {
 				BattleClassesAttributes offHandAttributes = BattleClassesUtils.getPlayerAttributes(mc.thePlayer).getDisplayedAttributes();
 				weaponHitHandler.offHandAttackAbility.setWeaponDamageOnAttributes(offHandAttributes);
 				valueString += "|" + BattleClassesGuiHelper.formatFloatToNiceTenths(offHandAttributes.melee_attack_damage);
