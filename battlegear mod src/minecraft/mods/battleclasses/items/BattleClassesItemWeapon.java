@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
+
 import cpw.mods.fml.relauncher.Side;
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.attributes.AttributesFactory;
@@ -20,6 +23,8 @@ import mods.battlegear2.api.core.IBattlePlayer;
 import mods.battlegear2.api.weapons.WeaponRegistry;
 import mods.battlegear2.utils.BattlegearConfig;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
@@ -126,6 +131,18 @@ public class BattleClassesItemWeapon extends BattleClassesItemHandheld implement
 				
 		return text;
 	}
+	
+	
+	/**
+     * Gets a map of item attribute modifiers, used by ItemSword to increase hit damage.
+     */
+	@Override
+    public Multimap getItemAttributeModifiers()
+    {
+        Multimap multimap = HashMultimap.create();
+        multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), new AttributeModifier(field_111210_e, "Weapon modifier", this.getWeaponDamage(), 0));
+        return multimap;
+    }
 	
 	/*
 	@Override

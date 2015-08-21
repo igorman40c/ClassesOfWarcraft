@@ -267,6 +267,8 @@ public class BattleClassesPlayerAttributes {
 	 */
 	protected BattleClassesAttributes getDefaultAttributes() {
 		BattleClassesAttributes baseAttributes = new BattleClassesAttributes();
+		baseAttributes.melee_attack_damage = this.getDefaultPlayerWeaponDamage();
+		baseAttributes.crit = this.getDefaultCritChance();
 		//baseAttributes.stamina = this.getOwnerPlayer().getMaxHealth();
 		//baseAttributes.health = DEFAULT_PLAYER_HP;
 		//baseAttributes.armor = this.getOwnerPlayer().getArm
@@ -289,4 +291,17 @@ public class BattleClassesPlayerAttributes {
 		
 		this.getOwnerPlayer().setHealth(relativeHealth * this.getOwnerPlayer().getMaxHealth());
 	}
+	
+	/**
+	 * Returns the attackDamage value from vanilla AttributeModifiers.
+	 */
+	protected float getDefaultPlayerWeaponDamage() {
+		return (float)this.getOwnerPlayer().getAttributeMap().getAttributeInstance(SharedMonsterAttributes.attackDamage).getAttributeValue();
+	}
+	
+	public static final float DEFAULT_CRIT_CHANCE = 0.05F;
+	protected float getDefaultCritChance() {
+		return DEFAULT_CRIT_CHANCE;
+	}
+	
 }
