@@ -109,7 +109,7 @@ public class BattleClassesGuiAttributeDisplayNode extends BattleClassesGuiButton
     	if(this.displayedAttributeType.isRatingType()) {
     		BattleClassesGuiHelper.addTitle(hoveringText, this.displayedAttributeType.getTranslatedTitle());
     		BattleClassesGuiHelper.addParagraph(hoveringText, this.displayedAttributeType.getTranslatedDescription());
-    		BattleClassesGuiHelper.addParagraph(hoveringText, this.displayedAttributeType.getTranslatedPercentagePerPoints());
+    		BattleClassesGuiHelper.addParagraph(hoveringText, this.getTranslatedPercentagePerPoints());
     	}
     	else {
     		BattleClassesGuiHelper.addTitle(hoveringText, this.displayedAttributeType.getTranslatedName());
@@ -159,5 +159,13 @@ public class BattleClassesGuiAttributeDisplayNode extends BattleClassesGuiButton
 		}
 		
 		return valueString;
+	}
+	
+	public String getTranslatedPercentagePerPoints() {
+		Minecraft mc = Minecraft.getMinecraft();
+		String text = this.displayedAttributeType.getTranslatedPercentagePerPoints();
+		float value = BattleClassesUtils.getPlayerAttributes(mc.thePlayer).getPercentagePerRatingPointsOfAttributeType(this.displayedAttributeType);
+		text = text.replace("%1$s", BattleClassesGuiHelper.formatFloatToPercentage(value));
+		return text;
 	}
 }

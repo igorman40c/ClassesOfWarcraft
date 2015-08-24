@@ -128,7 +128,7 @@ bcattribute.melee_attack_damage.description=Estimated ammount of damage you will
 bcattribute.ranged_attack_damage.description=Estimated ammount of damage you will deal with your ranged weapon.
 bcattribute.vanilla_armor.description=Reduces physical damage you recieve.
 
-bcattribute.percentage_per_ratingpoints=(%1$s% per rating point)
+bcattribute.percentage_per_ratingpoints=(%1$s per rating point)
 
 bccriteria.abilityschool.all=abilities and spells
 bccriteria.abilityschool.abilities=abilities
