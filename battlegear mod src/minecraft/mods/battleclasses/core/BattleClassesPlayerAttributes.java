@@ -12,6 +12,7 @@ import mods.battleclasses.attributes.ICWAttributeModifier;
 import mods.battleclasses.attributes.ICWAttributeModifierOwner;
 import mods.battleclasses.attributes.ICWClassAccessAttributeModifier;
 import mods.battleclasses.enums.EnumBattleClassesAmplifierApplyType;
+import mods.battleclasses.enums.EnumBattleClassesAttributeType;
 import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -91,14 +92,6 @@ public class BattleClassesPlayerAttributes {
 			attributeModifier.applyAttributeModifier(modifiedAbility, totalAttributes);
 		}
 		return totalAttributes;
-	}
-	
-	public float getHasteMultiplierFromAttributes(BattleClassesAttributes attributes) {
-		return 1F / (1F + attributes.haste);
-	}
-	
-	public float getHasteMultiplierFromTotalAttributes() {
-		return getHasteMultiplierFromAttributes(this.getTotalAttributes());
 	}
 	
 	//Stored attribte modifiers, separated by apply type
@@ -301,7 +294,41 @@ public class BattleClassesPlayerAttributes {
 	
 	public static final float DEFAULT_CRIT_CHANCE = 0.05F;
 	protected float getDefaultCritChance() {
-		return DEFAULT_CRIT_CHANCE;
+		return DEFAULT_CRIT_CHANCE / CRITICAL_RATING_PERCENTAGE_PER_RATINGPOINT;
+	}
+	
+	public float getHasteMultiplierFromAttributes(BattleClassesAttributes attributes) {
+		return 1F / (1F + getRatingBasedPercentageValue(attributes, EnumBattleClassesAttributeType.HASTE_RATING));
+	}
+	
+	public float getHasteMultiplierFromTotalAttributes() {
+		return this.getHasteMultiplierFromAttributes(this.getTotalAttributes());
+	}
+	
+	public float getRatingBasedPercentageValue(BattleClassesAttributes attributes, EnumBattleClassesAttributeType attributeType) {
+		float percentageValue = -1;
+		if(attributeType.isRatingType()) {
+			percentageValue = this.getPercentagePerRatingPointsOfAttributeType(attributeType) * attributes.getValueByType(attributeType); 
+		}
+		return percentageValue;
+	}
+	
+	public static final float ARMOR_PENETRATION_PERCENTAGE_PER_RATINGPOINT = 0.01F;
+	public static final float CRITICAL_RATING_PERCENTAGE_PER_RATINGPOINT = 0.01F;
+	public static final float HASTE_RATING_PERCENTAGE_PER_RATINGPOINT = 0.01F;
+	
+	public float getPercentagePerRatingPointsOfAttributeType(EnumBattleClassesAttributeType attributeType) {
+		if(attributeType.isRatingType()) {
+			switch(attributeType) {
+			case ARMOR_PENETRATION:
+				return ARMOR_PENETRATION_PERCENTAGE_PER_RATINGPOINT;
+			case CRITICAL_RATING:
+				return CRITICAL_RATING_PERCENTAGE_PER_RATINGPOINT;
+			case HASTE_RATING:
+				return HASTE_RATING_PERCENTAGE_PER_RATINGPOINT;
+			}
+		}
+		return -1;
 	}
 	
 }

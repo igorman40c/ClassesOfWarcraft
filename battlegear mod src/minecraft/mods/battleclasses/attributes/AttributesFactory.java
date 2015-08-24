@@ -122,7 +122,7 @@ public class AttributesFactory {
 	}
 	
 	protected static float getSecondaryAttributeValuePerItemLevel() {
-		return 0.02F;
+		return 2F;
 	}
 	
 	protected static float getConstantCreateBonus(EnumBattleClassesAttributeType type) {

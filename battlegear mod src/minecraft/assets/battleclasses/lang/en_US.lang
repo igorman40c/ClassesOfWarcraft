@@ -99,7 +99,7 @@ bcattribute.spellpower_frost.name=Frost Spellpower
 bcattribute.spellpower_holy.name=Holy Spellpower
 bcattribute.spellpower_shadow.name=Shadow Spellpower
 bcattribute.haste_rating.name=Haste Rating
-bcattribute.critical_rating.name=Critical Chance
+bcattribute.critical_rating.name=Critical Strike Rating
 bcattribute.armor_penetration.name=Armor Penetration
 bcattribute.melee_attack_damage.name=Attack Damage
 bcattribute.ranged_attack_damage.name=Ranged Attack Damage
@@ -108,6 +108,10 @@ bcattribute.itemLevel=Item Level
 bcattribute.weaponSpeed=Speed
 bcattribute.weaponSpeed.s=s
 bcattribute.weaponReach=Reach
+
+bcattribute.critical_rating.title=Critical Chance
+bcattribute.haste_rating.title=Haste
+bcattribute.armor_penetration.title=Armor Penetration
 
 bcattribute.health.description=Increases your maximal health by half a heart per point.
 bcattribute.strength.description=Increases your weapon damage.
@@ -123,6 +127,8 @@ bcattribute.armor_penetration.description=Ignores the armor of your enemy.
 bcattribute.melee_attack_damage.description=Estimated ammount of damage you will deal with your currently held weapons (main-hand|off-hand).
 bcattribute.ranged_attack_damage.description=Estimated ammount of damage you will deal with your ranged weapon.
 bcattribute.vanilla_armor.description=Reduces physical damage you recieve.
+
+bcattribute.percentage_per_ratingpoints=(%1$s% per rating point)
 
 bccriteria.abilityschool.all=abilities and spells
 bccriteria.abilityschool.abilities=abilities

@@ -105,8 +105,17 @@ public class BattleClassesGuiAttributeDisplayNode extends BattleClassesGuiButton
     @Override
     public List<String> getTooltipText() {
     	List<String> hoveringText = BattleClassesGuiHelper.createHoveringText();
-    	BattleClassesGuiHelper.addTitle(hoveringText, StatCollector.translateToLocal(this.displayedAttributeType.getUnlocalizedName()));
-    	BattleClassesGuiHelper.addParagraph(hoveringText, StatCollector.translateToLocal(this.displayedAttributeType.getUnlocalizedDescription()));
+    	
+    	if(this.displayedAttributeType.isRatingType()) {
+    		BattleClassesGuiHelper.addTitle(hoveringText, this.displayedAttributeType.getTranslatedTitle());
+    		BattleClassesGuiHelper.addParagraph(hoveringText, this.displayedAttributeType.getTranslatedDescription());
+    		BattleClassesGuiHelper.addParagraph(hoveringText, this.displayedAttributeType.getTranslatedPercentagePerPoints());
+    	}
+    	else {
+    		BattleClassesGuiHelper.addTitle(hoveringText, this.displayedAttributeType.getTranslatedName());
+    		BattleClassesGuiHelper.addParagraph(hoveringText, this.displayedAttributeType.getTranslatedDescription());
+    	}
+    	
     	hoveringText = BattleClassesGuiHelper.formatHoveringTextWidth(hoveringText, 30);
     	return hoveringText;
     }
@@ -133,6 +142,9 @@ public class BattleClassesGuiAttributeDisplayNode extends BattleClassesGuiButton
 			}
 			
 			return valueString;
+		}
+		else if (this.displayedAttributeType.isRatingType()) {
+			displayedValue = BattleClassesUtils.getPlayerAttributes(mc.thePlayer).getRatingBasedPercentageValue(BattleClassesUtils.getPlayerAttributes(mc.thePlayer).getDisplayedAttributes(), this.displayedAttributeType);
 		}
 		else {
 			displayedValue = BattleClassesUtils.getPlayerAttributes(mc.thePlayer).getDisplayedAttributes().getValueByType(this.displayedAttributeType);

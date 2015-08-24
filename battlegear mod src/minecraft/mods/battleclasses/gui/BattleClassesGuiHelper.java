@@ -413,7 +413,8 @@ public class BattleClassesGuiHelper extends Gui {
 	}
 	
 	public static String getTranslatedBonusLine(float value, String translatedName, boolean displayedInPercentage) {
-		String displayedValue = (displayedInPercentage) ? BattleClassesGuiHelper.formatFloatToPercentage(value) : BattleClassesGuiHelper.formatFloatToNice(value);
+		//String displayedValue = (displayedInPercentage) ? BattleClassesGuiHelper.formatFloatToPercentage(value) : BattleClassesGuiHelper.formatFloatToNice(value);
+		String displayedValue = BattleClassesGuiHelper.formatFloatToNice(value);
   		String valueString = "+" + displayedValue;
 		return valueString + " " + translatedName;
 	}

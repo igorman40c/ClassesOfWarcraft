@@ -176,11 +176,6 @@ public enum EnumBattleClassesAttributeType {
 		}
 		
 		@Override
-		public boolean isDisplayedInPercentage() {
-			return true;
-		}
-		
-		@Override
 		public boolean isPrimary() {
 			return false;
 		}
@@ -198,11 +193,6 @@ public enum EnumBattleClassesAttributeType {
 		@Override
 		public void setValueForAttributes(BattleClassesAttributes attributes, float value) {
 			attributes.crit = value;
-		}
-		
-		@Override
-		public boolean isDisplayedInPercentage() {
-			return true;
 		}
 		
 		@Override
@@ -224,12 +214,7 @@ public enum EnumBattleClassesAttributeType {
 		public void setValueForAttributes(BattleClassesAttributes attributes, float value) {
 			attributes.armor_pen = value;
 		}
-		
-		@Override
-		public boolean isDisplayedInPercentage() {
-			return true;
-		}
-		
+				
 		@Override
 		public boolean isPrimary() {
 			return false;
@@ -292,9 +277,17 @@ public enum EnumBattleClassesAttributeType {
 	public int getDisplayIconSquareSize() {
 		return 9;
 	}
+	
+	/**
+	 * Determines if the points of the attribute type should be considered as rating points and converted into chance percentage.
+	 * @return
+	 */
+	public boolean isRatingType() {
+		return !isPrimary();
+	}
 			
 	public boolean isDisplayedInPercentage() {
-		return !isPrimary();
+		return isRatingType();
 	}
 	
 	/**
@@ -317,6 +310,10 @@ public enum EnumBattleClassesAttributeType {
 		return unlocalizedPrefix + this.toString().toLowerCase() + ".name";
 	}
 	
+	public String getUnlocalizedTitle() {
+		return unlocalizedPrefix + this.toString().toLowerCase() + ".title";
+	}
+	
 	public String getUnlocalizedDescription() {
 		return unlocalizedPrefix + this.toString().toLowerCase() + ".description";
 	}
@@ -325,8 +322,16 @@ public enum EnumBattleClassesAttributeType {
 		return StatCollector.translateToLocal(this.getUnlocalizedName());
 	}
 	
+	public String getTranslatedTitle() {
+		return StatCollector.translateToLocal(this.getUnlocalizedTitle());
+	}
+	
 	public String getTranslatedDescription() {
 		return StatCollector.translateToLocal(this.getUnlocalizedDescription());
+	}
+	
+	public String getTranslatedPercentagePerPoints() {
+		return StatCollector.translateToLocal(unlocalizedPrefix + "percentage_per_ratingpoints");
 	}
 	
 }
