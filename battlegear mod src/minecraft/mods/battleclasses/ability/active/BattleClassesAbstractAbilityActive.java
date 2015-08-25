@@ -31,6 +31,7 @@ import mods.battleclasses.ability.effect.BattleClassesAbstractAbilityEffect;
 import mods.battleclasses.attributes.BattleClassesAttributes;
 import mods.battleclasses.client.BattleClassesClientTargeting;
 import mods.battleclasses.client.ITooltipProvider;
+import mods.battleclasses.core.BattleClassesPlayerAttributes;
 import mods.battleclasses.core.BattleClassesPlayerHooks;
 import mods.battleclasses.core.ICooldownOwner;
 import mods.battleclasses.core.IStackableModifier;
@@ -70,7 +71,7 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 	//private AbilityUseProcessor useProcessor;
 	private EnumBattleClassesAbilityCastingType castingType;
 	protected int channelTickCount = 1;
-	public float castTime = 0;
+	public float baseCastTime = 0;
 	
 	//Ammo handling
 	protected boolean requiresAmmoItem = false;
@@ -79,8 +80,6 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 	
 	//Supporting modifiers
 	public float range = 40;
-	public float criticalChance = 0;
-	public float haste = 0;
 	
 	public boolean ignoresGlobalCooldown = false;
 	protected boolean ignoresSilence = false;
@@ -262,7 +261,7 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 		Side side = FMLCommonHandler.instance().getEffectiveSide();
 		if(side == Side.SERVER) {
 			float range = 60;
-			FMLProxyPacket packet = new BattleClassesPacketPlayerCastingDidStart(this.getOwnerPlayer(), this.getAbilityID(), this.castTime).generatePacket();
+			FMLProxyPacket packet = new BattleClassesPacketPlayerCastingDidStart(this.getOwnerPlayer(), this.getAbilityID(), this.baseCastTime).generatePacket();
 			BattleClassesMod.packetHandler.sendPacketAround(this.getOwnerPlayer(), range, packet);
 		}
 	}
@@ -419,7 +418,7 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 	public void performEffects(EntityLivingBase targetEntity, float partialMultiplier) {
 		//TODO
 		BattleClassesAttributes attributesForParentAbility = this.getPlayerAttributes().getTotalAttributesForAbility(this);
-		float critChance = attributesForParentAbility.crit;
+		float critChance = BattleClassesPlayerAttributes.getCritChanceFromAttributes(attributesForParentAbility);
 		BattleClassesAbstractAbilityEffect.performListOfEffects(this.effects, attributesForParentAbility, critChance, partialMultiplier, this.getOwnerPlayer(), targetEntity);
 	}
 	
@@ -490,9 +489,10 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 	}
 	
 	public float getCastTime() {
-    	return this.castTime;
+		float hasteRatio = BattleClassesUtils.getPlayerAttributes(this.getOwnerPlayer()).getHasteMultiplierFromTotalAttributes();
+    	return hasteRatio * this.baseCastTime;
     }
-	
+		
 	//----------------------------------------------------------------------------------
 	//							SECTION - Client side stuff
 	//----------------------------------------------------------------------------------
@@ -541,7 +541,7 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 	
     public void sendCastingSoundPacket(boolean start) {
     	Side side = FMLCommonHandler.instance().getEffectiveSide();
-		if(side == Side.SERVER && this.school.hasCastingSound() && this.castTime > 0) {
+		if(side == Side.SERVER && this.school.hasCastingSound() && this.baseCastTime > 0) {
 			float range = (start) ? 60 : 100;
 			FMLProxyPacket packet;
 			String soundEvent = "abilityschool." + this.school.toString().toLowerCase() + ".casting";

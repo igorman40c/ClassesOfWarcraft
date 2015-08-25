@@ -19,7 +19,7 @@ public enum EnumBattleClassesAbilityCastingType {
 			Side side = FMLCommonHandler.instance().getEffectiveSide();
 			if(side == Side.SERVER) {
 				if(!ability.ignoresGlobalCooldown) {
-					BattleClassesUtils.getPlayerSpellBook(entityPlayer).setGlobalCooldownForCasting(ability.castTime);
+					BattleClassesUtils.getPlayerSpellBook(entityPlayer).setGlobalCooldownForCasting(ability.baseCastTime);
 				}
 			}
 		}
@@ -53,7 +53,7 @@ public enum EnumBattleClassesAbilityCastingType {
 			Side side = FMLCommonHandler.instance().getEffectiveSide();
 			if(side == Side.SERVER) {
 				if(!ability.ignoresGlobalCooldown) {
-					BattleClassesUtils.getPlayerSpellBook(entityPlayer).setGlobalCooldownForCasting(ability.castTime);
+					BattleClassesUtils.getPlayerSpellBook(entityPlayer).setGlobalCooldownForCasting(ability.baseCastTime);
 				}
 			}
 		}

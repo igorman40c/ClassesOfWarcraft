@@ -111,7 +111,7 @@ class AbilityUseProcessor {
 			Side side = FMLCommonHandler.instance().getEffectiveSide();
 			if(side == Side.SERVER) {
 				if(!this.ability.ignoresGlobalCooldown) {
-					BattleClassesUtils.getPlayerSpellBook(entityPlayer).setGlobalCooldownForCasting(this.ability.castTime);
+					BattleClassesUtils.getPlayerSpellBook(entityPlayer).setGlobalCooldownForCasting(this.ability.baseCastTime);
 				}
 			}
 		}
@@ -155,7 +155,7 @@ class AbilityUseProcessor {
 			Side side = FMLCommonHandler.instance().getEffectiveSide();
 			if(side == Side.SERVER) {
 				if(!this.ability.ignoresGlobalCooldown) {
-					BattleClassesUtils.getPlayerSpellBook(entityPlayer).setGlobalCooldownForCasting(this.ability.castTime);
+					BattleClassesUtils.getPlayerSpellBook(entityPlayer).setGlobalCooldownForCasting(this.ability.baseCastTime);
 				}
 			}
 		}

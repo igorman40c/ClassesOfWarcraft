@@ -29,7 +29,7 @@ public class BattleClassesAbilityShieldBlock extends BattleClassesAbstractAbilit
 		this.setUnlocalizedName("universal.shieldblock");
 		this.setCastingType(EnumBattleClassesAbilityCastingType.UNKNOWN);
 		this.ignoresGlobalCooldown = true;
-		this.castTime = 0;
+		this.baseCastTime = 0;
 		this.targetRequirementType = EnumBattleClassesAbilityDirectTargetRequirement.NEEDLESS;
 	}
 	/*

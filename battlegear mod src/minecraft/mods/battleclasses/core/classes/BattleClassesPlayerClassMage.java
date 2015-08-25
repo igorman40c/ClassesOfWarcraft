@@ -139,7 +139,7 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 			super();
 			this.setUnlocalizedName("mage.scorch");
 			this.setCastingType(EnumBattleClassesAbilityCastingType.CASTED);
-			this.castTime = 0.5F;
+			this.baseCastTime = 0.5F;
 			this.school = EnumBattleClassesAbilitySchool.SPELL_FIRE;
 			//this.cooldownClock.setDefaultDuration(5F);
 			this.range = 10F;
@@ -172,7 +172,7 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 		public FrostBolt() {
 			super();
 			this.setUnlocalizedName("mage.frostbolt");
-			this.castTime = 1F;
+			this.baseCastTime = 1F;
 			this.school = EnumBattleClassesAbilitySchool.SPELL_FROST;
 			this.range = 20F;
 			BattleClassesAbstractAbilityEffectInstantValue effect = EffectFactory.createInstantAbilityEffect(15, 0, EnumBattleClassesAbilitySchool.SPELL_FROST);

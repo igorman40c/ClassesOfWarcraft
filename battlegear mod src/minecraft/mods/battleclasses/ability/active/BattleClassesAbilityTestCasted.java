@@ -27,7 +27,7 @@ public class BattleClassesAbilityTestCasted extends BattleClassesAbstractAbility
 		
 	public void initStuff() {
 		this.setCastingType(EnumBattleClassesAbilityCastingType.CASTED);
-		this.castTime = 3;
+		this.baseCastTime = 3;
 		this.getCooldownClock().setDefaultDuration(6.0F);
 		
 		int pick = new Random().nextInt(EnumBattleClassesAbilitySchool.values().length);
