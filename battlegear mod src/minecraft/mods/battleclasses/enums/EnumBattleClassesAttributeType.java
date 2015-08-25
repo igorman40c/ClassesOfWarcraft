@@ -310,8 +310,8 @@ public enum EnumBattleClassesAttributeType {
 		return unlocalizedPrefix + this.toString().toLowerCase() + ".name";
 	}
 	
-	public String getUnlocalizedTitle() {
-		return unlocalizedPrefix + this.toString().toLowerCase() + ".title";
+	public String getUnlocalizedRatingName() {
+		return this.getUnlocalizedName() + ".rating";
 	}
 	
 	public String getUnlocalizedDescription() {
@@ -322,8 +322,8 @@ public enum EnumBattleClassesAttributeType {
 		return StatCollector.translateToLocal(this.getUnlocalizedName());
 	}
 	
-	public String getTranslatedTitle() {
-		return StatCollector.translateToLocal(this.getUnlocalizedTitle());
+	public String getTranslatedRatingName() {
+		return StatCollector.translateToLocal(this.getUnlocalizedRatingName());
 	}
 	
 	public String getTranslatedDescription() {

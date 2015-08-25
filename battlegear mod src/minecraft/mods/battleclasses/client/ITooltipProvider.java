@@ -1,6 +1,9 @@
 package mods.battleclasses.client;
 
 import java.util.List;
+import java.util.Set;
+
+import mods.battleclasses.enums.EnumBattleClassesAttributeType;
 
 /**
  * Tooltip provider interface for displaying hover-over info on GUI.

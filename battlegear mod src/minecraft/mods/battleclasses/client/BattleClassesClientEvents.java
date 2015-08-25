@@ -357,7 +357,12 @@ public class BattleClassesClientEvents {
         	event.toolTip.addAll(attributeProviderItem.getTooltipText());
         	
         	//Adding attribute bonuses
-        	for(EnumBattleClassesAttributeType activeAttributeType : attributes.getActiveTypes()) {
+        	List<EnumBattleClassesAttributeType> activeTypes = attributes.getActiveTypes();
+        	if(attributeProviderItem.getActiveTypeExceptions() != null) {
+        		activeTypes.removeAll(attributeProviderItem.getActiveTypeExceptions());
+        	}
+        	
+        	for(EnumBattleClassesAttributeType activeAttributeType : activeTypes) {
         		float value = activeAttributeType.getValueFromAttributes(attributes);
         		event.toolTip.add(activeAttributeType.getBonusLineColor() + BattleClassesGuiHelper.getTranslatedBonusLine(value, activeAttributeType)); 
         	}

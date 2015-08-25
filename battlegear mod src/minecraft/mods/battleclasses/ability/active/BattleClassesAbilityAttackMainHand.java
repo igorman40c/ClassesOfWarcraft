@@ -47,7 +47,8 @@ public class BattleClassesAbilityAttackMainHand extends BattleClassesAbilityActi
 	
 	public void setWeaponDamageOnAttributes(BattleClassesAttributes attributes) {
 		ItemStack counterHeldItemStack = this.getCounterHeldItemstack();
-		if(counterHeldItemStack != null && counterHeldItemStack.getItem() instanceof IBattleClassesWeapon) {
+		if(counterHeldItemStack != null && counterHeldItemStack.getItem() instanceof IBattleClassesWeapon && 
+				BattleClassesUtils.getPlayerClassEnum(this.getOwnerPlayer()).isEligibleForClassAccessSet(((IBattleClassesWeapon)counterHeldItemStack.getItem()).getClassAccessSet())) {
 			attributes.addValueByType(EnumBattleClassesAttributeType.MELEE_ATTACK_DAMAGE, (-1F)*((IBattleClassesWeapon)counterHeldItemStack.getItem()).getWeaponDamage());
 		}
 	}

@@ -3,6 +3,7 @@ package mods.battleclasses.items;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Set;
 
 import com.google.common.collect.Multimap;
 
@@ -170,6 +171,12 @@ public class BattleClassesItemArmor extends ItemArmor implements IAttributeProvi
 		text.add(StatCollector.translateToLocal(this.getArmorMaterial().toString().toLowerCase())); 
 		text.add(BattleClassesGuiHelper.getTranslatedBonusLine(this.getArmorValue(), EnumBattleClassesAttributeType.VANILLA_ARMOR));
 		return text;
+	}
+
+	@Override
+	public Set<EnumBattleClassesAttributeType> getActiveTypeExceptions() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

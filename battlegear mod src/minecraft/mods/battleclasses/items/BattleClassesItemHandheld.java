@@ -3,6 +3,7 @@ package mods.battleclasses.items;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Set;
 
 import cpw.mods.fml.relauncher.Side;
 import mods.battleclasses.attributes.AttributesFactory;
@@ -22,7 +23,7 @@ import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
-public class BattleClassesItemHandheld extends ItemSword implements IBattleClassesHandHeld, IAttributeProviderItem {
+public class BattleClassesItemHandheld extends ItemSword implements IBattleClassesHandHeld {
 
 	public BattleClassesItemHandheld() {
 		super(ToolMaterial.IRON);
@@ -228,6 +229,12 @@ public class BattleClassesItemHandheld extends ItemSword implements IBattleClass
 		List<String> text = new ArrayList<String>();
 		text.add(this.handHeldType.getTranslatedName());
 		return text;
+	}
+
+	@Override
+	public Set<EnumBattleClassesAttributeType> getActiveTypeExceptions() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

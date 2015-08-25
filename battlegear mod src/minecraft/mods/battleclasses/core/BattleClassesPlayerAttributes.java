@@ -317,7 +317,7 @@ public class BattleClassesPlayerAttributes {
 	public static final float CRITICAL_RATING_PERCENTAGE_PER_RATINGPOINT = 0.01F;
 	public static final float HASTE_RATING_PERCENTAGE_PER_RATINGPOINT = 0.01F;
 	
-	public float getPercentagePerRatingPointsOfAttributeType(EnumBattleClassesAttributeType attributeType) {
+	public static float getPercentagePerRatingPointsOfAttributeType(EnumBattleClassesAttributeType attributeType) {
 		if(attributeType.isRatingType()) {
 			switch(attributeType) {
 			case ARMOR_PENETRATION:
@@ -329,6 +329,30 @@ public class BattleClassesPlayerAttributes {
 			}
 		}
 		return -1;
+	}
+	
+	public static float getCritChanceFromAttributes(BattleClassesAttributes attributes) {
+		return attributes.crit * CRITICAL_RATING_PERCENTAGE_PER_RATINGPOINT;
+	}
+	
+	public static float getCritRatingPointsForPercentage(float percentageValue) {
+		return percentageValue / CRITICAL_RATING_PERCENTAGE_PER_RATINGPOINT;
+	}
+	
+	public static float getHasteRatioFromAttributes(BattleClassesAttributes attributes) {
+		return attributes.haste * HASTE_RATING_PERCENTAGE_PER_RATINGPOINT;
+	}
+	
+	public static float getHasteRatingPointsForPercentage(float percentageValue) {
+		return percentageValue / HASTE_RATING_PERCENTAGE_PER_RATINGPOINT;
+	}
+	
+	public static float getArmorPenetrationRatioFromAttributes(BattleClassesAttributes attributes) {
+		return attributes.armor_pen * ARMOR_PENETRATION_PERCENTAGE_PER_RATINGPOINT;
+	}
+	
+	public static float getArmorPenetrationRatingPointsForPercentage(float percentageValue) {
+		return percentageValue / ARMOR_PENETRATION_PERCENTAGE_PER_RATINGPOINT;
 	}
 	
 }

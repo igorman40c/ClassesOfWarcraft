@@ -409,7 +409,7 @@ public class BattleClassesGuiHelper extends Gui {
 	
 	
 	public static String getTranslatedBonusLine(float value, EnumBattleClassesAttributeType attributeType) { 
-		return getTranslatedBonusLine(value, attributeType.getTranslatedName(), attributeType.isDisplayedInPercentage());
+		return getTranslatedBonusLine(value, (attributeType.isRatingType()) ? attributeType.getTranslatedRatingName() : attributeType.getTranslatedName(), attributeType.isDisplayedInPercentage());
 	}
 	
 	public static String getTranslatedBonusLine(float value, String translatedName, boolean displayedInPercentage) {

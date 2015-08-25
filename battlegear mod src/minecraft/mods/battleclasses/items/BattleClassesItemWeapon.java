@@ -2,7 +2,9 @@ package mods.battleclasses.items;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
@@ -130,6 +132,13 @@ public class BattleClassesItemWeapon extends BattleClassesItemHandheld implement
 		}
 				
 		return text;
+	}
+	
+	@Override
+	public Set<EnumBattleClassesAttributeType> getActiveTypeExceptions() {
+		Set<EnumBattleClassesAttributeType> exceptions = new HashSet<EnumBattleClassesAttributeType>();
+		exceptions.add(EnumBattleClassesAttributeType.MELEE_ATTACK_DAMAGE);
+		return exceptions;
 	}
 	
 	
