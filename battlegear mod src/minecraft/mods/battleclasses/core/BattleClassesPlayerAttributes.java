@@ -24,6 +24,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 
 public class BattleClassesPlayerAttributes {
+	
 	protected BattleClassesPlayerHooks parentPlayerHooks;
 	BattleClassesPlayerAttributes(BattleClassesPlayerHooks playerHooks) {
 		this.parentPlayerHooks = playerHooks;
@@ -297,13 +298,13 @@ public class BattleClassesPlayerAttributes {
 		return DEFAULT_CRIT_CHANCE / CRITICAL_RATING_PERCENTAGE_PER_RATINGPOINT;
 	}
 	
-	public float getHasteMultiplierFromAttributes(BattleClassesAttributes attributes) {
-		return 1F / (1F + getRatingBasedPercentageValue(attributes, EnumBattleClassesAttributeType.HASTE_RATING));
-	}
+	//----------------------------------------------------------------------------------
+	//							SECTION - Secondary attributes
+	//----------------------------------------------------------------------------------
 	
-	public float getHasteMultiplierFromTotalAttributes() {
-		return this.getHasteMultiplierFromAttributes(this.getTotalAttributes());
-	}
+	public static final float ARMOR_PENETRATION_PERCENTAGE_PER_RATINGPOINT = 0.01F;
+	public static final float CRITICAL_RATING_PERCENTAGE_PER_RATINGPOINT = 0.01F;
+	public static final float HASTE_RATING_PERCENTAGE_PER_RATINGPOINT = 0.01F;
 	
 	public float getRatingBasedPercentageValue(BattleClassesAttributes attributes, EnumBattleClassesAttributeType attributeType) {
 		float percentageValue = -1;
@@ -312,11 +313,7 @@ public class BattleClassesPlayerAttributes {
 		}
 		return percentageValue;
 	}
-	
-	public static final float ARMOR_PENETRATION_PERCENTAGE_PER_RATINGPOINT = 0.01F;
-	public static final float CRITICAL_RATING_PERCENTAGE_PER_RATINGPOINT = 0.01F;
-	public static final float HASTE_RATING_PERCENTAGE_PER_RATINGPOINT = 0.01F;
-	
+
 	public static float getPercentagePerRatingPointsOfAttributeType(EnumBattleClassesAttributeType attributeType) {
 		if(attributeType.isRatingType()) {
 			switch(attributeType) {
@@ -331,6 +328,10 @@ public class BattleClassesPlayerAttributes {
 		return -1;
 	}
 	
+	//----------------------------------------
+	//SUB-SECTION - Crit
+	//----------------------------------------
+	
 	public static float getCritChanceFromAttributes(BattleClassesAttributes attributes) {
 		return attributes.crit * CRITICAL_RATING_PERCENTAGE_PER_RATINGPOINT;
 	}
@@ -339,13 +340,33 @@ public class BattleClassesPlayerAttributes {
 		return percentageValue / CRITICAL_RATING_PERCENTAGE_PER_RATINGPOINT;
 	}
 	
+	public float getCritChanceFromTotalAttributes() {
+		return this.getCritChanceFromAttributes(this.getTotalAttributes());
+	}	
+		
+	//----------------------------------------
+	//SUB-SECTION - Haste
+	//----------------------------------------
+	
 	public static float getHasteRatioFromAttributes(BattleClassesAttributes attributes) {
 		return attributes.haste * HASTE_RATING_PERCENTAGE_PER_RATINGPOINT;
+	}
+	
+	public float getHasteMultiplierFromAttributes(BattleClassesAttributes attributes) {
+		return 1F / (1F + getRatingBasedPercentageValue(attributes, EnumBattleClassesAttributeType.HASTE_RATING));
 	}
 	
 	public static float getHasteRatingPointsForPercentage(float percentageValue) {
 		return percentageValue / HASTE_RATING_PERCENTAGE_PER_RATINGPOINT;
 	}
+	
+	public float getHasteMultiplierFromTotalAttributes() {
+		return this.getHasteMultiplierFromAttributes(this.getTotalAttributes());
+	}	
+	
+	//----------------------------------------
+	//SUB-SECTION - Armor penetration
+	//----------------------------------------
 	
 	public static float getArmorPenetrationRatioFromAttributes(BattleClassesAttributes attributes) {
 		return attributes.armor_pen * ARMOR_PENETRATION_PERCENTAGE_PER_RATINGPOINT;

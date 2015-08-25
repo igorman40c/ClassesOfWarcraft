@@ -417,9 +417,8 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 	
 	public void performEffects(EntityLivingBase targetEntity, float partialMultiplier) {
 		//TODO
-		BattleClassesAttributes attributesForParentAbility = this.getPlayerAttributes().getTotalAttributesForAbility(this);
-		float critChance = BattleClassesPlayerAttributes.getCritChanceFromAttributes(attributesForParentAbility);
-		BattleClassesAbstractAbilityEffect.performListOfEffects(this.effects, attributesForParentAbility, critChance, partialMultiplier, this.getOwnerPlayer(), targetEntity);
+		BattleClassesAttributes attributesForAbility = this.getPlayerAttributes().getTotalAttributesForAbility(this);
+		BattleClassesAbstractAbilityEffect.performListOfEffects(this.effects, attributesForAbility, this.getCritChance(), partialMultiplier, this.getOwnerPlayer(), targetEntity);
 	}
 	
 	public void consumeResources() {
@@ -489,9 +488,20 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 	}
 	
 	public float getCastTime() {
-		float hasteRatio = BattleClassesUtils.getPlayerAttributes(this.getOwnerPlayer()).getHasteMultiplierFromTotalAttributes();
-    	return hasteRatio * this.baseCastTime;
+    	return this.getHasteMultiplier() * this.baseCastTime;
     }
+	
+	public float getCritChance() {
+		BattleClassesAttributes attributesForAbility = this.getPlayerAttributes().getTotalAttributesForAbility(this);
+		float critChance = BattleClassesPlayerAttributes.getCritChanceFromAttributes(attributesForAbility);
+		return critChance;
+	}
+	
+	public float getHasteMultiplier() {
+		BattleClassesAttributes attributesForAbility = this.getPlayerAttributes().getTotalAttributesForAbility(this); 
+		float hasteMultiplier = BattleClassesUtils.getPlayerAttributes(this.getOwnerPlayer()).getHasteMultiplierFromAttributes(attributesForAbility);
+    	return hasteMultiplier;
+	}
 		
 	//----------------------------------------------------------------------------------
 	//							SECTION - Client side stuff
