@@ -352,12 +352,12 @@ public class BattleClassesPlayerAttributes {
 		return attributes.haste * HASTE_RATING_PERCENTAGE_PER_RATINGPOINT;
 	}
 	
-	public float getHasteMultiplierFromAttributes(BattleClassesAttributes attributes) {
-		return 1F / (1F + getRatingBasedPercentageValue(attributes, EnumBattleClassesAttributeType.HASTE_RATING));
-	}
-	
 	public static float getHasteRatingPointsForPercentage(float percentageValue) {
 		return percentageValue / HASTE_RATING_PERCENTAGE_PER_RATINGPOINT;
+	}
+	
+	public float getHasteMultiplierFromAttributes(BattleClassesAttributes attributes) {
+		return 1F / (1F + getRatingBasedPercentageValue(attributes, EnumBattleClassesAttributeType.HASTE_RATING));
 	}
 	
 	public float getHasteMultiplierFromTotalAttributes() {

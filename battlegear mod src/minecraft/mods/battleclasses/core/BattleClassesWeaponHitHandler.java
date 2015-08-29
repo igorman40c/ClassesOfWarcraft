@@ -51,6 +51,11 @@ public class BattleClassesWeaponHitHandler {
 	protected ItemStack lastUsedMainHandItemStack;
 	public boolean offhandAttackInProgress = false;
 	
+	/**
+	 * Determines
+	 */
+	public static final float COUNTERHAND_SPEED_RATIO = 0.66F;
+	
 	public static final BattleClassesAbilityAttackMainHand mainHandAttackAbility = new BattleClassesAbilityAttackMainHand();
 	public static final BattleClassesAbilityAttackOffHand offHandAttackAbility = new BattleClassesAbilityAttackOffHand();
 	
@@ -148,7 +153,7 @@ public class BattleClassesWeaponHitHandler {
 		}
 		*/
 		this.mainHandAttackAbility.startCooldown();
-		this.offHandAttackAbility.startCooldown(0.45F);
+		this.offHandAttackAbility.startCooldown(COUNTERHAND_SPEED_RATIO);
 	}
 	
 	public void setOffhandToCooldown() {
@@ -167,7 +172,7 @@ public class BattleClassesWeaponHitHandler {
 		}
 		*/
 		this.offHandAttackAbility.startCooldown();
-		this.mainHandAttackAbility.startCooldown(0.45F);
+		this.mainHandAttackAbility.startCooldown(COUNTERHAND_SPEED_RATIO);
 	}
 	
 }
