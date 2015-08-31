@@ -3,6 +3,7 @@ package mods.battleclasses.ability.effect;
 import java.util.List;
 import java.util.Random;
 
+import mods.battleclasses.BattleClassesMetaConfig.EffectValueSet;
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
 import mods.battleclasses.attributes.BattleClassesAttributes;
@@ -20,6 +21,13 @@ public abstract class BattleClassesAbstractAbilityEffectInstantValue extends Bat
 		this();
 		this.valueBase = valueBase;
 		this.valueBonusCoefficient = valueBonusCoefficient;
+		this.valueTotalRandomness = valueTotalRandomness;
+	}
+	
+	BattleClassesAbstractAbilityEffectInstantValue(EffectValueSet effectValueSet, float valueTotalRandomness) {
+		this();
+		this.valueBase = effectValueSet.valueBase;
+		this.valueBonusCoefficient = effectValueSet.valueBonusCoefficient;
 		this.valueTotalRandomness = valueTotalRandomness;
 	}
 
