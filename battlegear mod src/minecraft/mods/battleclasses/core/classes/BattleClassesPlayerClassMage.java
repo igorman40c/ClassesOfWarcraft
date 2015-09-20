@@ -43,13 +43,13 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 	@Override
 	public List<BattleClassesAbstractAbilityActive> getClassAbilities() {
 		List<BattleClassesAbstractAbilityActive> abilities = new ArrayList<BattleClassesAbstractAbilityActive>();
-		abilities.add(new ArcaneMissilesTestAbility());
+		abilities.add(new PolymorphTestAbility());
         abilities.add(new BattleClassesAbilityTestCasted("mage.blink"));
 		abilities.add(new BattleClassesAbilityTestCasted("mage.fireball"));
 		abilities.add(new ScorchTestAbility());
 		abilities.add(new FrostBolt());
 		abilities.add(new BattleClassesAbilityTestCasted("mage.frostnova"));
-		abilities.add(new BattleClassesAbilityShieldBlock());
+		//abilities.add(new BattleClassesAbilityShieldBlock());
 		//abilities.put(ABILITY_ID_FROSTNOVA, new FrostNovaTestAbility());
 		return abilities;
 	}
@@ -61,8 +61,8 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 		talentTree1.setName("mage.arcane").setRole(EnumBattleClassesPlayerRole.RANGED_DAMAGE_DEALER).setEnviroments(EnumSet.of(EnumBattleClassesPlayerEnviroment.PVP));
 //		talentTree1.talentList.add(new BattleClassesTalentAbilityContainer(1100, 0, new BattleClassesPassiveAbilityAmplifier(1100, 0)));
 		talentTree1.talentList.add(new BattleClassesTalentTest("arcane0", 0));
-		talentTree1.talentList.add(new BattleClassesTalentTest("arcane1", 1));
-		talentTree1.talentList.add(new BattleClassesTalentAbilityActiveContainer("arcane2", 2, new PolymorphTestAbility()));
+		talentTree1.talentList.add(new BattleClassesTalentAbilityActiveContainer("arcane1", 1, new ArcaneBlast()));
+		talentTree1.talentList.add(new BattleClassesTalentAbilityActiveContainer("arcane2", 2, new ArcaneMissilesTestAbility()));
 		BattleClassesTalentTree talentTree2 = new BattleClassesTalentTree();
 		talentTree2.setName("mage.fire").setRole(EnumBattleClassesPlayerRole.RANGED_DAMAGE_DEALER).setEnviroments(EnumSet.of(EnumBattleClassesPlayerEnviroment.PVE));
 		talentTree2.talentList.add(new BattleClassesTalentTest("fire0", 0));
@@ -112,6 +112,19 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 			this.setUnlocalizedName("mage.arcanemissiles");
 			this.setAmmoRequirement(Item.getItemById(263), 1);
 			
+		}
+	}
+	
+	public static class ArcaneBlast extends BattleClassesAbilityActiveDirect {
+		
+		public static final ArcaneBlast INSTANCE = new ArcaneBlast();
+		static {
+			BattleClassesAbstractAbility.registerAbility(INSTANCE);
+		}
+		
+		public ArcaneBlast() {
+			super();
+			this.setUnlocalizedName("mage.arcane_blast");			
 		}
 	}
 	
