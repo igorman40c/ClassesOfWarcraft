@@ -31,8 +31,11 @@ public class BattleClassesItems {
 	//MISC ITEMS
     public static final BattleClassesItemGem itemGem = new BattleClassesItemGem();
     
-    //WEAPON ITEMS
-//    public static final BattleClassesItemTestingStaff itemTestingStaff = new BattleClassesItemTestingStaff();
+    //FINAL WEAPON ITEMS
+    //public static itemStaffWood
+    
+    
+    //TESTING WEAPON ITEMS
     public static ArrayList<IHighDetailWeapon> TwoHandedWeaponList = new ArrayList<IHighDetailWeapon>(); 
     public static final BattleClassesItemWeaponTwoHanded itemTestingGreatStaffWooden = new BattleClassesItemWeaponTwoHanded("StaffWood", 0.45F, true);
     public static final BattleClassesItemLongBow itemLongBowWooden = new BattleClassesItemLongBow("LongBowWooden", 4);

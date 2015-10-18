@@ -8,6 +8,11 @@ import mods.battleclasses.enums.EnumBattleClassesHandHeldType;
 
 public class BattleClassesItemWeaponTwoHanded extends BattleClassesItemWeapon implements IHighDetailWeapon {
 
+	
+	public BattleClassesItemWeaponTwoHanded() {
+		super();
+	}
+	
 	public BattleClassesItemWeaponTwoHanded(String textureName) {
 		super();
 		
@@ -23,6 +28,7 @@ public class BattleClassesItemWeaponTwoHanded extends BattleClassesItemWeapon im
 		BattleClassesItems.TwoHandedWeaponList.add(this);
 		this.handHeldType = EnumBattleClassesHandHeldType.TWO_HANDED;
 	}
+	
 	
 	public BattleClassesItemWeaponTwoHanded(String textureName, float parAnchor, boolean parInvertSheat) {
 		this(textureName);

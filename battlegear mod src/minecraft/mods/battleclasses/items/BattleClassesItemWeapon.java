@@ -1,6 +1,7 @@
 package mods.battleclasses.items;
 
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
@@ -11,6 +12,7 @@ import com.google.common.collect.Multimap;
 
 import cpw.mods.fml.relauncher.Side;
 import mods.battleclasses.BattleClassesUtils;
+import mods.battleclasses.BattleClassesMetaConfig.AttributeConfig;
 import mods.battleclasses.attributes.AttributesFactory;
 import mods.battleclasses.attributes.BattleClassesAttributeModifierBonus;
 import mods.battleclasses.attributes.AttributesFactory.WeaponDamageCreationMode;
@@ -56,11 +58,9 @@ public class BattleClassesItemWeapon extends BattleClassesItemHandheld implement
     	this.setTextureName("battleclasses:"+"weapons/" + parName);
     }
     
-    public BattleClassesItemWeapon setItemLevelAndAttributeTypes(int itemLevel, EnumSet<EnumBattleClassesAttributeType> types, EnumBattleClassesHandHeldType handHeldType, float weaponSpeed, WeaponDamageCreationMode weaponDamageMode) {
-    	super.setItemLevelAndAttributeTypes(itemLevel, types, handHeldType);
+    public BattleClassesItemWeapon setItemLevelAndHeldType(int itemLevel, EnumBattleClassesHandHeldType handHeldType, float weaponSpeed) {
+    	super.setItemLevelAndHeldType(itemLevel, handHeldType);
 		this.weaponSpeed = weaponSpeed;
-		this.storedAttributes = AttributesFactory.createForHandheld(itemLevel, this.handHeldType, types, weaponSpeed, weaponDamageMode);
-		this.setSingleAttributeModifier(new BattleClassesAttributeModifierBonus(storedAttributes));
 		return this;
 	}
     

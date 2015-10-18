@@ -1,7 +1,9 @@
 package mods.battleclasses.attributes;
 
+import java.util.EnumMap;
 import java.util.EnumSet;
 
+import mods.battleclasses.BattleClassesMetaConfig.AttributeConfig;
 import mods.battleclasses.enums.EnumBattleClassesAttributeType;
 import mods.battleclasses.enums.EnumBattleClassesHandHeldType;
 import net.minecraft.util.StatCollector;
@@ -94,6 +96,56 @@ public class AttributesFactory {
 		return attributes;
 	}
 	
+	public static BattleClassesAttributes createArmorAttributes(int itemLevel, EnumSet<EnumBattleClassesAttributeType> primaryTypes, EnumMap<EnumBattleClassesAttributeType, Float> secondaryTypes, AttributeConfig attributeConfigurator) {
+		BattleClassesAttributes attributes = createAttributes(false, 1F, itemLevel, primaryTypes, secondaryTypes, attributeConfigurator);
+		attributes.health = attributeConfigurator.getHealthAttributePointsForArmorPiece(itemLevel);
+		return attributes;
+	}
+	
+	public static BattleClassesAttributes createMeleeWeaponAttributes(int itemLevel, float weaponSpeed, EnumSet<EnumBattleClassesAttributeType> primaryTypes, EnumMap<EnumBattleClassesAttributeType, Float> secondaryTypes, EnumBattleClassesHandHeldType heldType, AttributeConfig attributeConfigurator) {
+		BattleClassesAttributes attributes = createHandheldAttributes(itemLevel, primaryTypes, secondaryTypes, heldType, attributeConfigurator);
+		attributes.melee_attack_damage = (heldType == EnumBattleClassesHandHeldType.TWO_HANDED) ? attributeConfigurator.getWeaponDamage_TwoHanded(itemLevel, weaponSpeed) : attributeConfigurator.getWeaponDamage_OneHanded(itemLevel, weaponSpeed);
+		return attributes;
+	}
+	
+	public static BattleClassesAttributes createRangedWeaponAttributes(int itemLevel, float weaponSpeed, EnumSet<EnumBattleClassesAttributeType> primaryTypes, EnumMap<EnumBattleClassesAttributeType, Float> secondaryTypes, EnumBattleClassesHandHeldType heldType, AttributeConfig attributeConfigurator) {
+		BattleClassesAttributes attributes = createHandheldAttributes(itemLevel, primaryTypes, secondaryTypes, heldType, attributeConfigurator);
+		attributes.ranged_attack_damage = attributeConfigurator.getWeaponDamage_TwoHanded(itemLevel, weaponSpeed);
+		return attributes;
+	}
+	
+	public static BattleClassesAttributes createHandheldAttributes(int itemLevel, EnumSet<EnumBattleClassesAttributeType> primaryTypes, EnumMap<EnumBattleClassesAttributeType, Float> secondaryTypes, EnumBattleClassesHandHeldType heldType, AttributeConfig attributeConfigurator) {
+		BattleClassesAttributes attributes = createAttributes(true, getHandHeldAttributeMultiplier(heldType), itemLevel, primaryTypes, secondaryTypes, attributeConfigurator);
+		return attributes;
+	}
+	
+	protected static BattleClassesAttributes createAttributes(boolean handHeld, float contextMultiplier, int itemLevel, EnumSet<EnumBattleClassesAttributeType> primaryTypes, EnumMap<EnumBattleClassesAttributeType, Float> secondaryTypes, AttributeConfig attributeConfigurator) {
+		BattleClassesAttributes attributes = new BattleClassesAttributes();
+		
+		//Checking if secondary types want have a bigger share than 1F from the primary type credits
+		float secondaryTypesShare = 0F;
+		for(Float secondaryTypeValue : secondaryTypes.values()) {
+			secondaryTypesShare += secondaryTypeValue;
+		}
+		float secondaryTypesMultiplier = (secondaryTypesShare > 1F) ? 1F / secondaryTypesShare : 1F;
+		float primaryTypeMultiplier = 1F - secondaryTypesShare;
+		
+		//Calculating and settings secondary type values
+		float totalCredits = (handHeld) ? attributeConfigurator.getAttributeCreditsForHandheld(itemLevel) : attributeConfigurator.getAttributeCreditsForArmorPiece(itemLevel);
+		for(EnumBattleClassesAttributeType secondaryType : secondaryTypes.keySet()) {
+			float attributeValue = contextMultiplier * secondaryTypesMultiplier * attributeConfigurator.createSecondaryAttributeValueForCredits(totalCredits * secondaryTypes.get(secondaryType));
+			attributes.setValueByType(secondaryType, attributeValue);
+		}
+		
+		//Setting primary type values
+		for(EnumBattleClassesAttributeType primaryType : primaryTypes) {
+			float attributeValue = contextMultiplier * primaryTypeMultiplier * ((handHeld) ? attributeConfigurator.getAttributePointsForHandheld(itemLevel) : attributeConfigurator.getAttributePointsForArmorPiece(itemLevel));
+			attributes.setValueByType(primaryType, attributeValue);
+		}
+		
+		return attributes;
+	}
+	
 	/**
 	 * Generates damage value for weapon by the given itemLevel and handheld type. 
 	 * @param itemLevel
@@ -110,6 +162,8 @@ public class AttributesFactory {
 		value = (value > 0) ? value : 0;
 		return value;
 	}
+	
+	
 	
 	protected static float createSecondaryAttributeValueForType(int itemLevel, float contextMultiplier, EnumBattleClassesAttributeType type) {
 		float value = getConstantCreateBonus(type) + ((float)itemLevel) * getSecondaryAttributeValuePerItemLevel() * contextMultiplier  * ATTRIBUTE_VALUE_PER_ITEMLEVEL;

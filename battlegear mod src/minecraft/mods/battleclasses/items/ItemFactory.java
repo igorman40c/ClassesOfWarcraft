@@ -1,9 +1,13 @@
 package mods.battleclasses.items;
 
+import java.util.EnumMap;
 import java.util.EnumSet;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import mods.battleclasses.BattleClassesMetaConfig.AttributeConfig;
+import mods.battleclasses.attributes.AttributesFactory;
 import mods.battleclasses.attributes.AttributesFactory.WeaponDamageCreationMode;
+import mods.battleclasses.attributes.BattleClassesAttributes;
 import mods.battleclasses.enums.EnumBattleClassesArmorType;
 import mods.battleclasses.enums.EnumBattleClassesAttributeType;
 import mods.battleclasses.enums.EnumBattleClassesHandHeldType;
@@ -50,7 +54,51 @@ public class ItemFactory {
 		BattleClassesItemWeapon weapon = new BattleClassesItemWeapon();
 		weapon.setName(MODID, name);
 		weapon.setClassAccess(classes);
-		weapon.setItemLevelAndAttributeTypes(itemLevel, types, handHeldType, weaponSpeed, weaponDamageMode);
+		weapon.setItemLevelAndHeldType(itemLevel, handHeldType, weaponSpeed);
+		return weapon;
+	}
+	
+	
+	public static void setPhysicalMeleeAttributesForWeapon(BattleClassesItemWeapon weapon, EnumSet<EnumBattleClassesPlayerClass> classes,
+			EnumSet<EnumBattleClassesAttributeType> primaryTypes, EnumMap<EnumBattleClassesAttributeType, Float> secondaryTypes,
+			EnumBattleClassesHandHeldType handHeldType, int itemLevel, String name, String MODID) {
+		AttributeConfig attributeConfigurator = AttributeConfig.PhysicalMelee.INSTANCE;
+		float weaponSpeed = (handHeldType == EnumBattleClassesHandHeldType.TWO_HANDED) ? attributeConfigurator.getStandardWeaponSpeed_TwoHanded() : attributeConfigurator.getStandardWeaponSpeed_OneHanded();
+		BattleClassesAttributes attributes = AttributesFactory.createMeleeWeaponAttributes(itemLevel, weaponSpeed, primaryTypes, secondaryTypes, handHeldType, attributeConfigurator);
+		weapon.setAttributes(attributes);
+	}
+	
+	public static void setPhysicalRangedAttributesForWeapon(BattleClassesItemWeapon weapon, EnumSet<EnumBattleClassesPlayerClass> classes,
+			EnumSet<EnumBattleClassesAttributeType> primaryTypes, EnumMap<EnumBattleClassesAttributeType, Float> secondaryTypes,
+			int itemLevel, String name, String MODID) {
+		AttributeConfig attributeConfigurator = AttributeConfig.PhysicalRanged.INSTANCE;
+		float weaponSpeed = attributeConfigurator.getStandardWeaponSpeed_TwoHanded();
+		BattleClassesAttributes attributes = AttributesFactory.createRangedWeaponAttributes(itemLevel, weaponSpeed, primaryTypes, secondaryTypes, EnumBattleClassesHandHeldType.TWO_HANDED, attributeConfigurator);
+		weapon.setAttributes(attributes);
+	}
+	
+	public static void setMagicalSpellAttributesForWeapon(BattleClassesItemWeapon weapon, EnumSet<EnumBattleClassesPlayerClass> classes,
+			EnumSet<EnumBattleClassesAttributeType> primaryTypes, EnumMap<EnumBattleClassesAttributeType, Float> secondaryTypes,
+			EnumBattleClassesHandHeldType handHeldType, int itemLevel, String name, String MODID) {
+		AttributeConfig attributeConfigurator = AttributeConfig.MagicalSpell.INSTANCE;
+		float weaponSpeed = (handHeldType == EnumBattleClassesHandHeldType.TWO_HANDED) ? attributeConfigurator.getStandardWeaponSpeed_TwoHanded() : attributeConfigurator.getStandardWeaponSpeed_OneHanded();
+		BattleClassesAttributes attributes = AttributesFactory.createMeleeWeaponAttributes(itemLevel, weaponSpeed, primaryTypes, secondaryTypes, handHeldType, attributeConfigurator);
+		weapon.setAttributes(attributes);
+	}
+	
+	public static BattleClassesItemWeapon createWeapon(EnumSet<EnumBattleClassesPlayerClass> classes, EnumBattleClassesHandHeldType handHeldType, float weaponSpeed, int itemLevel, String name, String MODID) {
+		BattleClassesItemWeapon weapon = new BattleClassesItemWeapon();
+		weapon.setName(MODID, name);
+		weapon.setClassAccess(classes);
+		weapon.setItemLevelAndHeldType(itemLevel, handHeldType, weaponSpeed);
+		return weapon;
+	}
+	
+	public static BattleClassesItemWeaponTwoHanded createTwoHandedWeapon(EnumSet<EnumBattleClassesPlayerClass> classes, float weaponSpeed, int itemLevel, String name, String MODID) {
+		BattleClassesItemWeaponTwoHanded weapon = new BattleClassesItemWeaponTwoHanded();
+		weapon.setName(MODID, name);
+		weapon.setClassAccess(classes);
+		weapon.setItemLevelAndHeldType(itemLevel, EnumBattleClassesHandHeldType.TWO_HANDED, weaponSpeed);
 		return weapon;
 	}
 	

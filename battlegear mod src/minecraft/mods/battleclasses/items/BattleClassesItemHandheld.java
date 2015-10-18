@@ -60,11 +60,15 @@ public class BattleClassesItemHandheld extends ItemSword implements IBattleClass
     }
 
 	
-	public BattleClassesItemHandheld setItemLevelAndAttributeTypes(int itemLevel, EnumSet<EnumBattleClassesAttributeType> types, EnumBattleClassesHandHeldType handHeldType) {
+	public BattleClassesItemHandheld setItemLevelAndHeldType(int itemLevel, EnumBattleClassesHandHeldType handHeldType) {
 		this.itemLevel = itemLevel;
 		this.handHeldType = handHeldType;
 		this.setMaxDamage(this.getDurability());
-		this.storedAttributes = AttributesFactory.createForHandheld(itemLevel, handHeldType, types, 0, WeaponDamageCreationMode.ZERO);
+		return this;
+	}
+	
+	public BattleClassesItemHandheld setAttributes(BattleClassesAttributes attributes) {
+		this.storedAttributes = attributes;
 		this.setSingleAttributeModifier(new BattleClassesAttributeModifierBonus(storedAttributes));
 		return this;
 	}
