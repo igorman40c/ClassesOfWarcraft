@@ -147,11 +147,11 @@ public class BattleClassesMetaConfig {
 		}
 		
 		public float getWeaponDamage_OneHanded(int itemLevel, float weaponSpeed) {
-			return 0;
+			return (float)((int)((2.304F * weaponSpeed + 2.304F / 2 * weaponSpeed * itemLevel) * 10))/10F;
 		}
 		
 		public float getWeaponDamage_TwoHanded(int itemLevel, float weaponSpeed) {
-			return 0;
+			return (float)((int)((2.88F * weaponSpeed + 2.88F / 2 * weaponSpeed * itemLevel) * 10))/10F;
 		}
 		
 		public static class PhysicalMelee extends AttributeConfig {
@@ -199,6 +199,14 @@ public class BattleClassesMetaConfig {
 				//Attribute Generation
 				AttributeCreditsPerTier = 2;
 				AttributePointsPerCredit = 4;
+			}
+			
+			public float getWeaponDamage_OneHanded(int itemLevel, float weaponSpeed) {
+				return (int) (super.getWeaponDamage_OneHanded(itemLevel, weaponSpeed)/2F);
+			}
+			
+			public float getWeaponDamage_TwoHanded(int itemLevel, float weaponSpeed) {
+				return (int) (super.getWeaponDamage_TwoHanded(itemLevel, weaponSpeed)/2F);
 			}
 		}
 		

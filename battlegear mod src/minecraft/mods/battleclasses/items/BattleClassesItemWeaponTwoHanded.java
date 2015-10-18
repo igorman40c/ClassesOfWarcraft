@@ -11,11 +11,12 @@ public class BattleClassesItemWeaponTwoHanded extends BattleClassesItemWeapon im
 	
 	public BattleClassesItemWeaponTwoHanded() {
 		super();
+		this.handHeldType = EnumBattleClassesHandHeldType.TWO_HANDED;
+		BattleClassesItem.TwoHandedWeaponList.add(this);
 	}
 	
 	public BattleClassesItemWeaponTwoHanded(String textureName) {
-		super();
-		
+		this();		
 		this.setName(textureName);
 		classAccessSet = EnumSet.of(
 				EnumBattleClassesPlayerClass.MAGE,
@@ -25,19 +26,23 @@ public class BattleClassesItemWeaponTwoHanded extends BattleClassesItemWeapon im
 				EnumBattleClassesPlayerClass.HUNTER,
 				EnumBattleClassesPlayerClass.PALADIN,
 				EnumBattleClassesPlayerClass.WARRIOR);
-		BattleClassesItems.TwoHandedWeaponList.add(this);
-		this.handHeldType = EnumBattleClassesHandHeldType.TWO_HANDED;
 	}
 	
 	
 	public BattleClassesItemWeaponTwoHanded(String textureName, float parAnchor, boolean parInvertSheat) {
 		this(textureName);
 		this.anchor = parAnchor;
-		this.inverSheat = parInvertSheat;
+		this.invertSheat = parInvertSheat;
 	}
-
-	public boolean inverSheat = false;
+	
+	public boolean invertSheat = false;
 	public float anchor = 0.25F;
+	
+	public BattleClassesItemWeaponTwoHanded setAnchorAndInvertSheat(float anchor, boolean invertSheat) {
+		this.anchor = anchor;
+		this.invertSheat = invertSheat;
+		return this;
+	}
 	
 	@Override
 	public float getRelativeAnchorPointX() {
@@ -58,7 +63,7 @@ public class BattleClassesItemWeaponTwoHanded extends BattleClassesItemWeapon im
 	
 	@Override
 	public boolean invertOnBack(ItemStack item) {
-		return inverSheat;
+		return invertSheat;
 	}
 
 	@Override

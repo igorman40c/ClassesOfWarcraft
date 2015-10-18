@@ -4,8 +4,7 @@ import mods.battleclasses.BattleClassesUtils.LogType;
 import mods.battleclasses.blocks.BattleClassesBlocks;
 import mods.battleclasses.gui.BattleClassesGuiHandler;
 import mods.battleclasses.items.BattleClassesItemGem;
-import mods.battleclasses.items.BattleClassesItemTestingStaff;
-import mods.battleclasses.items.BattleClassesItems;
+import mods.battleclasses.items.BattleClassesItem;
 import mods.battleclasses.packet.BattleClassesPacketHandler;
 import mods.battleclasses.potion.BattleClassesPotion;
 import mods.battlegear2.Battlegear;
@@ -39,7 +38,7 @@ public class BattleClassesMod
     @EventHandler
 	public static void preInit(FMLPreInitializationEvent event) {
     	BattleClassesPotion.registerPotions();
-    	BattleClassesItems.registerItems();
+    	BattleClassesItem.registerItems();
 		BattleClassesBlocks.registerBlocks();
 		BattleClassesBlocks.registerWorldGenerator();
 		

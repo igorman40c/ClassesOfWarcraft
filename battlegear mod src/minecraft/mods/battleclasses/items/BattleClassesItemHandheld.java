@@ -27,7 +27,7 @@ public class BattleClassesItemHandheld extends ItemSword implements IBattleClass
 
 	public BattleClassesItemHandheld() {
 		super(ToolMaterial.IRON);
-		this.setCreativeTab(BattleClassesItems.TabWeapons);
+		this.setCreativeTab(BattleClassesItem.TabWeapons);
 	}
 
 	protected EnumBattleClassesHandHeldType handHeldType = EnumBattleClassesHandHeldType.ONE_HANDED;

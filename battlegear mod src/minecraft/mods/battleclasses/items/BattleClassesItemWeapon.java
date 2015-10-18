@@ -107,12 +107,16 @@ public class BattleClassesItemWeapon extends BattleClassesItemHandheld implement
 
 	@Override
 	public float getBonusReach() {
-		return (this.handHeldType == EnumBattleClassesHandHeldType.TWO_HANDED) ? 1F : 0;
+		return (this.handHeldType == EnumBattleClassesHandHeldType.TWO_HANDED) ? 0F : 0;
 	}
 	
 	@Override
 	public float getSpeedInSeconds() {
 		return this.weaponSpeed;
+	}
+	
+	public void setWeaponSpeed(float weaponSpeed) {
+		this.weaponSpeed = weaponSpeed;
 	}
 	
 	@Override

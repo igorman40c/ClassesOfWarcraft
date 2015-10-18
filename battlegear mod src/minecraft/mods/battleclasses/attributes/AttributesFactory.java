@@ -124,20 +124,22 @@ public class AttributesFactory {
 		
 		//Checking if secondary types want have a bigger share than 1F from the primary type credits
 		float secondaryTypesShare = 0F;
-		for(Float secondaryTypeValue : secondaryTypes.values()) {
-			secondaryTypesShare += secondaryTypeValue;
-		}
-		float secondaryTypesMultiplier = (secondaryTypesShare > 1F) ? 1F / secondaryTypesShare : 1F;
-		float primaryTypeMultiplier = 1F - secondaryTypesShare;
-		
-		//Calculating and settings secondary type values
-		float totalCredits = (handHeld) ? attributeConfigurator.getAttributeCreditsForHandheld(itemLevel) : attributeConfigurator.getAttributeCreditsForArmorPiece(itemLevel);
-		for(EnumBattleClassesAttributeType secondaryType : secondaryTypes.keySet()) {
-			float attributeValue = contextMultiplier * secondaryTypesMultiplier * attributeConfigurator.createSecondaryAttributeValueForCredits(totalCredits * secondaryTypes.get(secondaryType));
-			attributes.setValueByType(secondaryType, attributeValue);
+		if(secondaryTypes != null) {
+			for(Float secondaryTypeValue : secondaryTypes.values()) {
+				secondaryTypesShare += secondaryTypeValue;
+			}
+			float secondaryTypesMultiplier = (secondaryTypesShare > 1F) ? 1F / secondaryTypesShare : 1F;
+			
+			//Calculating and settings secondary type values
+			float totalCredits = (handHeld) ? attributeConfigurator.getAttributeCreditsForHandheld(itemLevel) : attributeConfigurator.getAttributeCreditsForArmorPiece(itemLevel);
+			for(EnumBattleClassesAttributeType secondaryType : secondaryTypes.keySet()) {
+				float attributeValue = contextMultiplier * secondaryTypesMultiplier * attributeConfigurator.createSecondaryAttributeValueForCredits(totalCredits * secondaryTypes.get(secondaryType));
+				attributes.setValueByType(secondaryType, attributeValue);
+			}
 		}
 		
 		//Setting primary type values
+		float primaryTypeMultiplier = 1F - secondaryTypesShare;
 		for(EnumBattleClassesAttributeType primaryType : primaryTypes) {
 			float attributeValue = contextMultiplier * primaryTypeMultiplier * ((handHeld) ? attributeConfigurator.getAttributePointsForHandheld(itemLevel) : attributeConfigurator.getAttributePointsForArmorPiece(itemLevel));
 			attributes.setValueByType(primaryType, attributeValue);

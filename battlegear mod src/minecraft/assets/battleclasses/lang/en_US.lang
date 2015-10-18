@@ -3,6 +3,21 @@ bcpotion.testing=Polymorhped
 bcgui.keycategories.actionbar=Ability action bar
 itemGroup.bcweapons=Classes of Warcraft weapons
 itemGroup.bcarmor=Classes of Warcraft armor
+item.battleclasses:weapons/StaffWood.name=Wooden Staff
+item.battleclasses:weapons/StaffCoal.name=Coal Staff
+item.battleclasses:weapons/StaffRedstone.name=Redstone Staff
+item.battleclasses:weapons/StaffEmerald.name=Emerald Staff
+item.battleclasses:weapons/LongBowWooden.name=Longbow
+item.battleclasses:weapons/LongBowComposite.name=Composite Longbow
+item.battleclasses:weapons/LongBowMechanic.name=Mechanic Longbow
+item.battleclasses:weapons/LongBowBirch.name=Birch Longbow
+item.battleclasses:weapons/BroadSwordWood.name=Wood Broadsword
+item.battleclasses:weapons/BroadSwordStone.name=Stone Broadsword
+item.battleclasses:weapons/BroadSwordIron.name=Iron Broadsword
+item.battleclasses:weapons/BroadSwordDiamond.name=Diamond Broadsword
+item.battleclasses:weapons/BroadSwordGold.name=Gold Broadsword
+
+
 item.battleclasses:armors/testing.helm.name=Helm of testing
 item.battleclasses:armors/testing.chest.name=Chest of testing
 item.battleclasses:armors/testing.legs.name=Legs of testing

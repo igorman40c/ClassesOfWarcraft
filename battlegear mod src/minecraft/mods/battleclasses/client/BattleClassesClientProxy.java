@@ -29,7 +29,7 @@ import cpw.mods.fml.common.registry.GameData;
 import mods.battleclasses.BattleClassesCommonProxy;
 import mods.battleclasses.client.renderer.BattleClassesHDWeaponRenderer;
 import mods.battleclasses.gui.BattleClassesGuiKeyHandler;
-import mods.battleclasses.items.BattleClassesItems;
+import mods.battleclasses.items.BattleClassesItem;
 import mods.battleclasses.items.IHighDetailWeapon;
 import mods.battlegear2.Battlegear;
 import mods.battlegear2.api.core.InventoryPlayerBattle;
@@ -72,7 +72,7 @@ public class BattleClassesClientProxy extends BattleClassesCommonProxy {
     	super.registerItemRenderers();
     	//Registering HD (32x32) sized weapon renderers
     	BattleClassesHDWeaponRenderer HD_WeaponRenderer =  new BattleClassesHDWeaponRenderer();
-        for(IHighDetailWeapon HD_Weapon : BattleClassesItems.TwoHandedWeaponList){
+        for(IHighDetailWeapon HD_Weapon : BattleClassesItem.TwoHandedWeaponList){
         	if(HD_Weapon!=null) {
         		MinecraftForgeClient.registerItemRenderer((Item)HD_Weapon, HD_WeaponRenderer);
         	}

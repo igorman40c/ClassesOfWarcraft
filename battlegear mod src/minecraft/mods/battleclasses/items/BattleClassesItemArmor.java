@@ -39,7 +39,7 @@ public class BattleClassesItemArmor extends ItemArmor implements IAttributeProvi
 		super(material, 1, armorType);
 		this.material = material;
 		this.setName(MODID, name);
-		this.setCreativeTab(BattleClassesItems.TabArmors);
+		this.setCreativeTab(BattleClassesItem.TabArmors);
 		
 		//TEST DATA
 		/*

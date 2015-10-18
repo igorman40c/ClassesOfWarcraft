@@ -59,47 +59,55 @@ public class ItemFactory {
 	}
 	
 	
-	public static void setPhysicalMeleeAttributesForWeapon(BattleClassesItemWeapon weapon, EnumSet<EnumBattleClassesPlayerClass> classes,
-			EnumSet<EnumBattleClassesAttributeType> primaryTypes, EnumMap<EnumBattleClassesAttributeType, Float> secondaryTypes,
-			EnumBattleClassesHandHeldType handHeldType, int itemLevel, String name, String MODID) {
+	public static void setPhysicalMeleeAttributesForWeapon(BattleClassesItemWeapon weapon, 
+			EnumSet<EnumBattleClassesAttributeType> primaryTypes, EnumMap<EnumBattleClassesAttributeType, Float> secondaryTypes) {
 		AttributeConfig attributeConfigurator = AttributeConfig.PhysicalMelee.INSTANCE;
-		float weaponSpeed = (handHeldType == EnumBattleClassesHandHeldType.TWO_HANDED) ? attributeConfigurator.getStandardWeaponSpeed_TwoHanded() : attributeConfigurator.getStandardWeaponSpeed_OneHanded();
-		BattleClassesAttributes attributes = AttributesFactory.createMeleeWeaponAttributes(itemLevel, weaponSpeed, primaryTypes, secondaryTypes, handHeldType, attributeConfigurator);
+		float weaponSpeed = (weapon.getHeldType() == EnumBattleClassesHandHeldType.TWO_HANDED) ? attributeConfigurator.getStandardWeaponSpeed_TwoHanded() : attributeConfigurator.getStandardWeaponSpeed_OneHanded();
+		weapon.setWeaponSpeed(weaponSpeed);
+		BattleClassesAttributes attributes = AttributesFactory.createMeleeWeaponAttributes(weapon.getItemLevel(), weaponSpeed, primaryTypes, secondaryTypes, weapon.getHeldType(), attributeConfigurator);
 		weapon.setAttributes(attributes);
 	}
 	
-	public static void setPhysicalRangedAttributesForWeapon(BattleClassesItemWeapon weapon, EnumSet<EnumBattleClassesPlayerClass> classes,
-			EnumSet<EnumBattleClassesAttributeType> primaryTypes, EnumMap<EnumBattleClassesAttributeType, Float> secondaryTypes,
-			int itemLevel, String name, String MODID) {
+	public static void setPhysicalRangedAttributesForWeapon(BattleClassesItemWeapon weapon, 
+			EnumSet<EnumBattleClassesAttributeType> primaryTypes, EnumMap<EnumBattleClassesAttributeType, Float> secondaryTypes) {
 		AttributeConfig attributeConfigurator = AttributeConfig.PhysicalRanged.INSTANCE;
 		float weaponSpeed = attributeConfigurator.getStandardWeaponSpeed_TwoHanded();
-		BattleClassesAttributes attributes = AttributesFactory.createRangedWeaponAttributes(itemLevel, weaponSpeed, primaryTypes, secondaryTypes, EnumBattleClassesHandHeldType.TWO_HANDED, attributeConfigurator);
+		weapon.setWeaponSpeed(weaponSpeed);
+		BattleClassesAttributes attributes = AttributesFactory.createMeleeWeaponAttributes(weapon.getItemLevel(), weaponSpeed, primaryTypes, secondaryTypes, weapon.getHeldType(), attributeConfigurator);
 		weapon.setAttributes(attributes);
 	}
 	
-	public static void setMagicalSpellAttributesForWeapon(BattleClassesItemWeapon weapon, EnumSet<EnumBattleClassesPlayerClass> classes,
-			EnumSet<EnumBattleClassesAttributeType> primaryTypes, EnumMap<EnumBattleClassesAttributeType, Float> secondaryTypes,
-			EnumBattleClassesHandHeldType handHeldType, int itemLevel, String name, String MODID) {
+	public static void setMagicalSpellAttributesForWeapon(BattleClassesItemWeapon weapon, 
+			EnumSet<EnumBattleClassesAttributeType> primaryTypes, EnumMap<EnumBattleClassesAttributeType, Float> secondaryTypes) {
 		AttributeConfig attributeConfigurator = AttributeConfig.MagicalSpell.INSTANCE;
-		float weaponSpeed = (handHeldType == EnumBattleClassesHandHeldType.TWO_HANDED) ? attributeConfigurator.getStandardWeaponSpeed_TwoHanded() : attributeConfigurator.getStandardWeaponSpeed_OneHanded();
-		BattleClassesAttributes attributes = AttributesFactory.createMeleeWeaponAttributes(itemLevel, weaponSpeed, primaryTypes, secondaryTypes, handHeldType, attributeConfigurator);
+		float weaponSpeed = (weapon.getHeldType() == EnumBattleClassesHandHeldType.TWO_HANDED) ? attributeConfigurator.getStandardWeaponSpeed_TwoHanded() : attributeConfigurator.getStandardWeaponSpeed_OneHanded();
+		weapon.setWeaponSpeed(weaponSpeed);
+		BattleClassesAttributes attributes = AttributesFactory.createMeleeWeaponAttributes(weapon.getItemLevel(), weaponSpeed, primaryTypes, secondaryTypes, weapon.getHeldType(), attributeConfigurator);
 		weapon.setAttributes(attributes);
 	}
 	
-	public static BattleClassesItemWeapon createWeapon(EnumSet<EnumBattleClassesPlayerClass> classes, EnumBattleClassesHandHeldType handHeldType, float weaponSpeed, int itemLevel, String name, String MODID) {
+	public static BattleClassesItemWeapon createWeapon(EnumSet<EnumBattleClassesPlayerClass> classes, EnumBattleClassesHandHeldType handHeldType, int itemLevel, String name, String MODID) {
 		BattleClassesItemWeapon weapon = new BattleClassesItemWeapon();
 		weapon.setName(MODID, name);
 		weapon.setClassAccess(classes);
-		weapon.setItemLevelAndHeldType(itemLevel, handHeldType, weaponSpeed);
+		weapon.setItemLevelAndHeldType(itemLevel, handHeldType);
 		return weapon;
 	}
 	
-	public static BattleClassesItemWeaponTwoHanded createTwoHandedWeapon(EnumSet<EnumBattleClassesPlayerClass> classes, float weaponSpeed, int itemLevel, String name, String MODID) {
+	public static BattleClassesItemWeaponTwoHanded createTwoHandedWeapon(EnumSet<EnumBattleClassesPlayerClass> classes, int itemLevel, String name, String MODID) {
 		BattleClassesItemWeaponTwoHanded weapon = new BattleClassesItemWeaponTwoHanded();
 		weapon.setName(MODID, name);
 		weapon.setClassAccess(classes);
-		weapon.setItemLevelAndHeldType(itemLevel, EnumBattleClassesHandHeldType.TWO_HANDED, weaponSpeed);
+		weapon.setItemLevelAndHeldType(itemLevel, EnumBattleClassesHandHeldType.TWO_HANDED);
 		return weapon;
+	}
+	
+	public static BattleClassesItemLongBow createBow(EnumSet<EnumBattleClassesPlayerClass> classes, int itemLevel, String name, String MODID) {
+		BattleClassesItemLongBow bow = new BattleClassesItemLongBow(4);
+		bow.setName(MODID, name);
+		bow.setClassAccess(classes);
+		bow.setItemLevelAndHeldType(itemLevel, EnumBattleClassesHandHeldType.TWO_HANDED);
+		return bow;
 	}
 	
 	public static Item createShield() {
@@ -112,8 +120,4 @@ public class ItemFactory {
 		return null;
 	}
 	
-	public static Item createBow() {
-		//TODO
-		return null;
-	}
 }
