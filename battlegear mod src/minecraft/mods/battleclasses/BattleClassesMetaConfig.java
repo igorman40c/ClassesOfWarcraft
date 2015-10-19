@@ -184,6 +184,10 @@ public class BattleClassesMetaConfig {
 				AttributeCreditsPerTier = 1;
 				AttributePointsPerCredit = 5;
 			}
+			
+			public float getWeaponDamage_TwoHanded(int itemLevel, float weaponSpeed) {
+				return (float)((int)((2.4F * weaponSpeed + 2.4F / 2 * weaponSpeed * itemLevel) * 10))/10F;
+			}
 		}
 		
 		public static class MagicalSpell extends AttributeConfig {

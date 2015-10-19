@@ -130,6 +130,10 @@ public class BattleClassesItemWeapon extends BattleClassesItemHandheld implement
 		if(weaponDamage > 0) {
 			text.add(BattleClassesGuiHelper.getTranslatedBonusLine(weaponDamage, EnumBattleClassesAttributeType.MELEE_ATTACK_DAMAGE));
 		}
+		float rangedDamage = this.storedAttributes.ranged_attack_damage;
+		if(rangedDamage > 0) {
+			text.add(BattleClassesGuiHelper.getTranslatedBonusLine(rangedDamage, EnumBattleClassesAttributeType.RANGED_ATTACK_DAMAGE));
+		}
 		float bonusReach = this.getBonusReach();
 		if(bonusReach > 0) {
 			text.add(BattleClassesGuiHelper.getTranslatedBonusLine(bonusReach, StatCollector.translateToLocal("bcattribute.weaponReach"), false));
@@ -142,6 +146,7 @@ public class BattleClassesItemWeapon extends BattleClassesItemHandheld implement
 	public Set<EnumBattleClassesAttributeType> getActiveTypeExceptions() {
 		Set<EnumBattleClassesAttributeType> exceptions = new HashSet<EnumBattleClassesAttributeType>();
 		exceptions.add(EnumBattleClassesAttributeType.MELEE_ATTACK_DAMAGE);
+		exceptions.add(EnumBattleClassesAttributeType.RANGED_ATTACK_DAMAGE);
 		return exceptions;
 	}
 	

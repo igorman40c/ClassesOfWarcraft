@@ -73,7 +73,7 @@ public class ItemFactory {
 		AttributeConfig attributeConfigurator = AttributeConfig.PhysicalRanged.INSTANCE;
 		float weaponSpeed = attributeConfigurator.getStandardWeaponSpeed_TwoHanded();
 		weapon.setWeaponSpeed(weaponSpeed);
-		BattleClassesAttributes attributes = AttributesFactory.createMeleeWeaponAttributes(weapon.getItemLevel(), weaponSpeed, primaryTypes, secondaryTypes, weapon.getHeldType(), attributeConfigurator);
+		BattleClassesAttributes attributes = AttributesFactory.createRangedWeaponAttributes(weapon.getItemLevel(), weaponSpeed, primaryTypes, secondaryTypes, weapon.getHeldType(), attributeConfigurator);
 		weapon.setAttributes(attributes);
 	}
 	
