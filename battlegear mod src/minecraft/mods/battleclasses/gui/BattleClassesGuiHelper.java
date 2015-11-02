@@ -18,6 +18,7 @@ import mods.battleclasses.enums.EnumBattleClassesAttributeType;
 import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
 import mods.battlegear2.api.core.IBattlePlayer;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.Tessellator;
@@ -417,6 +418,19 @@ public class BattleClassesGuiHelper extends Gui {
 		String displayedValue = BattleClassesGuiHelper.formatFloatToNice(value);
   		String valueString = "+" + displayedValue;
 		return valueString + " " + translatedName;
+	}
+	
+	
+	public static String trunctateStringToMaximalWidth(String text, float maximalWidth, FontRenderer fontrenderer) {
+		String trunctatedText = text;
+		if (fontrenderer.getStringWidth(trunctatedText) > maximalWidth) {
+			trunctatedText += "...";
+			while (fontrenderer.getStringWidth(trunctatedText) > maximalWidth) {
+				trunctatedText = trunctatedText.substring(0, trunctatedText.length()-4);
+				trunctatedText += "...";
+			}
+		}
+		return trunctatedText;
 	}
 	
 }

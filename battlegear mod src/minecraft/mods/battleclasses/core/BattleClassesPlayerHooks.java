@@ -52,6 +52,7 @@ public class BattleClassesPlayerHooks implements IMainCooldownMap {
 		playerClass = new BattleClassesPlayerClass(this, EnumBattleClassesPlayerClass.NONE);
 		weaponHitHandler = new BattleClassesWeaponHitHandler(this);
 		System.out.println("PlayerHooks constructed!");
+		
 		//this.refreshBaseAttributes();
 	}
 	

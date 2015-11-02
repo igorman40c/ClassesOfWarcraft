@@ -9,6 +9,7 @@ import org.lwjgl.opengl.GL11;
 
 import mods.battleclasses.client.ITooltipProvider;
 import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
+import mods.battleclasses.gui.BattleClassesGuiHelper;
 import mods.battleclasses.gui.tab.ITooltipDisplayGui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -117,17 +118,9 @@ public class BattleClassesGuiButton extends GuiButton implements ITooltipProvide
 			Minecraft mc = Minecraft.getMinecraft();
 			FontRenderer fontrenderer = mc.fontRenderer;
 			float margins = 2 * 4F;
-			float maximalLength = this.width - margins;
-			
-			if (fontrenderer.getStringWidth(this.displayString) > maximalLength) {
-				this.displayString += "...";
-				while (fontrenderer.getStringWidth(this.displayString) > maximalLength) {
-					this.displayString = this.displayString.substring(0, this.displayString.length()-4);
-					this.displayString += "...";
-				}
-			}
+			float maximalWidth = this.width - margins;
+			this.displayString = BattleClassesGuiHelper.trunctateStringToMaximalWidth(this.displayString, maximalWidth, fontrenderer);
 		}
-				
 	}
 	
 	public String getDisplayString() {

@@ -14,6 +14,7 @@ import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
 import mods.battleclasses.gui.BattleClassesGuiHandler;
 import mods.battleclasses.gui.BattleClassesGuiHelper;
 import mods.battleclasses.gui.controlls.BattleClassesGuiButtonClassSelector;
+import mods.battleclasses.gui.controlls.BattleClassesGuiButtonTalentGain;
 import mods.battleclasses.gui.controlls.BattleClassesGuiButtonTalentReset;
 import mods.battleclasses.gui.controlls.BattleClassesGuiButtonTalentTree;
 import mods.battleclasses.gui.controlls.BattleClassesGuiButtonTalentNode;
@@ -80,9 +81,12 @@ public class BattleClassesTabTalents extends BattleClassesAbstractTab {
         }
         
         //Init Buttons
-        BattleClassesGuiButtonTalentReset resetButton = new BattleClassesGuiButtonTalentReset(5, this.guiLeft + 115, this.guiTop + 139);
-        resetButton.setOrigin(0, 196);
+        
+        BattleClassesGuiButtonTalentGain gainButton =  new BattleClassesGuiButtonTalentGain(5, this.guiLeft + 8, this.guiTop + 139);
+        this.buttonList.add(gainButton);
+        BattleClassesGuiButtonTalentReset resetButton = new BattleClassesGuiButtonTalentReset(6, this.guiLeft + 115, this.guiTop + 139);
         this.buttonList.add(resetButton);
+        
         int j = 0;
 		for (BattleClassesGuiButtonTalentTree button : BattleClassesTabTalents.treeButtonList) {
 			this.buttonList.add(button);
@@ -178,7 +182,7 @@ public class BattleClassesTabTalents extends BattleClassesAbstractTab {
         //Drawing talent points count
         int n = talentMatrix.getTalentPoints();
         int inset = 8;
-        this.drawString(Minecraft.getMinecraft().fontRenderer, "Talent Points: " +n, this.guiLeft + inset,
+        this.drawString(Minecraft.getMinecraft().fontRenderer, "Points: " + n, this.guiLeft + inset + 54 + 5,
         		this.guiTop + DEFAULT_GUI_HEIGHT - inset - 5 - Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT, 0xFFFFFF);
         //Drawing talent trees
         int posX = this.guiLeft + 7;
