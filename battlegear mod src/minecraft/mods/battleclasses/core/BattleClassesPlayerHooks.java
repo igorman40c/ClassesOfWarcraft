@@ -14,7 +14,9 @@ import mods.battleclasses.BattleClassesUtils.LogType;
 import mods.battleclasses.ability.BattleClassesAbstractAbility;
 import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
 import mods.battleclasses.ability.passive.BattleClassesAbstractAbilityPassive;
+import mods.battleclasses.core.classes.BattleClassesPlayerClassHunter;
 import mods.battleclasses.core.classes.BattleClassesPlayerClassMage;
+import mods.battleclasses.core.classes.BattleClassesPlayerClassWarrior;
 import mods.battleclasses.enums.EnumBattleClassesAmplifierApplyType;
 import mods.battleclasses.enums.EnumBattleClassesCooldownType;
 import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
@@ -83,6 +85,15 @@ public class BattleClassesPlayerHooks implements IMainCooldownMap {
 				this.playerClass = new BattleClassesPlayerClassMage(this);
 			}
 				break;
+			case WARRIOR: {
+				this.playerClass = new BattleClassesPlayerClassWarrior(this);
+			}
+				break;
+			case HUNTER: {
+				this.playerClass = new BattleClassesPlayerClassHunter(this);
+			}
+				break;
+				
 				/*
 			case PlayerClass_PRIEST:
 				break;
