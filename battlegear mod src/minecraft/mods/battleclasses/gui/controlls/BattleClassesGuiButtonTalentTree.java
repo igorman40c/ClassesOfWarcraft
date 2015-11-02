@@ -10,6 +10,7 @@ import mods.battleclasses.core.BattleClassesTalentTree;
 import mods.battleclasses.packet.BattleClassesPacketTalentNodeChosen;
 import mods.battlegear2.Battlegear;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.ResourceLocation;
 
 public class BattleClassesGuiButtonTalentTree extends BattleClassesGuiButton {
@@ -25,7 +26,7 @@ public class BattleClassesGuiButtonTalentTree extends BattleClassesGuiButton {
 
 	public void setTalentTree(BattleClassesTalentTree parTalentTree) {
 		talentTree = parTalentTree;
-		this.displayString = talentTree.getTranslatedName();
+		this.setDisplayString(talentTree.getTranslatedName());
 		//TODO : Set Title(displayString), description here, etc...
 	}
 	

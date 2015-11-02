@@ -108,6 +108,28 @@ public class BattleClassesGuiButton extends GuiButton implements ITooltipProvide
     	return stringList;
 	}
 	
+	public boolean shouldTrunctateDisplayString = true;
+	
+	public void setDisplayString(String text) {
+		this.displayString = text;
+		
+		if (this.shouldTrunctateDisplayString) {
+			Minecraft mc = Minecraft.getMinecraft();
+			FontRenderer fontrenderer = mc.fontRenderer;
+			float margins = 2 * 4F;
+			float maximalLength = this.width - margins;
+			
+			if (fontrenderer.getStringWidth(this.displayString) > maximalLength) {
+				this.displayString += "...";
+				while (fontrenderer.getStringWidth(this.displayString) > maximalLength) {
+					this.displayString = this.displayString.substring(0, this.displayString.length()-4);
+					this.displayString += "...";
+				}
+			}
+		}
+				
+	}
+	
 	public String getDisplayString() {
 		return this.displayString;
 	}
