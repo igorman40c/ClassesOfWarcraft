@@ -31,6 +31,11 @@ public class BattleClassesItem {
 	//MISC ITEMS
     public static final BattleClassesItemGem itemGem = new BattleClassesItemGem();
     
+    //ARMOR SETS
+    public static final BattleClassesItemArmor[] mageSet_t1 = ItemFactory.createArmorSet(EnumSet.of(EnumBattleClassesPlayerClass.MAGE), BC_ARMOR_MATERIAL_CLOTH, 1, "mage.t1", BattleClassesMod.MODID);
+    public static final BattleClassesItemArmor[] mageSet_t2 = ItemFactory.createArmorSet(EnumSet.of(EnumBattleClassesPlayerClass.MAGE), BC_ARMOR_MATERIAL_CLOTH, 2, "mage.t2", BattleClassesMod.MODID);
+    public static final BattleClassesItemArmor[] mageSet_t3 = ItemFactory.createArmorSet(EnumSet.of(EnumBattleClassesPlayerClass.MAGE), BC_ARMOR_MATERIAL_CLOTH, 3, "mage.t3", BattleClassesMod.MODID);
+    
     //WEAPON ITEMS
     public static ArrayList<IHighDetailWeapon> TwoHandedWeaponList = new ArrayList<IHighDetailWeapon>();
     public static final BattleClassesItemWeaponTwoHanded itemStaffWood = ItemFactory.createTwoHandedWeapon(EnumSet.of(EnumBattleClassesPlayerClass.MAGE), 0, "StaffWood", BattleClassesMod.MODID).setAnchorAndInvertSheat(0.45F, true);
@@ -55,6 +60,9 @@ public class BattleClassesItem {
 	public static void registerItems() {
 		
 		EnumSet<EnumBattleClassesAttributeType> magePrimaryTypes = EnumSet.of(EnumBattleClassesAttributeType.SPELLPOWER_FIRE, EnumBattleClassesAttributeType.SPELLPOWER_ARCANE, EnumBattleClassesAttributeType.SPELLPOWER_FROST);
+		EnumSet<EnumBattleClassesAttributeType> hunterPrimaryTypes = EnumSet.of(EnumBattleClassesAttributeType.AGILITY);
+		EnumSet<EnumBattleClassesAttributeType> warriorPrimaryTypes = EnumSet.of(EnumBattleClassesAttributeType.STRENGTH);
+		
 		ItemFactory.setMagicalSpellAttributesForWeapon(itemStaffWood, magePrimaryTypes, null);
 		ItemFactory.registerItem(itemStaffWood);
 		ItemFactory.setMagicalSpellAttributesForWeapon(itemStaffCoal, magePrimaryTypes, null);
@@ -64,7 +72,6 @@ public class BattleClassesItem {
 		ItemFactory.setMagicalSpellAttributesForWeapon(itemStaffEmerald, magePrimaryTypes, null);
 		ItemFactory.registerItem(itemStaffEmerald);
 		
-		EnumSet<EnumBattleClassesAttributeType> hunterPrimaryTypes = EnumSet.of(EnumBattleClassesAttributeType.AGILITY);
 		ItemFactory.setPhysicalRangedAttributesForWeapon(itemLongBowWooden, hunterPrimaryTypes, null);
 		ItemFactory.registerItem(itemLongBowWooden);
 		ItemFactory.setPhysicalRangedAttributesForWeapon(itemLongBowComposite, hunterPrimaryTypes, null);
@@ -73,8 +80,7 @@ public class BattleClassesItem {
 		ItemFactory.registerItem(itemLongBowMechanic);
 		ItemFactory.setPhysicalRangedAttributesForWeapon(itemLongBowBirch, hunterPrimaryTypes, null);
 		ItemFactory.registerItem(itemLongBowBirch);
-		
-		EnumSet<EnumBattleClassesAttributeType> warriorPrimaryTypes = EnumSet.of(EnumBattleClassesAttributeType.STRENGTH);
+				
 		ItemFactory.setPhysicalMeleeAttributesForWeapon(itemBroadSwordWooden, warriorPrimaryTypes, null);
 		ItemFactory.registerItem(itemBroadSwordWooden);
 		ItemFactory.setPhysicalMeleeAttributesForWeapon(itemBroadSwordStone, warriorPrimaryTypes, null);
@@ -85,11 +91,19 @@ public class BattleClassesItem {
 		ItemFactory.registerItem(itemBroadSwordDiamond);
 		ItemFactory.setPhysicalMeleeAttributesForWeapon(itemBroadSwordGold, warriorPrimaryTypes, null);
 		ItemFactory.registerItem(itemBroadSwordGold);
-				
-		testingSet = ItemFactory.createArmorSet(EnumSet.of(EnumBattleClassesPlayerClass.MAGE), ItemFactory.ARMOR_MATERIAL_CLOTH, BattleClassesMod.MODID, "testing", 1, 
-				EnumSet.of(EnumBattleClassesAttributeType.HEALTH, EnumBattleClassesAttributeType.SPELLPOWER_FIRE, EnumBattleClassesAttributeType.CRITICAL_RATING ));
-		ItemFactory.registerItems(testingSet);
 		
+		for(BattleClassesItemArmor mageArmorPiece : mageSet_t1){
+			ItemFactory.setMagicalSpellAttributesForArmor(mageArmorPiece, magePrimaryTypes, null);
+		}
+		ItemFactory.registerItems(mageSet_t1);		
+		for(BattleClassesItemArmor mageArmorPiece : mageSet_t2){
+			ItemFactory.setMagicalSpellAttributesForArmor(mageArmorPiece, magePrimaryTypes, null);
+		}
+		ItemFactory.registerItems(mageSet_t2);
+		for(BattleClassesItemArmor mageArmorPiece : mageSet_t3){
+			ItemFactory.setMagicalSpellAttributesForArmor(mageArmorPiece, magePrimaryTypes, null);
+		}
+		ItemFactory.registerItems(mageSet_t3);
 		
 		GameRegistry.registerItem(itemGem, "gemItem");
 		LanguageRegistry.addName(new ItemStack(itemGem, 1, 0), "True Diamond");
@@ -101,7 +115,7 @@ public class BattleClassesItem {
 		LanguageRegistry.addName(new ItemStack(itemGem, 1, 6), "Talasite");
 		
 		TabWeapons.tabIconItem = itemLongBowWooden;
-		TabArmors.tabIconItem = testingSet[0];
+		TabArmors.tabIconItem = mageSet_t1[0];
 	}
 	
 	public static BattleClassesItemWeapon createWeapon(String name, int itemLevel, EnumSet<EnumBattleClassesPlayerClass> classes) {

@@ -56,22 +56,21 @@ public class BattleClassesItemArmor extends ItemArmor implements IAttributeProvi
 		*/
 	}
 	
-	public BattleClassesItemArmor(EnumSet<EnumBattleClassesPlayerClass> classAccessSet, ArmorMaterial material, int armorType, String MODID, String name) {
+	public BattleClassesItemArmor(EnumSet<EnumBattleClassesPlayerClass> classAccessSet, ArmorMaterial material, int armorType, int itemLevel, String MODID, String name) {
 		this(material, armorType, MODID, name);
 		this.classAccessSet = classAccessSet;
+		this.setItemLevel(itemLevel);
 	}
-	
-	public BattleClassesItemArmor(EnumSet<EnumBattleClassesPlayerClass> classAccessSet, ArmorMaterial material, int armorType, String MODID, String name, int itemLevel, EnumSet<EnumBattleClassesAttributeType> types) {
-		this(classAccessSet, material, armorType, MODID, name);
-		this.setItemLevelAndAttributeTypes(itemLevel, types);
-	}
-	
-	public BattleClassesItemArmor setItemLevelAndAttributeTypes(int itemLevel, EnumSet<EnumBattleClassesAttributeType> types) {
+		
+	public BattleClassesItemArmor setItemLevel(int itemLevel) {
 		this.itemLevel = itemLevel;
 		this.setMaxDamage(this.armorType);
-		this.storedAttributes = AttributesFactory.createForArmor(itemLevel, types);
-		this.setSingleAttributeModifier(new BattleClassesAttributeModifierBonus(storedAttributes));
 		return this;
+	}
+	
+	public void setAttributes(BattleClassesAttributes attributes) {
+		this.storedAttributes = attributes;
+		this.setSingleAttributeModifier(new BattleClassesAttributeModifierBonus(attributes));
 	}
 	
 	public BattleClassesItemArmor setName(String MODID, String parName) {

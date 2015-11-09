@@ -17,21 +17,34 @@ item.battleclasses:weapons/BroadSwordIron.name=Iron Broadsword
 item.battleclasses:weapons/BroadSwordDiamond.name=Diamond Broadsword
 item.battleclasses:weapons/BroadSwordGold.name=Gold Broadsword
 
-
-item.battleclasses:armors/testing.helm.name=Helm of testing
-item.battleclasses:armors/testing.chest.name=Chest of testing
-item.battleclasses:armors/testing.legs.name=Legs of testing
-item.battleclasses:armors/testing.boots.name=Boots of testing
+#Mage armor sets (T1-T3)
+item.battleclasses:armors/mage.t1.helm.name=Wizard's Hood
+item.battleclasses:armors/mage.t1.chest.name=Wizard's Robe
+item.battleclasses:armors/mage.t1.legs.name=Wizard's Trousers
+item.battleclasses:armors/mage.t1.boots.name=Wizard's Boots
+item.battleclasses:armors/mage.t2.helm.name=Astral Cowl
+item.battleclasses:armors/mage.t2.chest.name=Astral Robe
+item.battleclasses:armors/mage.t2.legs.name=Astral Trousers
+item.battleclasses:armors/mage.t2.boots.name=Astral Boots
+item.battleclasses:armors/mage.t3.helm.name=Evoker's Cowl
+item.battleclasses:armors/mage.t3.chest.name=Evoker's Robe
+item.battleclasses:armors/mage.t3.legs.name=Evoker's Trousers
+item.battleclasses:armors/mage.t3.boots.name=Evoker's Boots
 
 bchandheld.one_handed=One Handed
 bchandheld.main_handed=Main hand
 bchandheld.two_handed=Two Handed
 bchandheld.off_handed=Off hand
 
-bcarmortype.cloth=Cloth
-bcarmortype.leather=Leather
-bcarmortype.mail=Mail
-bcarmortype.plate=Plate
+#bcarmortype.cloth=Cloth
+#bcarmortype.leather=Leather
+#bcarmortype.mail=Mail
+#bcarmortype.plate=Plate
+
+bc_cloth_type=Cloth
+bc_leather_type=Leather
+bc_mail_type=Mail
+bc_plate_type=Plate
 
 bcenviroment=Usage
 bcenviroment.pvp=Player vs. Player

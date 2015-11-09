@@ -37,19 +37,21 @@ public class ItemFactory {
 		}
 	}
 
-	public static BattleClassesItemArmor[] createArmorSet(EnumSet<EnumBattleClassesPlayerClass> classes, ArmorMaterial material, String MODID, String name, int itemLevel, EnumSet<EnumBattleClassesAttributeType> types) {
+	
+	public static BattleClassesItemArmor[] createArmorSet(EnumSet<EnumBattleClassesPlayerClass> classes, ArmorMaterial material, int itemLevel, String name, String MODID) {
 		BattleClassesItemArmor[] armorSet = new BattleClassesItemArmor[4];
 		for(int i = 0; i < 4; ++i) {
 			int armorType = i; //Slot tpye integer 
-			armorSet[i] = createArmorItem(classes, material, armorType, MODID, name, itemLevel, types);
+			armorSet[i] = createArmorItem(classes, material, armorType, itemLevel, name, MODID);
 		}
 		return armorSet;
 	}
 	
-	public static BattleClassesItemArmor createArmorItem(EnumSet<EnumBattleClassesPlayerClass> classes, ArmorMaterial material, int armorType, String MODID, String name, int itemLevel, EnumSet<EnumBattleClassesAttributeType> types) {
-		return new BattleClassesItemArmor(classes, material, armorType, MODID, name, itemLevel, types);
+	public static BattleClassesItemArmor createArmorItem(EnumSet<EnumBattleClassesPlayerClass> classes, ArmorMaterial material, int armorType, int itemLevel, String name, String MODID) {
+		return new BattleClassesItemArmor(classes, material, armorType, itemLevel, MODID, name);
 	}
 	
+	/*
 	public static BattleClassesItemWeapon createWeapon(EnumSet<EnumBattleClassesPlayerClass> classes, EnumBattleClassesHandHeldType handHeldType, String MODID, String name, int itemLevel, EnumSet<EnumBattleClassesAttributeType> types, float weaponSpeed, WeaponDamageCreationMode weaponDamageMode) {
 		BattleClassesItemWeapon weapon = new BattleClassesItemWeapon();
 		weapon.setName(MODID, name);
@@ -57,7 +59,7 @@ public class ItemFactory {
 		weapon.setItemLevelAndHeldType(itemLevel, handHeldType, weaponSpeed);
 		return weapon;
 	}
-	
+	*/
 	
 	public static void setPhysicalMeleeAttributesForWeapon(BattleClassesItemWeapon weapon, 
 			EnumSet<EnumBattleClassesAttributeType> primaryTypes, EnumMap<EnumBattleClassesAttributeType, Float> secondaryTypes) {
@@ -84,6 +86,26 @@ public class ItemFactory {
 		weapon.setWeaponSpeed(weaponSpeed);
 		BattleClassesAttributes attributes = AttributesFactory.createMeleeWeaponAttributes(weapon.getItemLevel(), weaponSpeed, primaryTypes, secondaryTypes, weapon.getHeldType(), attributeConfigurator);
 		weapon.setAttributes(attributes);
+	}
+	
+	public static void setPhysicalMeleAttributesForArmor(BattleClassesItemArmor armor, EnumSet<EnumBattleClassesAttributeType> primaryTypes, EnumMap<EnumBattleClassesAttributeType, Float> secondaryTypes) {
+		AttributeConfig attributeConfigurator = AttributeConfig.PhysicalMelee.INSTANCE;
+		setArmorAttributes(armor, primaryTypes, secondaryTypes, attributeConfigurator);
+	}
+	
+	public static void setPhysicalRangeAttributesForArmor(BattleClassesItemArmor armor, EnumSet<EnumBattleClassesAttributeType> primaryTypes, EnumMap<EnumBattleClassesAttributeType, Float> secondaryTypes) {
+		AttributeConfig attributeConfigurator = AttributeConfig.PhysicalRanged.INSTANCE;
+		setArmorAttributes(armor, primaryTypes, secondaryTypes, attributeConfigurator);
+	}
+	
+	public static void setMagicalSpellAttributesForArmor(BattleClassesItemArmor armor, EnumSet<EnumBattleClassesAttributeType> primaryTypes, EnumMap<EnumBattleClassesAttributeType, Float> secondaryTypes) {
+		AttributeConfig attributeConfigurator = AttributeConfig.MagicalSpell.INSTANCE;
+		setArmorAttributes(armor, primaryTypes, secondaryTypes, attributeConfigurator);
+	}
+	
+	private static void setArmorAttributes(BattleClassesItemArmor armor, EnumSet<EnumBattleClassesAttributeType> primaryTypes, EnumMap<EnumBattleClassesAttributeType, Float> secondaryTypes, AttributeConfig attributeConfigurator) {
+		BattleClassesAttributes attributes = AttributesFactory.createArmorAttributes(armor.getItemLevel(), primaryTypes, secondaryTypes, attributeConfigurator);
+		armor.setAttributes(attributes);
 	}
 	
 	public static BattleClassesItemWeapon createWeapon(EnumSet<EnumBattleClassesPlayerClass> classes, EnumBattleClassesHandHeldType handHeldType, int itemLevel, String name, String MODID) {
