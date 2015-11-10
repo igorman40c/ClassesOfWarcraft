@@ -3,8 +3,8 @@ package mods.battleclasses.core;
 import java.util.List;
 
 import mods.battleclasses.BattleClassesUtils;
-import mods.battleclasses.items.IControlledSpeedWeapon;
-import mods.battleclasses.items.ISpellBookControllerItem;
+import mods.battleclasses.items.weapons.IControlledSpeedWeapon;
+import mods.battleclasses.items.weapons.ISpellBookControllerItem;
 import mods.battlegear2.api.IHandListener;
 import mods.battlegear2.api.PlayerEventChild.OffhandAttackEvent;
 import mods.battlegear2.api.core.BattlegearUtils;

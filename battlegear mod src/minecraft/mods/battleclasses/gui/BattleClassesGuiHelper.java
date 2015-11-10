@@ -393,7 +393,9 @@ public class BattleClassesGuiHelper extends Gui {
 	
 	public static String createListWithTitle(String title, Collection<? extends INameProvider> list, boolean capitalizeListElements) {
 		//Starting with capitalized title
-		String text = capitalizeFirstLetter(title) + ":";
+		String unlocalizedTitle = (list.size() > 1) ? title + ".plural" : title; //StatCollector.translateToLocal("bcclass.class")
+		String localizedTitle = StatCollector.translateToLocal(unlocalizedTitle);
+		String text = capitalizeFirstLetter(localizedTitle) + ":";
 		//Adding list elements
 		int i = 0;
 		for(INameProvider nameProvider : list) {

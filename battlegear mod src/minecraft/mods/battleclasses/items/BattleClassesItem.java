@@ -8,6 +8,13 @@ import mods.battleclasses.attributes.AttributesFactory.WeaponDamageCreationMode;
 import mods.battleclasses.enums.EnumBattleClassesAttributeType;
 import mods.battleclasses.enums.EnumBattleClassesHandHeldType;
 import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
+import mods.battleclasses.items.misc.BattleClassesCreativeTabs;
+import mods.battleclasses.items.misc.BattleClassesItemAmmo;
+import mods.battleclasses.items.misc.BattleClassesItemGem;
+import mods.battleclasses.items.weapons.BattleClassesItemLongBow;
+import mods.battleclasses.items.weapons.BattleClassesItemWeapon;
+import mods.battleclasses.items.weapons.BattleClassesItemWeaponTwoHanded;
+import mods.battleclasses.items.weapons.IHighDetailWeapon;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
@@ -29,6 +36,7 @@ public class BattleClassesItem {
 	public static final ArmorMaterial BC_ARMOR_MATERIAL_CLOTH = EnumHelper.addArmorMaterial("BC_CLOTH_TYPE", 33, new int[]{1, 2, 1, 1}, 10);
 	
 	//MISC ITEMS
+	public static final BattleClassesItemAmmo manaGem = new BattleClassesItemAmmo("ManaGem", EnumSet.of(EnumBattleClassesPlayerClass.MAGE));
     public static final BattleClassesItemGem itemGem = new BattleClassesItemGem();
     
     //ARMOR SETS
@@ -54,8 +62,6 @@ public class BattleClassesItem {
     public static final BattleClassesItemWeaponTwoHanded itemBroadSwordDiamond = ItemFactory.createTwoHandedWeapon(EnumSet.of(EnumBattleClassesPlayerClass.WARRIOR), 3, "BroadSwordDiamond", BattleClassesMod.MODID);
     public static final BattleClassesItemWeaponTwoHanded itemBroadSwordGold = ItemFactory.createTwoHandedWeapon(EnumSet.of(EnumBattleClassesPlayerClass.WARRIOR), 0, "BroadSwordGold", BattleClassesMod.MODID);
     
-    //TESTING STUFF ITEMS
-    public static BattleClassesItemArmor[] testingSet;
     
 	public static void registerItems() {
 		
@@ -71,6 +77,7 @@ public class BattleClassesItem {
 		ItemFactory.registerItem(itemStaffRedstone);
 		ItemFactory.setMagicalSpellAttributesForWeapon(itemStaffEmerald, magePrimaryTypes, null);
 		ItemFactory.registerItem(itemStaffEmerald);
+		ItemFactory.registerItem(manaGem);
 		
 		ItemFactory.setPhysicalRangedAttributesForWeapon(itemLongBowWooden, hunterPrimaryTypes, null);
 		ItemFactory.registerItem(itemLongBowWooden);
@@ -106,15 +113,8 @@ public class BattleClassesItem {
 		ItemFactory.registerItems(mageSet_t3);
 		
 		GameRegistry.registerItem(itemGem, "gemItem");
-		LanguageRegistry.addName(new ItemStack(itemGem, 1, 0), "True Diamond");
-		LanguageRegistry.addName(new ItemStack(itemGem, 1, 1), "Ruby");
-		LanguageRegistry.addName(new ItemStack(itemGem, 1, 2), "Shappire");
-		LanguageRegistry.addName(new ItemStack(itemGem, 1, 3), "Lion's eye");
-		LanguageRegistry.addName(new ItemStack(itemGem, 1, 4), "Amethyst");
-		LanguageRegistry.addName(new ItemStack(itemGem, 1, 5), "Topaz");
-		LanguageRegistry.addName(new ItemStack(itemGem, 1, 6), "Talasite");
 		
-		TabWeapons.tabIconItem = itemLongBowWooden;
+		TabWeapons.tabIconItem = itemStaffWood;
 		TabArmors.tabIconItem = mageSet_t1[0];
 	}
 	

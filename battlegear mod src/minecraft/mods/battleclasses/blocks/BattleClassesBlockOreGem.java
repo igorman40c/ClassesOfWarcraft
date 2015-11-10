@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import mods.battleclasses.BattleClassesMod;
-import mods.battleclasses.items.BattleClassesItemGem;
 import mods.battleclasses.items.BattleClassesItem;
+import mods.battleclasses.items.misc.BattleClassesItemGem;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;

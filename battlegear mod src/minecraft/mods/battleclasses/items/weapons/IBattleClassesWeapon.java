@@ -1,4 +1,4 @@
-package mods.battleclasses.items;
+package mods.battleclasses.items.weapons;
 
 import java.util.EnumSet;
 

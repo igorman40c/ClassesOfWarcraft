@@ -1,4 +1,4 @@
-package mods.battleclasses.items;
+package mods.battleclasses.items.misc;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;

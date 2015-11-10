@@ -66,6 +66,7 @@ import mods.battleclasses.gui.controlls.GuiTabBarButtonVanillaInventory;
 import mods.battleclasses.gui.tab.BattleClassesTabInventory;
 import mods.battleclasses.gui.tab.BattleClassesTabClassSelector;
 import mods.battleclasses.items.IAttributeProviderItem;
+import mods.battleclasses.items.misc.AmmoItem;
 import mods.battleclasses.packet.BattleClassesPacketAttributeChanges;
 import mods.battleclasses.packet.BattleClassesPacketPlayerClassSnyc;
 import mods.battleclasses.packet.BattleClassesPacketPlayerDataSync;
@@ -343,8 +344,8 @@ public class BattleClassesClientEvents {
 	
     @SubscribeEvent
     public void onItemTooltip(ItemTooltipEvent event){
+    	Minecraft mc = Minecraft.getMinecraft();
         if(event.itemStack.getItem() instanceof IAttributeProviderItem){
-        	Minecraft mc = Minecraft.getMinecraft();
         	IAttributeProviderItem attributeProviderItem = (IAttributeProviderItem)event.itemStack.getItem();
         	BattleClassesAttributes attributes = (attributeProviderItem).getAttributes();
         	
@@ -369,14 +370,7 @@ public class BattleClassesClientEvents {
         	
         	//Adding class access set-string
         	EnumSet<EnumBattleClassesPlayerClass> classAccessSet = attributeProviderItem.getClassAccessSet();
-        	if(!(classAccessSet.contains(EnumBattleClassesPlayerClass.NONE)) && classAccessSet.size() > 0) {
-        		//Create class list string
-        		String classAccessString = BattleClassesGuiHelper.createListWithTitle(StatCollector.translateToLocal("bcclass.classes"), classAccessSet);
-        		//Create color of the line depeding on the player class
-        		EnumChatFormatting classAccessSetDisplayColor = BattleClassesGuiHelper.getHoveringTextAvailabilityColor(BattleClassesUtils.getPlayerClassEnum(mc.thePlayer).isEligibleForClassAccessSet(classAccessSet));
-        		//Adding line
-        		event.toolTip.add(classAccessSetDisplayColor + classAccessString);
-        	}
+        	this.addTooltipLineClassAccess(event, classAccessSet);
         	
         	//Item level line
         	event.toolTip.add(EnumChatFormatting.GOLD + StatCollector.translateToLocal("bcattribute.itemLevel") + ": " +  attributeProviderItem.getItemLevel());
@@ -386,6 +380,23 @@ public class BattleClassesClientEvents {
         	event.toolTip.clear();
         	event.toolTip.addAll(limitedWidthTooltipText);
         }
+        
+        if(event.itemStack.getItem() instanceof AmmoItem) {
+        	EnumSet<EnumBattleClassesPlayerClass> classAccessSet = ((AmmoItem)(event.itemStack.getItem())).getClassesUsing();
+        	this.addTooltipLineClassAccess(event, classAccessSet);
+        }
+    }
+    
+    private void addTooltipLineClassAccess(ItemTooltipEvent event, EnumSet<EnumBattleClassesPlayerClass> classAccessSet) {
+    	Minecraft mc = Minecraft.getMinecraft();
+    	if(!(classAccessSet.contains(EnumBattleClassesPlayerClass.NONE)) && classAccessSet.size() > 0) {
+    		//Create class list string
+    		String classAccessString = BattleClassesGuiHelper.createListWithTitle("bcclass.class", classAccessSet);
+    		//Create color of the line depeding on the player class
+    		EnumChatFormatting classAccessSetDisplayColor = BattleClassesGuiHelper.getHoveringTextAvailabilityColor(BattleClassesUtils.getPlayerClassEnum(mc.thePlayer).isEligibleForClassAccessSet(classAccessSet));
+    		//Adding line
+    		event.toolTip.add(classAccessSetDisplayColor + classAccessString);
+    	}
     }
 	
 	@SubscribeEvent

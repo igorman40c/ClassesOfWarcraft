@@ -1,9 +1,10 @@
-package mods.battleclasses.items;
+package mods.battleclasses.items.weapons;
 
 import java.util.EnumSet;
 
 import net.minecraft.item.ItemStack;
 import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
+import mods.battleclasses.items.BattleClassesItem;
 import mods.battleclasses.enums.EnumBattleClassesHandHeldType;
 
 public class BattleClassesItemWeaponTwoHanded extends BattleClassesItemWeapon implements IHighDetailWeapon {

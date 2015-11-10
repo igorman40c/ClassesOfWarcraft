@@ -6,7 +6,7 @@ import mods.battleclasses.ability.effect.BattleClassesAbilityEffectInstantDamage
 import mods.battleclasses.attributes.BattleClassesAttributes;
 import mods.battleclasses.enums.EnumBattleClassesAbilitySchool;
 import mods.battleclasses.enums.EnumBattleClassesAttributeType;
-import mods.battleclasses.items.IBattleClassesWeapon;
+import mods.battleclasses.items.weapons.IBattleClassesWeapon;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 

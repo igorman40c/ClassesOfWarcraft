@@ -1,6 +1,7 @@
-package mods.battleclasses.items;
+package mods.battleclasses.items.weapons;
 
 import mods.battleclasses.enums.EnumBattleClassesItemRarity;
+import mods.battleclasses.items.IAttributeProviderItem;
 import mods.battleclasses.enums.EnumBattleClassesHandHeldType;
 import mods.battlegear2.api.IAllowItem;
 import mods.battlegear2.api.IOffhandDual;

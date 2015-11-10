@@ -1,8 +1,8 @@
 package mods.battleclasses.client.renderer;
 
-import mods.battleclasses.items.BattleClassesItemWeaponTwoHanded;
-import mods.battleclasses.items.IBattleClassesBow;
-import mods.battleclasses.items.IHighDetailWeapon;
+import mods.battleclasses.items.weapons.BattleClassesItemWeaponTwoHanded;
+import mods.battleclasses.items.weapons.IBattleClassesBow;
+import mods.battleclasses.items.weapons.IHighDetailWeapon;
 import mods.battlegear2.client.utils.BattlegearRenderHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;

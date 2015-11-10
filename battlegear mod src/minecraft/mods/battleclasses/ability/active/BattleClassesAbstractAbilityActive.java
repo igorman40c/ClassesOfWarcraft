@@ -41,7 +41,7 @@ import mods.battleclasses.enums.EnumBattleClassesAbilitySchool;
 import mods.battleclasses.enums.EnumBattleClassesCooldownType;
 import mods.battleclasses.gui.BattleClassesGuiHUDOverlay;
 import mods.battleclasses.gui.BattleClassesGuiHelper;
-import mods.battleclasses.items.BattleClassesItemWeapon;
+import mods.battleclasses.items.weapons.BattleClassesItemWeapon;
 import mods.battleclasses.packet.BattleClassesPacketCastingSound;
 import mods.battleclasses.packet.BattleClassesPacketCooldownSet;
 import mods.battleclasses.packet.BattleClassesPacketPlayerCastingDidRelease;

@@ -30,7 +30,7 @@ import mods.battleclasses.BattleClassesCommonProxy;
 import mods.battleclasses.client.renderer.BattleClassesHDWeaponRenderer;
 import mods.battleclasses.gui.BattleClassesGuiKeyHandler;
 import mods.battleclasses.items.BattleClassesItem;
-import mods.battleclasses.items.IHighDetailWeapon;
+import mods.battleclasses.items.weapons.IHighDetailWeapon;
 import mods.battlegear2.Battlegear;
 import mods.battlegear2.api.core.InventoryPlayerBattle;
 import mods.battlegear2.api.heraldry.IHeraldryItem;

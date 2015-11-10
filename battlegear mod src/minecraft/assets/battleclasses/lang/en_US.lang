@@ -3,6 +3,8 @@ bcpotion.testing=Polymorhped
 bcgui.keycategories.actionbar=Ability action bar
 itemGroup.bcweapons=Classes of Warcraft weapons
 itemGroup.bcarmor=Classes of Warcraft armor
+
+#Weapons
 item.battleclasses:weapons/StaffWood.name=Wooden Staff
 item.battleclasses:weapons/StaffCoal.name=Coal Staff
 item.battleclasses:weapons/StaffRedstone.name=Redstone Staff
@@ -16,6 +18,16 @@ item.battleclasses:weapons/BroadSwordStone.name=Stone Broadsword
 item.battleclasses:weapons/BroadSwordIron.name=Iron Broadsword
 item.battleclasses:weapons/BroadSwordDiamond.name=Diamond Broadsword
 item.battleclasses:weapons/BroadSwordGold.name=Gold Broadsword
+
+#Misc Items
+item.battleclasses:ManaGem.name=Mana Gem
+item.battleclasses:gemstone0.name=Azerothian Diamond
+item.battleclasses:gemstone1.name=Ruby
+item.battleclasses:gemstone2.name=Shappire
+item.battleclasses:gemstone3.name=Lion's eye
+item.battleclasses:gemstone4.name=Amethyst
+item.battleclasses:gemstone5.name=Topaz
+item.battleclasses:gemstone6.name=Talasite
 
 #Mage armor sets (T1-T3)
 item.battleclasses:armors/mage.t1.helm.name=Wizard's Hood
@@ -61,7 +73,8 @@ bcclass.roleinfo=Role
 bcclass.rolesinfo=Roles
 
 bcclass.none=No class
-bcclass.classes=Classes
+bcclass.class=Class
+bcclass.class.plural=Classes
 
 bcclass.mage=Mage
 bcclass.priest=Priest

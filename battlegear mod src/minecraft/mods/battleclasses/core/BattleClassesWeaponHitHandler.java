@@ -25,7 +25,7 @@ import mods.battleclasses.ability.active.BattleClassesAbilityAttackMainHand;
 import mods.battleclasses.ability.active.BattleClassesAbilityAttackOffHand;
 import mods.battleclasses.enums.EnumBattleClassesCooldownType;
 import mods.battleclasses.enums.EnumBattleClassesWieldAccess;
-import mods.battleclasses.items.IControlledSpeedWeapon;
+import mods.battleclasses.items.weapons.IControlledSpeedWeapon;
 import mods.battleclasses.packet.BattleClassesPacketCooldownSet;
 import mods.battleclasses.packet.BattleClassesPacketProcessOffhandAttack;
 import mods.battlegear2.Battlegear;

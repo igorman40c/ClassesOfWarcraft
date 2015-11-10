@@ -1,4 +1,4 @@
-package mods.battleclasses.items;
+package mods.battleclasses.items.misc;
 
 import java.util.List;
 
@@ -19,7 +19,11 @@ public class BattleClassesItemGem extends Item
            super();
            this.setHasSubtypes(true);
            this.setCreativeTab(CreativeTabs.tabMaterials);
-           this.setUnlocalizedName("gemItem");
+           this.setName("gemstone");
+    }
+    
+    protected void setName(String name) {
+    	this.setUnlocalizedName("battleclasses:"+name);
     }
    
     @SideOnly(Side.CLIENT)
@@ -29,10 +33,9 @@ public class BattleClassesItemGem extends Item
     public void registerIcons(IIconRegister par1IconRegister)
     {
            icons = new IIcon[ITEM_GEM_TYPES_COUNT];
-          
            for(int i = 0; i < icons.length; i++)
            {
-        	   icons[i] = par1IconRegister.registerIcon("battleclasses:" + (super.getUnlocalizedName().substring(5)) + i);
+        	   icons[i] = par1IconRegister.registerIcon((super.getUnlocalizedName().substring(5)) + i);
            }
     }
       

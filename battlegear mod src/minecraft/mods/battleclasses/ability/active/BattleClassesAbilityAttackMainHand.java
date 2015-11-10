@@ -11,7 +11,7 @@ import mods.battleclasses.core.BattleClassesPlayerAttributes;
 import mods.battleclasses.enums.EnumBattleClassesAbilityDirectTargetRequirement;
 import mods.battleclasses.enums.EnumBattleClassesAbilitySchool;
 import mods.battleclasses.enums.EnumBattleClassesAttributeType;
-import mods.battleclasses.items.IBattleClassesWeapon;
+import mods.battleclasses.items.weapons.IBattleClassesWeapon;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

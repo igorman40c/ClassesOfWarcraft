@@ -5,7 +5,7 @@ import com.google.common.io.ByteArrayDataOutput;
 
 import cpw.mods.fml.common.eventhandler.EventBus;
 import mods.battleclasses.BattleClassesUtils;
-import mods.battleclasses.items.IBattleClassesBow;
+import mods.battleclasses.items.weapons.IBattleClassesBow;
 import mods.battlegear2.api.IAllowItem;
 import mods.battlegear2.api.IOffhandDual;
 import mods.battlegear2.api.IUsableItem;

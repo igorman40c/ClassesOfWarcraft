@@ -1,4 +1,4 @@
-package mods.battleclasses.items;
+package mods.battleclasses.items.weapons;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -15,6 +15,7 @@ import mods.battleclasses.enums.EnumBattleClassesArmorSlot;
 import mods.battleclasses.enums.EnumBattleClassesAttributeType;
 import mods.battleclasses.enums.EnumBattleClassesItemRarity;
 import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
+import mods.battleclasses.items.BattleClassesItem;
 import mods.battleclasses.enums.EnumBattleClassesHandHeldType;
 import mods.battlegear2.api.PlayerEventChild.OffhandAttackEvent;
 import net.minecraft.item.ItemStack;
