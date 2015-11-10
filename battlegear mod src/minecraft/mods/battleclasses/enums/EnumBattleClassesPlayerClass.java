@@ -176,12 +176,11 @@ public enum EnumBattleClassesPlayerClass implements ITooltipProvider, INameProvi
 	}
 	
 	public String getTranslatedArmorInfo() {
-		return BattleClassesGuiHelper.createListWithTitle(StatCollector.translateToLocal("bcclass.armorinfo"), EnumSet.of(this.getArmorType()));
+		return BattleClassesGuiHelper.createListWithTitle("bcclass.armorinfo", EnumSet.of(this.getArmorType()));
 	}
 	
 	public String getTranslatedRoleInfo() {
-		String unlocalizedRoleString = (this.getRoles().size() > 1) ? "bcclass.rolesinfo" : "bcclass.roleinfo";
-		return BattleClassesGuiHelper.createListWithTitle(StatCollector.translateToLocal(unlocalizedRoleString), this.getRoles());
+		return BattleClassesGuiHelper.createListWithTitle("bcclass.roleinfo", this.getRoles());
 	}
 
 	@Override

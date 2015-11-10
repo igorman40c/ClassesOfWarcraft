@@ -48,15 +48,15 @@ bchandheld.main_handed=Main hand
 bchandheld.two_handed=Two Handed
 bchandheld.off_handed=Off hand
 
-#bcarmortype.cloth=Cloth
-#bcarmortype.leather=Leather
-#bcarmortype.mail=Mail
-#bcarmortype.plate=Plate
+bcarmortype.cloth=Cloth
+bcarmortype.leather=Leather
+bcarmortype.mail=Mail
+bcarmortype.plate=Plate
 
-bc_cloth_type=Cloth
-bc_leather_type=Leather
-bc_mail_type=Mail
-bc_plate_type=Plate
+#bc_cloth_type=Cloth
+#bc_leather_type=Leather
+#bc_mail_type=Mail
+#bc_plate_type=Plate
 
 bcenviroment=Usage
 bcenviroment.pvp=Player vs. Player
@@ -70,7 +70,7 @@ bcrole.tank=tank
 
 bcclass.armorinfo=Armor
 bcclass.roleinfo=Role
-bcclass.rolesinfo=Roles
+bcclass.roleinfo.plural=Roles
 
 bcclass.none=No class
 bcclass.class=Class

@@ -64,7 +64,7 @@ public class BattleClassesItemArmor extends ItemArmor implements IAttributeProvi
 		
 	public BattleClassesItemArmor setItemLevel(int itemLevel) {
 		this.itemLevel = itemLevel;
-		this.setMaxDamage(this.armorType);
+		this.setMaxDamage(this.getDurability(this.armorType));
 		return this;
 	}
 	

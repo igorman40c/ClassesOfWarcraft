@@ -30,10 +30,10 @@ public class BattleClassesItem {
 	public static final BattleClassesCreativeTabs TabArmors = new BattleClassesCreativeTabs("bcarmor");
 	
 	//ARMOR MATERIALS
-	public static final ArmorMaterial BC_ARMOR_MATERIAL_PLATE = EnumHelper.addArmorMaterial("BC_PLATE_TYPE", 33, new int[]{3, 8, 6, 3}, 10);
-	public static final ArmorMaterial BC_ARMOR_MATERIAL_MAIL = EnumHelper.addArmorMaterial("BC_MAIL_TYPE", 33, new int[]{2, 6, 5, 2}, 10);
-	public static final ArmorMaterial BC_ARMOR_MATERIAL_LEATHER = EnumHelper.addArmorMaterial("BC_LEATHER_TYPE", 33, new int[]{1, 4, 3, 2}, 10);
-	public static final ArmorMaterial BC_ARMOR_MATERIAL_CLOTH = EnumHelper.addArmorMaterial("BC_CLOTH_TYPE", 33, new int[]{1, 2, 1, 1}, 10);
+	public static final ArmorMaterial BC_ARMOR_MATERIAL_PLATE = EnumHelper.addArmorMaterial("bcarmortype.plate", 33, new int[]{3, 8, 6, 3}, 10);
+	public static final ArmorMaterial BC_ARMOR_MATERIAL_MAIL = EnumHelper.addArmorMaterial("bcarmortype.mail", 33, new int[]{2, 6, 5, 2}, 10);
+	public static final ArmorMaterial BC_ARMOR_MATERIAL_LEATHER = EnumHelper.addArmorMaterial("bcarmortype.leather", 33, new int[]{1, 4, 3, 2}, 10);
+	public static final ArmorMaterial BC_ARMOR_MATERIAL_CLOTH = EnumHelper.addArmorMaterial("bcarmortype.cloth", 33, new int[]{1, 2, 1, 1}, 10);
 	
 	//MISC ITEMS
 	public static final BattleClassesItemAmmo manaGem = new BattleClassesItemAmmo("ManaGem", EnumSet.of(EnumBattleClassesPlayerClass.MAGE));
@@ -43,6 +43,8 @@ public class BattleClassesItem {
     public static final BattleClassesItemArmor[] mageSet_t1 = ItemFactory.createArmorSet(EnumSet.of(EnumBattleClassesPlayerClass.MAGE), BC_ARMOR_MATERIAL_CLOTH, 1, "mage.t1", BattleClassesMod.MODID);
     public static final BattleClassesItemArmor[] mageSet_t2 = ItemFactory.createArmorSet(EnumSet.of(EnumBattleClassesPlayerClass.MAGE), BC_ARMOR_MATERIAL_CLOTH, 2, "mage.t2", BattleClassesMod.MODID);
     public static final BattleClassesItemArmor[] mageSet_t3 = ItemFactory.createArmorSet(EnumSet.of(EnumBattleClassesPlayerClass.MAGE), BC_ARMOR_MATERIAL_CLOTH, 3, "mage.t3", BattleClassesMod.MODID);
+    
+    public static final BattleClassesItemArmor[] warriorSet_t1 = ItemFactory.createArmorSet(EnumSet.of(EnumBattleClassesPlayerClass.WARRIOR), BC_ARMOR_MATERIAL_PLATE, 1, "warrior.t1", BattleClassesMod.MODID);
     
     //WEAPON ITEMS
     public static ArrayList<IHighDetailWeapon> TwoHandedWeaponList = new ArrayList<IHighDetailWeapon>();
@@ -111,6 +113,12 @@ public class BattleClassesItem {
 			ItemFactory.setMagicalSpellAttributesForArmor(mageArmorPiece, magePrimaryTypes, null);
 		}
 		ItemFactory.registerItems(mageSet_t3);
+		
+		for(BattleClassesItemArmor warriorArmorPiece : warriorSet_t1){
+			ItemFactory.setMagicalSpellAttributesForArmor(warriorArmorPiece, warriorPrimaryTypes, null);
+		}
+		ItemFactory.registerItems(warriorSet_t1);	
+		
 		
 		GameRegistry.registerItem(itemGem, "gemItem");
 		
