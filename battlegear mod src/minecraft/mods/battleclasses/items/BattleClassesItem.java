@@ -44,6 +44,10 @@ public class BattleClassesItem {
     public static final BattleClassesItemArmor[] mageSet_t2 = ItemFactory.createArmorSet(EnumSet.of(EnumBattleClassesPlayerClass.MAGE), BC_ARMOR_MATERIAL_CLOTH, 2, "mage.t2", BattleClassesMod.MODID);
     public static final BattleClassesItemArmor[] mageSet_t3 = ItemFactory.createArmorSet(EnumSet.of(EnumBattleClassesPlayerClass.MAGE), BC_ARMOR_MATERIAL_CLOTH, 3, "mage.t3", BattleClassesMod.MODID);
     
+    public static final BattleClassesItemArmor[] hunterSet_t1 = ItemFactory.createArmorSet(EnumSet.of(EnumBattleClassesPlayerClass.HUNTER), BC_ARMOR_MATERIAL_CLOTH, 1, "hunter.t1", BattleClassesMod.MODID);
+    public static final BattleClassesItemArmor[] hunterSet_t2 = ItemFactory.createArmorSet(EnumSet.of(EnumBattleClassesPlayerClass.HUNTER), BC_ARMOR_MATERIAL_CLOTH, 2, "hunter.t2", BattleClassesMod.MODID);
+    public static final BattleClassesItemArmor[] hunterSet_t3 = ItemFactory.createArmorSet(EnumSet.of(EnumBattleClassesPlayerClass.HUNTER), BC_ARMOR_MATERIAL_CLOTH, 3, "hunter.t3", BattleClassesMod.MODID);
+    
     public static final BattleClassesItemArmor[] warriorSet_t1 = ItemFactory.createArmorSet(EnumSet.of(EnumBattleClassesPlayerClass.WARRIOR), BC_ARMOR_MATERIAL_PLATE, 1, "warrior.t1", BattleClassesMod.MODID);
     
     //WEAPON ITEMS
@@ -114,10 +118,23 @@ public class BattleClassesItem {
 		}
 		ItemFactory.registerItems(mageSet_t3);
 		
+		for(BattleClassesItemArmor hunterArmorPiece : hunterSet_t1){
+			ItemFactory.setMagicalSpellAttributesForArmor(hunterArmorPiece, hunterPrimaryTypes, null);
+		}
+		ItemFactory.registerItems(hunterSet_t1);		
+		for(BattleClassesItemArmor hunterArmorPiece : hunterSet_t2){
+			ItemFactory.setMagicalSpellAttributesForArmor(hunterArmorPiece, hunterPrimaryTypes, null);
+		}
+		ItemFactory.registerItems(hunterSet_t2);
+		for(BattleClassesItemArmor hunterArmorPiece : hunterSet_t3){
+			ItemFactory.setMagicalSpellAttributesForArmor(hunterArmorPiece, hunterPrimaryTypes, null);
+		}
+		ItemFactory.registerItems(hunterSet_t3);
+		
 		for(BattleClassesItemArmor warriorArmorPiece : warriorSet_t1){
 			ItemFactory.setMagicalSpellAttributesForArmor(warriorArmorPiece, warriorPrimaryTypes, null);
 		}
-		ItemFactory.registerItems(warriorSet_t1);	
+		//ItemFactory.registerItems(warriorSet_t1);	
 		
 		
 		GameRegistry.registerItem(itemGem, "gemItem");
