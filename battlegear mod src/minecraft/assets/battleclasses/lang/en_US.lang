@@ -43,6 +43,34 @@ item.battleclasses:armors/mage.t3.chest.name=Evoker's Robe
 item.battleclasses:armors/mage.t3.legs.name=Evoker's Trousers
 item.battleclasses:armors/mage.t3.boots.name=Evoker's Boots
 
+#Hunter armor sets (T1-T3)
+item.battleclasses:armors/hunter.t1.helm.name=Linked Helm
+item.battleclasses:armors/hunter.t1.chest.name=Linked Cuirass
+item.battleclasses:armors/hunter.t1.legs.name=Linked Leggings
+item.battleclasses:armors/hunter.t1.boots.name=Linked Boots
+item.battleclasses:armors/hunter.t2.helm.name=Ranger's Helm
+item.battleclasses:armors/hunter.t2.chest.name=Ranger's Cuirass
+item.battleclasses:armors/hunter.t2.legs.name=Ranger's Leggings
+item.battleclasses:armors/hunter.t2.boots.name=Ranger's Boots
+item.battleclasses:armors/hunter.t3.helm.name=Beast Lord Helm
+item.battleclasses:armors/hunter.t3.chest.name=Beast Lord Cuirass
+item.battleclasses:armors/hunter.t3.legs.name=Beast Lord Leggings
+item.battleclasses:armors/hunter.t3.boots.name=Beast Lord Boots
+
+#Warrior armor sets (T1-T3)
+item.battleclasses:armors/warrior.t1.helm.name=Savage Platehelm
+item.battleclasses:armors/warrior.t1.chest.name=Savage Chestplate
+item.battleclasses:armors/warrior.t1.legs.name=Savage Legplates
+item.battleclasses:armors/warrior.t1.boots.name=Savage Boots
+item.battleclasses:armors/warrior.t2.helm.name=Reinforced Platehelm
+item.battleclasses:armors/warrior.t2.chest.name=Reinforced Chestplate
+item.battleclasses:armors/warrior.t2.legs.name=Reinforced Legplates
+item.battleclasses:armors/warrior.t2.boots.name=Reinforced Boots
+item.battleclasses:armors/warrior.t3.helm.name=Bold Platehelm
+item.battleclasses:armors/warrior.t3.chest.name=Bold Chestplate
+item.battleclasses:armors/warrior.t3.legs.name=Bold Legplates
+item.battleclasses:armors/warrior.t3.boots.name=Bold Boots
+
 bchandheld.one_handed=One Handed
 bchandheld.main_handed=Main hand
 bchandheld.two_handed=Two Handed
@@ -52,11 +80,6 @@ bcarmortype.cloth=Cloth
 bcarmortype.leather=Leather
 bcarmortype.mail=Mail
 bcarmortype.plate=Plate
-
-#bc_cloth_type=Cloth
-#bc_leather_type=Leather
-#bc_mail_type=Mail
-#bc_plate_type=Plate
 
 bcenviroment=Usage
 bcenviroment.pvp=Player vs. Player

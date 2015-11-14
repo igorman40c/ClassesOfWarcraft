@@ -49,6 +49,8 @@ public class BattleClassesItem {
     public static final BattleClassesItemArmor[] hunterSet_t3 = ItemFactory.createArmorSet(EnumSet.of(EnumBattleClassesPlayerClass.HUNTER), BC_ARMOR_MATERIAL_CLOTH, 3, "hunter.t3", BattleClassesMod.MODID);
     
     public static final BattleClassesItemArmor[] warriorSet_t1 = ItemFactory.createArmorSet(EnumSet.of(EnumBattleClassesPlayerClass.WARRIOR), BC_ARMOR_MATERIAL_PLATE, 1, "warrior.t1", BattleClassesMod.MODID);
+    public static final BattleClassesItemArmor[] warriorSet_t2 = ItemFactory.createArmorSet(EnumSet.of(EnumBattleClassesPlayerClass.WARRIOR), BC_ARMOR_MATERIAL_CLOTH, 2, "warrior.t2", BattleClassesMod.MODID);
+    public static final BattleClassesItemArmor[] warriorSet_t3 = ItemFactory.createArmorSet(EnumSet.of(EnumBattleClassesPlayerClass.WARRIOR), BC_ARMOR_MATERIAL_CLOTH, 3, "warrior.t3", BattleClassesMod.MODID);
     
     //WEAPON ITEMS
     public static ArrayList<IHighDetailWeapon> TwoHandedWeaponList = new ArrayList<IHighDetailWeapon>();
@@ -134,17 +136,20 @@ public class BattleClassesItem {
 		for(BattleClassesItemArmor warriorArmorPiece : warriorSet_t1){
 			ItemFactory.setMagicalSpellAttributesForArmor(warriorArmorPiece, warriorPrimaryTypes, null);
 		}
-		//ItemFactory.registerItems(warriorSet_t1);	
-		
+		ItemFactory.registerItems(warriorSet_t1);	
+		for(BattleClassesItemArmor warriorArmorPiece : warriorSet_t2){
+			ItemFactory.setMagicalSpellAttributesForArmor(warriorArmorPiece, warriorPrimaryTypes, null);
+		}
+		ItemFactory.registerItems(warriorSet_t2);
+		for(BattleClassesItemArmor warriorArmorPiece : warriorSet_t3){
+			ItemFactory.setMagicalSpellAttributesForArmor(warriorArmorPiece, warriorPrimaryTypes, null);
+		}
+		ItemFactory.registerItems(warriorSet_t3);
 		
 		GameRegistry.registerItem(itemGem, "gemItem");
 		
 		TabWeapons.tabIconItem = itemStaffWood;
 		TabArmors.tabIconItem = mageSet_t1[0];
 	}
-	
-	public static BattleClassesItemWeapon createWeapon(String name, int itemLevel, EnumSet<EnumBattleClassesPlayerClass> classes) {
-		return null;
-	}
-	
+		
 }
