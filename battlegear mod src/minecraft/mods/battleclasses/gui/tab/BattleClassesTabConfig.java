@@ -14,8 +14,7 @@ import org.lwjgl.opengl.GL11;
 public class BattleClassesTabConfig extends BattleClassesAbstractTab {
 	
 	public static final ResourceLocation resource = new ResourceLocation("battleclasses", "textures/gui/InterfaceConfig.png");
-	
-	private static final boolean drawDressroom = true;
+	public static final ResourceLocation dressroomResource = new ResourceLocation("battleclasses", "textures/gui/InterfaceDressroom.png");
 
     public BattleClassesTabConfig(EntityPlayer entityPlayer, boolean isRemote) {
         super(entityPlayer, isRemote, new BattleClassesContainerEmpty(entityPlayer.inventory, !isRemote, entityPlayer));
@@ -48,14 +47,8 @@ public class BattleClassesTabConfig extends BattleClassesAbstractTab {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.renderEngine.bindTexture(resource);
         int var5 = this.guiLeft;
-        int var6 = this.guiTop;
-        
+        int var6 = this.guiTop;        
         this.drawTexturedModalRect(var5, var6, 0, 0, this.xSize, this.ySize);
-        
-        if(this.drawDressroom) {
-        	int borderWidth = 3;
-        	GuiInventory.func_147046_a((int) (this.guiLeft + this.DEFAULT_GUI_WIDTH/2F), (int) (this.guiTop + this.DEFAULT_GUI_HEIGHT - 16), 70, (float) (var5 + 51) - this.xSize_lo, (float) (var6 + 75 - 50) - this.ySize_lo, mc.thePlayer);
-        }
     }
     
     public static void open(EntityPlayer player){
