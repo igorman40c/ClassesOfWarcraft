@@ -128,6 +128,11 @@ bcclass.paladin.talentsinfo=Paladin talents increase their ability to heal the w
 bcclass.warrior.talentsinfo=Warrior talents can improve their already considerable defenses with a shield, increase their deadliness with two-handed weapons, or bolster their savagery while dual-wielding.
 #UNUSED ATM STUFF-END
 
+bcgui.confirmation.yes=Yes
+bcgui.confirmation.no=No
+bcgui.confirmation.class_reset.title=Are you sure to reset your class?
+bcgui.confirmation.class_reset.message=You will lose all of your talent points and ability ranks.
+
 bctab.inventory.name=Inventory
 bctab.equipment.name=Battle Equipment
 bctab.spellbook.name=Spellbook

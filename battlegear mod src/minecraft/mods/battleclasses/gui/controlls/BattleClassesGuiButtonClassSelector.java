@@ -11,6 +11,7 @@ import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
 import mods.battleclasses.core.BattleClassesPlayerClass;
 import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
+import mods.battleclasses.gui.BattleClassesGuiConfirmation;
 import mods.battleclasses.gui.BattleClassesGuiHelper;
 import mods.battleclasses.gui.tab.BattleClassesTabClassSelector;
 import mods.battleclasses.packet.BattleClassesPacketPlayerClassSnyc;
@@ -22,9 +23,11 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 
-public class BattleClassesGuiButtonClassSelector extends BattleClassesGuiButton {
+public class BattleClassesGuiButtonClassSelector extends BattleClassesGuiButton implements BattleClassesGuiConfirmation.Handler {
 	
 	public EnumBattleClassesPlayerClass playerClass;
+	
+	public static final ResourceLocation classselectionGuiResource = BattleClassesTabClassSelector.resource;
 	
 	public BattleClassesGuiButtonClassSelector(int id, ResourceLocation resource, EnumBattleClassesPlayerClass parPlayerClass) {
 		super(id, resource);
@@ -45,6 +48,10 @@ public class BattleClassesGuiButtonClassSelector extends BattleClassesGuiButton 
 		return BattleClassesUtils.getPlayerClassEnum(Minecraft.getMinecraft().thePlayer) == this.playerClass;
 	}
 	
+	public boolean hasAnyClassSelected() {
+		return BattleClassesUtils.getPlayerClassEnum(Minecraft.getMinecraft().thePlayer) != EnumBattleClassesPlayerClass.NONE;
+	}
+	
 	/**
      * Draws this button to the screen.
      */
@@ -55,30 +62,33 @@ public class BattleClassesGuiButtonClassSelector extends BattleClassesGuiButton 
             super.drawButton(mc, currentMousePosX, currentMousePosY);
             FontRenderer fontrenderer = mc.fontRenderer;
             //Drawing Tab Icon
-            mc.getTextureManager().bindTexture(this.playerClass.getIconResourceLocation());
-            int classIconWidth = 32;
-            int classIconHeight = 32;
+            
+            
             int hoverState = this.getHoverState(this.field_146123_n);
             if(hoverState == 0) {
             	
             }
             
+            //Drawing class icon
+            int classIconWidth = 32;
+            int classIconHeight = 32;
+            mc.getTextureManager().bindTexture(this.playerClass.getIconResourceLocation());
             BattleClassesGuiHelper.drawTexturedRectFromCustomSource(this.xPosition + this.width/2 - classIconWidth/2, this.yPosition + this.height/2 -  classIconHeight/2, classIconWidth, classIconHeight, this.zLevel);
-            /*this.drawTexturedModelRectFromIcon(this.xPosition + this.width/2 - classIcon.getIconWidth()/2, 
-            								this.yPosition + this.height/2 -  classIcon.getIconHeight()/2,
-            								classIcon, classIcon.getIconWidth(), classIcon.getIconHeight());
-             */
-            //Drawing Cooldown
-            /*
-            if(shouldBeDisabled()) {
-            	drawCooldown(this.xPosition + this.width/2 - classIconWidth/2, 
-						this.yPosition + this.height/2 -  classIconHeight/2,
-						BattleClassesUtils.getCooldownPercentage(BattleClassesUtils.getPlayerHooks(mc.thePlayer).playerClass));
+            
+            //Drawing selector
+            if (this.isClassSelected()) {
+            	int selectorWidth = 40;
+                int selectorHeight = 40;
+                int selectorX = this.xPosition + this.width/2 - classIconWidth/2 - ((selectorWidth-classIconWidth)/2);
+                int selectorY = this.yPosition + this.height/2 -  classIconHeight/2 -((selectorHeight-classIconHeight)/2);
+                int selectorU = 0;
+                int selectorV = 255 - 40;
+                mc.getTextureManager().bindTexture(classselectionGuiResource);
+                this.drawTexturedModalRect(selectorX, selectorY, selectorU, selectorV, selectorWidth, selectorHeight);
             }
-            */
         }
     }
-    
+        
     public void drawCooldown(int posX, int posY, float f) {
     	if(f > 0) {
     		int frameIndex = BattleClassesGuiHelper.cooldownIcons.length-1;
@@ -97,17 +107,38 @@ public class BattleClassesGuiButtonClassSelector extends BattleClassesGuiButton 
 	@Override
 	public boolean mousePressed(Minecraft mc, int mouseX, int mouseY) {
 		boolean inWindow = super.mousePressed(mc, mouseX, mouseY);
-		boolean press = inWindow && !isClassSelected();
+		boolean press = inWindow;
+		boolean shouldSelectClass = !this.hasAnyClassSelected();
+		boolean showConfirmationDialog = this.hasAnyClassSelected() && !isClassSelected();
 		if (press) {
-			FMLProxyPacket p = new BattleClassesPacketPlayerClassSnyc(mc.thePlayer, this.playerClass).generatePacket();
-			BattleClassesMod.packetHandler.sendPacketToServer(p);
+			if(shouldSelectClass) {
+				this.selectPlayerClass(mc, this.playerClass);
+			}
+			else if (showConfirmationDialog) {
+				System.out.println("Show confirmation dialog, return and reset class");
+				//this.selectPlayerClass(mc, EnumBattleClassesPlayerClass.NONE);
+				mc.displayGuiScreen(new BattleClassesGuiConfirmation("bcgui.confirmation.class_reset.title", "bcgui.confirmation.class_reset.message", true, this, mc.currentScreen));
+			}
 		}
 		return press;
+	}
+	
+	protected void selectPlayerClass(Minecraft mc, EnumBattleClassesPlayerClass playerClass) {
+		FMLProxyPacket p = new BattleClassesPacketPlayerClassSnyc(mc.thePlayer, playerClass).generatePacket();
+		BattleClassesMod.packetHandler.sendPacketToServer(p);
 	}
 	
 	@Override
     public List<String> getTooltipText() {
     	return this.playerClass.getTooltipText();
+	}
+
+	@Override
+	public void confirmationDialogDidFinish(BattleClassesGuiConfirmation confirmationGuiScreen, boolean result) {
+		Minecraft mc = Minecraft.getMinecraft();
+		if(result) {
+			this.selectPlayerClass(mc, EnumBattleClassesPlayerClass.NONE);
+		}
 	}
 
 }

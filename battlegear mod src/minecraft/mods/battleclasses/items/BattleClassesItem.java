@@ -44,13 +44,13 @@ public class BattleClassesItem {
     public static final BattleClassesItemArmor[] mageSet_t2 = ItemFactory.createArmorSet(EnumSet.of(EnumBattleClassesPlayerClass.MAGE), BC_ARMOR_MATERIAL_CLOTH, 2, "mage.t2", BattleClassesMod.MODID);
     public static final BattleClassesItemArmor[] mageSet_t3 = ItemFactory.createArmorSet(EnumSet.of(EnumBattleClassesPlayerClass.MAGE), BC_ARMOR_MATERIAL_CLOTH, 3, "mage.t3", BattleClassesMod.MODID);
     
-    public static final BattleClassesItemArmor[] hunterSet_t1 = ItemFactory.createArmorSet(EnumSet.of(EnumBattleClassesPlayerClass.HUNTER), BC_ARMOR_MATERIAL_CLOTH, 1, "hunter.t1", BattleClassesMod.MODID);
-    public static final BattleClassesItemArmor[] hunterSet_t2 = ItemFactory.createArmorSet(EnumSet.of(EnumBattleClassesPlayerClass.HUNTER), BC_ARMOR_MATERIAL_CLOTH, 2, "hunter.t2", BattleClassesMod.MODID);
-    public static final BattleClassesItemArmor[] hunterSet_t3 = ItemFactory.createArmorSet(EnumSet.of(EnumBattleClassesPlayerClass.HUNTER), BC_ARMOR_MATERIAL_CLOTH, 3, "hunter.t3", BattleClassesMod.MODID);
+    public static final BattleClassesItemArmor[] hunterSet_t1 = ItemFactory.createArmorSet(EnumSet.of(EnumBattleClassesPlayerClass.HUNTER), BC_ARMOR_MATERIAL_LEATHER, 1, "hunter.t1", BattleClassesMod.MODID);
+    public static final BattleClassesItemArmor[] hunterSet_t2 = ItemFactory.createArmorSet(EnumSet.of(EnumBattleClassesPlayerClass.HUNTER), BC_ARMOR_MATERIAL_LEATHER, 2, "hunter.t2", BattleClassesMod.MODID);
+    public static final BattleClassesItemArmor[] hunterSet_t3 = ItemFactory.createArmorSet(EnumSet.of(EnumBattleClassesPlayerClass.HUNTER), BC_ARMOR_MATERIAL_LEATHER, 3, "hunter.t3", BattleClassesMod.MODID);
     
     public static final BattleClassesItemArmor[] warriorSet_t1 = ItemFactory.createArmorSet(EnumSet.of(EnumBattleClassesPlayerClass.WARRIOR), BC_ARMOR_MATERIAL_PLATE, 1, "warrior.t1", BattleClassesMod.MODID);
-    public static final BattleClassesItemArmor[] warriorSet_t2 = ItemFactory.createArmorSet(EnumSet.of(EnumBattleClassesPlayerClass.WARRIOR), BC_ARMOR_MATERIAL_CLOTH, 2, "warrior.t2", BattleClassesMod.MODID);
-    public static final BattleClassesItemArmor[] warriorSet_t3 = ItemFactory.createArmorSet(EnumSet.of(EnumBattleClassesPlayerClass.WARRIOR), BC_ARMOR_MATERIAL_CLOTH, 3, "warrior.t3", BattleClassesMod.MODID);
+    public static final BattleClassesItemArmor[] warriorSet_t2 = ItemFactory.createArmorSet(EnumSet.of(EnumBattleClassesPlayerClass.WARRIOR), BC_ARMOR_MATERIAL_PLATE, 2, "warrior.t2", BattleClassesMod.MODID);
+    public static final BattleClassesItemArmor[] warriorSet_t3 = ItemFactory.createArmorSet(EnumSet.of(EnumBattleClassesPlayerClass.WARRIOR), BC_ARMOR_MATERIAL_PLATE, 3, "warrior.t3", BattleClassesMod.MODID);
     
     //WEAPON ITEMS
     public static ArrayList<IHighDetailWeapon> TwoHandedWeaponList = new ArrayList<IHighDetailWeapon>();

@@ -24,7 +24,6 @@ public class BattleClassesTabClassSelector extends BattleClassesAbstractTab  {
 	
 	public static final ResourceLocation resource = new ResourceLocation("battleclasses", "textures/gui/InterfaceClassSelector.png");
 	
-	
 	public static List<BattleClassesGuiButtonClassSelector> classButtonList = new ArrayList<BattleClassesGuiButtonClassSelector>();
 	static {
 		classButtonList.add(new BattleClassesGuiButtonClassSelector(0, resource, EnumBattleClassesPlayerClass.MAGE));
