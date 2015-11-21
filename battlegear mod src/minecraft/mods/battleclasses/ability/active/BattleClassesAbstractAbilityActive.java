@@ -86,6 +86,8 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 	protected boolean requiresMeleeSwing = false;
 	protected int requiredItemLevel = 0;
 	
+	protected int rank = 0;
+	
 	public EnumAction getEnumActionForCasting() {
 		return EnumAction.bow;
 	}
@@ -501,6 +503,10 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 		BattleClassesAttributes attributesForAbility = this.getPlayerAttributes().getTotalAttributesForAbility(this); 
 		float hasteMultiplier = BattleClassesUtils.getPlayerAttributes(this.getOwnerPlayer()).getHasteMultiplierFromAttributes(attributesForAbility);
     	return hasteMultiplier;
+	}
+	
+	public int getRank() {
+		return this.rank;
 	}
 		
 	//----------------------------------------------------------------------------------

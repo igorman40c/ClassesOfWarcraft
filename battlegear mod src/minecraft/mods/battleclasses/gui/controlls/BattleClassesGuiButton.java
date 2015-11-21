@@ -110,15 +110,14 @@ public class BattleClassesGuiButton extends GuiButton implements ITooltipProvide
 	}
 	
 	public boolean shouldTrunctateDisplayString = true;
-	
+	protected float trunctationMargins = 2 * 4F;
 	public void setDisplayString(String text) {
 		this.displayString = text;
 		
 		if (this.shouldTrunctateDisplayString) {
 			Minecraft mc = Minecraft.getMinecraft();
 			FontRenderer fontrenderer = mc.fontRenderer;
-			float margins = 2 * 4F;
-			float maximalWidth = this.width - margins;
+			float maximalWidth = this.width - trunctationMargins;
 			this.displayString = BattleClassesGuiHelper.trunctateStringToMaximalWidth(this.displayString, maximalWidth, fontrenderer);
 		}
 	}

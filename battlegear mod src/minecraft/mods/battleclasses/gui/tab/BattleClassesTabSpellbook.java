@@ -123,9 +123,9 @@ public class BattleClassesTabSpellbook extends BattleClassesAbstractTab {
         	int posX = this.guiLeft + ((i<4) ? 20 : 95);
         	int posY = this.guiTop + 23 + ((i<4) ? i*(12+18) : (i-4)*(12+18)) ;
         	this.drawAbilityFrame(posX, posY);
-        	this.drawAbilityRank(posX + 19, posY, spellbookAbilityNodes.get(i).ability);
+        	//this.drawAbilityRank(posX + 19, posY, spellbookAbilityNodes.get(i).ability);
         	spellbookAbilityNodes.get(i).setPosition(posX+1, posY+1);
-        	upgradeButtons.get(i).setPosition(posX+19, posY+10);
+        	upgradeButtons.get(i).setPosition(posX+19, posY);
         }
         
         if(this.tempMovingNode != null) {

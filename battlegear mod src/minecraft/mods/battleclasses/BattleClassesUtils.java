@@ -65,8 +65,8 @@ public static Logger battleClassesLogger = LogManager.getLogger("Battle Classes"
     	battleClassesLogger.error(message);
     }
     
-    public static boolean testMode() {
-    	return false;
+    public static boolean RELEASE_MODE() {
+    	return true;
     }
 	
 	public static double getCurrentTimeInSeconds() {

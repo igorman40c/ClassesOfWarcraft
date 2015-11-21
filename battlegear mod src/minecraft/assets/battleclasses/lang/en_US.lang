@@ -133,6 +133,8 @@ bcgui.confirmation.no=No
 bcgui.confirmation.class_reset.title=Are you sure to reset your class?
 bcgui.confirmation.class_reset.message=You will lose all of your talent points and ability ranks.
 
+bcgui.ability_rank=Rank %1$s
+
 bctab.inventory.name=Inventory
 bctab.equipment.name=Battle Equipment
 bctab.spellbook.name=Spellbook

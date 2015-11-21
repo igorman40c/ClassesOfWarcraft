@@ -157,7 +157,7 @@ public class BattleClassesPlayerClass implements ICooldownOwner {
 	
 	// -------------------- ICooldownOwner implementation --------------------
 	
-	public static final float CLASS_SWITCH_COOLDOWN_DURATION = 3.0F;
+	public static final float CLASS_SWITCH_COOLDOWN_DURATION = (BattleClassesUtils.RELEASE_MODE()) ? 10.0F : 3.0F;
 	public static final String CLASS_SWITCH_COOLDOWN_HASHCODE = "class_switch";
 
 	@Override

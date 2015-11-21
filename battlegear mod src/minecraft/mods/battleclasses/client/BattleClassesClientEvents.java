@@ -103,7 +103,9 @@ public class BattleClassesClientEvents {
 		tabsButtonList.add(new GuiTabBarButtonClassSelector(4, 40, 40));
 		
 		//tabsButtonList.add(new GuiTabBarButtonConfig(5, 60, 60, false));
-		tabsButtonList.add(new GuiTabBarButtonHelp(6, 60, 60, false));
+		if(!BattleClassesUtils.RELEASE_MODE()) {
+			tabsButtonList.add(new GuiTabBarButtonHelp(6, 60, 60, false));			
+		}
 	}
 		
 	/*

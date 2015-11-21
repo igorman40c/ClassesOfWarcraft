@@ -43,9 +43,9 @@ public class BattleClassesAttributeModifierTotalCrossBonus extends BattleClasses
 		String description = StatCollector.translateToLocal((this.multiplier > 1) ? 
 				"bceffect.modifier.increase" : "bceffect.modifier.reduce");
 		String amplifierString = StatCollector.translateToLocal("bcattribute.modifier.crossbonus");
-		amplifierString.replace("%1$s", toType.getTranslatedName());
-		amplifierString.replace("%2$s", String.format("%.0f", 100F*this.multiplier));
-		amplifierString.replace("%3$s", fromType.getTranslatedName());
+		amplifierString = amplifierString.replace("%1$s", toType.getTranslatedName());
+		amplifierString = amplifierString.replace("%2$s", String.format("%.0f", 100F*this.multiplier));
+		amplifierString = amplifierString.replace("%3$s", fromType.getTranslatedName());
 		description += " " + amplifierString;
 		
 		if(this.applyCriteria != null) {

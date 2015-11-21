@@ -14,12 +14,15 @@ public class BattleClassesGuiButtonTalentGain extends BattleClassesGuiButton {
 		this.displayString = "Gain";
 		this.resource = new ResourceLocation("battleclasses", "textures/gui/InterfaceTalent.png");
 		this.setOrigin(0, 196);
+		this.showHoveringText = true;
+		this.hoveringTextString = "FEATURE IN DEVELOPMENT!:(";
 	}
-	
+	/*
 	@Override
 	public boolean shouldBeDisabled() {
 		return true;
 	}
+	*/
 	
 	@Override
 	public boolean mousePressed(Minecraft mc, int mouseX, int mouseY) {
