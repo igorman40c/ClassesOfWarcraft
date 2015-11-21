@@ -134,11 +134,11 @@ bcgui.confirmation.class_reset.title=Are you sure to reset your class?
 bcgui.confirmation.class_reset.message=You will lose all of your talent points and ability ranks.
 
 bcgui.ability_rank=Rank %1$s
+bcgui.ability_rank.zero=Learn
 
 bctab.inventory.name=Inventory
 bctab.equipment.name=Battle Equipment
 bctab.spellbook.name=Spellbook
-bctab.spellbook.upgrade=Learn
 bctab.talents.name=Talent Specialization
 bctab.classselector.name=Class Selection
 bctab.config.name=Battle Classes mod settings
@@ -301,6 +301,7 @@ ability.universal.shieldblock=Shield block
 ability.universal.attack.mainhand=Attack main-hand
 ability.universal.attack.offhand=Attack off-hand
 
+ability.mage.arcane_missiles.name=Arcane Missiles
 ability.mage.iceblock.name=Ice Block
 ability.mage.iceblock.description=You become encased in a block of ice, protecting you from all physical attacks and spells for 10 sec, but during that time you cannot attack, move or cast spells.
 ability.mage.scorch.name=Scorch

@@ -7,10 +7,10 @@ import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
 import mods.battleclasses.gui.tab.BattleClassesTabSpellbook;
 import net.minecraft.util.StatCollector;
 
-public class BattleClassesGuiButtonAbilityUpgrade extends BattleClassesGuiButton {
+public class BattleClassesGuiButtonAbilityRank extends BattleClassesGuiButton {
 
 	public BattleClassesAbstractAbilityActive ability;
-	public BattleClassesGuiButtonAbilityUpgrade(int id, BattleClassesAbstractAbilityActive parAbility) {
+	public BattleClassesGuiButtonAbilityRank(int id, BattleClassesAbstractAbilityActive parAbility) {
 		super(id, 0, 0, 40, 18, "");
 		this.trunctationMargins = 4F;
 		this.showHoveringText = true;
@@ -22,9 +22,17 @@ public class BattleClassesGuiButtonAbilityUpgrade extends BattleClassesGuiButton
 	}
 	
 	public void updateDisplayTitle() {
-		String rankString = StatCollector.translateToLocal("bcgui.ability_rank");
-		String rankNumber = "" + this.ability.getRank();
-		rankString = rankString.replace("%1$s", rankNumber);
+		String rankString = "";
+		int abilityRank = this.ability.getRank();
+		if(abilityRank == 0) {
+			rankString = StatCollector.translateToLocal("bcgui.ability_rank.zero");
+		}
+		else {
+			rankString = StatCollector.translateToLocal("bcgui.ability_rank");
+			String rankNumber = "" + abilityRank;
+			rankString = rankString.replace("%1$s", rankNumber);
+		}
+		
 		this.setDisplayString(rankString);
 	}
 

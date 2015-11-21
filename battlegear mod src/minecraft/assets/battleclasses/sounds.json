@@ -1,5 +1,25 @@
 {
     ###Classes Of Warcraft sound configuration###
+	##User Interface sounds##
+	"gui.classpick": {
+    "category": "player",
+    "sounds": [
+        "gui.classpick"
+      ]
+    }
+	"gui.learn": {
+    "category": "player",
+    "sounds": [
+        "gui.learn"
+      ]
+    }
+	"gui.talent": {
+    "category": "player",
+    "sounds": [
+        "gui.talent"
+      ]
+    }
+	
     ##Ability school casting sounds##
     "abilityschool.physical_ranged.casting": {
     "category": "player",

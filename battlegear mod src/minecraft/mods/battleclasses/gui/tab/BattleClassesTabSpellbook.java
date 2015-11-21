@@ -16,7 +16,7 @@ import mods.battleclasses.core.BattleClassesTalentTree;
 import mods.battleclasses.gui.BattleClassesGuiHandler;
 import mods.battleclasses.gui.BattleClassesGuiHelper;
 import mods.battleclasses.gui.controlls.BattleClassesGuiButtonAbilityNode;
-import mods.battleclasses.gui.controlls.BattleClassesGuiButtonAbilityUpgrade;
+import mods.battleclasses.gui.controlls.BattleClassesGuiButtonAbilityRank;
 import mods.battleclasses.gui.controlls.BattleClassesGuiButtonTalentNode;
 import mods.battleclasses.gui.controlls.BattleClassesGuiButtonTalentReset;
 import mods.battleclasses.gui.controlls.BattleClassesGuiButtonTalentTree;
@@ -38,7 +38,7 @@ public class BattleClassesTabSpellbook extends BattleClassesAbstractTab {
 	
 	public static ArrayList<BattleClassesGuiButtonAbilityNode> actionbarAbilityNodes = new ArrayList<BattleClassesGuiButtonAbilityNode>();
 	public static ArrayList<BattleClassesGuiButtonAbilityNode> spellbookAbilityNodes = new ArrayList<BattleClassesGuiButtonAbilityNode>();
-	public static ArrayList<BattleClassesGuiButtonAbilityUpgrade> upgradeButtons = new ArrayList<BattleClassesGuiButtonAbilityUpgrade>();
+	public static ArrayList<BattleClassesGuiButtonAbilityRank> upgradeButtons = new ArrayList<BattleClassesGuiButtonAbilityRank>();
 	
     @Override
     public void initGui()
@@ -72,7 +72,7 @@ public class BattleClassesTabSpellbook extends BattleClassesAbstractTab {
     			this.buttonList.remove(spellbookAbilityNode);
     		}
     	}
-    	for(BattleClassesGuiButtonAbilityUpgrade upgradeButton : upgradeButtons) {
+    	for(BattleClassesGuiButtonAbilityRank upgradeButton : upgradeButtons) {
     		if(this.buttonList.contains(upgradeButton)) {
     			this.buttonList.remove(upgradeButton);
     		}
@@ -83,7 +83,7 @@ public class BattleClassesTabSpellbook extends BattleClassesAbstractTab {
     		int i = 0;
     		for(BattleClassesAbstractAbilityActive activeAbility : spellbook.getActiveAbilitiesInArray()) {
     			BattleClassesGuiButtonAbilityNode spellbookAbilityNode = new BattleClassesGuiButtonAbilityNode(activeAbility);
-    			BattleClassesGuiButtonAbilityUpgrade upgradeButton = new BattleClassesGuiButtonAbilityUpgrade(9900+i, activeAbility);
+    			BattleClassesGuiButtonAbilityRank upgradeButton = new BattleClassesGuiButtonAbilityRank(9900+i, activeAbility);
     			spellbookAbilityNodes.add(spellbookAbilityNode);
     			upgradeButtons.add(upgradeButton);
     			this.buttonList.add(spellbookAbilityNode);

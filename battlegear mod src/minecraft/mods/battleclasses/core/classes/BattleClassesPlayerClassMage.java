@@ -27,6 +27,7 @@ import mods.battleclasses.enums.EnumBattleClassesAttributeType;
 import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
 import mods.battleclasses.enums.EnumBattleClassesPlayerEnviroment;
 import mods.battleclasses.enums.EnumBattleClassesPlayerRole;
+import mods.battleclasses.items.BattleClassesItem;
 
 public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 		
@@ -109,7 +110,7 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 		
 		public ArcaneMissilesTestAbility() {
 			super();
-			this.setUnlocalizedName("mage.arcanemissiles");
+			this.setUnlocalizedName("mage.arcane_missiles");
 			this.setAmmoRequirement(Item.getItemById(263), 1);
 			
 		}
@@ -158,7 +159,7 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 			this.range = 10F;
 			BattleClassesAbstractAbilityEffectInstantValue effect = EffectFactory.createInstantAbilityEffect(10, 0, EnumBattleClassesAbilitySchool.SPELL_FIRE); 
 			this.addEffect(effect);
-			this.setAmmoRequirement(Item.getItemById(263), 1);
+			this.setAmmoRequirement(BattleClassesItem.manaGem, 1);
 		}
 	}
 	
@@ -206,7 +207,7 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 		}
 	}
 	
-	public static class IceBlockTestAbility extends BattleClassesAbilityTestCasted {
+	public static class IceBlockTestAbility extends BattleClassesAbilityActiveDirect {
 		
 		public static final IceBlockTestAbility INSTANCE = new IceBlockTestAbility();
 		static {
