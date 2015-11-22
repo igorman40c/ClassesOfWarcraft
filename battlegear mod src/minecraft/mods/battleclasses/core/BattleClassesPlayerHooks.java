@@ -163,15 +163,18 @@ public class BattleClassesPlayerHooks implements IMainCooldownMap {
 		return cooldownMultiplier;
 	}
 	
-	public static final String NBT_TAGNAME_COMPOUNDNAME_KEY = "Name";
-	public static final String NBT_TAGNAME_COMPOUNDNAME_VALUE = "BattleClasses";
-	public static final String NBT_TAGNAME_PLAYERCLASS = "BC_PlayerClass"; 
-	public static final String NBT_TAGNAME_TALENT_TREE_STATES = "BC_TalentTreeStates";
-	public static final String NBT_TAGNAME_CD_MAP = "BC_Cooldowns";
-	public static final String NBT_TAGNAME_CD_KEY = "CD_Key";
-	public static final String NBT_TAGNAME_CD_SETTIME = "CD_SetTime";
-	public static final String NBT_TAGNAME_CD_LASTDURATION = "CD_LastDuration";
-	public static final String NBT_TAGNAME_CD_LASTTYPE = "CD_LastType";
+	private static final String NBT_TAGNAME_COMPOUNDNAME_KEY = "Name";
+	private static final String NBT_TAGNAME_COMPOUNDNAME_VALUE = "BattleClasses";
+	private static final String NBT_TAGNAME_PLAYERCLASS = "BC_PlayerClass"; 
+	private static final String NBT_TAGNAME_TALENT_TREE_STATES = "BC_TalentTreeStates";
+	private static final String NBT_TAGNAME_ABLITY_MAP = "BC_Abilities";
+	private static final String NBT_TAGNAME_ABLITY_ID = "BC_AbilityId";
+	private static final String NBT_TAGNAME_ABLITY_RANK_VALUE = "BC_AbilityRank";
+	private static final String NBT_TAGNAME_CD_MAP = "BC_Cooldowns";
+	private static final String NBT_TAGNAME_CD_KEY = "CD_Key";
+	private static final String NBT_TAGNAME_CD_SETTIME = "CD_SetTime";
+	private static final String NBT_TAGNAME_CD_LASTDURATION = "CD_LastDuration";
+	private static final String NBT_TAGNAME_CD_LASTTYPE = "CD_LastType";
 	
 	public NBTTagCompound writeTagCompound() {
 		BattleClassesUtils.Log("Writing PlayerHooks NBT", LogType.CORE);
@@ -184,6 +187,17 @@ public class BattleClassesPlayerHooks implements IMainCooldownMap {
     	
     	//Saving Talent Matrix
     	tagCompound.setIntArray(NBT_TAGNAME_TALENT_TREE_STATES, this.playerClass.talentMatrix.getPointsOnTrees());
+    	
+    	//Saving Ability data
+    	NBTTagList abilities = new NBTTagList();
+    	for(String abilityID : this.playerClass.activeAbilities.keySet()) {
+    		BattleClassesAbstractAbilityActive ability = this.playerClass.activeAbilities.get(abilityID);
+    		NBTTagCompound abilityTagCompound = new NBTTagCompound();
+    		abilityTagCompound.setString(NBT_TAGNAME_ABLITY_ID, abilityID);
+    		abilityTagCompound.setInteger(NBT_TAGNAME_ABLITY_RANK_VALUE, ability.getCurrentRank());
+    		abilities.appendTag(abilityTagCompound);
+		}
+    	tagCompound.setTag(NBT_TAGNAME_ABLITY_MAP, abilities);
     	
     	//Saving main CooldownClock map
     	NBTTagList cooldownClocks = new NBTTagList();
@@ -223,6 +237,22 @@ public class BattleClassesPlayerHooks implements IMainCooldownMap {
     		this.playerClass.getCooldownClock().setEnabled(false);
     		this.playerClass.talentMatrix.applyPointsOnTrees(pointsOnTrees);
     		this.playerClass.getCooldownClock().setEnabled(true);
+    		
+    		//Loading Ability data
+    		NBTTagList abilityDataNBTTagList = (NBTTagList) nbttagcompound.getTag(NBT_TAGNAME_ABLITY_MAP);
+    		if(abilityDataNBTTagList != null) {
+    			for (int i = 0; i < abilityDataNBTTagList.tagCount(); ++i) {
+    				NBTTagCompound abilityTagCompound = abilityDataNBTTagList.getCompoundTagAt(i);
+    				BattleClassesAbstractAbilityActive ability = this.playerClass.activeAbilities.get(abilityTagCompound.getString(NBT_TAGNAME_ABLITY_ID));
+    				if(ability != null) {
+    					ability.setCurrentRank(abilityTagCompound.getInteger(NBT_TAGNAME_ABLITY_RANK_VALUE));
+    					System.out.println("Setting ability rank with ID " + abilityTagCompound.getInteger(NBT_TAGNAME_ABLITY_RANK_VALUE) + "" + abilityTagCompound.getString(NBT_TAGNAME_ABLITY_ID));
+    				}
+    				else {
+    					System.out.println("Couldn't find ability with ID when parsing NBT " + abilityTagCompound.getString(NBT_TAGNAME_ABLITY_ID));//
+    				}
+    			}
+    		}
     	}
     	
     	//Loading main CooldownClock map

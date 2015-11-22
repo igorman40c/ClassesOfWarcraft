@@ -20,13 +20,13 @@ import mods.battleclasses.core.BattleClassesPlayerClass;
 import mods.battleclasses.core.BattleClassesPlayerHooks;
 import mods.battleclasses.core.BattleClassesTalentTree;
 import mods.battleclasses.core.classes.BattleClassesPlayerClassMage.ArcaneBlast;
-import mods.battleclasses.core.classes.BattleClassesPlayerClassMage.ArcaneMissilesTestAbility;
-import mods.battleclasses.core.classes.BattleClassesPlayerClassMage.DragonsBreathTestAbility;
+import mods.battleclasses.core.classes.BattleClassesPlayerClassMage.ArcaneMissiles;
+import mods.battleclasses.core.classes.BattleClassesPlayerClassMage.DragonsBreath;
 import mods.battleclasses.core.classes.BattleClassesPlayerClassMage.FrostBolt;
-import mods.battleclasses.core.classes.BattleClassesPlayerClassMage.FrostNovaTestAbility;
-import mods.battleclasses.core.classes.BattleClassesPlayerClassMage.IceBlockTestAbility;
-import mods.battleclasses.core.classes.BattleClassesPlayerClassMage.PolymorphTestAbility;
-import mods.battleclasses.core.classes.BattleClassesPlayerClassMage.ScorchTestAbility;
+import mods.battleclasses.core.classes.BattleClassesPlayerClassMage.FrostNova;
+import mods.battleclasses.core.classes.BattleClassesPlayerClassMage.IceBlock;
+import mods.battleclasses.core.classes.BattleClassesPlayerClassMage.Polymorph;
+import mods.battleclasses.core.classes.BattleClassesPlayerClassMage.Scorch;
 import mods.battleclasses.enums.EnumBattleClassesAbilitySchool;
 import mods.battleclasses.enums.EnumBattleClassesAttributeType;
 import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
@@ -42,7 +42,7 @@ public class BattleClassesPlayerClassWarrior extends BattleClassesPlayerClass {
 	
 	
 	@Override
-	public List<BattleClassesAbstractAbilityActive> getClassAbilities() {
+	public List<BattleClassesAbstractAbilityActive> getInitialAbilities() {
 		List<BattleClassesAbstractAbilityActive> abilities = new ArrayList<BattleClassesAbstractAbilityActive>();
 		//Arms
 		abilities.add(new MortalStrike());

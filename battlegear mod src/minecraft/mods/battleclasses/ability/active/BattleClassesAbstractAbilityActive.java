@@ -86,7 +86,9 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 	protected boolean requiresMeleeSwing = false;
 	protected int requiredItemLevel = 0;
 	
-	protected int rank = 0;
+	private int initialRank = 1;
+	protected int currentRank = initialRank;
+	protected final int finalRank = 3;
 	
 	public EnumAction getEnumActionForCasting() {
 		return EnumAction.bow;
@@ -505,8 +507,21 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
     	return hasteMultiplier;
 	}
 	
-	public int getRank() {
-		return this.rank;
+	public void setCurrentRank(int value) {
+		this.currentRank = (value > this.getFinalRank()) ? this.getFinalRank() : value;
+	}
+	
+	public int getCurrentRank() {
+		return this.currentRank;
+	}
+	
+	public int getFinalRank() {
+		return this.finalRank;
+	}
+	
+	protected void setInitialRank(int initialRank) {
+		this.initialRank = initialRank;
+		this.currentRank = initialRank;
 	}
 		
 	//----------------------------------------------------------------------------------

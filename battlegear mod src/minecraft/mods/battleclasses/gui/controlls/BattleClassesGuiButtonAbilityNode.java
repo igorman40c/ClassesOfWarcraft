@@ -86,7 +86,10 @@ public class BattleClassesGuiButtonAbilityNode extends BattleClassesGuiButton
             int k = this.getHoverState(this.field_146123_n);
             
           //Draw talent icon (alpha by availability)
-            if(isSelectedNode()) {
+            if(!isAvaiable()) {
+            	GL11.glColor4f(0.3F, 0.3F, 0.3F, 1.0F);
+            }
+            else if(isSelectedNode()) {
             	GL11.glColor4f(0.4F, 0.4F, 0.4F, 1.0F);
             }
             else {
@@ -123,9 +126,13 @@ public class BattleClassesGuiButtonAbilityNode extends BattleClassesGuiButton
         }
     }
     
+    public boolean isAvaiable() {
+    	return this.ability.getCurrentRank() > 0;
+    }
+    
     @Override
     public boolean mousePressed(Minecraft mc, int mouseX, int mouseY) {
-		boolean inWindow = super.mousePressed(mc, mouseX, mouseY);
+		boolean inWindow = super.mousePressed(mc, mouseX, mouseY) && this.isAvaiable();
 		if(inWindow && !isDragInProgress() && mc.currentScreen instanceof BattleClassesTabSpellbook) {
     		((BattleClassesTabSpellbook)mc.currentScreen).onAbilityNodeSelected(this);
     	}

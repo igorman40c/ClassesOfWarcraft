@@ -38,7 +38,7 @@ public class BattleClassesTabSpellbook extends BattleClassesAbstractTab {
 	
 	public static ArrayList<BattleClassesGuiButtonAbilityNode> actionbarAbilityNodes = new ArrayList<BattleClassesGuiButtonAbilityNode>();
 	public static ArrayList<BattleClassesGuiButtonAbilityNode> spellbookAbilityNodes = new ArrayList<BattleClassesGuiButtonAbilityNode>();
-	public static ArrayList<BattleClassesGuiButtonAbilityRank> upgradeButtons = new ArrayList<BattleClassesGuiButtonAbilityRank>();
+	public static ArrayList<BattleClassesGuiButtonAbilityRank> rankButtons = new ArrayList<BattleClassesGuiButtonAbilityRank>();
 	
     @Override
     public void initGui()
@@ -65,6 +65,12 @@ public class BattleClassesTabSpellbook extends BattleClassesAbstractTab {
     	}
     }
     
+    public void updateRankButtons() {
+    	for(BattleClassesGuiButtonAbilityRank rankButton : rankButtons) {
+    		rankButton.updateDisplayTitle();
+    	}
+    }
+    
     public void initSpellbookAbilityNodes() {
     	BattleClassesSpellBook spellbook = BattleClassesUtils.getPlayerSpellBook(mc.thePlayer);
     	for(BattleClassesGuiButtonAbilityNode spellbookAbilityNode : spellbookAbilityNodes) {
@@ -72,20 +78,20 @@ public class BattleClassesTabSpellbook extends BattleClassesAbstractTab {
     			this.buttonList.remove(spellbookAbilityNode);
     		}
     	}
-    	for(BattleClassesGuiButtonAbilityRank upgradeButton : upgradeButtons) {
+    	for(BattleClassesGuiButtonAbilityRank upgradeButton : rankButtons) {
     		if(this.buttonList.contains(upgradeButton)) {
     			this.buttonList.remove(upgradeButton);
     		}
     	}
     	spellbookAbilityNodes.clear();
-    	upgradeButtons.clear();
+    	rankButtons.clear();
     	if(spellbook != null) {
     		int i = 0;
     		for(BattleClassesAbstractAbilityActive activeAbility : spellbook.getActiveAbilitiesInArray()) {
     			BattleClassesGuiButtonAbilityNode spellbookAbilityNode = new BattleClassesGuiButtonAbilityNode(activeAbility);
     			BattleClassesGuiButtonAbilityRank upgradeButton = new BattleClassesGuiButtonAbilityRank(9900+i, activeAbility);
     			spellbookAbilityNodes.add(spellbookAbilityNode);
-    			upgradeButtons.add(upgradeButton);
+    			rankButtons.add(upgradeButton);
     			this.buttonList.add(spellbookAbilityNode);
     			this.buttonList.add(upgradeButton);
     			++i;
@@ -125,7 +131,7 @@ public class BattleClassesTabSpellbook extends BattleClassesAbstractTab {
         	this.drawAbilityFrame(posX, posY);
         	//this.drawAbilityRank(posX + 19, posY, spellbookAbilityNodes.get(i).ability);
         	spellbookAbilityNodes.get(i).setPosition(posX+1, posY+1);
-        	upgradeButtons.get(i).setPosition(posX+19, posY);
+        	rankButtons.get(i).setPosition(posX+19, posY);
         }
         
         if(this.tempMovingNode != null) {

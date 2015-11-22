@@ -26,7 +26,7 @@ public class BattleClassesPlayerClassHunter  extends BattleClassesPlayerClass {
 	
 	
 	@Override
-	public List<BattleClassesAbstractAbilityActive> getClassAbilities() {
+	public List<BattleClassesAbstractAbilityActive> getInitialAbilities() {
 		List<BattleClassesAbstractAbilityActive> abilities = new ArrayList<BattleClassesAbstractAbilityActive>();
 		//Beastmastery
 		abilities.add(new CallPet());

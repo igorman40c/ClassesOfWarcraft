@@ -50,14 +50,32 @@ public class BattleClassesPlayerClass implements ICooldownOwner {
 		this.initClassContent();
 	}
 	
+	/**
+	 * Stores the active ability references (valeues), by their ids (keys) to saving and loading ability Ranks.
+	 */
+	public HashMap<String, BattleClassesAbstractAbilityActive> activeAbilities = new HashMap<String, BattleClassesAbstractAbilityActive>();
+	
 	protected void initClassContent() {
-		this.spellBook.initWithAbilities(getClassAbilities());
+		this.spellBook.initWithAbilities(getInitialAbilities());
 		this.talentMatrix.initWithTalentTrees(getClassTalents());
+		this.initActiveAbilties(this.getAllActiveAbilties());
 		//TODO
 		//this.setWeaponAccessByClass(this.playerClass);
 	}
 	
-	public List<BattleClassesAbstractAbilityActive> getClassAbilities() {
+	private void initActiveAbilties(List<BattleClassesAbstractAbilityActive> activeAbilities) {
+		for (BattleClassesAbstractAbilityActive ability : activeAbilities) {
+			this.activeAbilities.put(ability.getAbilityID(), ability);
+		}
+	}
+	
+	public List<BattleClassesAbstractAbilityActive> getAllActiveAbilties() {
+		ArrayList<BattleClassesAbstractAbilityActive> abilities = new ArrayList<BattleClassesAbstractAbilityActive>();
+		//No addition on void class
+		return abilities;
+	}
+	
+	public List<BattleClassesAbstractAbilityActive> getInitialAbilities() {
 		ArrayList<BattleClassesAbstractAbilityActive> abilities = new ArrayList<BattleClassesAbstractAbilityActive>();
 		//No addition on void class
 		return abilities;

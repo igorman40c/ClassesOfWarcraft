@@ -9,6 +9,7 @@ import cpw.mods.fml.common.network.internal.FMLProxyPacket;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -24,6 +25,7 @@ import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
 import mods.battleclasses.gui.BattleClassesGuiHUDOverlay;
 import mods.battleclasses.items.weapons.BattleClassesItemWeapon;
 import mods.battleclasses.items.weapons.IBattleClassesWeapon;
+import mods.battleclasses.packet.BattleClassesPacketAbilityRankSync;
 import mods.battleclasses.packet.BattleClassesPacketChosenAbilityIDSync;
 import mods.battleclasses.packet.BattleClassesPacketPlayerClassSnyc;
 import mods.battlegear2.Battlegear;
@@ -117,7 +119,7 @@ public class BattleClassesSpellBook {
 			BattleClassesAbstractAbilityActive activeAbility = (BattleClassesAbstractAbilityActive) ability;
 			if(!this.activeAbilities.containsValue(activeAbility)) {
 				this.activeAbilities.put(activeAbility.getAbilityID(), activeAbility);
-				this.actionbarAbilities.add(activeAbility);
+				this.addAbilityToActionbar(activeAbility);
 				activeAbility.onLearn();
 			}
 		}
@@ -128,6 +130,11 @@ public class BattleClassesSpellBook {
 			}
 		}
 	}
+	/*
+	public void addAbilityToActionBar(BattleClassesAbstractAbility ability) {
+		
+	}
+	*/
 	
 	public void unLearnAbility(BattleClassesAbstractAbility ability) {
 		if(ability instanceof BattleClassesAbstractAbilityActive) {
@@ -298,16 +305,20 @@ public class BattleClassesSpellBook {
 		}
 	}
 	
+	public boolean isAbilityActionBarCapable(BattleClassesAbstractAbilityActive ability) {
+		return !this.actionbarAbilities.contains(ability) && ability.getCurrentRank() > 0;
+	}
+	
 	@SideOnly(Side.CLIENT)
 	public void addAbilityToActionbar(BattleClassesAbstractAbilityActive ability) {
-		if(!this.actionbarAbilities.contains(ability)) {
+		if(this.isAbilityActionBarCapable(ability)) {
 			this.actionbarAbilities.add(ability);
 		}
 	}
 	
 	@SideOnly(Side.CLIENT)
 	public void insertAbilityToActionbarAtIndex(BattleClassesAbstractAbilityActive ability, int index) {
-		if(!this.actionbarAbilities.contains(ability)) {
+		if(this.isAbilityActionBarCapable(ability)) {
 			this.actionbarAbilities.add(index, ability);
 		}
 	}
@@ -319,7 +330,36 @@ public class BattleClassesSpellBook {
 		}
 		return EnumAction.none;
 	}
-
+	
+	//Ability ranking
+	//@SideOnly(Side.SERVER)
+	public void rankUpAbilityById(EntityPlayer entityPlayer, String abilityId) {
+		BattleClassesAbstractAbilityActive ability = this.getActiveAbilityByID(abilityId);
+		if(ability != null) {
+			int nextRank = ability.getCurrentRank()+1;
+			if (nextRank <= ability.getFinalRank()) {
+				
+				//TODO : LEVEL Cost!
+				
+				this.setAbilityRankById(entityPlayer, nextRank, abilityId);
+				if(entityPlayer instanceof EntityPlayerMP) {
+					EntityPlayerMP entityPlayerMP = (EntityPlayerMP)entityPlayer;
+					FMLProxyPacket p = new BattleClassesPacketAbilityRankSync(abilityId, nextRank).generatePacket();
+					BattleClassesMod.packetHandler.sendPacketToPlayerWithSideCheck(p, entityPlayerMP);
+				}
+			}
+		}
+	}
+	
+	public void setAbilityRankById(EntityPlayer entityPlayer, int rank, String abilityId) {
+		BattleClassesAbstractAbilityActive ability = this.getActiveAbilityByID(abilityId);
+		if(ability != null) {
+			ability.setCurrentRank(rank);
+			if(!entityPlayer.worldObj.isRemote) {
+				entityPlayer.worldObj.playSoundAtEntity(entityPlayer, BattleClassesMod.MODID + ":" + "gui.learn", 1F, 1F);				
+			}
+		}
+	}
 	
 	//Helper
     public BattleClassesAbstractAbilityActive getActiveAbilityByID(String id) {
@@ -348,4 +388,5 @@ public class BattleClassesSpellBook {
 				(this.playerHooks.ownerPlayer.getItemInUse().getItem() instanceof IBattleClassesWeapon) && 
 				(this.getChosenAbility() != null);
 	}
+	
 }

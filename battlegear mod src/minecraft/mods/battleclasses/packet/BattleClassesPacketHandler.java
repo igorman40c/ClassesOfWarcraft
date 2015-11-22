@@ -40,6 +40,8 @@ public class BattleClassesPacketHandler {
 		map.put(BattleClassesPacketPlayerCastingDidStart.packetName, new BattleClassesPacketPlayerCastingDidStart());
 		map.put(BattleClassesPacketPlayerCastingDidStop.packetName, new BattleClassesPacketPlayerCastingDidStop());
 		map.put(BattleClassesPacketPlayerCastingDidRelease.packetName, new BattleClassesPacketPlayerCastingDidRelease());
+		map.put(BattleClassesPacketAbilityRankUpRequest.packetName, new BattleClassesPacketAbilityRankUpRequest());
+		map.put(BattleClassesPacketAbilityRankSync.packetName, new BattleClassesPacketAbilityRankSync());
 	}
 	
 	public void registerChannels() {
