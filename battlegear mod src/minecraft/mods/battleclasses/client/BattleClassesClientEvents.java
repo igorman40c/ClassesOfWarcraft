@@ -104,7 +104,7 @@ public class BattleClassesClientEvents {
 		
 		//tabsButtonList.add(new GuiTabBarButtonConfig(5, 60, 60, false));
 		if(!BattleClassesUtils.RELEASE_MODE()) {
-			tabsButtonList.add(new GuiTabBarButtonHelp(6, 60, 60, false));			
+			tabsButtonList.add(new GuiTabBarButtonHelp(6, 60, 60, false));
 		}
 	}
 		
@@ -159,7 +159,7 @@ public class BattleClassesClientEvents {
 		Minecraft mc = Minecraft.getMinecraft();
 		if(event.entity instanceof EntityPlayer) {
 			EntityPlayer entityPlayer = (EntityPlayer)event.entity;
-			if(entityPlayer == mc.thePlayer) {
+			if(entityPlayer == mc.thePlayer && entityPlayer.isEntityAlive()) {
 				BattleClassesUtils.Log("Player joined! Requesting PlayerData", LogType.CORE);
 				FMLProxyPacket p = new BattleClassesPacketPlayerDataSync().generatePacket();
 				BattleClassesMod.packetHandler.sendPacketToServer(p);

@@ -6,19 +6,19 @@
     "sounds": [
         "gui.classpick"
       ]
-    }
+    },
 	"gui.learn": {
     "category": "player",
     "sounds": [
         "gui.learn"
       ]
-    }
+    },
 	"gui.talent": {
     "category": "player",
     "sounds": [
         "gui.talent"
       ]
-    }
+    },
 	
     ##Ability school casting sounds##
     "abilityschool.physical_ranged.casting": {

@@ -63,7 +63,17 @@ public class BattleClassesPacketPlayerDataSync extends AbstractMBPacket {
         Side side = FMLCommonHandler.instance().getEffectiveSide();
         if(side == Side.SERVER) {
 			System.out.println("Recieved PlayerDataSync packet from Client. Sending data in response.");
-			FMLProxyPacket p = new BattleClassesPacketPlayerDataSync(BattleClassesUtils.getPlayerHooks(player).writeTagCompound()).generatePacket();
+			
+			NBTTagCompound NBT_Data;
+			NBTTagCompound temp_NBT_Data = BattleClassesPlayerHooks.getPlayerTempNBTData(player);
+			if (temp_NBT_Data != null) {
+				NBT_Data = temp_NBT_Data;
+			}
+			else {
+				NBT_Data = BattleClassesUtils.getPlayerHooks(player).writeTagCompound();
+			}
+			FMLProxyPacket p = new BattleClassesPacketPlayerDataSync(NBT_Data).generatePacket();
+			
 			if(player instanceof EntityPlayerMP) {
 				EntityPlayerMP entityPlayerMP = (EntityPlayerMP) player;
 				BattleClassesMod.packetHandler.sendPacketToPlayer(p, entityPlayerMP);

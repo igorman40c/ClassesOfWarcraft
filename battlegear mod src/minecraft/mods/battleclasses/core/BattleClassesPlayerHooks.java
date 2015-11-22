@@ -24,6 +24,7 @@ import mods.battleclasses.gui.tab.BattleClassesTabOverlayAttributes;
 import mods.battleclasses.items.IAttributeProviderItem;
 import mods.battleclasses.packet.BattleClassesPacketPlayerClassSnyc;
 import mods.battlegear2.Battlegear;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttribute;
@@ -33,6 +34,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.NBTUtil;
 
 
 public class BattleClassesPlayerHooks implements IMainCooldownMap {
@@ -54,6 +56,15 @@ public class BattleClassesPlayerHooks implements IMainCooldownMap {
 		System.out.println("PlayerHooks constructed!");
 		
 		//this.refreshBaseAttributes();
+		//Minecraft.getMinecraft()
+		
+		//Attempting to recover lost ClassData after player death
+		/*
+		NBTTagCompound tempData = BattleClassesPlayerHooks.getPlayerTempNBTData(parOwnerPlayer);
+		if(tempData != null) {
+			this.readTagCompound(tempData);
+		}
+		*/
 	}
 	
 	public void switchToPlayerClass(EnumBattleClassesPlayerClass parPlayerClass) {
@@ -163,6 +174,7 @@ public class BattleClassesPlayerHooks implements IMainCooldownMap {
 	public static final String NBT_TAGNAME_CD_LASTTYPE = "CD_LastType";
 	
 	public NBTTagCompound writeTagCompound() {
+		BattleClassesUtils.Log("Writing PlayerHooks NBT", LogType.CORE);
     	NBTTagCompound tagCompound = new NBTTagCompound();
     	//Saving name of the tagCompound
     	tagCompound.setString(NBT_TAGNAME_COMPOUNDNAME_KEY, NBT_TAGNAME_COMPOUNDNAME_VALUE);
@@ -198,6 +210,7 @@ public class BattleClassesPlayerHooks implements IMainCooldownMap {
     }
     
     public void readTagCompound(NBTTagCompound nbttagcompound) {
+    	BattleClassesUtils.Log("Reading PlayerHooks NBT", LogType.CORE);
     	//Loading Player BattleClass
     	int classCode = nbttagcompound.getInteger(NBT_TAGNAME_PLAYERCLASS);
     	EnumBattleClassesPlayerClass playerClass = EnumBattleClassesPlayerClass.values()[classCode];
@@ -241,6 +254,26 @@ public class BattleClassesPlayerHooks implements IMainCooldownMap {
     		return;
     	}
     	this.readTagCompound(nbttagcompound_master);
+    }
+    
+    
+    protected static HashMap<String,NBTTagCompound> NBT_TempMap = new HashMap();
+    
+    public static NBTTagCompound getPlayerTempNBTData(EntityPlayer entitPlayer) {
+    	NBTTagCompound tempNBTData = NBT_TempMap.get(entitPlayer.getCommandSenderName());
+    	NBT_TempMap.remove(entitPlayer.getCommandSenderName());
+    	return tempNBTData;
+    }
+    
+    public static void savePlayerTempNBTData(EntityPlayer entitPlayer) {
+    	NBT_TempMap.put(entitPlayer.getCommandSenderName(), BattleClassesUtils.getPlayerHooks(entitPlayer).writeTagCompound());
+    }
+    
+    public static void loadPlayerTempNBTData(EntityPlayer entityPlayer) {
+    	NBTTagCompound tempNBTData = getPlayerTempNBTData(entityPlayer);
+    	if(tempNBTData != null) {
+    		BattleClassesUtils.getPlayerHooks(entityPlayer).readTagCompound(tempNBTData);
+    	}
     }
 	
 }

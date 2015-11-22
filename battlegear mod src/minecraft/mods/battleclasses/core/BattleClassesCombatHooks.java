@@ -2,9 +2,12 @@ package mods.battleclasses.core;
 
 import java.util.List;
 
+import mods.battleclasses.BattleClassesMod;
 import mods.battleclasses.BattleClassesUtils;
+import mods.battleclasses.BattleClassesUtils.LogType;
 import mods.battleclasses.items.weapons.IControlledSpeedWeapon;
 import mods.battleclasses.items.weapons.ISpellBookControllerItem;
+import mods.battleclasses.packet.BattleClassesPacketPlayerDataSync;
 import mods.battlegear2.api.IHandListener;
 import mods.battlegear2.api.PlayerEventChild.OffhandAttackEvent;
 import mods.battlegear2.api.core.BattlegearUtils;
@@ -12,13 +15,16 @@ import mods.battlegear2.api.core.IBattlePlayer;
 import mods.battlegear2.api.core.InventoryPlayerBattle;
 import mods.battlegear2.api.heraldry.IFlagHolder;
 import mods.battlegear2.api.heraldry.IHeraldryItem;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.FakePlayer;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -26,6 +32,7 @@ import net.minecraftforge.event.entity.player.PlayerUseItemEvent;
 import cpw.mods.fml.common.eventhandler.Event;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.network.internal.FMLProxyPacket;
 
 public class BattleClassesCombatHooks {
 		
@@ -93,5 +100,26 @@ public class BattleClassesCombatHooks {
 	 */
 	public static boolean isPlayerSilenced(EntityPlayer player) {
 		return false;
+	}
+	
+	
+	@SubscribeEvent
+	public void playerDeathEvent(LivingDeathEvent event) {
+		Minecraft mc = Minecraft.getMinecraft();
+		if(event.entity instanceof EntityPlayer) {
+			EntityPlayer entityPlayer = (EntityPlayer)event.entity;
+			BattleClassesUtils.Log("Player Died! Saving temp PlayerData", LogType.CORE);
+			BattleClassesPlayerHooks.savePlayerTempNBTData(entityPlayer);
+		}
+	}
+	
+	@SubscribeEvent
+	public void playerJoinWorldEvent(EntityJoinWorldEvent event) {
+		Minecraft mc = Minecraft.getMinecraft();
+		if(!event.entity.worldObj.isRemote && event.entity instanceof EntityPlayer) {
+			EntityPlayer entityPlayer = (EntityPlayer)event.entity;
+			BattleClassesUtils.Log("Player Spawned! Loading temp PlayerData", LogType.CORE);
+			BattleClassesPlayerHooks.loadPlayerTempNBTData(entityPlayer);
+		}
 	}
 }
