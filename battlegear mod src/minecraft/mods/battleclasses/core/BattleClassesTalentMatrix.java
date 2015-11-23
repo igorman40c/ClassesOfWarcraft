@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import cpw.mods.fml.common.network.internal.FMLProxyPacket;
+import mods.battleclasses.BattleClassesMod;
 import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.BattleClassesUtils.LogType;
 import mods.battleclasses.ability.active.BattleClassesAbilityTestCasted;
@@ -12,6 +14,9 @@ import mods.battleclasses.ability.talent.BattleClassesAbstractTalent;
 import mods.battleclasses.enums.EnumBattleClassesCooldownType;
 import mods.battleclasses.enums.EnumBattleClassesPlayerClass;
 import mods.battleclasses.gui.controlls.BattleClassesGuiButtonTalentNode;
+import mods.battleclasses.packet.BattleClassesPacketTalentPointSync;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 
 public class BattleClassesTalentMatrix {
 	
@@ -24,8 +29,9 @@ public class BattleClassesTalentMatrix {
 	public List<BattleClassesTalentTree> talentTrees = new ArrayList<BattleClassesTalentTree>();
 	public HashMap<String, BattleClassesAbstractTalent> talentHashMap = new HashMap<String, BattleClassesAbstractTalent>();
 
-	public static final int TALENT_POINTS_TO_SPEND = 3;
-	protected int talentPoints = TALENT_POINTS_TO_SPEND;
+	public static final int MAXIMAL_TALENT_POINTS = 3;
+	protected int currentTalentPoints = 0;
+	protected int unspentTalentPoints = currentTalentPoints;
 	
 	public void initWithTalentTrees(List<BattleClassesTalentTree> parTalentTrees) {
 		//Setting reverse references on trees and talentAbilities
@@ -54,22 +60,23 @@ public class BattleClassesTalentMatrix {
 		return this.playerHooks;
 	}
 	
-	public void setTalentPoints(int n) {
-		if(n <= TALENT_POINTS_TO_SPEND) {
-			talentPoints = n;
+	
+	public void setUnspentTalentPoints(int n) {
+		if(n <= currentTalentPoints) {
+			unspentTalentPoints = n;
 		}
 	}
 	
-	public int getTalentPoints() {
-		return talentPoints;
+	public int getUnspentTalentPoints() {
+		return unspentTalentPoints;
 	}
 	
-	public boolean hasPointsToSpend() {
-		return talentPoints > 0;
+	public boolean hasUnspentPointsToSpend() {
+		return unspentTalentPoints > 0;
 	}
 	
 	public boolean hasPointsSpentAlready() {
-		return talentPoints < TALENT_POINTS_TO_SPEND;
+		return unspentTalentPoints < currentTalentPoints;
 	}
 	
 	public void applyPointsOnTrees(int tree0, int tree1, int tree2) {
@@ -94,12 +101,20 @@ public class BattleClassesTalentMatrix {
 		return points;
 	}
 	
+	public int getSpentTalentPoints() {
+		int n = 0;
+		for(BattleClassesTalentTree talentTree : this.talentTrees) {
+			n += talentTree.getPointsOnTree();
+        }
+		return n;
+	}
+	
 	public void learnFullTreeAtIndex(int index) {
 		BattleClassesUtils.Log("Trying to learn full talent tree at index: " + index, LogType.CORE);
 		this.resetTalentPoints();
 		BattleClassesTalentTree talentTree = this.talentTrees.get(index);
 		for(BattleClassesAbstractTalent talentAbility : talentTree.talentList ) {
-    		while(!talentAbility.isAlreadyLearned() && talentPoints != 0) {
+    		while(!talentAbility.isAlreadyLearned() && unspentTalentPoints != 0) {
     			this.learnTalent(talentAbility);
     		}
     	}
@@ -111,14 +126,59 @@ public class BattleClassesTalentMatrix {
         		talentAbility.resetState();
         	}
         }
-		talentPoints = TALENT_POINTS_TO_SPEND;
+		unspentTalentPoints = currentTalentPoints;
 	}
 	
 	public void learnTalent(BattleClassesAbstractTalent talentAbility) {
 		if(talentAbility.isAvailableToLearn()) {
     		talentAbility.incrementState();
-    		--talentPoints;
+    		--unspentTalentPoints;
     	}
+	}
+	
+	//Gaining talent points
+	
+	protected static final int experienceLevelCostPerTalentPoint = 10;
+	
+	public int getCurrentTalentPoints() {
+		return this.currentTalentPoints;
+	}
+	
+	public int getNextTalentPoints() {
+		return this.getCurrentTalentPoints() + 1;
+	}
+	
+	public void setCurrentTalentPoints(int points) {
+		this.currentTalentPoints = points;
+	}
+	
+	public int getGainTalentPointExperienceCost() {
+		int experienceLevelCost = this.getNextTalentPoints() * experienceLevelCostPerTalentPoint;
+		return experienceLevelCost;
+	}
+	
+	public boolean hasExperienceToGainTalentPoint(EntityPlayer entityPlayer) {
+		return entityPlayer.experienceLevel >= this.getGainTalentPointExperienceCost();
+	}
+	
+	public boolean canGainAdditionalTalentPoints() {
+		return this.getCurrentTalentPoints() < MAXIMAL_TALENT_POINTS;
+	}
+	
+	public void gainTalentPoint(EntityPlayer entityPlayer) {
+		if(this.canGainAdditionalTalentPoints() && this.hasExperienceToGainTalentPoint(entityPlayer)) {
+			int nextTalentPoints = this.getNextTalentPoints();
+			entityPlayer.addExperienceLevel((-1) * getGainTalentPointExperienceCost());
+			this.setCurrentTalentPoints(nextTalentPoints);
+			if(!entityPlayer.worldObj.isRemote) {
+				entityPlayer.worldObj.playSoundAtEntity(entityPlayer, BattleClassesMod.MODID + ":" + "gui.talent", 1F, 1F);				
+			}
+			if(entityPlayer instanceof EntityPlayerMP) {
+				EntityPlayerMP entityPlayerMP = (EntityPlayerMP)entityPlayer;
+				FMLProxyPacket p = new BattleClassesPacketTalentPointSync(this.getCurrentTalentPoints()).generatePacket();
+				BattleClassesMod.packetHandler.sendPacketToPlayerWithSideCheck(p, entityPlayerMP);
+			}
+		}
 	}
 	
 	//Helper
@@ -128,4 +188,5 @@ public class BattleClassesTalentMatrix {
 		}
 		return null;
 	}
+	
 }

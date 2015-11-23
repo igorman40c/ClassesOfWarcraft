@@ -115,13 +115,9 @@ public class BattleClassesTabTalents extends BattleClassesAbstractTab {
     public static final int TALENT_TREE_VIEW_H = 108;
     
     public void drawTalentTreeView(BattleClassesTalentTree talentTree, int treeIndex, int x, int y) {
+    	
     	//DRAW BACKGROUND IMAGE
-    	//ResourceLocation resourceBackground = new ResourceLocation("battleclasses", talentTree.getResoureLocationString());
-    	//this.mc.renderEngine.bindTexture(resourceBackground);
     	this.mc.renderEngine.bindTexture(resourceBackground[treeIndex]);
-    	   	
-    	//Draws a textured rectangle at the stored z-value. Args: x, y, u, v, width, height
-    	//this.drawTexturedModalRect(x, y, 0, 0, TALENT_TREE_VIEW_W, TALENT_TREE_VIEW_H);
     	BattleClassesGuiHelper.drawTexturedRectFromCustomSource(x,  y,  TALENT_TREE_VIEW_W,  TALENT_TREE_VIEW_H, this.zLevel);
 
     	int talentNodeOffsetX = 19;
@@ -180,7 +176,7 @@ public class BattleClassesTabTalents extends BattleClassesAbstractTab {
         	return;
         }
         //Drawing talent points count
-        int n = talentMatrix.getTalentPoints();
+        int n = talentMatrix.getUnspentTalentPoints();
         int inset = 8;
         this.drawString(Minecraft.getMinecraft().fontRenderer, "Points: " + n, this.guiLeft + inset + 54 + 5,
         		this.guiTop + DEFAULT_GUI_HEIGHT - inset - 5 - Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT, 0xFFFFFF);

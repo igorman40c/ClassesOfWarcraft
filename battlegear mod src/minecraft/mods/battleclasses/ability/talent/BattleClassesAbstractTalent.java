@@ -106,7 +106,7 @@ public class BattleClassesAbstractTalent extends BattleClassesAbstractAbility im
 	
 	
 	public boolean isAvailableToLearn() {
-		if(!this.playerHooks.playerClass.talentMatrix.hasPointsToSpend()) {
+		if(!this.playerHooks.playerClass.talentMatrix.hasUnspentPointsToSpend()) {
 			return false;
 		}
 		if(this.isAlreadyLearned()) {

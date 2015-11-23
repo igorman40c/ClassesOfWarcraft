@@ -5,7 +5,9 @@ import java.util.List;
 
 import cpw.mods.fml.common.network.internal.FMLProxyPacket;
 import mods.battleclasses.BattleClassesMod;
+import mods.battleclasses.BattleClassesUtils;
 import mods.battleclasses.ability.active.BattleClassesAbstractAbilityActive;
+import mods.battleclasses.gui.BattleClassesGuiHelper;
 import mods.battleclasses.gui.tab.BattleClassesTabSpellbook;
 import mods.battleclasses.packet.BattleClassesPacketAbilityRankUpRequest;
 import net.minecraft.client.Minecraft;
@@ -18,7 +20,6 @@ public class BattleClassesGuiButtonAbilityRank extends BattleClassesGuiButton {
 		super(id, 0, 0, 40, 18, "");
 		this.trunctationMargins = 4F;
 		this.showHoveringText = true;
-		this.hoveringTextString = "FEATURE IN DEVELOPMENT!:(";
 		this.ability = parAbility;
 		this.setOrigin(36, 202);
 		this.resource = BattleClassesTabSpellbook.resource;
@@ -41,7 +42,7 @@ public class BattleClassesGuiButtonAbilityRank extends BattleClassesGuiButton {
 	}
 
 	public boolean shouldBeDisabled() {
-		return this.ability.getCurrentRank() >= this.ability.getFinalRank();
+		return !this.ability.canBeRankedUpFurther();
 	}
 	
 	@Override
@@ -55,13 +56,26 @@ public class BattleClassesGuiButtonAbilityRank extends BattleClassesGuiButton {
 		return press;
 	}
 	
-	/*
 	@Override
-	public List<String> getTooltipText() {
-		ArrayList<String> stringList = new ArrayList<String>();
-    	stringList.add(this.hoveringTextString);
-    	return stringList;
+	public boolean shouldShowHoweringText() {
+		return !this.shouldBeDisabled();
 	}
-	*/
+	
+	@Override
+	
+	public List<String> getTooltipText() {
+		Minecraft mc = Minecraft.getMinecraft();
+		String unlocalizedMessage = (this.ability.getCurrentRank() == 0) ? "bcgui.ability_rank.learn.cost" : "bcgui.ability_rank.rank_up.cost";
+		String rankUpCostMessage = StatCollector.translateToLocal(unlocalizedMessage);
+		String nextRankCostValue = "" + BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).getRankUpExperienceCost(this.ability);
+		rankUpCostMessage = rankUpCostMessage.replace("%1$s", nextRankCostValue);
+		boolean hasExperienceCost = BattleClassesUtils.getPlayerSpellBook(mc.thePlayer).hasExperienceToRankUpAbility(mc.thePlayer, this.ability);
+		
+		List<String> text = BattleClassesGuiHelper.createHoveringText();
+		BattleClassesGuiHelper.addParagraphWithColor(text, rankUpCostMessage, BattleClassesGuiHelper.getHoveringTextAvailabilityColor(hasExperienceCost));
+    	text = BattleClassesGuiHelper.formatHoveringTextWidth(text);
+		return text;
+	}
+	
  
 }

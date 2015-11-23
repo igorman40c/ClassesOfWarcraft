@@ -332,32 +332,43 @@ public class BattleClassesSpellBook {
 	}
 	
 	//Ability ranking
-	//@SideOnly(Side.SERVER)
+	
+	protected static final int experienceLevelCostPerRank = 5;
+	
 	public void rankUpAbilityById(EntityPlayer entityPlayer, String abilityId) {
 		BattleClassesAbstractAbilityActive ability = this.getActiveAbilityByID(abilityId);
-		if(ability != null) {
-			int nextRank = ability.getCurrentRank()+1;
-			if (nextRank <= ability.getFinalRank()) {
-				
-				//TODO : LEVEL Cost!
-				
-				this.setAbilityRankById(entityPlayer, nextRank, abilityId);
-				if(entityPlayer instanceof EntityPlayerMP) {
-					EntityPlayerMP entityPlayerMP = (EntityPlayerMP)entityPlayer;
-					FMLProxyPacket p = new BattleClassesPacketAbilityRankSync(abilityId, nextRank).generatePacket();
-					BattleClassesMod.packetHandler.sendPacketToPlayerWithSideCheck(p, entityPlayerMP);
-				}
-			}
+		if(ability != null && ability.canBeRankedUpFurther() && this.hasExperienceToRankUpAbility(entityPlayer, ability)) {
+			this.rankUpAbility(entityPlayer, ability);
 		}
+	}
+	
+	protected void rankUpAbility(EntityPlayer entityPlayer, BattleClassesAbstractAbilityActive ability) {
+		int nextRank = ability.getCurrentRank()+1;
+		entityPlayer.addExperienceLevel((-1) * this.getRankUpExperienceCost(ability));
+		ability.setCurrentRank(nextRank);
+		if(!entityPlayer.worldObj.isRemote) {
+			entityPlayer.worldObj.playSoundAtEntity(entityPlayer, BattleClassesMod.MODID + ":" + "gui.learn", 1F, 1F);				
+		}
+		if(entityPlayer instanceof EntityPlayerMP) {
+			EntityPlayerMP entityPlayerMP = (EntityPlayerMP)entityPlayer;
+			FMLProxyPacket p = new BattleClassesPacketAbilityRankSync(ability.getAbilityID(), nextRank).generatePacket();
+			BattleClassesMod.packetHandler.sendPacketToPlayerWithSideCheck(p, entityPlayerMP);
+		}
+	}
+	
+	public int getRankUpExperienceCost(BattleClassesAbstractAbilityActive ability) {
+		int experienceLevelCost = ability.getNextRank() * experienceLevelCostPerRank;
+		return experienceLevelCost;
+	}
+	
+	public boolean hasExperienceToRankUpAbility(EntityPlayer entityPlayer, BattleClassesAbstractAbilityActive ability) {
+		return entityPlayer.experienceLevel >= this.getRankUpExperienceCost(ability);
 	}
 	
 	public void setAbilityRankById(EntityPlayer entityPlayer, int rank, String abilityId) {
 		BattleClassesAbstractAbilityActive ability = this.getActiveAbilityByID(abilityId);
 		if(ability != null) {
 			ability.setCurrentRank(rank);
-			if(!entityPlayer.worldObj.isRemote) {
-				entityPlayer.worldObj.playSoundAtEntity(entityPlayer, BattleClassesMod.MODID + ":" + "gui.learn", 1F, 1F);				
-			}
 		}
 	}
 	

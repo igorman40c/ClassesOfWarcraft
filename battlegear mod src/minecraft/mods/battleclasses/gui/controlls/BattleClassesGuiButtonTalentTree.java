@@ -33,7 +33,7 @@ public class BattleClassesGuiButtonTalentTree extends BattleClassesGuiButton {
 	@Override
 	public boolean mousePressed(Minecraft mc, int mouseX, int mouseY) {
 		boolean inWindow = super.mousePressed(mc, mouseX, mouseY);
-		boolean press = inWindow && BattleClassesUtils.getPlayerTalentMatrix(mc.thePlayer).hasPointsToSpend();
+		boolean press = inWindow && BattleClassesUtils.getPlayerTalentMatrix(mc.thePlayer).hasUnspentPointsToSpend();
 		if (press) {
 			FMLProxyPacket p = new BattleClassesPacketTalentNodeChosen(mc.thePlayer,
 					BattleClassesPacketTalentNodeChosen.TALENT_TREE_BUTTON_ID_OFFSET + this.talentTree.getIndexOfTree()).generatePacket();

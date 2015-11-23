@@ -25,7 +25,7 @@ public class BattleClassesPacketTalentSync extends AbstractMBPacket {
 	public BattleClassesPacketTalentSync(EntityPlayer user) {
     	this.username = user.getCommandSenderName();
     	savedEntityPlayer = user;
-    	talentPointsLeft = BattleClassesUtils.getPlayerTalentMatrix(user).getTalentPoints();
+    	talentPointsLeft = BattleClassesUtils.getPlayerTalentMatrix(user).getUnspentTalentPoints();
     }
 
     public BattleClassesPacketTalentSync() {
@@ -71,7 +71,7 @@ public class BattleClassesPacketTalentSync extends AbstractMBPacket {
             EntityPlayer entityPlayer = player.worldObj.getPlayerEntityByName(username);
             if(entityPlayer!=null){
             	BattleClassesPlayerHooks playerHooks = BattleClassesUtils.getPlayerHooks(entityPlayer);
-            	playerHooks.playerClass.talentMatrix.setTalentPoints(talentPointsLeft);
+            	playerHooks.playerClass.talentMatrix.setUnspentTalentPoints(talentPointsLeft);
             	for (String keyTalentID : talentStateMap.keySet()) {
             		BattleClassesAbstractTalent talentAbility = playerHooks.playerClass.talentMatrix.talentHashMap.get(keyTalentID);
             		if(talentAbility != null) {

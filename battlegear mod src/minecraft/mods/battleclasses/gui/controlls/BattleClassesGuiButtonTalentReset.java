@@ -12,13 +12,16 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 import cpw.mods.fml.common.network.internal.FMLProxyPacket;
 
 public class BattleClassesGuiButtonTalentReset extends BattleClassesGuiButton {
 
 	public BattleClassesGuiButtonTalentReset(int id, int x, int y) {
-		super(id, x, y, 54, 20, "Reset");
-		this.displayString = "Reset";
+		super(id, x, y, 54, 20, "");
+		this.setDisplayString(StatCollector.translateToLocal("bcgui.talent.reset.title"));
+		this.hoveringTextString = StatCollector.translateToLocal("bcgui.talent.reset.message");
+		this.showHoveringText = true;
 		this.resource = new ResourceLocation("battleclasses", "textures/gui/InterfaceTalent.png");
 		this.setOrigin(0, 196);
 	}

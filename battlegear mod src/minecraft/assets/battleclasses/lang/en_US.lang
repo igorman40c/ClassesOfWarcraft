@@ -135,6 +135,12 @@ bcgui.confirmation.class_reset.message=You will lose all of your talent points a
 
 bcgui.ability_rank=Rank %1$s
 bcgui.ability_rank.zero=Learn
+bcgui.ability_rank.learn.cost=Learning this ability costs %1$s experience levels
+bcgui.ability_rank.rank_up.cost=Next rank costs %1$s experience levels
+bcgui.talent.reset.title=Reset
+bcgui.talent.reset.message=Reset your talent tree to change your specialization. (You will not loose talent points or ability ranks.)
+bcgui.talent.gain.title=Earn
+bcgui.talent.gain.message=Earning a new talent point costs %1$s experience levels
 
 bctab.inventory.name=Inventory
 bctab.equipment.name=Battle Equipment

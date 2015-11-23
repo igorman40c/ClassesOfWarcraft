@@ -69,7 +69,7 @@ public class BattleClassesCommand extends CommandBase {
 					for(int i = 0; i<treeStates.length; ++i) {
 						message += "|" + treeStates[i] + "|";
 					}
-					message += " Unspent points: " + talentMatrix.getTalentPoints();
+					message += " Unspent points: " + talentMatrix.getUnspentTalentPoints();
 				}
 				System.out.println("Player[" + player.getCommandSenderName() + "] classinfo: " + message);
 				player.addChatMessage(new ChatComponentText(message));

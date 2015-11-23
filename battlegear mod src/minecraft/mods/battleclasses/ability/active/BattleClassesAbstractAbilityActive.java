@@ -515,6 +515,10 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 		return this.currentRank;
 	}
 	
+	public int getNextRank() {
+		return this.currentRank + 1;
+	}
+	
 	public int getFinalRank() {
 		return this.finalRank;
 	}
@@ -522,6 +526,10 @@ public abstract class BattleClassesAbstractAbilityActive extends BattleClassesAb
 	protected void setInitialRank(int initialRank) {
 		this.initialRank = initialRank;
 		this.currentRank = initialRank;
+	}
+	
+	public boolean canBeRankedUpFurther() {
+		return this.getNextRank() <= this.getFinalRank();
 	}
 		
 	//----------------------------------------------------------------------------------
