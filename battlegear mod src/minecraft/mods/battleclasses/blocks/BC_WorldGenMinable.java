@@ -79,7 +79,7 @@ public class BC_WorldGenMinable extends WorldGenerator
                                 if (d12 * d12 + d13 * d13 + d14 * d14 < 1.0D && par1World.getBlock(k2, l2, i3).isReplaceableOreGen(par1World, k2, l2, i3, field_150518_c))
                                 {
                                     if(par1World.setBlock(k2, l2, i3, this.field_150519_a, mineableBlockMeta, 2)) {
-                                    	System.out.println("generate SUCCES! at X:" + k2 + " Y:" + l2  + " Z:" +i3);                                    	
+                                    	//System.out.println("generate SUCCES! at X:" + k2 + " Y:" + l2  + " Z:" +i3);                                    	
                                     }
                                 }
                             }

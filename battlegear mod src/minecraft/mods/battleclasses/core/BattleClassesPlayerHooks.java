@@ -82,6 +82,10 @@ public class BattleClassesPlayerHooks implements IMainCooldownMap {
 		
 		if(parPlayerClass != EnumBattleClassesPlayerClass.NONE) {
 			playerClass.getCooldownClock().startDefaultCooldownForced();
+			
+			if(!this.getOwnerPlayer().worldObj.isRemote) {
+				this.getOwnerPlayer().worldObj.playSoundAtEntity(this.getOwnerPlayer(), BattleClassesMod.MODID + ":" + "gui.classpick", 1F, 1F);				
+			}
 		}
 	}
 	
@@ -166,6 +170,7 @@ public class BattleClassesPlayerHooks implements IMainCooldownMap {
 	private static final String NBT_TAGNAME_COMPOUNDNAME_KEY = "Name";
 	private static final String NBT_TAGNAME_COMPOUNDNAME_VALUE = "BattleClasses";
 	private static final String NBT_TAGNAME_PLAYERCLASS = "BC_PlayerClass"; 
+	private static final String NBT_TAGNAME_TALENT_POINTS = "BC_TalentTreePoints";
 	private static final String NBT_TAGNAME_TALENT_TREE_STATES = "BC_TalentTreeStates";
 	private static final String NBT_TAGNAME_ABLITY_MAP = "BC_Abilities";
 	private static final String NBT_TAGNAME_ABLITY_ID = "BC_AbilityId";
@@ -185,7 +190,8 @@ public class BattleClassesPlayerHooks implements IMainCooldownMap {
     	//Saving Player BattleClass
     	tagCompound.setInteger(NBT_TAGNAME_PLAYERCLASS, this.playerClass.getPlayerClass().ordinal());
     	
-    	//Saving Talent Matrix
+    	//Saving Talent Data
+    	tagCompound.setInteger(NBT_TAGNAME_TALENT_POINTS, this.playerClass.talentMatrix.getCurrentTalentPoints());
     	tagCompound.setIntArray(NBT_TAGNAME_TALENT_TREE_STATES, this.playerClass.talentMatrix.getPointsOnTrees());
     	
     	//Saving Ability data
@@ -229,12 +235,14 @@ public class BattleClassesPlayerHooks implements IMainCooldownMap {
     	int classCode = nbttagcompound.getInteger(NBT_TAGNAME_PLAYERCLASS);
     	EnumBattleClassesPlayerClass playerClass = EnumBattleClassesPlayerClass.values()[classCode];
     	
-    	//Loading talent tree states
+    	//Loading talent data
+    	int talentPoints = nbttagcompound.getInteger(NBT_TAGNAME_TALENT_POINTS);
     	int[] pointsOnTrees = nbttagcompound.getIntArray(NBT_TAGNAME_TALENT_TREE_STATES);
     	
     	if(playerClass != EnumBattleClassesPlayerClass.NONE) {
     		this.applyPlayerClass(playerClass);
     		this.playerClass.getCooldownClock().setEnabled(false);
+    		this.playerClass.talentMatrix.setCurrentTalentPoints(talentPoints);
     		this.playerClass.talentMatrix.applyPointsOnTrees(pointsOnTrees);
     		this.playerClass.getCooldownClock().setEnabled(true);
     		

@@ -31,7 +31,7 @@ public class BattleClassesTalentMatrix {
 
 	public static final int MAXIMAL_TALENT_POINTS = 3;
 	protected int currentTalentPoints = 0;
-	protected int unspentTalentPoints = currentTalentPoints;
+	//protected int unspentTalentPoints = currentTalentPoints;
 	
 	public void initWithTalentTrees(List<BattleClassesTalentTree> parTalentTrees) {
 		//Setting reverse references on trees and talentAbilities
@@ -61,22 +61,23 @@ public class BattleClassesTalentMatrix {
 	}
 	
 	
+	/*
 	public void setUnspentTalentPoints(int n) {
 		if(n <= currentTalentPoints) {
 			unspentTalentPoints = n;
 		}
 	}
-	
+	*/
 	public int getUnspentTalentPoints() {
-		return unspentTalentPoints;
+		return this.getCurrentTalentPoints() - this.getSpentTalentPoints();
 	}
 	
 	public boolean hasUnspentPointsToSpend() {
-		return unspentTalentPoints > 0;
+		return this.getUnspentTalentPoints() > 0;
 	}
 	
 	public boolean hasPointsSpentAlready() {
-		return unspentTalentPoints < currentTalentPoints;
+		return this.getUnspentTalentPoints() < currentTalentPoints;
 	}
 	
 	public void applyPointsOnTrees(int tree0, int tree1, int tree2) {
@@ -114,7 +115,7 @@ public class BattleClassesTalentMatrix {
 		this.resetTalentPoints();
 		BattleClassesTalentTree talentTree = this.talentTrees.get(index);
 		for(BattleClassesAbstractTalent talentAbility : talentTree.talentList ) {
-    		while(!talentAbility.isAlreadyLearned() && unspentTalentPoints != 0) {
+    		while(!talentAbility.isAlreadyLearned() && this.getUnspentTalentPoints() != 0) {
     			this.learnTalent(talentAbility);
     		}
     	}
@@ -126,13 +127,13 @@ public class BattleClassesTalentMatrix {
         		talentAbility.resetState();
         	}
         }
-		unspentTalentPoints = currentTalentPoints;
+		//unspentTalentPoints = currentTalentPoints;
 	}
 	
 	public void learnTalent(BattleClassesAbstractTalent talentAbility) {
 		if(talentAbility.isAvailableToLearn()) {
     		talentAbility.incrementState();
-    		--unspentTalentPoints;
+    		//--unspentTalentPoints;
     	}
 	}
 	

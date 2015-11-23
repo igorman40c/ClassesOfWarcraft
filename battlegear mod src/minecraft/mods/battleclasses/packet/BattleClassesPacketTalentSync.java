@@ -71,7 +71,7 @@ public class BattleClassesPacketTalentSync extends AbstractMBPacket {
             EntityPlayer entityPlayer = player.worldObj.getPlayerEntityByName(username);
             if(entityPlayer!=null){
             	BattleClassesPlayerHooks playerHooks = BattleClassesUtils.getPlayerHooks(entityPlayer);
-            	playerHooks.playerClass.talentMatrix.setUnspentTalentPoints(talentPointsLeft);
+            	//playerHooks.playerClass.talentMatrix.setUnspentTalentPoints(talentPointsLeft);
             	for (String keyTalentID : talentStateMap.keySet()) {
             		BattleClassesAbstractTalent talentAbility = playerHooks.playerClass.talentMatrix.talentHashMap.get(keyTalentID);
             		if(talentAbility != null) {

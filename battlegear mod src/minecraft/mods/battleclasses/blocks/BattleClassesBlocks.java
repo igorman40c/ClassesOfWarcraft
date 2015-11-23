@@ -88,8 +88,8 @@ public class BattleClassesBlocks implements IWorldGenerator
 			int posY = minY + random.nextInt(diffBtwnMinMaxY);
 			int posZ = blockZPos + random.nextInt(maxZ);
 			//System.out.println("Gems Vein of size:" + maxVeinSize + " generated at X:" + posX + " Z:" + posZ + " Y:" + posY);
-			//(new BC_WorldGenMinable(block, maxVeinSize)).generate(world, random, posX, posY, posZ);
-			(new WorldGenMinable(block, maxVeinSize)).generate(world, random, posX, posY, posZ);
+			(new BC_WorldGenMinable(block, maxVeinSize)).generate(world, random, posX, posY, posZ);
+			//(new WorldGenMinable(block, maxVeinSize)).generate(world, random, posX, posY, posZ);
 
 		}
 	}
