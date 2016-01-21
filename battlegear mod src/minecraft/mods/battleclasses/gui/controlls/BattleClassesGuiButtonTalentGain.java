@@ -20,12 +20,6 @@ public class BattleClassesGuiButtonTalentGain extends BattleClassesGuiButton {
 		this.setOrigin(0, 196);
 		this.showHoveringText = true;
 	}
-	/*
-	@Override
-	public boolean shouldBeDisabled() {
-		return true;
-	}
-	*/
 	
 	@Override
 	public boolean mousePressed(Minecraft mc, int mouseX, int mouseY) {
@@ -65,4 +59,5 @@ public class BattleClassesGuiButtonTalentGain extends BattleClassesGuiButton {
     	text = BattleClassesGuiHelper.formatHoveringTextWidth(text);
 		return text;
 	}
+	
 }
