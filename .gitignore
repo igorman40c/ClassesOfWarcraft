@@ -3,6 +3,7 @@
 
 #Don't ignore the battlegear mod src folder
 !battlegear mod src/
+battlegear mod src/minecraft/mods/battleclasses/
 
 !battlegear api/
 
