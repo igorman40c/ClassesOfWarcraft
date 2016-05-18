@@ -261,7 +261,7 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 		}
 	}
 	
-	public static class FrostBolt extends BattleClassesAbilityTestCasted {
+	public static class FrostBolt extends BattleClassesAbilityActiveDirect {
 		
 		public static final FrostBolt INSTANCE = new FrostBolt();
 		static {
@@ -273,9 +273,11 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 			this.setUnlocalizedName("mage.frostbolt");
 			this.baseCastTime = 1F;
 			this.school = EnumBattleClassesAbilitySchool.SPELL_FROST;
+			this.setCastingType(EnumBattleClassesAbilityCastingType.CASTED);
 			this.range = 20F;
 			BattleClassesAbstractAbilityEffectInstantValue effect = EffectFactory.createInstantAbilityEffect(15, 0, EnumBattleClassesAbilitySchool.SPELL_FROST);
 			this.addEffect(effect);
+			this.setAmmoRequirement(BattleClassesItem.manaGem, 1);
 		}
 	}
 	
@@ -307,7 +309,6 @@ public class BattleClassesPlayerClassMage extends BattleClassesPlayerClass {
 			this.school = EnumBattleClassesAbilitySchool.SPELL_FROST;
 		}
 	}
-	
 	
 	
 	//--------------------------------------------------------------------------------------------------------

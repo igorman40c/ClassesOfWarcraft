@@ -203,7 +203,7 @@ bcattribute.critical_rating.description=Increases the chance of your abilities t
 bcattribute.armor_penetration.description=Increases the ammount of damage your physical effects will deal, by ignoring armor value of your enemy.
 bcattribute.melee_attack_damage.description=Estimated ammount of damage you will deal with your currently held weapons (main-hand|off-hand).
 bcattribute.ranged_attack_damage.description=Estimated ammount of damage you will deal with your ranged weapon.
-bcattribute.vanilla_armor.description=Reduces physical damage you recieve.
+bcattribute.vanilla_armor.description=Reduces physical damage you receive.
 
 bcattribute.percentage_per_ratingpoints=(%1$s per rating point)
 
