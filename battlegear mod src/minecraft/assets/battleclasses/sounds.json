@@ -19,6 +19,31 @@
         "gui.talent"
       ]
     },
+    "gui.tab.spellbook": {
+    "category": "player",
+    "sounds": [
+        "gui.tab.spellbook"
+      ]
+    },
+    "gui.tab.talents": {
+    "category": "player",
+    "sounds": [
+        "gui.tab.talents"
+      ]
+    },
+    "gui.ability.pickup": {
+    "category": "player",
+    "sounds": [
+        "gui.ability.pickup"
+      ]
+    },
+    "gui.ability.drop": {
+    "category": "player",
+    "sounds": [
+        "gui.ability.drop"
+      ]
+    },
+    
 	
     ##Ability school casting sounds##
     "abilityschool.physical_ranged.casting": {
