@@ -206,6 +206,8 @@ bcattribute.ranged_attack_damage.description=Estimated ammount of damage you wil
 bcattribute.vanilla_armor.description=Reduces physical damage you receive.
 
 bcattribute.percentage_per_ratingpoints=(%1$s per rating point)
+bcattribute.crit_info.offensive=Critical %1$s %2$s cause %3$s% damage.
+bcattribute.crit_info.dual=Critical %1$s %2$s cause %3$s% damage or healing.
 
 bccriteria.abilityschool.all=abilities and spells
 bccriteria.abilityschool.abilities=abilities
@@ -241,8 +243,9 @@ pcpotion.speedmodifier.decrease=decreases the movement speed of the %1$s by %2$s
 pcpotion.speedmodifier.caster=caster
 pcpotion.speedmodifier.target=target
 
-abilityschool.physical_melee_rage.name=melee
-abilityschool.physical_melee_energy.name=melee
+#abilityschool.physical_melee_rage.name=melee
+#abilityschool.physical_melee_energy.name=melee
+abilityschool.physical_melee.name=melee
 abilityschool.physical_ranged.name=ranged
 abilityschool.spell_arcane.name=arcane
 abilityschool.spell_fire.name=fire
