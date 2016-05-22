@@ -306,14 +306,35 @@ bctalenttree.warrior.protection.description=A stalwart protector who uses a shie
 
 talent.universal.abilityactivecontainer.name=Teaches new ability
 
+##Universal abilities 
 ability.universal.shieldblock=Shield block
 ability.universal.attack.mainhand=Attack main-hand
 ability.universal.attack.offhand=Attack off-hand
 
+
+##Mage abilities
+# Arcane 
+ability.mage.blink.name=Blink
+ability.mage.blink.description=todo...
+ability.mage.polymorph.name=Polymorph
+ability.mage.polymorph.description=todo...
 ability.mage.arcane_missiles.name=Arcane Missiles
-ability.mage.iceblock.name=Ice Block
-ability.mage.iceblock.description=You become encased in a block of ice, protecting you from all physical attacks and spells for 10 sec, but during that time you cannot attack, move or cast spells.
+ability.mage.arcane_missiles.description=Launches Arcane Missiles at the target, causing $damagevalue damage every $interval for $duration
+ability.mage.arcane_blast.name=Arcane Blast
+ability.mage.arcane_blast.description=Blasts the target with energy, dealing $damagevalue damage
+# Fire
 ability.mage.scorch.name=Scorch
-ability.mage.scorch.description=Scorches the enemy
+ability.mage.scorch.description=Scorches the enemy, causing $damagevalue damage
+ability.mage.fireball.name=Fireball
+ability.mage.fireball.description=Hurls a fiery ball that causes $damagevalue damage
+ability.mage.dragonsbreath.name=Dragon's Breath
+ability.mage.dragonsbreath.description=Targets in a cone in front of the caster take $damagevalue damage
+# Frost
+ability.mage.frostbolt.name=Frostbolt
+ability.mage.frostbolt.description=Launches a bolt of frost at the target, causing $damagevalue damage ..todo.. add slow effect here? or separate line?
+ability.mage.frostnova.name=Frost Nova
+ability.mage.frostnova.description=Blasts enemies near the caster for $damagevalue damage and freezes them in place for $duration in place
+ability.mage.iceblock.name=Ice Block
+ability.mage.iceblock.description=You become encased in a block of ice, protecting you from all physical attacks and spells for 8 sec, but during that time you cannot attack, move or cast spells
 
 

@@ -31,6 +31,12 @@
         "gui.tab.talents"
       ]
     },
+    "gui.tab.equipment": {
+    "category": "player",
+    "sounds": [
+        "gui.tab.equipment"
+      ]
+    },    
     "gui.ability.pickup": {
     "category": "player",
     "sounds": [
