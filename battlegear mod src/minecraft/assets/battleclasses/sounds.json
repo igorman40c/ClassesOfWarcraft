@@ -83,6 +83,14 @@
       ]
     },
     
+    ##Ability school impact sounds##
+    "abilityschool.spell_arcane.impact": {
+    "category": "player",
+    "sounds": [
+        "impact.arcane_1", "impact.arcane_2", "impact.arcane_3"
+      ]
+    },
+    
     ##Ability sounds##
     #Mage#
     "ability.mage.arcanemissiles.release": {
