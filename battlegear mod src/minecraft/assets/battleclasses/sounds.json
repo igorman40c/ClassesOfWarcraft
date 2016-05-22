@@ -1,22 +1,16 @@
 {
     ###Classes Of Warcraft sound configuration###
 	##User Interface sounds##
-	"gui.classpick": {
+    "gui.tab.inventory": {
     "category": "player",
     "sounds": [
-        "gui.classpick"
+        "gui.tab.inventory"
       ]
     },
-	"gui.learn": {
+    "gui.tab.equipment": {
     "category": "player",
     "sounds": [
-        "gui.learn"
-      ]
-    },
-	"gui.talent": {
-    "category": "player",
-    "sounds": [
-        "gui.talent"
+        "gui.tab.equipment"
       ]
     },
     "gui.tab.spellbook": {
@@ -25,30 +19,48 @@
         "gui.tab.spellbook"
       ]
     },
+        "gui.learn": {
+        "category": "player",
+        "sounds": [
+            "gui.learn"
+          ]
+        },
+        "gui.ability.pickup": {
+        "category": "player",
+        "sounds": [
+            "gui.ability.pickup"
+          ]
+        },
+        "gui.ability.drop": {
+        "category": "player",
+        "sounds": [
+            "gui.ability.drop"
+          ]
+        },
     "gui.tab.talents": {
     "category": "player",
     "sounds": [
         "gui.tab.talents"
       ]
     },
-    "gui.tab.equipment": {
+        "gui.talent": {
+        "category": "player",
+        "sounds": [
+            "gui.talent"
+          ]
+        },
+    "gui.tab.class": {
     "category": "player",
     "sounds": [
-        "gui.tab.equipment"
-      ]
-    },    
-    "gui.ability.pickup": {
-    "category": "player",
-    "sounds": [
-        "gui.ability.pickup"
-      ]
-    },
-    "gui.ability.drop": {
-    "category": "player",
-    "sounds": [
-        "gui.ability.drop"
+        "gui.tab.class"
       ]
     },
+        "gui.classpick": {
+        "category": "player",
+        "sounds": [
+            "gui.classpick"
+          ]
+        },
     
 	
     ##Ability school casting sounds##
