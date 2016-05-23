@@ -116,5 +116,13 @@
     "sounds": [
         "release.spell"
       ]
+    },
+    "ability.mage.blink.release": {
+    "category": "player",
+    "sounds": [
+        "release.blink"
+      ]
     }
+    
+    
 }
