@@ -100,6 +100,44 @@
         "casting.abilityschool.shadow"
       ]
     },
+
+    ##Ability school release sounds##
+    "abilityschool.physical_ranged.release": {
+    "category": "player",
+    "sounds": [
+        #”release.spell"
+      ]
+    },
+    "abilityschool.spell_arcane.release": {
+    "category": "player",
+    "sounds": [
+        "release.spell"
+      ]
+    },
+    "abilityschool.spell_fire.release": {
+    "category": "player",
+    "sounds": [
+        "release.spell"
+      ]
+    },
+    "abilityschool.spell_frost.release": {
+    "category": "player",
+    "sounds": [
+        "release.spell"
+      ]
+    },
+    "abilityschool.spell_holy.release": {
+    "category": "player",
+    "sounds": [
+        ”release.spell"
+      ]
+    },
+    "abilityschool.spell_shadow.release": {
+    "category": "player",
+    "sounds": [
+        "release.spell"
+      ]
+    },
     
     ##Ability school impact sounds##
     "abilityschool.spell_arcane.impact": {
@@ -109,7 +147,7 @@
       ]
     },
     
-    ##Ability sounds##
+    ##Ability specific sounds##
     #Mage#
     "ability.mage.arcanemissiles.release": {
     "category": "player",
