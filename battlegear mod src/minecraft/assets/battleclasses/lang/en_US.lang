@@ -315,11 +315,11 @@ ability.universal.attack.offhand=Attack off-hand
 ##Mage abilities
 # Arcane 
 ability.mage.blink.name=Blink
-ability.mage.blink.description=todo...
+ability.mage.blink.description=Teleports the caster $range blocks forward, unless something is in the way. Also frees the caster from stuns and bonds.
 ability.mage.polymorph.name=Polymorph
 ability.mage.polymorph.description=todo...
 ability.mage.arcane_missiles.name=Arcane Missiles
-ability.mage.arcane_missiles.description=Launches Arcane Missiles at the target, causing $damagevalue damage every $interval for $duration
+ability.mage.arcane_missiles.description=Launches Arcane Missiles at the target, causing $damagevalue damage every $interval seconds for $duration seconds
 ability.mage.arcane_blast.name=Arcane Blast
 ability.mage.arcane_blast.description=Blasts the target with energy, dealing $damagevalue damage
 # Fire
