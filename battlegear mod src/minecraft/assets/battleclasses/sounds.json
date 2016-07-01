@@ -160,6 +160,12 @@
     "sounds": [
         "release.blink"
       ]
+    },
+    "ability.mage.polymorph.impact": {
+    "category": "player",
+    "sounds": [
+        "impact.polymorph"
+      ]
     }
     
     
