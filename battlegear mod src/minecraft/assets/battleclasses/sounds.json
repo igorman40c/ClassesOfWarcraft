@@ -105,7 +105,7 @@
     "abilityschool.physical_ranged.release": {
     "category": "player",
     "sounds": [
-        #”release.spell"
+        #release.spell"
       ]
     },
     "abilityschool.spell_arcane.release": {
@@ -129,7 +129,7 @@
     "abilityschool.spell_holy.release": {
     "category": "player",
     "sounds": [
-        ”release.spell"
+        "release.spell"
       ]
     },
     "abilityschool.spell_shadow.release": {
