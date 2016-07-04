@@ -337,6 +337,7 @@ ability.mage.polymorph.potionname=Polymorphed
 ability.mage.arcane_missiles.name=Arcane Missiles
 ability.mage.arcane_missiles.description=Launches Arcane Missiles at the target, causing $damagevalue damage every $interval seconds for $duration seconds
 ability.mage.arcane_blast.name=Arcane Blast
+ability.mage.arcane_blast.potionname=Arcane Power
 ability.mage.arcane_blast.description=Blasts the target with energy, dealing $damagevalue damage
 # Fire
 ability.mage.scorch.name=Scorch
@@ -353,4 +354,8 @@ ability.mage.frostnova.description=Blasts enemies near the caster for $damageval
 ability.mage.iceblock.name=Ice Block
 ability.mage.iceblock.description=You become encased in a block of ice, protecting you from all physical attacks and spells for 8 sec, but during that time you cannot attack, move or cast spells
 
+##Mage talents
+# Arcane 
+talent.mage.arcane0.name=Arcane Mastery
+talent.mage.arcane0.description=Increases your spellpower by $multiplier%.
 
