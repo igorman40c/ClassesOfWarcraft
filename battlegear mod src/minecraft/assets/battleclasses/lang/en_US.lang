@@ -260,6 +260,11 @@ bcability.info.casttype.instant=Instant cast
 bcability.info.range=%1$s blocks range
 bcability.info.cooldown=%1$s sec cooldown
 
+ability.effectvalue_increase.description=Ranking up this ability will increase its damage or healing done.
+ability.effectduration_increase.description=Ranking up this ability will increase the duration of its effect. 
+ability.cooldown_reduction.description=Ranking up this ability will reduce its cooldown time.
+
+
 bctalenttree.mage.arcane.name=Arcane
 bctalenttree.mage.fire.name=Fire
 bctalenttree.mage.frost.name=Frost
@@ -338,7 +343,7 @@ ability.mage.arcane_missiles.name=Arcane Missiles
 ability.mage.arcane_missiles.description=Launches Arcane Missiles at the target, causing $damagevalue damage every $interval seconds for $duration seconds
 ability.mage.arcane_blast.name=Arcane Blast
 ability.mage.arcane_blast.potionname=Arcane Power
-ability.mage.arcane_blast.description=Blasts the target with energy, dealing $damagevalue damage
+ability.mage.arcane_blast.description=Blasts the target with energy, dealing $damagevalue damage. Each successful cast grants you Arcane Power, reducing the spellcast time of your damaging Arcane spells by $hastemultiplier and increasing the damage of your Arcane Missiles by $damagemultiplier. This effect stacks up to $maxstackcount times
 # Fire
 ability.mage.scorch.name=Scorch
 ability.mage.scorch.description=Scorches the enemy, causing $damagevalue damage
