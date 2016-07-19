@@ -117,19 +117,19 @@
     "abilityschool.spell_fire.release": {
     "category": "player",
     "sounds": [
-        "release.spell"
+        "release.spellfire"
       ]
     },
     "abilityschool.spell_frost.release": {
     "category": "player",
     "sounds": [
-        "release.spell"
+        "release.spellfrost"
       ]
     },
     "abilityschool.spell_holy.release": {
     "category": "player",
     "sounds": [
-        "release.spell"
+        "release.spellholy"
       ]
     },
     "abilityschool.spell_shadow.release": {
@@ -146,9 +146,22 @@
         "impact.arcane_1", "impact.arcane_2", "impact.arcane_3"
       ]
     },
+    "abilityschool.spell_fire.impact": {
+    "category": "player",
+    "sounds": [
+        "impact.fire_1", "impact.fire_2", "impact.fire_3", "impact.fire_4"
+      ]
+    },
     
     ##Ability specific sounds##
     #Mage#
+    #Arcane#
+    "ability.mage.polymorph.impact": {
+    "category": "player",
+    "sounds": [
+        "impact.polymorph"
+      ]
+    },
     "ability.mage.arcanemissiles.release": {
     "category": "player",
     "sounds": [
@@ -161,12 +174,34 @@
         "release.blink"
       ]
     },
-    "ability.mage.polymorph.impact": {
+    #Fire#
+    "ability.mage.dragons_breath.release": {
     "category": "player",
     "sounds": [
-        "impact.polymorph"
+        "release.dragons_breath"
+      ]
+    },
+    "ability.mage.dragons_breath.impact": {
+    "category": "player",
+    "sounds": [
+        "impact.dragons_breath1", "impact.dragons_breath2", "impact.dragons_breath3", "impact.dragons_breath4"
+      ]
+    },
+    #Frost#
+    "ability.mage.frostnova.release": {
+    "category": "player",
+    "sounds": [
+        "release.frostnova"
+      ]
+    },
+    "ability.mage.frostnova.impact": {
+    "category": "player",
+    "sounds": [
+        "impact.frostnova"
       ]
     }
+    
+    
     
     
 }
