@@ -1,0 +1,365 @@
+bcpotion.testing=Превращение
+
+bcgui.keycategories.actionbar=Панель Способностей
+itemGroup.bcweapons=Classes of Warcraft: Оружие
+itemGroup.bcarmor=Classes of Warcraft: Броня
+
+#Weapons
+item.battleclasses:weapons/StaffWood.name=Деревянный Посох
+item.battleclasses:weapons/StaffCoal.name=Угольный Посох
+item.battleclasses:weapons/StaffRedstone.name=Посох из Красной Пыли
+item.battleclasses:weapons/StaffEmerald.name=Изумрудный Посох
+item.battleclasses:weapons/LongBowWooden.name=Длинный Лук
+item.battleclasses:weapons/LongBowComposite.name=Составной Длинный Лук
+item.battleclasses:weapons/LongBowMechanic.name=Длинный Механо-Лук
+item.battleclasses:weapons/LongBowBirch.name=Берёзовый Длинный Лук
+item.battleclasses:weapons/BroadSwordWood.name=Деревянный Палаш
+item.battleclasses:weapons/BroadSwordStone.name=Каменный Палаш
+item.battleclasses:weapons/BroadSwordIron.name=Железный Палаш
+item.battleclasses:weapons/BroadSwordDiamond.name=Алмазный Палаш
+item.battleclasses:weapons/BroadSwordGold.name=Золотой Палаш
+
+#Misc Items
+item.battleclasses:ManaGem.name=Кристалл Маны
+item.battleclasses:gemstone0.name=Азеротский Алмаз
+item.battleclasses:gemstone1.name=Рубин
+item.battleclasses:gemstone2.name=Shappire
+item.battleclasses:gemstone3.name=Львиный Глаз
+item.battleclasses:gemstone4.name=Аметист
+item.battleclasses:gemstone5.name=Топаз
+item.battleclasses:gemstone6.name=Талазит
+
+#Mage armor sets (T1-T3)
+item.battleclasses:armors/mage.t1.helm.name=Чародейский Колпак
+item.battleclasses:armors/mage.t1.chest.name=Колдовская Накидка
+item.battleclasses:armors/mage.t1.legs.name=Магические Поножи
+item.battleclasses:armors/mage.t1.boots.name=Сандалии Волшебника
+item.battleclasses:armors/mage.t2.helm.name=Астральный Капюшон
+item.battleclasses:armors/mage.t2.chest.name=Астральная Мантия
+item.battleclasses:armors/mage.t2.legs.name=Астральные Поножи
+item.battleclasses:armors/mage.t2.boots.name=Астральные Ботинки
+item.battleclasses:armors/mage.t3.helm.name=Капюшон Пробуждения
+item.battleclasses:armors/mage.t3.chest.name=Одеяния Пробуждения
+item.battleclasses:armors/mage.t3.legs.name=Штаны Пробуждения
+item.battleclasses:armors/mage.t3.boots.name=Сапоги Пробуждения
+
+#Hunter armor sets (T1-T3)
+item.battleclasses:armors/hunter.t1.helm.name=Охотничья Шапка
+item.battleclasses:armors/hunter.t1.chest.name=Вязаная Кираса
+item.battleclasses:armors/hunter.t1.legs.name=Плотные Штаны
+item.battleclasses:armors/hunter.t1.boots.name=Поношенные Сапоги
+item.battleclasses:armors/hunter.t2.helm.name=Шлем Странника
+item.battleclasses:armors/hunter.t2.chest.name=Кираса Странника
+item.battleclasses:armors/hunter.t2.legs.name=Поножи Странника
+item.battleclasses:armors/hunter.t2.boots.name=Ботинки Странника
+item.battleclasses:armors/hunter.t3.helm.name=Шлем Повелителя Зверей
+item.battleclasses:armors/hunter.t3.chest.name=Кираса Повелителя Зверей
+item.battleclasses:armors/hunter.t3.legs.name=Поножи Повелителя Зверей
+item.battleclasses:armors/hunter.t3.boots.name=Ботинки Повелителя Зверей
+
+#Warrior armor sets (T1-T3)
+item.battleclasses:armors/warrior.t1.helm.name=Латный Шлем Ярости
+item.battleclasses:armors/warrior.t1.chest.name=Латы Жестокости
+item.battleclasses:armors/warrior.t1.legs.name=Поножи Дикости
+item.battleclasses:armors/warrior.t1.boots.name=Сапоги Свирепости
+item.battleclasses:armors/warrior.t2.helm.name=Армированный Шлем
+item.battleclasses:armors/warrior.t2.chest.name=Армированные Латы
+item.battleclasses:armors/warrior.t2.legs.name=Армированные Поножи
+item.battleclasses:armors/warrior.t2.boots.name=Армированные Сапоги
+item.battleclasses:armors/warrior.t3.helm.name=Шлем Смелости
+item.battleclasses:armors/warrior.t3.chest.name=Латы Отваги
+item.battleclasses:armors/warrior.t3.legs.name=Поножи Храбрости
+item.battleclasses:armors/warrior.t3.boots.name=Узорчатые Ботинки 
+
+bchandheld.one_handed=Одноручное
+bchandheld.main_handed=Правая Рука
+bchandheld.two_handed=Двуручное
+bchandheld.off_handed=Левая Рука
+
+bcarmortype.cloth=Ткань
+bcarmortype.leather=Кожа
+bcarmortype.mail=Кольчуга
+bcarmortype.plate=Латы
+
+bcenviroment=Применение
+bcenviroment.pvp=Бои между игроками
+bcenviroment.pve=Бои с монстрами
+bcenviroment.universal=Универсальное
+
+bcrole.healer=лекарь
+bcrole.damage_dealer=боец
+bcrole.ranged_damage_dealer=боец на расстоянии
+bcrole.tank=танк
+
+bcclass.armorinfo=Броня
+bcclass.roleinfo=Роль
+bcclass.roleinfo.plural=Роли
+
+bcclass.none=Нет класса
+bcclass.class=Класс
+bcclass.class.plural=Классы
+
+bcclass.mage=Маг
+bcclass.priest=Жрец
+bcclass.warlock=Чернокнижник
+bcclass.rogue=Разбойник
+bcclass.hunter=Охотник
+bcclass.paladin=Паладин
+bcclass.warrior=Воин
+
+bcclass.mage.introduction=Маги сносят своих противников тайными чарами. Несмотря на то, что они обладают мощными атакующими заклинаниями, маги являются хрупкими и малозащищёнными, что делает их особенно уязвимыми для атак с близкого расстояния. Мудрые маги осмотрительно используют свои заклинания, чтобы держать своих врагов подальше или удерживать их на месте.
+bcclass.priest.introduction=Жрецы используют мощную целительную магию, чтобы поддерживать себя и своих союзников живыми. Они также обладают мощными атакующими заклинаниями с расстояния, но могут быть задавлены врагами из-за физической слабости и минимальной брони. Опытные жрецы тщательно балансируют использование своих способностей, когда поставлена задача по поддержанию их группы живой.
+bcclass.warlock.introduction=Чернокнижники сжигают и уничтожают ослабленных противников комбинациями страшных болезней и тёмной магии. В то время как  демоны прислужники защищают и укрепляют их, они наносят удар по своим врагам с расстояния. Как физически слабые заклинатели, лишенные тяжелых доспехов, коварные колдуны позволяют их приспешникам взять на себя основной урон вражеских атак, чтобы спасти шкуру хозяина.
+bcclass.rogue.introduction=Разбойники часто начинают бой с внезапного нападения из тени, что позволяет нанести сильные ранения в ближнем бою. В затяжных боях они используют последовательное сочетание тщательно подобранных атак, чтобы ослабить врага для смертельного удара. Разбойники должны проявлять особую осторожность при выборе целей так, чтобы их комбо-удары не были потрачены впустую. Они должны осознавать, когда скрываться и бежать, если сражение оборачивается против них.
+bcclass.hunter.introduction=Охотники бьют врага на расстоянии, приказывая питомцам атаковать, пока сами натягивают тетиву или заряжают ружье. Хотя их дальнобойное оружие эффективно на коротких и дальних дистанциях, охотники также очень мобильны. Они могут уклоняться от ударов или задерживать своих врагов на месте, чтобы управлять полем битвы.
+bcclass.paladin.introduction=Паладины стоят прямо перед своими врагами, опираясь на тяжелую броню и исцеление, чтобы выдержать натиск. Вооружась массивными щитами или дробящим двуручным оружием, паладины способны или наносить урон врагам, или использовать магию исцеления, чтобы показать союзникам свою стойкость.
+bcclass.warrior.introduction=Воины сильны, обладают отличными лидерскими качествами и прекрасно умеют обращаться с оружием и доспехами. Все это позволяет им задать врагам трепку в славной битве. Некоторые воины предпочитают находиться на передовой, защищаясь щитами и сдерживая врагов, пока идущие следом союзники не поразят тех заклятьем или стрелой. Другие предпочитают сражаться в рукопашной, полагаясь не на щиты, а на свое смертоносное оружие.
+
+
+
+
+#UNUSED ATM STUFF-BEGIN <What? Translate or not?>
+bcclass.mage.talentsinfo=Mage talents focus on enhancing individual schools of magic - quick, aggressive Fire spells; efficient, controlling Frost spells and punishing Arcane spells.
+bcclass.priest.talentsinfo=Priest talents can strengthen their ability to heal the wounded, endanger their foes with the power of Shadow, or empower themselves and others with protective prayers.
+bcclass.warlock.talentsinfo=Warlock talents can improve the damage of their searing magics, increase the potency of their curses and persistent damaging spells, and empower their demonic servants.
+bcclass.rogue.talentsinfo=Rogue talents can strengthen their ability to hide in shadows, kill foes with quick, deadly strikes, and survive in extended slugfests.
+bcclass.hunter.talentsinfo=Hunter talents primarily strengthen their pets; improve the damage, effectiveness, and duration of their traps; and increase the speed and power of their ranged attacks.
+bcclass.paladin.talentsinfo=Paladin talents increase their ability to heal the wounded, strengthen their capacity to protect their companions, and allow them to deal out vicious damage in the name of justice.
+bcclass.warrior.talentsinfo=Warrior talents can improve their already considerable defenses with a shield, increase their deadliness with two-handed weapons, or bolster their savagery while dual-wielding.
+#UNUSED ATM STUFF-END
+
+bcgui.confirmation.yes=Да
+bcgui.confirmation.no=Нет
+bcgui.confirmation.class_reset.title=Вы уверены, что хотите сменить класс?
+bcgui.confirmation.class_reset.message=Вы потеряете все очки талантов и улучшения способностей.
+
+bcgui.ability_rank=Ранг %1$s
+bcgui.ability_rank.zero=Выучить
+bcgui.ability_rank.learn.cost=Обретение этой способности обойдётся вам в %1$s уровней(ня) опыта
+bcgui.ability_rank.rank_up.cost=Следующий ранг стоит %1$s уровней(ня) опыта
+bcgui.talent.reset.title=Сброс
+bcgui.talent.reset.message=Сброс вашей ветки талантов в целях смены специализации (Вы не потеряете очки талантов или ранги способностей.)
+bcgui.talent.gain.title=Получить
+bcgui.talent.gain.message=Получение очка талантов стоит %1$s уровней(ня) опыта
+
+bctab.inventory.name=Инвентарь
+bctab.equipment.name=Боевая Экипировка
+bctab.spellbook.name=Книга Способностей
+bctab.talents.name=Специализация
+bctab.classselector.name=Выбор Класса
+bctab.config.name=Настройки "Battle Classes Mod"
+bctab.info.name=Информация
+
+bchud.info.changeclass=Смена класса...
+bchud.info.changetalents=Применение изменений...
+bchud.warning.class_required=Для использования этого вы должны выбрать класс!
+bchud.warning.battlemode_required=Вы должны быть в бою для применения этого!
+bchud.warning.ammo_required=Вам чего-то не хватает для использования этого!
+bchud.warning.on_cooldown=Способность ещё не готова!
+bchud.warning.on_classcooldown=Ваши способности ещё не готовы!
+bchud.warning.silenced=Вы безмолвны!
+bchud.warning.combat_disabled=Вы не можете сделать это сейчас!
+bchud.warning.weapon_wrong_class=Эта вещь не для вашего класса!
+bchud.warning.target_out_of_range=Цель слишком далеко!
+bchud.target.healing=Лечение
+bchud.target.targeting=Прицеливание
+bchud.target.target_lost=Цель потеряна!
+bchud.target.self=На себя
+
+
+bcattribute.health.name=Здоровье
+bcattribute.strength.name=Сила
+bcattribute.agility.name=Ловкость
+bcattribute.spellpower_arcane.name=Сила Тайных Заклинаний
+bcattribute.spellpower_fire.name=Сила Огненных Заклинаний
+bcattribute.spellpower_frost.name=Сила Ледяных Заклинаний
+bcattribute.spellpower_holy.name=Сила Светлых Заклинаний
+bcattribute.spellpower_shadow.name=Сила Тёмных Заклинаний
+bcattribute.haste_rating.name=Скорость
+bcattribute.critical_rating.name=Критический Удар
+bcattribute.armor_penetration.name=Пробивная Способность
+bcattribute.melee_attack_damage.name=Урон Атак
+bcattribute.ranged_attack_damage.name=Урон Атак с Дистанции
+bcattribute.vanilla_armor.name=Броня
+bcattribute.itemLevel=Уровень Предмета
+bcattribute.weaponSpeed=Скорость Атаки
+bcattribute.weaponSpeed.s=с
+bcattribute.weaponReach=Радиус
+
+bcattribute.critical_rating.name.rating=Шанс Критического Удара
+bcattribute.haste_rating.name.rating=Ловкость
+bcattribute.armor_penetration.name.rating=Пробивная способность
+
+bcattribute.health.description=Увеличивает Ваш макс. запас здоровья на половину сердца за 1 очко.
+bcattribute.strength.description=Увеличивает Ваш урон оружием.
+bcattribute.agility.description=Увеличивает Ваш шанс крит. удара и урон всем оружием.
+bcattribute.spellpower_arcane.description=Увеличивает мощь тайных заклинаний.
+bcattribute.spellpower_fire.description=Увеличивает мощь огненных заклинаний.
+bcattribute.spellpower_frost.description=Увеличивает мощь ледяных заклинаний.
+bcattribute.spellpower_holy.description=Увеличивает мощь светлых заклинаний.
+bcattribute.spellpower_shadow.description=Увеличивает мощь тёмных заклинаний.
+bcattribute.haste_rating.description=Увеличивает скорость атаки и произнесения заклинаний.
+bcattribute.critical_rating.description=Увеличивает шанс нанесения Вами критического урона.
+bcattribute.armor_penetration.description=Увеличивает наносимый Вами физический урон путём игнорирования брони противника.
+bcattribute.melee_attack_damage.description=Урон, который Вы нанесёте взятым оружием ближнего боя.
+bcattribute.ranged_attack_damage.description=Урон, который Вы нанесёте взятым оружием дальнего боя.
+bcattribute.vanilla_armor.description=Уменьшает получаемый урон.
+
+bcattribute.percentage_per_ratingpoints=(%1$s за очко улучшения)
+bcattribute.crit_info.offensive=Критический удар %1$s %2$s наносит %3$s% урона.
+bcattribute.crit_info.dual=Критический удар %1$s %2$s наносит %3$s% урона или так же лечит.
+
+bccriteria.abilityschool.all=способности и заклинания
+bccriteria.abilityschool.abilities=способности
+bccriteria.abilityschool.ability=способность
+bccriteria.abilityschool.spells=заклинания
+bccriteria.abilityschool.spell=заклинание
+
+bceffect.modifier.increase=увеличивает
+bceffect.modifier.reduce=уменьшает
+bceffect.modifier.damage=урон
+bceffect.modifier.heal=лечение
+bceffect.modifier.allabilities=способности и заклинания
+bceffect.modifier.value.output=нанесено вашим
+bceffect.modifier.value.input=получено от
+bceffect.modifier.crit.output=крит. шанс вашего
+bceffect.modifier.crit.input=шанс получить крит. удар от
+bceffect.modifier.bypercentage=на %1$s%
+bceffect.modifier.stacks=суммируется до %1$s раз
+
+bcattribute.modifier.amplifier=вашу(е) %1$s на %2$s%
+bcattribute.modifier.bonus=вашу(е) %1$s на %2$s
+bcattribute.modifier.crossbonus=ваше(у) %1$s на %2$s% из %3$s
+bcattribute.modifier.precriteria=для вашей(го)
+
+bceffect.damage.description=наносит %1$s урона
+bceffect.heal.description=лечит союзника на %1$s
+bceffect.lastsseconds.description=длится %1$s секунд
+bceffect.overseconds.description=в течение %1$s секунд
+bceffect.additionally=дополнительно
+
+pcpotion.speedmodifier.increase=увеличивает скорость передвижения %1$s на %2$s
+pcpotion.speedmodifier.decrease=уменьшает скорость передвижения %1$s на %2$s
+pcpotion.speedmodifier.caster=заклинатель
+pcpotion.speedmodifier.target=цель
+
+#abilityschool.physical_melee_rage.name=melee
+#abilityschool.physical_melee_energy.name=melee
+abilityschool.physical_melee.name=ближний
+abilityschool.physical_ranged.name=дальний
+abilityschool.spell_arcane.name=тайный
+abilityschool.spell_fire.name=огненный
+abilityschool.spell_frost.name=ледяной
+abilityschool.spell_holy.name=светлый
+abilityschool.spell_shadow.name=тёмный
+
+bcability.ammorequirement=Требует
+bcability.info.casttype.casted=Произносится за %1$s сек.
+bcability.info.casttype.channeled=Поддерживается в течение %1$s сек.
+bcability.info.casttype.instant=Мнгновенное произнесение
+bcability.info.range=радиус %1$s блоков
+bcability.info.cooldown=откат %1$s сек.
+
+ability.effectvalue_increase.description=Улучшение этой способности увеличит её урон или лечение.
+ability.effectduration_increase.description=Улучшение этой способности продлит её эффект. 
+ability.cooldown_reduction.description=Улучшение этой способности уменьшит время её восстановления.
+
+
+bctalenttree.mage.arcane.name=Тайная Магия
+bctalenttree.mage.fire.name=Огонь
+bctalenttree.mage.frost.name=Лёд
+bctalenttree.priest.discipline.name=Послушание
+bctalenttree.priest.holy.name=Свет
+bctalenttree.priest.shadow.name=Тьма
+bctalenttree.warlock.affliction.name=Колдовство
+bctalenttree.warlock.demonology.name=Демонология
+bctalenttree.warlock.destruction.name=Разрушение
+bctalenttree.rogue.assassination.name=Ликвидация
+bctalenttree.rogue.combat.name=Бой
+bctalenttree.rogue.subtetly.name=Скрытность
+bctalenttree.hunter.beastmastery.name=Повелитель Зверей
+bctalenttree.hunter.marksmanship.name=Стрельба
+bctalenttree.hunter.survival.name=Выживание
+bctalenttree.paladin.holy.name=Свет
+bctalenttree.paladin.protection.name=Защита
+bctalenttree.paladin.retribution.name=Воздаяние
+bctalenttree.warrior.arms.name=Оружие
+bctalenttree.warrior.fury.name=Неистовство
+bctalenttree.warrior.protection.name=Защита
+
+bctalenttree.mage.arcane.description=Управляет энергией тайной магии, уничтожая своих противников разрушительными заклинаниями.
+bctalenttree.mage.fire.description=Испепеляет врагов огненными шарами и всепожирающим пламенем.
+bctalenttree.mage.frost.description=Используя магию льда, замораживает врагов и разбивает их вдребезги.
+bctalenttree.priest.discipline.description=Использует магию для защиты союзников и исцеления их ран.
+bctalenttree.priest.holy.description=Универсальный лекарь, который исцеляет одиночные цели и группы и может лечить даже после смерти.
+bctalenttree.priest.shadow.description=Для уничтожения врагов пользуется магией Тьмы, предпочитая заклинания, наносящие периодический урон.
+bctalenttree.warlock.affliction.description=Знаток темной магии, умеющий вытягивать из врагов силы и наносить периодический урон.
+bctalenttree.warlock.demonology.description=Мастер демонической магии, умеющий превращаться в демона и призывать на помощь темные силы.
+bctalenttree.warlock.destruction.description=Сеет хаос с помощью пламени, опаляющего и уничтожающего врагов.
+bctalenttree.rogue.assassination.description=Опаснейший знаток ядов, который расправляется с противниками ударами отравленных кинжалов.
+bctalenttree.rogue.combat.description=Ловкий и коварный головорез, мастер ближнего боя.
+bctalenttree.rogue.subtetly.description=Мастер скрытности, в совершенстве владеющий искусством незаметного передвижения, внезапных и смертельных атак.
+bctalenttree.hunter.beastmastery.description=Знаток зверей, который умеет приручать животных разных видов и использовать их в сражении.
+bctalenttree.hunter.marksmanship.description=Меткий стрелок, с которым никто не сравнится в стрельбе с больших расстояний.
+bctalenttree.hunter.survival.description=Следопыт, который предпочитает полагаться на яды, взрывчатку и ловушки.
+bctalenttree.paladin.holy.description=Призывает силы Света для защиты и исцеления.
+bctalenttree.paladin.protection.description=Использует магию Света для защиты себя и своих союзников от вражеских атак.
+bctalenttree.paladin.retribution.description=Борец за справедливость, который вершит правосудие над врагами при помощи оружия и магии Света.
+bctalenttree.warrior.arms.description=Закаленный в битвах мастер владения двуручным оружием. В бою полагается на скорость и мощные удары.
+bctalenttree.warrior.fury.description=Неистовый берсерк, воюющий с оружием в каждой руке. Обрушивает на врага шквал ударов, способных изрубить его на куски.
+bctalenttree.warrior.protection.description=Использует щит для защиты себя и своих союзников от вражеских атак.
+
+talent.universal.abilityactivecontainer.name=Обучает новой способности
+
+cc.silence.acquired=Обезмолвлен!
+cc.stun.acquired=Оглушён!
+cc.incapacitate.acquired=Выведен из строя!
+cc.disarm.acquired=Обезоружен!
+cc.snare.acquired=Обездвижен!
+cc.slow.acquired=Замедлен!
+
+cc.silence.unable_to_use=Нельзя сделать это обезмолвленным!
+cc.stun.unable_to_use=Нельзя сделать это оглушённым!
+cc.incapacitate.unable_to_use=Нельзя сделать это выведенным из строя!
+cc.disarm.unable_to_use=Нельзя сделать это обезоруженным!
+cc.snare.unable_to_use=Нельзя сделать это обездвиженным!
+cc.slow.unable_to_use=Нельзя сделать это замедленным!
+
+##Universal abilities 
+ability.universal.shieldblock=Блок Щитом
+ability.universal.attack.mainhand=Атака Правой Рукой
+ability.universal.attack.offhand=Атака Левой Рукой
+
+
+##Mage abilities
+# Arcane 
+ability.mage.blink.name=Скачок
+ability.mage.blink.description=Переносит заклинателя на $range блоков вперёд, если на пути нет препятствий. Также освобождает заклинателя от эффектов оглушения и ограничения передвижения.
+ability.mage.polymorph.name=Превращение
+ability.mage.polymorph.description=Превращает врага в овцу, выводя его из строя на $duration секунд. Овца не может атаковать, но быстро регенерирует здоровье. Любой урон оотменяет действие превращения. Не действует на цели, имеющие запас здоровья более чем в $multiplierX раз превышающий Ваш.
+ability.mage.polymorph.error=Цель слишком сильна!
+ability.mage.polymorph.potionname=Превращение
+ability.mage.arcane_missiles.name=Чародейские Стрелы
+ability.mage.arcane_missiles.description=Запускает магические стрелы в цель, нанося $damagevalue урона каждые $interval секунд в течение $duration секунд.
+ability.mage.arcane_blast.name=Чародейская Вспышка
+ability.mage.arcane_blast.potionname=Чародейский Заряд
+ability.mage.arcane_blast.description=Поражает противника взрывом энергии, нанося $damagevalue урона. Каждое успешное произнесение даёт Вам 1 Чародейский Заряд, уменьшая время произнесения Ваших Тайных заклинаний на $hastemultiplier и увеличивая урон Ваших Чародейских Стрел на  $damagemultiplier. Этот эффект складывается до $maxstackcount раз.
+# Fire
+ability.mage.scorch.name=Ожог
+ability.mage.scorch.description=Обжигает цель, нанося $damagevalue урона
+ability.mage.fireball.name=Огненный Шар
+ability.mage.fireball.description=Вы кидаете огненный шар в цель, нанося $damagevalue урона
+ability.mage.dragonsbreath.name=Дыхание Дракона
+ability.mage.dragonsbreath.description=Цели в конусе перед магом получают $damagevalue урона
+# Frost
+ability.mage.frostbolt.name=Ледяная Стрела
+ability.mage.frostbolt.description=Запускает стрелу льда в цель, наносящую $damagevalue урона.
+ability.mage.frostnova.name=Ледяной Взрыв
+ability.mage.frostnova.description=Маг испускает ледяную волну во все стороны, нанося $damagevalue урона врагам и примораживая их к земле на $duration секунд
+ability.mage.iceblock.name=Ледяная Глыба
+ability.mage.iceblock.description=Вы прячетесь в блок льда, который защищает Вас от всего урона на 8 секунд. Во время действия способности маг не может атаковать и двигаться.
+
+##Mage talents
+# Arcane 
+talent.mage.arcane0.name=Тайное Мастерство
+talent.mage.arcane0.description=Увеличивает Вашу силу заклинаний на $multiplier%.
