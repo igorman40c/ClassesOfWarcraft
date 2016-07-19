@@ -28,5 +28,6 @@ If you can help to update any of the translation files please fork & make a pull
 
 We currently have translation for the following languages (please note that many of these will be out of date)
 * English US (default)
+* Russian (thanks to: [FedorAronov](https://github.com/FedorAronov))
 
 Please feel free to add to this list or update any of the current language files. They can be found in Classes of Warcraft mod src/minecraft/assets/battleclasses/lang/.
