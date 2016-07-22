@@ -340,7 +340,7 @@ ability.mage.polymorph.description=Transforms the enemy into a sheep, incapacita
 ability.mage.polymorph.error=Target is too strong!
 ability.mage.polymorph.potionname=Polymorphed
 ability.mage.arcane_missiles.name=Arcane Missiles
-ability.mage.arcane_missiles.description=Launches Arcane Missiles at the target, causing $damagevalue damage every $interval seconds for $duration seconds
+ability.mage.arcane_missiles.description=Launches Arcane Missiles at the target, causing $damagevalue damage every $interval seconds for $duration seconds. Consumes Arcane Power charges
 ability.mage.arcane_blast.name=Arcane Blast
 ability.mage.arcane_blast.potionname=Arcane Power
 ability.mage.arcane_blast.description=Blasts the target with energy, dealing $damagevalue damage. Each successful cast grants you Arcane Power, reducing the spellcast time of your damaging Arcane spells by $hastemultiplier and increasing the damage of your Arcane Missiles by $damagemultiplier for $duration sec. This effect stacks up to $maxstackcount times
@@ -351,7 +351,7 @@ ability.mage.scorch.potionname=Ignite
 ability.mage.fireball.name=Fireball
 ability.mage.fireball.description=Hurls a fiery ball that causes $damagevalue damage
 ability.mage.dragons_breath.name=Dragon's Breath
-ability.mage.dragons_breath.description=Targets in a cone in front of the caster take $damagevalue damage
+ability.mage.dragons_breath.description=Targets in a cone in front of the caster take $damagevalue damage and also catch on fire
 # Frost
 ability.mage.frostbolt.name=Frostbolt
 ability.mage.frostbolt.description=Launches a bolt of frost at the target, causing $damagevalue damage ..todo.. add slow effect here? or separate line?
@@ -365,4 +365,10 @@ ability.mage.iceblock.description=You become encased in a block of ice, protecti
 # Arcane 
 talent.mage.arcane0.name=Arcane Mastery
 talent.mage.arcane0.description=Increases your spellpower by $percentage.
+# Fire 
+talent.mage.fire0.name=Empowered Fireball
+talent.mage.fire0.description=Increases damage of your Fireball spell by $percentage.
+talent.mage.fire1.name=Living Bomb
+talent.mage.fire1.description=Your Scorch spell explodes burning targets.
+
 
