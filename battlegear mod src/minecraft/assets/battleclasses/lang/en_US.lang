@@ -354,12 +354,15 @@ ability.mage.dragons_breath.name=Dragon's Breath
 ability.mage.dragons_breath.description=Targets in a cone in front of the caster take $damagevalue damage and also catch on fire
 # Frost
 ability.mage.frostbolt.name=Frostbolt
-ability.mage.frostbolt.description=Launches a bolt of frost at the target, causing $damagevalue damage ..todo.. add slow effect here? or separate line?
+ability.mage.frostbolt.description=Launches a bolt of frost at the target, causing $damagevalue damage and slowing movement speed by $percentage for $duration sec
+ability.mage.frostbolt.potionName=Slowed
 ability.mage.frostnova.name=Frost Nova
-ability.mage.frostnova.description=Blasts enemies near the caster for $damagevalue damage and freezes them in place for $duration sec in place
+ability.mage.frostnova.description=Blasts enemies near the caster for $damagevalue damage and freezes them in place for $duration sec in place. Any damage will cancel the freeze effect
 ability.mage.frostnova.potionname=Frozen
+ability.mage.frostnova.iceshatter.potionname=Shatter
 ability.mage.iceblock.name=Ice Block
-ability.mage.iceblock.description=You become encased in a block of ice, protecting you from all physical attacks and spells for 8 sec, but during that time you cannot attack, move or cast spells
+ability.mage.iceblock.description=You become encased in a block of ice, removing all negative effects from you, protecting you from all physical attacks and spells for $duration sec, but during that time you cannot attack, move or cast spells
+ability.mage.iceblock.potionname=Ice Block
 
 ##Mage talents
 # Arcane 
@@ -370,5 +373,9 @@ talent.mage.fire0.name=Empowered Fireball
 talent.mage.fire0.description=Increases damage of your Fireball spell by $percentage.
 talent.mage.fire1.name=Living Bomb
 talent.mage.fire1.description=Your Scorch spell explodes burning targets.
-
+# Frost
+talent.mage.frost0.name=Improved Frostbolt
+talent.mage.frost0.description=Reduces the casting time of your Frostbolt spell by $duration sec.
+talent.mage.frost1.name=Deep Freeze
+talent.mage.frost1.description=Your Frost Nova freezes targets $duration sec longer and also applies Ice Shatter effect on the frozen targets increasing the chance to receive critical strikes from frost spells by $percentage.
 
