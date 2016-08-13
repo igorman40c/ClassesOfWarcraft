@@ -98,6 +98,7 @@ bcclass.roleinfo.plural=Roles
 bcclass.none=No class
 bcclass.class=Class
 bcclass.class.plural=Classes
+bcclass.indev=Class in development...
 
 bcclass.mage=Mage
 bcclass.priest=Priest
