@@ -356,7 +356,7 @@ ability.mage.dragons_breath.description=Targets in a cone in front of the caster
 # Frost
 ability.mage.frostbolt.name=Frostbolt
 ability.mage.frostbolt.description=Launches a bolt of frost at the target, causing $damagevalue damage and slowing movement speed by $percentage for $duration sec
-ability.mage.frostbolt.potionName=Slowed
+ability.mage.frostbolt.potionname=Slowed
 ability.mage.frostnova.name=Frost Nova
 ability.mage.frostnova.description=Blasts enemies near the caster for $damagevalue damage and freezes them in place for $duration sec in place. Any damage will cancel the freeze effect
 ability.mage.frostnova.potionname=Frozen
