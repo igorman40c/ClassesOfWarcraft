@@ -21,6 +21,9 @@ item.battleclasses:weapons/BroadSwordGold.name=Gold Broadsword
 
 #Misc Items
 item.battleclasses:ManaGem.name=Mana Gem
+item.battleclasses:OrbCoal.name=Coal orb
+item.battleclasses:OrbRedstone.name=Redstone orb
+item.battleclasses:OrbEmerald.name=Emerald orb
 item.battleclasses:gemstone0.name=Azerothian Diamond
 item.battleclasses:gemstone1.name=Ruby
 item.battleclasses:gemstone2.name=Shappire
