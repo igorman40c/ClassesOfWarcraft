@@ -334,10 +334,10 @@ cc.slow.unable_to_use=Can't do that wile slowed!
 ##Universal abilities 
 ability.universal.shieldblock.name=Shield block
 ability.universal.attack.mainhand.name=Attack main-hand
-death.attack.ability.universal.attack.mainhand.player.item=%1$s was killed by %2$s using a %3$s.
-death.attack.ability.universal.attack.mainhand.player=%2$s finished %1$s with a vicious strike.
+death.attack.ability.universal.attack.mainhand.item=%1$s was killed by %2$s using a %3$s.
+death.attack.ability.universal.attack.mainhand=%2$s finished %1$s with a vicious strike.
 ability.universal.attack.offhand.name=Attack off-hand
-death.attack.ability.universal.attack.offhand.player=%2$s killed %1$s with a vicious offhand strike.
+death.attack.ability.universal.attack.offhand=%2$s killed %1$s with a vicious offhand strike.
 
 ##Mage abilities
 # Arcane 
@@ -349,32 +349,32 @@ ability.mage.polymorph.error=Target is too strong!
 ability.mage.polymorph.potionname=Polymorphed
 ability.mage.arcane_missiles.name=Arcane Missiles
 ability.mage.arcane_missiles.description=Launches Arcane Missiles at the target, causing $damagevalue damage every $interval seconds for $duration seconds. Consumes Arcane Power charges
-death.attack.ability.mage.arcane_missiles.player=%1$s was gunned down by %2$s's Arcane Missiles.
+death.attack.ability.mage.arcane_missiles=%1$s was gunned down by %2$s's Arcane Missiles.
 ability.mage.arcane_blast.name=Arcane Blast
 ability.mage.arcane_blast.potionname=Arcane Power
 ability.mage.arcane_blast.description=Blasts the target with energy, dealing $damagevalue damage. Each successful cast grants you Arcane Power, reducing the spellcast time of your damaging Arcane spells by $hastemultiplier and increasing the damage of your Arcane Missiles by $damagemultiplier for $duration sec. This effect stacks up to $maxstackcount times
-death.attack.ability.mage.arcane_blast.player=%2$s overwhelmed %1$s with Arcane Energy.
+death.attack.ability.mage.arcane_blast=%2$s overwhelmed %1$s with Arcane Energy.
 # Fire
 ability.mage.scorch.name=Scorch
 ability.mage.scorch.description=Scorches the enemy, causing $damagevalue damage. Applies Iginite effect on the target increasing fire damage taken by $percentage for $duration sec. This effect stacks up to $maxstackcount times
 ability.mage.scorch.potionname=Ignite
-death.attack.ability.mage.scorch.player=%1$s was scorched to death by %2$s.
+death.attack.ability.mage.scorch=%1$s was scorched to death by %2$s.
 ability.mage.fireball.name=Fireball
 ability.mage.fireball.description=Hurls a fiery ball that causes $damagevalue damage
-death.attack.ability.mage.fireball.player=%1$s couldn't run away from %2$s's massive Fireball.
+death.attack.ability.mage.fireball=%1$s couldn't run away from %2$s's massive Fireball.
 ability.mage.dragons_breath.name=Dragon's Breath
 ability.mage.dragons_breath.description=Targets in a cone in front of the caster take $damagevalue damage and also catch on fire
-death.attack.ability.mage.dragons_breath.player=%1$s couldn't stand %2$s's flaming breath.
+death.attack.ability.mage.dragons_breath=%1$s couldn't stand %2$s's flaming breath.
 # Frost
 ability.mage.frostbolt.name=Frostbolt
 ability.mage.frostbolt.description=Launches a bolt of frost at the target, causing $damagevalue damage and slowing movement speed by $percentage for $duration sec
 ability.mage.frostbolt.potionname=Slowed
-death.attack.ability.mage.frostbolt.player=%1$s was eliminitaed by %2$s's Frostbolt.
+death.attack.ability.mage.frostbolt=%1$s was eliminitaed by %2$s's Frostbolt.
 ability.mage.frostnova.name=Frost Nova
 ability.mage.frostnova.description=Blasts enemies near the caster for $damagevalue damage and freezes them in place for $duration sec in place. Any damage will cancel the freeze effect
 ability.mage.frostnova.potionname=Frozen
 ability.mage.frostnova.iceshatter.potionname=Shatter
-death.attack.ability.mage.frostnova.player=%1$s froze to death while fighting %2$s.
+death.attack.ability.mage.frostnova=%1$s froze to death while fighting %2$s.
 ability.mage.iceblock.name=Ice Block
 ability.mage.iceblock.description=You become encased in a block of ice, removing all negative effects from you, protecting you from all physical attacks and spells for $duration sec, but during that time you cannot attack, move or cast spells
 ability.mage.iceblock.potionname=Ice Block
