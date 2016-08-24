@@ -10,17 +10,49 @@ This the second generation of an RPG mod that brings classes with abilities, tal
 
 Note: Classes of Warcraft is currently incompatible with the original Mine & Blade Battlegear 2 (we use a modified version of it, packed into our mod), however we are working to on this compatibility issue.
 
-What works
+Development roadmap
 ----------
-* Mine & Blade Battlegear 2 features
-* Classes core: dynamicly handled abilities, talents
-* Cooldown clocks
-* Extra survival inventory tabs (each tab displays attributes window too)
-* Advanced HUD features (ability actionbar, cooldown render, target notifiactions, warnings)
-* Custom 2D item rendering
-* Simple team support (to avoid crossteam healing, and friendly fire)
-* Blocks
-    + Gem ore
+Mod base (BattleGear2 modifications)
+* Modified dual weapon wield usage
+
+Classes core
+* Attributes system
+* Attribute provider items and abilities
+* Attribute modifiers
+
+Ability engine 
+* Use types (instant, channeling, casting)
+* Cooldowns
+* Ranking
+* Passive abilities
+* Effects
+* Particle and sound effects
+
+Talent specialization
+* Talent point earning
+* Active and passive ability containers
+
+User interface
+* Class selection inventory tab
+* Equipment inventory tab
+* Spellbook inventory tab
+* Talents specialization inventory tab
+* Attribute display panel
+* Ability and Talent display tooltips
+* Custom sound effects
+
+HUD
+* Dynamicly sizing abilityhotbar
+* Warning labels
+* Castbar
+
+Supporting features
+* Custom sized 2d weapon rendering
+* Simple team support
+* Spellgriefing gamerule
+* Clientside target raytracing mechanism
+* Gem ore block
+
 
 Translations
 ------------
