@@ -10,8 +10,19 @@ This the second generation of an RPG mod that brings classes with abilities, tal
 
 Note: Classes of Warcraft is currently incompatible with the original Mine & Blade Battlegear 2 (we use a modified version of it, packed into our mod), however we are working to on this compatibility issue.
 
+Translations
+------------
+If you can help to update any of the translation files please fork & make a pull request.
+
+We currently have translation for the following languages (please note that many of these will be out of date)
+* English US (default)
+* Russian (thanks to: [FedorAronov](https://github.com/FedorAronov)) - **Out of date!**
+
+Please feel free to add to this list or update any of the current language files. They can be found in Classes of Warcraft mod src/minecraft/assets/battleclasses/lang/.
+
 Development roadmap
 ----------
+### Working features
 Mod base (BattleGear2 modifications)
 * Modified dual weapon wield usage
 
@@ -53,13 +64,3 @@ Supporting features
 * Clientside target raytracing mechanism
 * Gem ore block
 
-
-Translations
-------------
-If you can help to update any of the translation files please fork & make a pull request.
-
-We currently have translation for the following languages (please note that many of these will be out of date)
-* English US (default)
-* Russian (thanks to: [FedorAronov](https://github.com/FedorAronov)) - **Out of date!**
-
-Please feel free to add to this list or update any of the current language files. They can be found in Classes of Warcraft mod src/minecraft/assets/battleclasses/lang/.
