@@ -4,6 +4,9 @@ bcgui.keycategories.actionbar=Ability action bar
 itemGroup.bcweapons=Classes of Warcraft weapons
 itemGroup.bcarmor=Classes of Warcraft armor
 
+#Blocks
+tile.gemsOre.name=Gem ore
+
 #Weapons
 item.battleclasses:weapons/StaffWood.name=Wooden Staff
 item.battleclasses:weapons/StaffCoal.name=Coal Staff
