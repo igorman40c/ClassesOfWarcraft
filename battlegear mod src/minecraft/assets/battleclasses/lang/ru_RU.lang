@@ -21,9 +21,12 @@ item.battleclasses:weapons/BroadSwordGold.name=Золотой Палаш
 
 #Misc Items
 item.battleclasses:ManaGem.name=Кристалл Маны
+item.battleclasses:OrbCoal.name=Угольная сфера
+item.battleclasses:OrbRedstone.name=Сфера из красной пыли
+item.battleclasses:OrbEmerald.name=Изумрудная сфера
 item.battleclasses:gemstone0.name=Азеротский Алмаз
 item.battleclasses:gemstone1.name=Рубин
-item.battleclasses:gemstone2.name=Shappire
+item.battleclasses:gemstone2.name=Сапфир
 item.battleclasses:gemstone3.name=Львиный Глаз
 item.battleclasses:gemstone4.name=Аметист
 item.battleclasses:gemstone5.name=Топаз
