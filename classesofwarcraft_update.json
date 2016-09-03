@@ -1,0 +1,9 @@
+{
+  "versions" : {
+      "1.7.10" : {
+      "modversion": "0.1.1",
+      "updatemessage" : "Minor bugfixes, added update detector!:)",
+      "supported" : true
+    },
+  }
+}

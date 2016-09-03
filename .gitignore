@@ -30,6 +30,7 @@ battlegear mod src/minecraft/mods/battleclasses/
 !mod.properties
 !battlegear_update.xml
 !changelog.md
+!classesofwarcraft_update.json
 
 #Don't ignore some battleclasses folders
 !battleclasses image sources/
