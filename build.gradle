@@ -78,7 +78,10 @@ def coremodManifest = {
 }
 jar {
     //Place jar into distribution folder
-    destinationDir = file 'battlegear dist'
+	
+	// Original destination directory
+    //destinationDir = file 'battlegear dist'
+	destinationDir = file 'classes of warcraft dist'
     //Keep the jar as clean as possible
     includeEmptyDirs = false
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
@@ -151,4 +154,7 @@ task jarMUDBin(type:Jar){
         include 'LICENCE'
     }
 }
-tasks.build.dependsOn('jarMUDSrc','jarBGSrc','jarMUDBin','jarBGBin')
+
+// Original build sequence
+//tasks.build.dependsOn('jarMUDSrc','jarBGSrc','jarMUDBin','jarBGBin')
+tasks.build.dependsOn('jarBGBin')
