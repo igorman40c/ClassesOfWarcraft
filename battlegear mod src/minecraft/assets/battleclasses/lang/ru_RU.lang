@@ -362,4 +362,14 @@ ability.mage.iceblock.description=Вы прячетесь в блок льда, 
 ##Mage talents
 # Arcane 
 talent.mage.arcane0.name=Тайное Мастерство
-talent.mage.arcane0.description=Увеличивает Вашу силу заклинаний на $multiplier%.
+talent.mage.arcane0.description=Увеличивает Вашу силу заклинаний на $percentage.
+# Fire 
+talent.mage.fire0.name=Улучшенный Огненный Шар
+talent.mage.fire0.description=Повышает урон заклинания Огненный Шар на $percentage.
+talent.mage.fire1.name=Живая Бомба
+talent.mage.fire1.description=Заклинание Ожога взрывает горящие цели.
+# Frost
+talent.mage.frost0.name=Улучшенная Ледяная Стрела
+talent.mage.frost0.description=Сокращает время произнесения заклинание Ледяная Стрела на $duration секунд.
+talent.mage.frost1.name=Морозильная камера
+talent.mage.frost1.description=Заклинание Ледяной Взрыв замораживает цели на $duration секунд дольше,а также происходит Обледенение на замороженной цели, увеличивая шанс получения критического урона от ледяных заклинаний на $percentage.   
