@@ -108,6 +108,12 @@
         #release.spell"
       ]
     },
+    "abilityschool.physical_melee.release": {
+    "category": "player",
+    "sounds": [
+        "melee.swing_1", "melee.swing_2", "melee.swing_3", "melee.swing_4", "melee.swing_5"
+      ]
+    },
     "abilityschool.spell_arcane.release": {
     "category": "player",
     "sounds": [
@@ -211,6 +217,44 @@
     "sounds": [
         "release.iceblock"
       ]
-    }    
+    },    
+    
+    #Warrior#
+    "ability.warrior.mortal_strike.impact": {
+    "category": "player",
+    "sounds": [
+        "mortal_strike.impact"
+      ]
+    },
+    "ability.warrior.charge.release": {
+    "category": "player",
+    "sounds": [
+        "charge.release_1", "charge.release_2", "charge.release_3", "charge.release_4"
+      ]
+    },
+    "ability.warrior.charge.impact": {
+    "category": "player",
+    "sounds": [
+        "charge.impact_1", "charge.impact_2", "charge.impact_3", "charge.impact_4", "charge.impact_5"
+      ]
+    },
+    "ability.warrior.hamstring.impact": {
+    "category": "player",
+    "sounds": [
+        "hamstring.impact_1","hamstring.impact_2","hamstring.impact_3"
+      ]
+    },
+    "ability.warrior.shattering_throw.release": {
+    "category": "player",
+    "sounds": [
+        "shattering_throw.release_1", "shattering_throw.release_2", "shattering_throw.release_3"
+      ]
+    },
+    "ability.warrior.shattering_throw.impact": {
+    "category": "player",
+    "sounds": [
+        "shattering_throw.impact"
+      ]
+    }
     
 }

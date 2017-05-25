@@ -1,28 +1,40 @@
-bcpotion.testing=Polymorhped
 
-bcgui.keycategories.actionbar=Ability action bar
+#   ____  _                                 __   __    __                          __ _    #
+#  / ___\| | __ _ ___ ___  ___ ___    ___  / _| / / /\ \ \__ _ _ __ ___ _ __ __ _ / _| |_  #
+# / /    | |/ _` / __/ __|/ _ | __|  / _ \| |_  \ \/  \/ / _` | '__/ __| '__/ _` | |_| __| #
+# \ \____| | (_| \__ \__ \  __|__ \ | (_) |  _|  \  /\  / (_| | | | (__| | | (_| |  _| |_  #
+#  \____/|_|\__,_|___/___/\___|___/  \___/|_|     \/  \/ \__,_|_|  \___|_|  \__,_|_|  \__| #
+#                                                                                          #
+                                                                                         
+# ---------------------------------------------------------------------------------------- #
+#                                    ITEMS & BLOCKS                                        #
+# ---------------------------------------------------------------------------------------- #
+
+# ------ Hand held types
+
+bchandheld.one_handed=One hand
+bchandheld.main_handed=Main hand
+bchandheld.two_handed=Two hand
+bchandheld.off_handed=Off hand
+
+# ------ Armor types
+
+bcarmortype.cloth=Cloth
+bcarmortype.leather=Leather
+bcarmortype.mail=Mail
+bcarmortype.plate=Plate
+
+# ------ Creative inventory tab names
+
 itemGroup.bcweapons=Classes of Warcraft weapons
 itemGroup.bcarmor=Classes of Warcraft armor
 
-#Blocks
+# ------ Blocks
+
 tile.gemsOre.name=Gem Ore
 
-#Weapons
-item.battleclasses:weapons/StaffWood.name=Wooden Staff
-item.battleclasses:weapons/StaffCoal.name=Coal Staff
-item.battleclasses:weapons/StaffRedstone.name=Redstone Staff
-item.battleclasses:weapons/StaffEmerald.name=Emerald Staff
-item.battleclasses:weapons/LongBowWooden.name=Longbow
-item.battleclasses:weapons/LongBowComposite.name=Composite Longbow
-item.battleclasses:weapons/LongBowMechanic.name=Mechanic Longbow
-item.battleclasses:weapons/LongBowBirch.name=Birch Longbow
-item.battleclasses:weapons/BroadSwordWood.name=Wooden Broadsword
-item.battleclasses:weapons/BroadSwordStone.name=Stone Broadsword
-item.battleclasses:weapons/BroadSwordIron.name=Iron Broadsword
-item.battleclasses:weapons/BroadSwordDiamond.name=Diamond Broadsword
-item.battleclasses:weapons/BroadSwordGold.name=Gold Broadsword
+# ------ Misc Items
 
-#Misc Items
 item.battleclasses:ManaGem.name=Mana Gem
 item.battleclasses:OrbCoal.name=Coal orb
 item.battleclasses:OrbRedstone.name=Redstone orb
@@ -35,124 +47,104 @@ item.battleclasses:gemstone4.name=Amethyst
 item.battleclasses:gemstone5.name=Topaz
 item.battleclasses:gemstone6.name=Talasite
 
-#Mage armor sets (T1-T3)
+# ------ Weapons
+
+# ----  Staves
+item.battleclasses:weapons/StaffWood.name=Wooden Staff
+item.battleclasses:weapons/StaffCoal.name=Coal Staff
+item.battleclasses:weapons/StaffRedstone.name=Redstone Staff
+item.battleclasses:weapons/StaffEmerald.name=Emerald Staff
+
+# ---- Broadswords
+item.battleclasses:weapons/BroadSwordWood.name=Wooden Broadsword
+item.battleclasses:weapons/BroadSwordStone.name=Stone Broadsword
+item.battleclasses:weapons/BroadSwordIron.name=Iron Broadsword
+item.battleclasses:weapons/BroadSwordDiamond.name=Diamond Broadsword
+item.battleclasses:weapons/BroadSwordGold.name=Golden Broadsword
+
+# ---- Battleaxes
+item.battleclasses:weapons/BattleAxeWood.name=Wooden Battleaxe
+item.battleclasses:weapons/BattleAxeStone.name=Stone Battleaxe
+item.battleclasses:weapons/BattleAxeIron.name=Iron Battleaxe
+item.battleclasses:weapons/BattleAxeDiamond.name=Diamond Battleaxe
+item.battleclasses:weapons/BattleAxeGold.name=Golden Battleaxe
+
+# ---- Longbows
+item.battleclasses:weapons/LongBowWooden.name=Longbow
+item.battleclasses:weapons/LongBowComposite.name=Composite Longbow
+item.battleclasses:weapons/LongBowMechanic.name=Mechanic Longbow
+item.battleclasses:weapons/LongBowBirch.name=Birch Longbow
+
+# ------ Armors
+
+# ---- Mage sets
+
+# -- T1
 item.battleclasses:armors/mage.t1.helm.name=Wizard's Hood
 item.battleclasses:armors/mage.t1.chest.name=Wizard's Robe
 item.battleclasses:armors/mage.t1.legs.name=Wizard's Trousers
 item.battleclasses:armors/mage.t1.boots.name=Wizard's Boots
+
+# -- T2
 item.battleclasses:armors/mage.t2.helm.name=Astral Cowl
 item.battleclasses:armors/mage.t2.chest.name=Astral Robe
 item.battleclasses:armors/mage.t2.legs.name=Astral Trousers
 item.battleclasses:armors/mage.t2.boots.name=Astral Boots
+
+# -- T3
 item.battleclasses:armors/mage.t3.helm.name=Evoker's Cowl
 item.battleclasses:armors/mage.t3.chest.name=Evoker's Robe
 item.battleclasses:armors/mage.t3.legs.name=Evoker's Trousers
 item.battleclasses:armors/mage.t3.boots.name=Evoker's Boots
 
-#Hunter armor sets (T1-T3)
+# ---- Warrior sets
+
+# -- T1
+item.battleclasses:armors/warrior.t1.helm.name=Savage Platehelm
+item.battleclasses:armors/warrior.t1.chest.name=Savage Chestplate
+item.battleclasses:armors/warrior.t1.legs.name=Savage Legplates
+item.battleclasses:armors/warrior.t1.boots.name=Savage Boots
+
+# -- T2
+item.battleclasses:armors/warrior.t2.helm.name=Reinforced Platehelm
+item.battleclasses:armors/warrior.t2.chest.name=Reinforced Chestplate
+item.battleclasses:armors/warrior.t2.legs.name=Reinforced Legplates
+item.battleclasses:armors/warrior.t2.boots.name=Reinforced Boots
+
+# -- T3
+item.battleclasses:armors/warrior.t3.helm.name=Champion's Platehelm
+item.battleclasses:armors/warrior.t3.chest.name=Champion's Chestplate
+item.battleclasses:armors/warrior.t3.legs.name=Champion's Legplates
+item.battleclasses:armors/warrior.t3.boots.name=Champion's Boots
+
+# ---- Hunter sets
+
+# -- T1
 item.battleclasses:armors/hunter.t1.helm.name=Linked Helm
-item.battleclasses:armors/hunter.t1.chest.name=Linked Cuirass
+item.battleclasses:armors/hunter.t1.chest.name=Linked Tunic
 item.battleclasses:armors/hunter.t1.legs.name=Linked Leggings
 item.battleclasses:armors/hunter.t1.boots.name=Linked Boots
+
+# -- T2
 item.battleclasses:armors/hunter.t2.helm.name=Ranger's Helm
-item.battleclasses:armors/hunter.t2.chest.name=Ranger's Cuirass
+item.battleclasses:armors/hunter.t2.chest.name=Ranger's Tunic
 item.battleclasses:armors/hunter.t2.legs.name=Ranger's Leggings
 item.battleclasses:armors/hunter.t2.boots.name=Ranger's Boots
+
+# -- T3
 item.battleclasses:armors/hunter.t3.helm.name=Beast Lord Helm
 item.battleclasses:armors/hunter.t3.chest.name=Beast Lord Cuirass
 item.battleclasses:armors/hunter.t3.legs.name=Beast Lord Leggings
 item.battleclasses:armors/hunter.t3.boots.name=Beast Lord Boots
 
-#Warrior armor sets (T1-T3)
-item.battleclasses:armors/warrior.t1.helm.name=Savage Platehelm
-item.battleclasses:armors/warrior.t1.chest.name=Savage Chestplate
-item.battleclasses:armors/warrior.t1.legs.name=Savage Legplates
-item.battleclasses:armors/warrior.t1.boots.name=Savage Boots
-item.battleclasses:armors/warrior.t2.helm.name=Reinforced Platehelm
-item.battleclasses:armors/warrior.t2.chest.name=Reinforced Chestplate
-item.battleclasses:armors/warrior.t2.legs.name=Reinforced Legplates
-item.battleclasses:armors/warrior.t2.boots.name=Reinforced Boots
-item.battleclasses:armors/warrior.t3.helm.name=Bold Platehelm
-item.battleclasses:armors/warrior.t3.chest.name=Bold Chestplate
-item.battleclasses:armors/warrior.t3.legs.name=Bold Legplates
-item.battleclasses:armors/warrior.t3.boots.name=Bold Boots
 
+# ---------------------------------------------------------------------------------------- #
+#                                      GUI & HUD                                           #
+# ---------------------------------------------------------------------------------------- #
 
-#Damage source messages
-death.attack.ability=%1$s was killed by $abilityname.
-death.attack.ability.player=%1$s finished %2$s with $abilityname.
+# ------ GUI
 
-
-
-bchandheld.one_handed=One Handed
-bchandheld.main_handed=Main hand
-bchandheld.two_handed=Two Handed
-bchandheld.off_handed=Off hand
-
-bcarmortype.cloth=Cloth
-bcarmortype.leather=Leather
-bcarmortype.mail=Mail
-bcarmortype.plate=Plate
-
-bcenviroment=Usage
-bcenviroment.pvp=Player vs. Player
-bcenviroment.pve=Dungeoneering
-bcenviroment.universal=Universal
-
-bcrole.healer=healer
-bcrole.damage_dealer=damage dealer
-bcrole.ranged_damage_dealer=ranged damage dealer
-bcrole.tank=tank
-
-bcclass.armorinfo=Armor
-bcclass.roleinfo=Role
-bcclass.roleinfo.plural=Roles
-
-bcclass.none=No class
-bcclass.class=Class
-bcclass.class.plural=Classes
-bcclass.indev=Class in development...
-
-bcclass.mage=Mage
-bcclass.priest=Priest
-bcclass.warlock=Warlock
-bcclass.rogue=Rogue
-bcclass.hunter=Hunter
-bcclass.paladin=Paladin
-bcclass.warrior=Warrior
-
-bcclass.mage.introduction=Mages demolish their foes with arcane incantations. Although they wield powerful offensive spells, mages are fragile and lightly armored, making them particularly vulnerable to close-range attacks. Wise mages make careful use of their spells to keep their foes at a distance or hold them in place.
-bcclass.priest.introduction=Priests use powerful healing magic to fortify themselves and their allies. They also wield powerful offensive spells from a distance, but can be overwhelmed by enemies due to their physical frailty and minimal armor. Experienced priests carefully balance the use of their offensive powers when tasked with keeping their party alive.
-bcclass.warlock.introduction=Warlocks burn and destroy weakened foes with a combination of crippling illnesses and dark magic. While their demon pets protect and enhance them, warlocks strike at their enemies from a distance. As physically weak spellcasters bereft of heavy armor, cunning warlocks allow their minions to take the brunt of enemy attacks in order to save their own skin.
-bcclass.rogue.introduction=Rogues often initiate combat with a surprise attack from the shadows, leading with vicious melee strikes. When in protracted battles, they utilize a successive combination of carefully chosen attacks to soften the enemy up for a killing blow. Rogues must take special care when selecting targets so that their combo attacks are not wasted, and they must be conscious of when to hide or flee if a battle turns against them.
-bcclass.hunter.introduction=Hunters battle their foes at a distance, commanding their pets to attack while they nock their arrows and fire their guns. Though their missile weapons are effective at short and long ranges, hunters are also highly mobile. They can evade or restrain their foes to control the arena of battle.
-bcclass.paladin.introduction=Paladins stand directly in front of their enemies, relying on heavy armor and healing in order to survive incoming attacks. Whether with massive shields or crushing two-handed weapons, Paladins are able to keep claws and swords from their weaker fellows - or they use healing magic to ensure that they remain on their feet.
-bcclass.warrior.introduction=Warriors equip themselves carefully for combat and engage their enemies head-on, letting attacks glance off their heavy armor. They use diverse combat tactics and a wide variety of weapon types to protect their more vulnerable allies. Warriors must carefully master their rage - the power behind their strongest attacks - in order to maximize their effectiveness in combat.
-
-
-#UNUSED ATM STUFF-BEGIN
-bcclass.mage.talentsinfo=Mage talents focus on enhancing individual schools of magic - quick, aggressive Fire spells; efficient, controlling Frost spells and punishing Arcane spells.
-bcclass.priest.talentsinfo=Priest talents can strengthen their ability to heal the wounded, endanger their foes with the power of Shadow, or empower themselves and others with protective prayers.
-bcclass.warlock.talentsinfo=Warlock talents can improve the damage of their searing magics, increase the potency of their curses and persistent damaging spells, and empower their demonic servants.
-bcclass.rogue.talentsinfo=Rogue talents can strengthen their ability to hide in shadows, kill foes with quick, deadly strikes, and survive in extended slugfests.
-bcclass.hunter.talentsinfo=Hunter talents primarily strengthen their pets; improve the damage, effectiveness, and duration of their traps; and increase the speed and power of their ranged attacks.
-bcclass.paladin.talentsinfo=Paladin talents increase their ability to heal the wounded, strengthen their capacity to protect their companions, and allow them to deal out vicious damage in the name of justice.
-bcclass.warrior.talentsinfo=Warrior talents can improve their already considerable defenses with a shield, increase their deadliness with two-handed weapons, or bolster their savagery while dual-wielding.
-#UNUSED ATM STUFF-END
-
-bcgui.confirmation.yes=Yes
-bcgui.confirmation.no=No
-bcgui.confirmation.class_reset.title=Are you sure to reset your class?
-bcgui.confirmation.class_reset.message=You will lose all of your talent points and ability ranks.
-
-bcgui.ability_rank=Rank %1$s
-bcgui.ability_rank.zero=Learn
-bcgui.ability_rank.learn.cost=Learning this ability costs %1$s experience levels
-bcgui.ability_rank.rank_up.cost=Next rank costs %1$s experience levels
-bcgui.talent.reset.title=Reset
-bcgui.talent.reset.message=Reset your talent tree to change your specialization. (You will not loose talent points or ability ranks.)
-bcgui.talent.gain.title=Earn
-bcgui.talent.gain.message=Earning a new talent point costs %1$s experience levels
+# ---- Tab names
 
 bctab.inventory.name=Inventory
 bctab.equipment.name=Battle Equipment
@@ -162,8 +154,36 @@ bctab.classselector.name=Class Selection
 bctab.config.name=Battle Classes mod settings
 bctab.info.name=Information
 
+# ---- Dialogs
+
+bcgui.dialog.yes=Yes
+bcgui.dialog.no=No
+bcgui.dialog.class_reset.title=Are you sure you want to reset your class?
+bcgui.dialog.class_reset.message=You will lose all of your talent points and ability ranks.
+
+# ---- Ability ranking
+
+bcgui.ability_rank=Rank %1$s
+bcgui.ability_rank.zero=Learn
+bcgui.ability_rank.learn.cost=Learning this ability costs %1$s experience levels
+bcgui.ability_rank.rank_up.cost=Next rank costs %1$s experience levels
+
+# ---- Talent gui
+
+bcgui.talent.reset.title=Reset
+bcgui.talent.reset.message=Reset your talent tree to change your specialization. (You will not loose talent points or ability ranks.)
+bcgui.talent.gain.title=Earn
+bcgui.talent.gain.message=Earning a new talent point costs %1$s experience levels
+
+# ------ HUD
+
+# ---- Info
+
 bchud.info.changeclass=Changing Class...
 bchud.info.changetalents=Applying talent changes...
+
+# ---- Warnings
+
 bchud.warning.class_required=You need to choose a class to use that!
 bchud.warning.battlemode_required=You need to be in Battle mode to use that!
 bchud.warning.ammo_required=You are missing some item to use that!
@@ -173,11 +193,24 @@ bchud.warning.silenced=You are silenced!
 bchud.warning.combat_disabled=You can't do that now!
 bchud.warning.weapon_wrong_class=That weapon is not for your class!
 bchud.warning.target_out_of_range=Target is out of range!
+
+# ---- Targeting
+
 bchud.target.healing=Healing
 bchud.target.targeting=Targeting
 bchud.target.target_lost=Target lost!
 bchud.target.self=Self
 
+# ------ Settings
+
+bcgui.keycategories.actionbar=Ability hotbar
+
+
+# ---------------------------------------------------------------------------------------- #
+#                                      ATTRIBUTES                                          #
+# ---------------------------------------------------------------------------------------- #
+
+# ------ Primary attribute names
 
 bcattribute.health.name=Health
 bcattribute.strength.name=Strength
@@ -198,6 +231,8 @@ bcattribute.weaponSpeed=Speed
 bcattribute.weaponSpeed.s=s
 bcattribute.weaponReach=Reach
 
+# ------ Secondary attribute names
+
 bcattribute.critical_rating.name.rating=Critical Strike Rating
 bcattribute.haste_rating.name.rating=Haste Rating
 bcattribute.armor_penetration.name.rating=Armor Penetration Rating
@@ -217,65 +252,66 @@ bcattribute.melee_attack_damage.description=Estimated ammount of damage you will
 bcattribute.ranged_attack_damage.description=Estimated ammount of damage you will deal with your ranged weapon.
 bcattribute.vanilla_armor.description=Reduces physical damage you receive.
 
-bcattribute.percentage_per_ratingpoints=(%1$s per rating point)
-bcattribute.crit_info.offensive=Critical %1$s %2$s cause %3$s% damage.
-bcattribute.crit_info.dual=Critical %1$s %2$s cause %3$s% damage or healing.
+# ------ Other
 
-bccriteria.abilityschool.all=abilities and spells
-bccriteria.abilityschool.abilities=abilities
-bccriteria.abilityschool.ability=ability
-bccriteria.abilityschool.spells=spells
-bccriteria.abilityschool.spell=spell
+bcattribute.percentage_per_ratingpoints=($percentage per rating point)
+bcattribute.crit_info=Critical $abilityschool $metatype cause $percentage $intentproduct.
 
-bceffect.modifier.increase=increases
-bceffect.modifier.reduce=reduces
-bceffect.modifier.damage=the damage
-bceffect.modifier.heal=the healing
-bceffect.modifier.allabilities=abilities and spells
-bceffect.modifier.value.output=done of your
-bceffect.modifier.value.input=received from
-bceffect.modifier.crit.output=the critical chance of your
-bceffect.modifier.crit.input=the chance to be critically hit by
-bceffect.modifier.bypercentage=by %1$s%
-bceffect.modifier.stacks=stacks up to %1$s times
 
-bcattribute.modifier.amplifier=your %1$s by %2$s%
-bcattribute.modifier.bonus=your %1$s by %2$s
-bcattribute.modifier.crossbonus=your %1$s by %2$s% of your total %3$s
-bcattribute.modifier.precriteria=for your
+# ---------------------------------------------------------------------------------------- #
+#                                    CLASS DESCRIPTIONS                                    #
+# ---------------------------------------------------------------------------------------- #
 
-bceffect.damage.description=causes %1$s damage
-bceffect.heal.description=heals a friendly target for %1$s
-bceffect.lastsseconds.description=lasts %1$s seconds
-bceffect.overseconds.description=over %1$s seconds
-bceffect.additionally=additionally
+# ------ Enviroment
 
-pcpotion.speedmodifier.increase=increases the movement speed of the %1$s by %2$s
-pcpotion.speedmodifier.decrease=decreases the movement speed of the %1$s by %2$s
-pcpotion.speedmodifier.caster=caster
-pcpotion.speedmodifier.target=target
+bcenviroment=Usage
+bcenviroment.pvp=Player vs. Player
+bcenviroment.pve=Dungeoneering
+bcenviroment.universal=Universal
 
-#abilityschool.physical_melee_rage.name=melee
-#abilityschool.physical_melee_energy.name=melee
-abilityschool.physical_melee.name=melee
-abilityschool.physical_ranged.name=ranged
-abilityschool.spell_arcane.name=arcane
-abilityschool.spell_fire.name=fire
-abilityschool.spell_frost.name=frost
-abilityschool.spell_holy.name=holy
-abilityschool.spell_shadow.name=shadow
+# ------ Roles
 
-bcability.ammorequirement=Requires
-bcability.info.casttype.casted=Casted in %1$s sec
-bcability.info.casttype.channeled=Channeled over %1$s sec
-bcability.info.casttype.instant=Instant cast
-bcability.info.range=%1$s blocks range
-bcability.info.cooldown=%1$s sec cooldown
+bcrole.healer=healer
+bcrole.damage_dealer=damage dealer
+bcrole.ranged_damage_dealer=ranged damage dealer
+bcrole.tank=tank
 
-ability.effectvalue_increase.description=Ranking up this ability will increase its damage or healing done.
-ability.effectduration_increase.description=Ranking up this ability will increase the duration of its effect. 
-ability.cooldown_reduction.description=Ranking up this ability will reduce its cooldown time.
+# ------ Armor types
 
+bcclass.armorinfo=Armor
+bcclass.roleinfo=Role
+bcclass.roleinfo.plural=Roles
+
+# ------ General 
+
+bcclass.none=No class
+bcclass.class=Class
+bcclass.class.plural=Classes
+bcclass.indev=Class in development...
+
+# ------ Class names
+
+bcclass.mage=Mage
+bcclass.priest=Priest
+bcclass.warlock=Warlock
+bcclass.rogue=Rogue
+bcclass.hunter=Hunter
+bcclass.paladin=Paladin
+bcclass.warrior=Warrior
+
+# ------ Introductions
+
+bcclass.mage.introduction=Mages demolish their foes with arcane incantations. Although they wield powerful offensive spells, mages are fragile and lightly armored, making them particularly vulnerable to close-range attacks. Wise mages make careful use of their spells to keep their foes at a distance or hold them in place.
+bcclass.priest.introduction=Priests use powerful healing magic to fortify themselves and their allies. They also wield powerful offensive spells from a distance, but can be overwhelmed by enemies due to their physical frailty and minimal armor. Experienced priests carefully balance the use of their offensive powers when tasked with keeping their party alive.
+bcclass.warlock.introduction=Warlocks burn and destroy weakened foes with a combination of crippling illnesses and dark magic. While their demon pets protect and enhance them, warlocks strike at their enemies from a distance. As physically weak spellcasters bereft of heavy armor, cunning warlocks allow their minions to take the brunt of enemy attacks in order to save their own skin.
+bcclass.rogue.introduction=Rogues often initiate combat with a surprise attack from the shadows, leading with vicious melee strikes. When in protracted battles, they utilize a successive combination of carefully chosen attacks to soften the enemy up for a killing blow. Rogues must take special care when selecting targets so that their combo attacks are not wasted, and they must be conscious of when to hide or flee if a battle turns against them.
+bcclass.hunter.introduction=Hunters battle their foes at a distance, commanding their pets to attack while they nock their arrows and fire their guns. Though their missile weapons are effective at short and long ranges, hunters are also highly mobile. They can evade or restrain their foes to control the arena of battle.
+bcclass.paladin.introduction=Paladins stand directly in front of their enemies, relying on heavy armor and healing in order to survive incoming attacks. Whether with massive shields or crushing two-handed weapons, Paladins are able to keep claws and swords from their weaker fellows - or they use healing magic to ensure that they remain on their feet.
+bcclass.warrior.introduction=Warriors equip themselves carefully for combat and engage their enemies head-on, letting attacks glance off their heavy armor. They use diverse combat tactics and a wide variety of weapon types to protect their more vulnerable allies. Warriors must carefully master their rage - the power behind their strongest attacks - in order to maximize their effectiveness in combat.
+
+# ------ Talent trees
+
+# ---- Names
 
 bctalenttree.mage.arcane.name=Arcane
 bctalenttree.mage.fire.name=Fire
@@ -299,6 +335,8 @@ bctalenttree.warrior.arms.name=Arms
 bctalenttree.warrior.fury.name=Fury
 bctalenttree.warrior.protection.name=Protection
 
+# ---- Descriptions
+
 bctalenttree.mage.arcane.description=Manipulate the arcane, destroying enemies with overwhelming power.
 bctalenttree.mage.fire.description=Ignite enemies with balls of fire and combustive flames.
 bctalenttree.mage.frost.description=Freezes enemies in their tracks and shatters them with Frost magic.
@@ -321,7 +359,81 @@ bctalenttree.warrior.arms.description=A battle-hardened master of two-handed wea
 bctalenttree.warrior.fury.description=A furious berserker wielding a weapon in each hand, unleashing a flurry of attacks to carve his opponents to pieces.
 bctalenttree.warrior.protection.description=A stalwart protector who uses a shield to safeguard herself and her allies.
 
+
+# ---------------------------------------------------------------------------------------- #
+#                                     ABILITY SCHOOLS                                      #
+# ---------------------------------------------------------------------------------------- #
+
+
+# ------ Meta type naming
+
+ability.metatype.all=all abilities
+ability.metatype.physical=ability
+ability.metatype.physical.plural=abilities
+ability.metatype.magical=spell
+ability.metatype.magical.plural=spells
+
+# ------ Schools
+
+abilityschool.physical_melee.name=melee
+abilityschool.physical_ranged.name=ranged
+abilityschool.spell_arcane.name=arcane
+abilityschool.spell_fire.name=fire
+abilityschool.spell_frost.name=frost
+abilityschool.spell_holy.name=holy
+abilityschool.spell_shadow.name=shadow
+
+# ------ Info details
+
+bcability.ammorequirement=Requires
+bcability.info.casttype.casted=Casted in %1$s sec
+bcability.info.casttype.channeled=Channeled over %1$s sec
+bcability.info.casttype.instant=Instant cast
+bcability.info.range=%1$s blocks range
+bcability.info.cooldown=%1$s sec cooldown
+
+# ------ Intent products
+
+ability.intent.offensive.product=damage
+ability.intent.supportive.product=healing
+ability.intent.dual.product=damage or healing
+
+# ------ Ranking mode descriptions
+
+ability.effectvalue_increase.description=Ranking up this ability will increase its $intentproduct done.
+ability.effectduration_increase.description=Ranking up this ability will increase the duration of its effect. 
+ability.cooldown_reduction.description=Ranking up this ability will reduce its cooldown time.
+
+
+# ---------------------------------------------------------------------------------------- #
+#                          UNIVERSAL ABILITY AND TALENT FEATURES                           #
+# ---------------------------------------------------------------------------------------- #
+
+# ------ Universal abilities
+
+ability.universal.shieldblock.name=Shield block
+ability.universal.shieldblock.description=Uses your currently equiped shield
+ability.universal.attack.mainhand.name=Attack main-hand
+death.attack.ability.universal.attack.mainhand.item=%1$s was killed by %2$s using a %3$s.
+death.attack.ability.universal.attack.mainhand=%2$s finished %1$s with a vicious strike.
+ability.universal.attack.offhand.name=Attack off-hand
+death.attack.ability.universal.attack.offhand=%2$s killed %1$s with a vicious offhand strike.
+
+# ------ Universal talent features
+
 talent.universal.abilityactivecontainer.name=Teaches new ability
+
+# ------ Universal passive abilities
+
+ability.passive.cooldownModifier.description=Reduces the cooldown of your $abilityname $metatype by $duration sec.
+ability.passive.castTimeModifier.description=Reduces the casting time of your $abilityname $metatype by $duration sec.
+
+# ------ Universal damage source messages
+
+death.attack.ability=%1$s was killed by $abilityname.
+death.attack.ability.player=%1$s finished %2$s with $abilityname.
+
+# ------ Crowd Control warnings
 
 cc.silence.acquired=Silenced!
 cc.stun.acquired=Stunned!
@@ -337,16 +449,15 @@ cc.disarm.unable_to_use=Can't do that wile disarmed!
 cc.snare.unable_to_use=Can't do that wile snared!
 cc.slow.unable_to_use=Can't do that wile slowed!
 
-##Universal abilities 
-ability.universal.shieldblock.name=Shield block
-ability.universal.attack.mainhand.name=Attack main-hand
-death.attack.ability.universal.attack.mainhand.item=%1$s was killed by %2$s using a %3$s.
-death.attack.ability.universal.attack.mainhand=%2$s finished %1$s with a vicious strike.
-ability.universal.attack.offhand.name=Attack off-hand
-death.attack.ability.universal.attack.offhand=%2$s killed %1$s with a vicious offhand strike.
+# ---------------------------------------------------------------------------------------- #
+#                                CLASS ABILITIES AND TALENTS                               #
+# ---------------------------------------------------------------------------------------- #
 
-##Mage abilities
-# Arcane 
+# ------ MAGE
+
+# ---- Abilties
+
+# -- Arcane 
 ability.mage.blink.name=Blink
 ability.mage.blink.description=Teleports the caster $range blocks forward, unless something is in the way. Also frees the caster from stuns and bonds
 ability.mage.polymorph.name=Polymorph
@@ -360,7 +471,8 @@ ability.mage.arcane_blast.name=Arcane Blast
 ability.mage.arcane_blast.potionname=Arcane Power
 ability.mage.arcane_blast.description=Blasts the target with energy, dealing $damagevalue damage. Each successful cast grants you Arcane Power, reducing the spellcast time of your damaging Arcane spells by $hastemultiplier and increasing the damage of your Arcane Missiles by $damagemultiplier for $duration sec. This effect stacks up to $maxstackcount times
 death.attack.ability.mage.arcane_blast=%2$s overwhelmed %1$s with Arcane Energy.
-# Fire
+
+# -- Fire
 ability.mage.scorch.name=Scorch
 ability.mage.scorch.description=Scorches the enemy, causing $damagevalue damage. Applies Iginite effect on the target increasing fire damage taken by $percentage for $duration sec. This effect stacks up to $maxstackcount times
 ability.mage.scorch.potionname=Ignite
@@ -371,11 +483,12 @@ death.attack.ability.mage.fireball=%1$s couldn't run away from %2$s's massive Fi
 ability.mage.dragons_breath.name=Dragon's Breath
 ability.mage.dragons_breath.description=Targets in a cone in front of the caster take $damagevalue damage and also catch on fire
 death.attack.ability.mage.dragons_breath=%1$s couldn't stand %2$s's flaming breath.
-# Frost
+
+# -- Frost
 ability.mage.frostbolt.name=Frostbolt
 ability.mage.frostbolt.description=Launches a bolt of frost at the target, causing $damagevalue damage and slowing movement speed by $percentage for $duration sec
 ability.mage.frostbolt.potionname=Slowed
-death.attack.ability.mage.frostbolt=%1$s was eliminitaed by %2$s's Frostbolt.
+death.attack.ability.mage.frostbolt=%1$s was eliminated by %2$s's Frostbolt.
 ability.mage.frostnova.name=Frost Nova
 ability.mage.frostnova.description=Blasts enemies near the caster for $damagevalue damage and freezes them in place for $duration sec in place. Any damage will cancel the freeze effect
 ability.mage.frostnova.potionname=Frozen
@@ -385,18 +498,140 @@ ability.mage.iceblock.name=Ice Block
 ability.mage.iceblock.description=You become encased in a block of ice, removing all negative effects from you, protecting you from all physical attacks and spells for $duration sec, but during that time you cannot attack, move or cast spells
 ability.mage.iceblock.potionname=Ice Block
 
-##Mage talents
-# Arcane 
+# ---- Talents
+
+# -- Arcane 
 talent.mage.arcane0.name=Arcane Mastery
 talent.mage.arcane0.description=Increases your spellpower by $percentage.
-# Fire 
+
+# -- Fire
 talent.mage.fire0.name=Empowered Fireball
 talent.mage.fire0.description=Increases damage of your Fireball spell by $percentage.
 talent.mage.fire1.name=Living Bomb
 talent.mage.fire1.description=Your Scorch spell explodes burning targets.
-# Frost
+
+# -- Frost
 talent.mage.frost0.name=Improved Frostbolt
-talent.mage.frost0.description=Reduces the casting time of your Frostbolt spell by $duration sec.
 talent.mage.frost1.name=Deep Freeze
 talent.mage.frost1.description=Your Frost Nova freezes targets $duration sec longer and also applies Ice Shatter effect on the frozen targets increasing the chance to receive critical strikes from frost spells by $percentage.
 
+# ------ WARRIOR
+
+# ---- Abilties
+
+# -- Arms
+ability.warrior.mortal_strike.name=Mortal Strike
+ability.warrior.mortal_strike.description=A vicious strike that deals $damagevalue damage, while ignoring $percentage of the opponents armor
+death.attack.ability.warrior.mortal_strike=%1$s was cut down by %2$s.
+ability.warrior.charge.name=Charge
+ability.warrior.charge.description=Charge towards the enemy and stun it for $duration sec
+ability.warrior.charge.potionname=Stunned
+death.attack.ability.warrior.charge=%1$s died right after %2$s's charge.
+ability.warrior.hamstring.name=Hamstring
+ability.warrior.hamstring.description=Maims the enemy causing $damagevalue damage and slowing movement speed by $percentage for $duration sec
+ability.warrior.hamstring.potionname=Slowed
+death.attack.ability.warrior.hamstring=%1$s was eliminated by %2$s's Hamstring.
+ability.warrior.shattering_throw.name=Shattering Throw
+ability.warrior.shattering_throw.description=Throws your weapon at the enemy causing $damagevalue damage and silencing it for $duration sec
+ability.warrior.shattering_throw.potionname=Silenced
+death.attack.ability.warrior.shattering_throw=%1$s was eliminated by %2$s's Hamstring.
+
+# -- Fury
+ability.warrior.ravage.name=Ravage
+ability.warrior.ravage.description=A mighty blow with both your weapons that deals $damagevalue damage
+ability.warrior.whirlwind.name=Whirlwind
+ability.warrior.whirlwind.description=In a whirlwind of steel you strike up to $number nearby enemies, causing weapon damage with both of your weapons to each enemy
+
+# --Protection
+ability.warrior.challenging_shout.name=Challenging Shout
+ability.warrior.challenging_shout.description=Taunts all nearby enemies to attack you
+
+# ---- Talents
+
+# -- Arms
+talent.warrior.arms0.name=Intercept
+
+# -- Fury
+talent.warrior.fury0.name=Weapon Mastery
+talent.warrior.fury0.description=Increases your critical strike chance by $percentage.
+talent.warrior.fury1.name=Sweeping strikes
+talent.warrior.fury1.description=Reduces the cooldown of your Whirlwind ability by $duration sec and increases the number of nearby target it will hit by $number.
+
+# -- Protection
+talent.warrior.protection0.name=Improved Taunt
+talent.warrior.protection1.name=Vitality
+talent.warrior.protection1.description=Increases your total heatlh by $percentage.
+
+# ------ HUNTER
+
+# ---- Abilties
+
+# -- Beast Mastery
+
+# -- Marksman
+ 
+# -- Survival
+
+# ---- Talents
+
+# -- Beast Mastery
+
+# -- Marksman
+ 
+# -- Survival
+
+# ------ PALADIN
+
+# ---- Abilties
+
+# -- Holy
+
+# -- Protection
+ 
+# -- Retribution
+
+# ---- Talents
+
+# -- Holy
+
+# -- Protection
+ 
+# -- Retribution
+
+# ------ Rogue
+
+# ---- Abilties
+
+# -- Assassination
+
+# -- Combat
+ 
+# -- Subtetly
+
+# ---- Talents
+
+# ---- Abilties
+
+# -- Assassination
+
+# -- Combat
+ 
+# -- Subtetly
+
+# ------ Priest
+
+# ---- Abilties
+
+# -- Discipline
+
+# -- Holy
+ 
+# -- Shadow
+
+# ---- Talents
+
+# -- Discipline
+
+# -- Holy
+ 
+# -- Shadow
