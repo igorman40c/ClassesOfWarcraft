@@ -3,7 +3,7 @@ package mods.battlegear2.api.core;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.battleclasses.BattleClassesUtils;
-import mods.battleclasses.core.BattleClassesPlayerHooks;
+import mods.battleclasses.core.player.BattleClassesPlayerHooks;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;

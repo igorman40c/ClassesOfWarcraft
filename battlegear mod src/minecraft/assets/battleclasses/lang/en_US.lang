@@ -5,24 +5,10 @@
 # \ \____| | (_| \__ \__ \  __|__ \ | (_) |  _|  \  /\  / (_| | | | (__| | | (_| |  _| |_  #
 #  \____/|_|\__,_|___/___/\___|___/  \___/|_|     \/  \/ \__,_|_|  \___|_|  \__,_|_|  \__| #
 #                                                                                          #
-                                                                                         
+                                                                                            
 # ---------------------------------------------------------------------------------------- #
 #                                    ITEMS & BLOCKS                                        #
 # ---------------------------------------------------------------------------------------- #
-
-# ------ Hand held types
-
-bchandheld.one_handed=One hand
-bchandheld.main_handed=Main hand
-bchandheld.two_handed=Two hand
-bchandheld.off_handed=Off hand
-
-# ------ Armor types
-
-bcarmortype.cloth=Cloth
-bcarmortype.leather=Leather
-bcarmortype.mail=Mail
-bcarmortype.plate=Plate
 
 # ------ Creative inventory tab names
 
@@ -35,6 +21,7 @@ tile.gemsOre.name=Gem Ore
 
 # ------ Misc Items
 
+item.battleclasses:chain.name=Chain
 item.battleclasses:ManaGem.name=Mana Gem
 item.battleclasses:OrbCoal.name=Coal orb
 item.battleclasses:OrbRedstone.name=Redstone orb
@@ -48,6 +35,12 @@ item.battleclasses:gemstone5.name=Topaz
 item.battleclasses:gemstone6.name=Talasite
 
 # ------ Weapons
+
+# ---- Hand held types
+bchandheld.one_handed=One hand
+bchandheld.main_handed=Main hand
+bchandheld.two_handed=Two hand
+bchandheld.off_handed=Off hand
 
 # ----  Staves
 item.battleclasses:weapons/StaffWood.name=Wooden Staff
@@ -75,7 +68,22 @@ item.battleclasses:weapons/LongBowComposite.name=Composite Longbow
 item.battleclasses:weapons/LongBowMechanic.name=Mechanic Longbow
 item.battleclasses:weapons/LongBowBirch.name=Birch Longbow
 
+# ------ Offhand items
+
+# ---- Shields
+item.battleclasses:shield/shield.wood.name=Wooden Shield
+item.battleclasses:shield/shield.hide.name=Hide Shield
+item.battleclasses:shield/shield.iron.name=Iron Shield
+item.battleclasses:shield/shield.diamond.name=Diamond Shield
+item.battleclasses:shield/shield.gold.name=Golden Shield
+
 # ------ Armors
+
+# ---- Armor types
+bcarmortype.cloth=Cloth
+bcarmortype.leather=Leather
+bcarmortype.mail=Mail
+bcarmortype.plate=Plate
 
 # ---- Mage sets
 
@@ -163,10 +171,10 @@ bcgui.dialog.class_reset.message=You will lose all of your talent points and abi
 
 # ---- Ability ranking
 
-bcgui.ability_rank=Rank %1$s
+bcgui.ability_rank=Rank $number
 bcgui.ability_rank.zero=Learn
-bcgui.ability_rank.learn.cost=Learning this ability costs %1$s experience levels
-bcgui.ability_rank.rank_up.cost=Next rank costs %1$s experience levels
+bcgui.ability_rank.learn.cost=Learning this $metatype costs $number experience levels
+bcgui.ability_rank.rank_up.cost=Next rank costs $number experience levels
 
 # ---- Talent gui
 
@@ -187,11 +195,15 @@ bchud.info.changetalents=Applying talent changes...
 bchud.warning.class_required=You need to choose a class to use that!
 bchud.warning.battlemode_required=You need to be in Battle mode to use that!
 bchud.warning.ammo_required=You are missing some item to use that!
-bchud.warning.on_cooldown=That ability is not ready yet!
-bchud.warning.on_classcooldown=Your abilities are not ready yet!
+bchud.warning.cooldown.ability=That ability is not ready yet!
+bchud.warning.cooldown.class=Your abilities are not ready yet!
+bchud.warning.cooldown.weapon.main=Your main hand weapon is not ready yet!
+bchud.warning.cooldown.weapon.off=Your off hand weapon is not ready yet!
+bchud.warning.cooldown.weapon.dual=Your weapons are not ready yet!
 bchud.warning.silenced=You are silenced!
 bchud.warning.combat_disabled=You can't do that now!
 bchud.warning.weapon_wrong_class=That weapon is not for your class!
+bchud.warning.weapon_missing_offhand=You need to have an off hand weapon equiped!
 bchud.warning.target_out_of_range=Target is out of range!
 
 # ---- Targeting
@@ -236,6 +248,8 @@ bcattribute.weaponReach=Reach
 bcattribute.critical_rating.name.rating=Critical Strike Rating
 bcattribute.haste_rating.name.rating=Haste Rating
 bcattribute.armor_penetration.name.rating=Armor Penetration Rating
+
+# ------ Descriptions
 
 bcattribute.health.description=Increases your maximal health by half a heart per point.
 bcattribute.strength.description=Increases your weapon damage.
@@ -361,9 +375,8 @@ bctalenttree.warrior.protection.description=A stalwart protector who uses a shie
 
 
 # ---------------------------------------------------------------------------------------- #
-#                                     ABILITY SCHOOLS                                      #
+#                                   ABILITY PROPERTIES                                     #
 # ---------------------------------------------------------------------------------------- #
-
 
 # ------ Meta type naming
 
@@ -375,24 +388,15 @@ ability.metatype.magical.plural=spells
 
 # ------ Schools
 
-abilityschool.physical_melee.name=melee
-abilityschool.physical_ranged.name=ranged
-abilityschool.spell_arcane.name=arcane
-abilityschool.spell_fire.name=fire
-abilityschool.spell_frost.name=frost
-abilityschool.spell_holy.name=holy
-abilityschool.spell_shadow.name=shadow
+ability.school.physical_melee.name=melee
+ability.school.physical_ranged.name=ranged
+ability.school.spell_arcane.name=arcane
+ability.school.spell_fire.name=fire
+ability.school.spell_frost.name=frost
+ability.school.spell_holy.name=holy
+ability.school.spell_shadow.name=shadow
 
-# ------ Info details
-
-bcability.ammorequirement=Requires
-bcability.info.casttype.casted=Casted in %1$s sec
-bcability.info.casttype.channeled=Channeled over %1$s sec
-bcability.info.casttype.instant=Instant cast
-bcability.info.range=%1$s blocks range
-bcability.info.cooldown=%1$s sec cooldown
-
-# ------ Intent products
+# ------ Intents
 
 ability.intent.offensive.product=damage
 ability.intent.supportive.product=healing
@@ -400,16 +404,27 @@ ability.intent.dual.product=damage or healing
 
 # ------ Ranking mode descriptions
 
-ability.effectvalue_increase.description=Ranking up this ability will increase its $intentproduct done.
-ability.effectduration_increase.description=Ranking up this ability will increase the duration of its effect. 
-ability.cooldown_reduction.description=Ranking up this ability will reduce its cooldown time.
+ability.rankmode.effectvalue_increase.description=Ranking up this $metatype will increase its $intentproduct done.
+ability.rankmode.effectduration_increase.description=Ranking up this $metatype will increase the duration of its effect. 
+ability.rankmode.cooldown_reduction.description=Ranking up this $metatype will reduce its cooldown time.
+
+# ------ Info details
+
+ability.info.ammorequirement=Requires: $itemname (x$number)
+ability.info.casttype.casted=Casted in $duration sec
+ability.info.casttype.channeled=Channeled over $duration sec
+ability.info.casttype.instant=Instant cast
+ability.info.range=%1$s blocks range
+ability.info.range.melee=Melee range
+ability.info.cooldown=$duration sec cooldown
+ability.info.stacking=This effect stacks up to $maxstackcount times.
 
 
 # ---------------------------------------------------------------------------------------- #
 #                          UNIVERSAL ABILITY AND TALENT FEATURES                           #
 # ---------------------------------------------------------------------------------------- #
 
-# ------ Universal abilities
+# ------ Abilities
 
 ability.universal.shieldblock.name=Shield block
 ability.universal.shieldblock.description=Uses your currently equiped shield
@@ -417,24 +432,25 @@ ability.universal.attack.mainhand.name=Attack main-hand
 death.attack.ability.universal.attack.mainhand.item=%1$s was killed by %2$s using a %3$s.
 death.attack.ability.universal.attack.mainhand=%2$s finished %1$s with a vicious strike.
 ability.universal.attack.offhand.name=Attack off-hand
-death.attack.ability.universal.attack.offhand=%2$s killed %1$s with a vicious offhand strike.
+death.attack.ability.universal.attack.offhand=%2$s finished %1$s with a vicious offhand strike.
 
-# ------ Universal talent features
+# ------ Talent features
 
-talent.universal.abilityactivecontainer.name=Teaches new ability
+talent.universal.abilityactivecontainer.name=Learn new ability: $abilityname
 
-# ------ Universal passive abilities
+# ------ Passive abilities
 
 ability.passive.cooldownModifier.description=Reduces the cooldown of your $abilityname $metatype by $duration sec.
 ability.passive.castTimeModifier.description=Reduces the casting time of your $abilityname $metatype by $duration sec.
 
-# ------ Universal damage source messages
+# ------ Damage source messages
 
 death.attack.ability=%1$s was killed by $abilityname.
 death.attack.ability.player=%1$s finished %2$s with $abilityname.
 
 # ------ Crowd Control warnings
 
+# ---- On acquire
 cc.silence.acquired=Silenced!
 cc.stun.acquired=Stunned!
 cc.incapacitate.acquired=Incapacitated!
@@ -442,12 +458,14 @@ cc.disarm.acquired=Disarmed!
 cc.snare.acquired=Snared!
 cc.slow.acquired=Slowed!
 
+# ---- On fail
 cc.silence.unable_to_use=Can't do that wile silenced!
 cc.stun.unable_to_use=Can't do that wile stunned!
 cc.incapacitate.unable_to_use=Can't do that wile incapacitated!
 cc.disarm.unable_to_use=Can't do that wile disarmed!
 cc.snare.unable_to_use=Can't do that wile snared!
 cc.slow.unable_to_use=Can't do that wile slowed!
+
 
 # ---------------------------------------------------------------------------------------- #
 #                                CLASS ABILITIES AND TALENTS                               #
@@ -469,12 +487,12 @@ ability.mage.arcane_missiles.description=Launches Arcane Missiles at the target,
 death.attack.ability.mage.arcane_missiles=%1$s was gunned down by %2$s's Arcane Missiles.
 ability.mage.arcane_blast.name=Arcane Blast
 ability.mage.arcane_blast.potionname=Arcane Power
-ability.mage.arcane_blast.description=Blasts the target with energy, dealing $damagevalue damage. Each successful cast grants you Arcane Power, reducing the spellcast time of your damaging Arcane spells by $hastemultiplier and increasing the damage of your Arcane Missiles by $damagemultiplier for $duration sec. This effect stacks up to $maxstackcount times
+ability.mage.arcane_blast.description=Blasts the target with energy, dealing $damagevalue damage. Each successful cast grants you Arcane Power, reducing the spellcast time of your damaging Arcane spells by $hastemultiplier and increasing the damage of your Arcane Missiles by $damagemultiplier for $duration sec
 death.attack.ability.mage.arcane_blast=%2$s overwhelmed %1$s with Arcane Energy.
 
 # -- Fire
 ability.mage.scorch.name=Scorch
-ability.mage.scorch.description=Scorches the enemy, causing $damagevalue damage. Applies Iginite effect on the target increasing fire damage taken by $percentage for $duration sec. This effect stacks up to $maxstackcount times
+ability.mage.scorch.description=Scorches the enemy, causing $damagevalue damage. Applies Iginite effect on the target increasing fire damage taken by $percentage for $duration sec
 ability.mage.scorch.potionname=Ignite
 death.attack.ability.mage.scorch=%1$s was scorched to death by %2$s.
 ability.mage.fireball.name=Fireball
@@ -540,11 +558,18 @@ death.attack.ability.warrior.shattering_throw=%1$s was eliminated by %2$s's Hams
 ability.warrior.ravage.name=Ravage
 ability.warrior.ravage.description=A mighty blow with both your weapons that deals $damagevalue damage
 ability.warrior.whirlwind.name=Whirlwind
-ability.warrior.whirlwind.description=In a whirlwind of steel you strike up to $number nearby enemies, causing weapon damage with both of your weapons to each enemy
+ability.warrior.whirlwind.description=In a whirlwind of steel you strike up to $number nearby enemies with both of your weapons, causing a total of $damagevalue damage
+ability.warrior.whirlwind.potionname=Whirlwind
+ability.warrior.rend.name=Rend
+ability.warrior.rend.description=Wounds the enemy with your offhand weapon causing $damagevalue damage and applying $percentage armor ignore to it for $duration sec
+ability.warrior.rend.potionname=Wounded
 
-# --Protection
+# -- Protection
 ability.warrior.challenging_shout.name=Challenging Shout
 ability.warrior.challenging_shout.description=Taunts all nearby enemies to attack you
+ability.warrior.safeguard.name=Safeguard
+ability.warrior.safeguard.description=Reduces all damage you receive by $percentage for $duration sec
+ability.warrior.safeguard.potionname=Safeguard
 
 # ---- Talents
 
@@ -554,7 +579,7 @@ talent.warrior.arms0.name=Intercept
 # -- Fury
 talent.warrior.fury0.name=Weapon Mastery
 talent.warrior.fury0.description=Increases your critical strike chance by $percentage.
-talent.warrior.fury1.name=Sweeping strikes
+talent.warrior.fury1.name=Sweeping Strikes
 talent.warrior.fury1.description=Reduces the cooldown of your Whirlwind ability by $duration sec and increases the number of nearby target it will hit by $number.
 
 # -- Protection

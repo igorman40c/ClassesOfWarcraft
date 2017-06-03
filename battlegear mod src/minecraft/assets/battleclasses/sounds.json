@@ -223,7 +223,7 @@
     "ability.warrior.mortal_strike.impact": {
     "category": "player",
     "sounds": [
-        "mortal_strike.impact"
+        "melee.bleed.impact"
       ]
     },
     "ability.warrior.charge.release": {
@@ -254,6 +254,42 @@
     "category": "player",
     "sounds": [
         "shattering_throw.impact"
+      ]
+    },
+    "ability.warrior.ravage.impact": {
+    "category": "player",
+    "sounds": [
+         "ravage.impact_1", "ravage.impact_2", "ravage.impact_3"
+      ]
+    },
+    "ability.warrior.whirlwind.release": {
+    "category": "player",
+    "sounds": [
+        "whirlwind.release_1", "whirlwind.release_2", "whirlwind.release_3"
+      ]
+    },
+    "ability.warrior.whirlwind.impact": {
+    "category": "player",
+    "sounds": [
+        "whirlwind.impact_1", "whirlwind.impact_2", "whirlwind.impact_3", "whirlwind.impact_4"  
+      ]
+    },
+    "ability.warrior.rend.impact": {
+    "category": "player",
+    "sounds": [
+        "melee.bleed.impact"
+      ]
+    },
+    "ability.warrior.challenging_shout.release": {
+    "category": "player",
+    "sounds": [
+        "taunt"
+      ]
+    },
+    "ability.warrior.safeguard.release": {
+    "category": "player",
+    "sounds": [
+        "safeguard"
       ]
     }
     

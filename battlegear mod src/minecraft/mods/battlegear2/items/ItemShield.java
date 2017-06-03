@@ -49,14 +49,24 @@ public class ItemShield extends Item implements IShield, IDyable, IEnchantable, 
         this.setMaxDamage(enumShield.getMaxDamage());
         this.setMaxStackSize(1);
         this.setHasSubtypes(false);
-        GameRegistry.registerItem(this, "shield."+enumShield.getName());
+        if(this.shouldRegisterOnConstruct()) {
+        	GameRegistry.registerItem(this, "shield."+enumShield.getName());
+        }
+    }
+    
+    protected boolean shouldRegisterOnConstruct() {
+    	return true;
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister par1IconRegister) {
         super.registerIcons(par1IconRegister);
-        backIcon = par1IconRegister.registerIcon("battlegear2:shield/shield."+enumShield.getName()+".back");
+        this.registerExtraIcons(par1IconRegister);
+    }
+    
+    protected void registerExtraIcons(IIconRegister par1IconRegister) {
+    	backIcon = par1IconRegister.registerIcon("battlegear2:shield/shield."+enumShield.getName()+".back");
         trimIcon = par1IconRegister.registerIcon("battlegear2:shield/shield."+enumShield.getName()+".trim");
     }
 

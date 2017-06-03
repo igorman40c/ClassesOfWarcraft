@@ -118,11 +118,12 @@ public class BattlegearConfig {
         comments[0] = sb.toString();
         disabledItems = config.get(config.CATEGORY_GENERAL, "Disabled Items", new String[0], comments[0]).setRequiresMcRestart(true).getStringList();
 
-        if(Arrays.deepEquals(disabledItems, itemNames)){
+        //customTab=new CreativeTabMB_B_2("Battlegear2");
+        if(true || Arrays.deepEquals(disabledItems, itemNames)){
             return;//No point in going further if all items are disabled
         }
         Arrays.sort(disabledItems);
-        customTab=new CreativeTabMB_B_2("Battlegear2");
+        
 
         if(Arrays.binarySearch(disabledItems, itemNames[0]) < 0){
             heradricItem = new HeraldryCrest().setCreativeTab(customTab).setUnlocalizedName(MODID+itemNames[0]).setTextureName(MODID+"bg-icon");
