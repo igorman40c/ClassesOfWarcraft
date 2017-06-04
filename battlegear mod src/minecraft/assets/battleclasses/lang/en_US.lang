@@ -253,7 +253,7 @@ bcattribute.armor_penetration.name.rating=Armor Penetration Rating
 
 bcattribute.health.description=Increases your maximal health by half a heart per point.
 bcattribute.strength.description=Increases your weapon damage.
-bcattribute.agility.description=Increases your critical chance, ranged and melee weapon damage.
+bcattribute.agility.description=Increases your critical chance, ranged and melee attack damage.
 bcattribute.spellpower_arcane.description=Increases the power of your arcane school spells.
 bcattribute.spellpower_fire.description=Increases the power of your fire school spells.
 bcattribute.spellpower_frost.description=Increases the power of your frost school spells.
