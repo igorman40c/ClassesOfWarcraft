@@ -157,4 +157,4 @@ task jarMUDBin(type:Jar){
 
 // Original build sequence
 //tasks.build.dependsOn('jarMUDSrc','jarBGSrc','jarMUDBin','jarBGBin')
-tasks.build.dependsOn('jarBGBin')
+//tasks.build.dependsOn('jarBGBin')
