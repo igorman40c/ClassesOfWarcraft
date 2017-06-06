@@ -540,11 +540,11 @@ talent.mage.frost1.description=Заклинание "Ледяной Взрыв" 
 # -- Arms
 ability.warrior.mortal_strike.name=Смертельный Удар
 ability.warrior.mortal_strike.description=Порочный удар, наносящий $damagevalue урона, пока игнорируется $percentage брони противника
-death.attack.ability.warrior.mortal_strike=%1$s был сражен %2$s.
+death.attack.ability.warrior.mortal_strike=%1$s был смертельно ранен %2$s.
 ability.warrior.charge.name=Рывок
 ability.warrior.charge.description=Перемещает вас к врагу и оглушает его на $duration сек
 ability.warrior.charge.potionname=Оглушение
-death.attack.ability.warrior.charge=%1$s погиб сразу после заряда %2$s's.
+death.attack.ability.warrior.charge=%1$s был опустошен %2$s.
 ability.warrior.hamstring.name=Подколенное Сухожилие
 ability.warrior.hamstring.description=Калечит врага, нанося $damagevalue урона и замедляя скорость передвижения на $percentage в течение $duration сек
 ability.warrior.hamstring.potionname=Замедление
@@ -552,17 +552,20 @@ death.attack.ability.warrior.hamstring=%1$s был покалечен %2$s's.
 ability.warrior.shattering_throw.name=Сокрушительный Бросок
 ability.warrior.shattering_throw.description=Бросает ваше оружие в врага, нанося $damagevalue и заглушая его на $duration сек
 ability.warrior.shattering_throw.potionname=Заглушение
-death.attack.ability.warrior.shattering_throw=%1$s был устранен броском %2$s's.
+death.attack.ability.warrior.shattering_throw=%1$s был устранен летящим оружием %2$s's.
 
 # -- Fury
 ability.warrior.ravage.name=Уничтожение
 ability.warrior.ravage.description=Сильный удар вашим оружием, наносящий $damagevalue урона
+death.attack.ability.warrior.ravage=%1$s не смог увернуться от оружий %2$s's.
 ability.warrior.whirlwind.name=Вихрь Клинков
 ability.warrior.whirlwind.description=В стальном вихре вы ударяете до $number ближайщих врагов своим оружием, нанося в итоге $damagevalue урона
 ability.warrior.whirlwind.potionname=Торнадо
+death.attack.ability.warrior.whirlwind=%1$s не выжил в вихре %2$s's.
 ability.warrior.rend.name=Кровопускание
 ability.warrior.rend.description=Ранит врага вашим оружием в левой руке, нанося $damagevalue урона и накладывая $percentage брони, чтобы игнорировать его в течение $duration сек
 ability.warrior.rend.potionname=Кровотечение
+death.attack.ability.warrior.whirlwind=%1$s не смог выдержать всех ран от %2$s.
 
 # -- Protection
 ability.warrior.challenging_shout.name=Вызывающий Крик
